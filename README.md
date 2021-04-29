@@ -1,5 +1,3 @@
-✅ Update: moved to https://github.com/slaps-saver/slaps-saver
-
 # slaps-saver
 Innovation Academy Software Labs CMS Open Source Project
 
