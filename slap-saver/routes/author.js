@@ -22,9 +22,14 @@ router.get('/edit-meeting', function(req, res, next) {
   res.render('author/editMeeting', { title: '편집회의 페이지!' });
 });
 
-// NOTE: 기사 작성 페이지
+// NOTE: 기사 작성 페이지(새 기사)
 router.get('/articles/new', function(req, res, next) {
   res.render('author/newArticle', { title: '기사 작성 페이지!!' });
+});
+
+// NOTE: 기사 작성 페이지(수정)
+router.get('/articles/edit', function(req, res, next) {
+  res.render('author/editArticle', { title: '기사 수정 페이지!!' });
 });
 
 // NOTE: 내 기사목록 페이지
