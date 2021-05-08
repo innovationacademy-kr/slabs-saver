@@ -12,6 +12,11 @@ router.get('/login', function(req, res, next) {
   res.render('author/login', { title: 'login!!!' });
 });
 
+// NOTE: 로그인 요청
+router.post('/login', (req, res) => {
+  res.send(req.body);
+})
+
 // NOTE: 회원가입 페이지
 router.get('/signup', function(req, res, next) {
   res.render('author/signup', { title: 'signup!!!' });
