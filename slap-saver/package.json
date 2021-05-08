@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "dev": "pm2-dev ./bin/www"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
