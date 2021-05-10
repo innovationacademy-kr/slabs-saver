@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "pm2-dev ./bin/www"
+    "dev": "pm2-dev ./bin/www",
+    "db": "cd db && docker-compose up"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
