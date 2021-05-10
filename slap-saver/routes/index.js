@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 /* GET home page. */
 // NOTE: 기본 홈 화면
-router.get('/', function (req, res, next) {
+router.get('/', (req, res, next) => {
   res.render('index', { title: '기본 홈 화면' });
 });
 
