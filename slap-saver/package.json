@@ -12,7 +12,9 @@
     "ejs": "~2.6.1",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
-    "morgan": "~1.9.1"
+    "mariadb": "^2.5.3",
+    "morgan": "~1.9.1",
+    "sequelize": "^6.6.2"
   },
   "devDependencies": {
     "eslint": "^7.2.0",
