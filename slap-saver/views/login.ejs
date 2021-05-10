@@ -5,23 +5,23 @@
     <link rel="stylesheet" href="/stylesheets/login.css" />
   </head>
   <body>
-    <form method="post" id="userLoginForm" action="/login">
-      <div>
-        <label for="loginId">아이디</label>
-        <input type="email" id="loginId" name="loginId" placeholder="ID" />
-        <label for="loginPw">비밀번호</label>
+    <form class="login-form" method="post" action="/login">
+      <div class="login-form__input">
+        <label class="login-form__input--id" for="email">아이디</label>
+        <input type="email" name="email" placeholder="ID" /> 
+        <label for="password">비밀번호</label>
         <input
           type="password"
-          id="loginPw"
+          class="loginPw"
           name="password"
           placeholder="Password"
         />
       </div>
       <!-- <button type="submit" disabled="disabled">로그인</button> -->
-      <button type="submit">로그인</button>
-      <div>
-        <input type="checkbox" id="keepLogin" name="keepLogin" />
-        <label for="keepLogin"><span>로그인 상태 유지</span></label>
+      <button class="submit-button" type="submit">로그인</button>
+      <div class="keep-login">
+        <input type="checkbox" name="keepLogin" />
+        <label for="keep-login"><span>로그인 상태 유지</span></label>
       </div>
     </form>
     <!-- <script src="/javascripts/login.js"></script> -->
