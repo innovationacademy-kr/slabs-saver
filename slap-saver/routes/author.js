@@ -1,5 +1,5 @@
 const express = require('express');
-const {Author} = require('../models');
+const { Author, Articles } = require('../models');
 const router = express.Router();
 
 /* GET users listing. */
@@ -60,7 +60,13 @@ router.get('/articles/new', (req, res, next) => {
 });
 
 router.post('/articles/new', (req, res, next) => {
-  res.send(req.body);
+  Articles.create({headline: req.body.headline, author: 'author', category: req.body.categories})
+  .then((article) => {
+    res.send(article);
+  })
+  .catch((err) => {
+    res.send(err);
+  });
 });
 
 // NOTE: 기사 작성 페이지(수정)
@@ -70,7 +76,36 @@ router.get('/articles/edit', (req, res, next) => {
 
 // NOTE: 내 기사목록 페이지
 router.get('/articles', (req, res, next) => {
-  res.render('author/articles', { title: '내 기사목록 페이지' });
+  Articles.findAll({})
+  .then((myArticles) => {
+    myArticles.forEach((article) => [...article])})
+  .then((articles) => res.render('author/articles', { title: '내 기사목록 페이지', articles: articles }))
+  .catch((err) => console.log(err));
+//   let articles = [{
+//     id: 1,
+//     headline: 'asd',
+// category: 'politic',
+// author: 'author',
+// publishTime: null,
+// isApproved: null,
+// am7: null,
+// pm7: null,
+// approve: null,
+// createdAt: "2021-05-11T09:54:07.000Z",
+// updatedAt: "2021-05-11T09:54:07.000Z"
+// },{id: 2,
+//   headline: 'asd',
+// category: 'politic',
+// author: 'author',
+// publishTime: null,
+// isApproved: null,
+// am7: null,
+// pm7: null,
+// approve: null,
+// createdAt: "2021-05-11T09:54:07.000Z",
+// updatedAt: "2021-05-11T09:54:07.000Z"
+// }];
+//   res.render('author/articles', { title: '내 기사목록 페이지', articles: articles });
 });
 
 // NOTE: 기사 확인 페이지

@@ -5,9 +5,9 @@
     <!-- <link rel="stylesheet" href="/stylesheets/login.css" /> -->
   </head>
   <body>
-    <form method="post" id="authorLoginForm" action="/author/articles/new">
+    <form method="post" class="create-article" action="/author/articles/new">
       <label for="category">카테고리</label>
-      <select name="categories" id="categoriyId">
+      <select name="categories" id="category">
         <option value="politic">정치</option>
         <option value="economy">경제</option>
         <option value="technology">기술</option>
@@ -17,11 +17,11 @@
         <option value="sports">스포츠</option>
       </select>
       <div>
-        <label for="signupid">헤드라인</label>
+        <label for="headline">헤드라인</label>
         <input
           type="text"
-          id="headlineid"
-          name="headlinename"
+          id="headline"
+          name="headline"
           placeholder="뉴스의 헤드라인을 입력해주세요"
           maxlength="30"
         />
@@ -39,6 +39,7 @@
           <input
             type="text"
             id="description"
+            name="description"
             placeholder="사진에 대한 설명을 적어주세요"
           />
         </div>
@@ -46,7 +47,7 @@
         <input
           type="text"
           id="breifing"
-          name="breifingName"
+          name="breifing"
           placeholder="뉴스에 대한 브리핑을 작성해주세요"
           maxlength="30"
         />
@@ -56,8 +57,8 @@
         <input type="text" id="text" name="b" placeholder="상세 내용" />
         <button>단락추가</button>
       </div>
-      <button type="submit">저장</button>
-      <button type="submit">완료</button>
+      <button class="create-article--save" type="submit">저장</button>
+      <button class="create-article--complete" type="submit">완료</button>
     </form>
   </body>
 </html>
