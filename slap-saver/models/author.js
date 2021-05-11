@@ -15,14 +15,31 @@ module.exports = (sequelize, DataTypes) => {
   }
   Author.init(
     {
-      name: DataTypes.STRING,
-      contact: DataTypes.STRING,
-      email: DataTypes.STRING,
-      password: DataTypes.STRING,
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          len: [3, 5],
+        }
+      },
+      contact: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      email: {
+        type: DataTypes.STRING,
+        allowNull:false,
+        unique: true,
+      },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
     },
     {
       sequelize,
       modelName: 'Author',
+      timestamps: false,
     },
   );
   return Author;

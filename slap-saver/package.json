@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "pm2-dev ./bin/www",
-    "db": "cd db && docker-compose up"
+    "db": "cd db && docker-compose up",
+    "clear": "rm -rf db/srcs/data",
+    "reset": "npm run clear && npm run db"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
