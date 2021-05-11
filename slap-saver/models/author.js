@@ -15,21 +15,14 @@ module.exports = (sequelize, DataTypes) => {
   }
   Author.init(
     {
-      name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-          len: [3, 5],
-        }
-      },
-      contact: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
       email: {
         type: DataTypes.STRING,
         allowNull:false,
         unique: true,
+      },
+      contact: {
+        type: DataTypes.STRING,
+        allowNull: false,
       },
       password: {
         type: DataTypes.STRING,
