@@ -6,18 +6,20 @@
   <body>
     <form method="post" class="signup-form" action="/author/signup">
       <div class="signup-form__input">
-        <label for="id">아이디</label>
-        <input type="email" name="id" placeholder="ID" />
+        <label for="email">아이디</label>
+        <input type="email" name="email" placeholder="Email" />
         <br />
         <label for="password">비밀번호</label>
         <input
-          type="password"
+        class="signup-form__password"
+        type="password"
           name="password"
           placeholder="Password"
         />
         <br />
         <label for="confirm">비밀번호 확인</label>
         <input
+        class="signup-form__confirm"
           type="password"
           name="confirm"
           placeholder="Password confirm"
@@ -40,5 +42,7 @@
       </div>
       <button class="submit-button" type="submit">회원가입</button>
     </form>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous"></script>
+    <script src="/javascripts/authorSignup.js"></script>
   </body>
 </html>
