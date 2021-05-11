@@ -1,6 +1,7 @@
 'use strict';
 
 const { Model } = require('sequelize');
+const authorValidator = require('./validator/authorValidator');
 
 module.exports = (sequelize, DataTypes) => {
   class Author extends Model {
@@ -17,16 +18,28 @@ module.exports = (sequelize, DataTypes) => {
     {
       email: {
         type: DataTypes.STRING,
-        allowNull:false,
-        unique: true,
+        allowNull: false,
+        unique: {
+          msg: '이미 존재하는 이메일입니다.',
+        },
       },
       contact: {
         type: DataTypes.STRING,
         allowNull: false,
+        validate: {
+          customValidator(value) {
+            authorValidator.contact(value, this);
+          },
+        },
       },
       password: {
         type: DataTypes.STRING,
         allowNull: false,
+        validate: {
+          customValidator(value) {
+            authorValidator.password(value);
+          },
+        },
       },
     },
     {
