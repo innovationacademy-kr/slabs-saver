@@ -22,14 +22,64 @@ router.post('/login', (req, res, next) => {
 
 // NOTE: 회원가입 페이지
 router.get('/signup', (req, res, next) => {
-  Author.create({name:'sanam', password:'1234', email:'1234@asdf', contact:'1234'})
-    .then(((author) => {
-      res.render('author/signup', { title: author.name });
-    }))
+    res.render('author/signup', { title: 'author page'});
+});
+
+router.post('/signup', (req, res, next) => {
+  // NOTE: 아래의 작업은 추후 모델로 옮긴다.
+  const {email, password, confirm, contact} = req.body;
+  if ((!email || !password || !confirm || !contact)) {
+    // return res.send('뭔가 비었음');
+    res.redirect('/author/signup')
+  }
+  Author.findOne({ where: {email} })
+    .then((author) => {
+      if (author) {
+        throw(new Error('already exists'));
+      }
+      // NOTE: 1. password check -> 영 + 숫자 6자리 ~ 15
+      if (!/^[a-zA-Z0-9]{6,15}$/.test(password)){
+        throw(new Error('password!!!!!!!!!!!!!!'));
+      }
+      // NOTE: 2. confirm
+      if (password !== confirm) {
+        throw(new Error('not same password'));
+      }
+      // NOTE: 3. 연락처
+      if (!/^\d{3}-\d{3,4}-\d{4}$/.test(contact)) {
+        throw(new Error('전화번호 형식 틀림'));
+      }
+      
+      // NOTE: 4. create 한다.
+      Author.create({email, password, contact})
+        .then((author) => {
+          res.redirect('/login');
+        })
+        .catch((err) => {
+          console.log('-----------------')
+          res.send(err.message)
+          console.log('-----------------')
+        })
+    })
     .catch((err) => {
-      res.render('author/signup', { title: 'error!!' });
+      console.log('-----------------')
+      console.log(err.message)
+      console.log('-----------------')
+      res.send(err.message);
     })
 });
+
+// router.get('/signup', (req, res, next) => {
+//   Author.create({name:'sanam', password:'1234', email:'1234@asdf', contact:'1234'})
+//     .then(((author) => {
+//       res.send('zzz');
+//       res.render('author/signup', { title: author.name });
+//     }))
+//     .catch((err) => {
+//       res.send('failed');
+//       res.render('author/signup', { title: 'error!!' });
+//     })
+// });
 
 router.get('/all', (req, res, next) => {
   Author.findAll({})
