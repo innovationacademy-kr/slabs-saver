@@ -1,5 +1,5 @@
 const express = require('express');
-
+const {Author} = require('../models');
 const router = express.Router();
 
 /* GET users listing. */
@@ -22,7 +22,26 @@ router.post('/login', (req, res, next) => {
 
 // NOTE: 회원가입 페이지
 router.get('/signup', (req, res, next) => {
-  res.render('author/signup', { title: 'signup!!!' });
+  Author.create({name:'sanam', password:'1234', email:'1234@asdf', contact:'1234'})
+    .then(((author) => {
+      res.render('author/signup', { title: author.name });
+    }))
+    .catch((err) => {
+      res.render('author/signup', { title: 'error!!' });
+    })
+});
+
+router.get('/all', (req, res, next) => {
+  Author.findAll({})
+    .then((authors) => {
+      authors.forEach((author) => {
+        console.log(`${author.name} ${author.password} ${author.email}`);
+      })
+      res.render('author/signup', { title: author.name });
+    })
+    .catch((err) => {
+      res.render('author/signup', { title: 'error!!' });
+    })
 });
 
 // NOTE: 회원가입 요청

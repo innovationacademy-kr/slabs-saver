@@ -3,7 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "pm2-dev ./bin/www"
+    "dev": "pm2-dev ./bin/www",
+    "db": "cd db && docker-compose up",
+    "clear": "rm -rf db/srcs/data",
+    "reset": "npm run clear && npm run db"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -12,7 +15,9 @@
     "ejs": "~2.6.1",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
-    "morgan": "~1.9.1"
+    "mariadb": "^2.5.3",
+    "morgan": "~1.9.1",
+    "sequelize": "^6.6.2"
   },
   "devDependencies": {
     "eslint": "^7.2.0",
