@@ -1,6 +1,5 @@
 const { Author } = require('../models');
 
-
 module.exports = {
   index: (req, res, next) => {
     res.render('author/index', { title: 'authors!!!' });
