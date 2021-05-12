@@ -1,6 +1,7 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const { Author } = require('../models');
+const alert = require('alert');
 
 module.exports = function(app) {
   app.use(passport.initialize());
@@ -22,9 +23,11 @@ module.exports = function(app) {
     async (username, password, done) => {
       const author = await Author.findOne({where: {email: username}});
       if (!author) { 
+        alert('유저 없음')
         return done(null, false, { message: '해당 유저 없음' });
       };
       if (!await author.validPassword(password)) {
+        alert('비밀번호 틀림')
         return done(null, false, { message: '비밀번호 틀림' });
       }
       return done(null, author);
