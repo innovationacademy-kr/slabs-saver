@@ -7,20 +7,13 @@ module.exports = function(app) {
   app.use(passport.session());
 
   passport.serializeUser(function(user, done) {
-    return done(null, user.id);
+    return done(null, user);
   });
     
   // NOTE: deserializeUser는 페이지 들어올 때 마다 실행됨
-  passport.deserializeUser(function(id, done) {
-  Author.findByPk(id)
-    .then((author) => {
-      return done(null, author);
-    })
-    .catch((err) => {
-      console.log('not found?!');
-    })
-    }
-  );
+  passport.deserializeUser(function(author, done) {
+    return done(null, author);
+  });
     
   passport.use(new LocalStrategy({
       usernameField: 'email',
