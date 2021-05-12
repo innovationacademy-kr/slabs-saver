@@ -31,7 +31,7 @@ module.exports = function(app) {
       if (!author) { 
         return done(null, false, { message: '해당 유저 없음' });
       };
-      if (!author.validPassword(password)) {
+      if (!await author.validPassword(password)) {
         return done(null, false, { message: '비밀번호 틀림' });
       }
       return done(null, author);
