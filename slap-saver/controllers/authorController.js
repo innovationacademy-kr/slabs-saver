@@ -13,23 +13,21 @@ module.exports = {
   signupPage: (req, res, next) => {
     res.render('author/signup', { title: 'author page' });
   },
-  signup: (req, res, next) => {
+  signup: async (req, res, next)=> {
     const { email, password, confirm, contact } = req.body;
     if (password !== confirm) {
-      return res.send('password not equal to value');
-    }
-    Author.create({ email, password, contact })
-      .then((author) => {
-        console.log('------- create success -------');
-        console.log(author);
-        console.log('------------------------------');
-        res.redirect('/login');
+      return res.redirect('/author/signup');
+    }    
+    try {
+      await Author.create({ email, password, contact })
+    } catch (error) {
+      console.log('------- error message --------');
+      error.errors.forEach((e) => {
+        console.log(e.message)
       })
-      .catch((err) => {
-        console.log('------- create failed -------');
-        console.log(err.errors);
-        res.redirect('/author/signup');
-        console.log('------------------------------');
-      });
+      console.log('------------------------------');
+      return res.redirect('/author/signup');
+    }
+    return res.redirect('/login');
   },
 };
