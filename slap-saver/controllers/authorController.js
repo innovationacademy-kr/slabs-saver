@@ -34,12 +34,16 @@ module.exports = {
     }
     try {
       await Author.create({ email, password, contact, photo })
-    } catch ({errors}) {
-      console.log('------- error message --------');
-      errors.forEach((e) => {
-        console.log(e.message)
-      })
-      console.log('------------------------------');
+    } catch (error) {
+      console.error('------- error message --------');
+      if (error.errors) {
+        error.errors.forEach((e) => {
+          console.error(e.message);
+        })
+      } else {
+        console.error(error)
+      }
+      console.error('------------------------------');
       return res.redirect('/author/signup');
     }
     return res.redirect('/login');

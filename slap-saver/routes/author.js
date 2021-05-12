@@ -29,6 +29,9 @@ function alreadyLoggedIn(req, res, next) {
   next();
 }
 
+const {Author} = require('../models');
+const author = require('../models/author');
+
 module.exports = function(passport) {
   // NOTE: base: ~~/authors
   router.get('/', loggedIn, authorCtrl.index);

@@ -1,7 +1,8 @@
 'use strict';
-
+require('dotenv').config();
 const { Model } = require('sequelize');
 const authorValidator = require('./validator/authorValidator');
+const bcrypt = require('bcrypt');
 
 module.exports = (sequelize, DataTypes) => {
   class Author extends Model {
@@ -15,9 +16,11 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     validPassword(password) {
-      return this.password === password;
+      return bcrypt.compare(password, this.password)
+        .then((result) => result)
     }
   }
+
   Author.init(
     {
       email: {
@@ -60,5 +63,13 @@ module.exports = (sequelize, DataTypes) => {
       modelName: 'Author',
     },
   );
+  
+  Author.addHook('beforeCreate', async (author, options) => {
+    const salt = await bcrypt.genSaltSync(+process.env.SALT_ROUNDS);
+    return bcrypt.hash(author.password, salt).then(hash => {
+      author.password = hash
+      author.salt = salt
+     })
+  })
   return Author;
 };
