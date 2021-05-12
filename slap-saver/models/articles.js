@@ -29,19 +29,37 @@ module.exports = (sequelize, DataTypes) => {
       },
       image: {
         type: DataTypes.STRING,
+      },
+      imageDesc: {
+        type: DataTypes.STRING,
         allowNull: false,
       },
-      isApproved: {
+      imageFrom: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      briefing: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      addtionalParagraph: {
+        type: DataTypes.STRING,
+      },
+      isPublished: {
         type: DataTypes.BOOLEAN,
+        defaultValue: false,
       },
       am7: {
         type: DataTypes.BOOLEAN,
+        defaultValue: false,
       },
       pm7: {
         type: DataTypes.BOOLEAN,
+        defaultValue: false,
       },
-      approve: {
+      state: {
         type: DataTypes.BOOLEAN,
+        defaultValue: false,
       },
     },
     {

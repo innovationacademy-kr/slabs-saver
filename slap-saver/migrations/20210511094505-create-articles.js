@@ -21,9 +21,23 @@ module.exports = {
       },
       image: {
         type: Sequelize.STRING,
+      },
+      imageDesc: {
+        type: Sequelize.STRING,
         allowNull: false,
       },
-      isApproved: {
+      imageFrom: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      briefing: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      addtionalParagraph: {
+        type: Sequelize.STRING,
+      },
+      isPublished: {
         type: Sequelize.BOOLEAN,
       },
       am7: {
@@ -32,7 +46,7 @@ module.exports = {
       pm7: {
         type: Sequelize.BOOLEAN,
       },
-      approve: {
+      state: {
         type: Sequelize.BOOLEAN,
       },
       createdAt: {

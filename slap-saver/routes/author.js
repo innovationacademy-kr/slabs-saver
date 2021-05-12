@@ -68,18 +68,45 @@ router.post('/articles/new', articleUploader.single('picture'), (req, res, next)
     author: 'author',
     category: req.body.categories,
     image: req.file.filename,
+    imageDesc: req.body.description,
+    imageFrom: req.body.source,
+    briefing: req.body.briefing,
   })
     .then((article) => {
-      res.send('정상적으로 저장 되었습니다.');
+      res.send('저장에 성공하였습니다.');
     })
     .catch((err) => {
-      res.send('저장에 실패하였습니다.');
+      res.send(err);
     });
 });
 
 // NOTE: 기사 작성 페이지(수정)
-router.get('/articles/edit', (req, res, next) => {
-  res.send(req.body);
+router.get('/articles/edit/:articleId', (req, res, next) => {
+  Articles.findOne({ where: { id: req.params.articleId } })
+    .then((article) => {
+      article.image = `/images/articleImages/${article.image}`;
+      res.render('author/editArticle', { title: '기사 수정 페이지', article: article });
+    })
+    .catch((err) => console.log(err));
+});
+
+router.post('/articles/edit/:articleId', articleUploader.single('picture'), (req, res, next) => {
+  Articles.findOne({ where: { id: req.params.articleId } })
+    .then((article) => {
+      console.log(req.body.headline);
+      article.headline = req.body.headline;
+      article.category = req.body.categories;
+      if (req.file?.filename) {
+        article.image = req.file.filename;
+      }
+      article.imageDesc = req.body.description;
+      article.imageFrom = req.body.source;
+      article.briefing = req.body.briefing;
+      article.additionalParagraph = req.body.additionalParagraph;
+      article.save();
+    })
+    .then(() => res.send('수정이 완료되었습니다.'))
+    .catch((err) => console.log(err));
 });
 
 // NOTE: 내 기사목록 페이지
