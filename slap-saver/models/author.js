@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           customValidator(value) {
-            authorValidator.contact(value, this);
+            authorValidator.contact(value);
           },
         },
       },
@@ -45,7 +45,6 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: 'Author',
-      timestamps: false,
     },
   );
   return Author;
