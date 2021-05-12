@@ -34,7 +34,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      addtionalParagraph: {
+      additionalParagraph: {
         type: Sequelize.STRING,
       },
       isPublished: {
