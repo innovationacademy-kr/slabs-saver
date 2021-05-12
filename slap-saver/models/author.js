@@ -41,6 +41,15 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       },
+      photo: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: '사진을 첨부해 주세요',
+          }
+        }
+      }
     },
     {
       sequelize,
