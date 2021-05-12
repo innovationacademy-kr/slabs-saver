@@ -63,6 +63,12 @@ router.get('/articles/new', (req, res, next) => {
 });
 
 router.post('/articles/new', articleUploader.single('picture'), (req, res, next) => {
+  let tmpS = '';
+  if (req.body.additionalParagraph?.length > 1) {
+    tmpS = req.body.additionalParagraph.join('|-|');
+  } else {
+    tmpS = req.body.additionalParagraph;
+  }
   Articles.create({
     headline: req.body.headline,
     author: 'author',
@@ -71,6 +77,7 @@ router.post('/articles/new', articleUploader.single('picture'), (req, res, next)
     imageDesc: req.body.description,
     imageFrom: req.body.source,
     briefing: req.body.briefing,
+    additionalParagraph: tmpS,
   })
     .then((article) => {
       res.send('저장에 성공하였습니다.');
@@ -84,16 +91,30 @@ router.post('/articles/new', articleUploader.single('picture'), (req, res, next)
 router.get('/articles/edit/:articleId', (req, res, next) => {
   Articles.findOne({ where: { id: req.params.articleId } })
     .then((article) => {
+      let p = [];
+      if (article.additionalParagraph) {
+        p = article.additionalParagraph.split('|-|');
+      }
       article.image = `/images/articleImages/${article.image}`;
-      res.render('author/editArticle', { title: '기사 수정 페이지', article: article });
+      res.render('author/editArticle', {
+        title: '기사 수정 페이지',
+        article: article,
+        paragraph: p,
+      });
     })
     .catch((err) => console.log(err));
 });
 
 router.post('/articles/edit/:articleId', articleUploader.single('picture'), (req, res, next) => {
+  let tmpS = '';
+  if (req.body.additionalParagraph?.length > 1) {
+    tmpS = req.body.additionalParagraph.filter((p) => p.length > 0);
+    tmpS = tmpS.join('|-|');
+  } else {
+    tmpS = req.body.additionalParagraph;
+  }
   Articles.findOne({ where: { id: req.params.articleId } })
     .then((article) => {
-      console.log(req.body.headline);
       article.headline = req.body.headline;
       article.category = req.body.categories;
       if (req.file?.filename) {
@@ -102,7 +123,9 @@ router.post('/articles/edit/:articleId', articleUploader.single('picture'), (req
       article.imageDesc = req.body.description;
       article.imageFrom = req.body.source;
       article.briefing = req.body.briefing;
-      article.additionalParagraph = req.body.additionalParagraph;
+      if (tmpS) {
+        article.additionalParagraph = tmpS;
+      }
       article.save();
     })
     .then(() => res.send('수정이 완료되었습니다.'))
@@ -112,16 +135,38 @@ router.post('/articles/edit/:articleId', articleUploader.single('picture'), (req
 // NOTE: 내 기사목록 페이지
 router.get('/articles', (req, res, next) => {
   Articles.findAll()
-    .then((myArticles) => Array.from(myArticles).map((article) => article))
-    .then((articles) =>
-      res.render('author/articles', { title: '내 기사목록 페이지', articles: articles }),
+    .then((myArticles) =>
+      Array.from(myArticles).map((article) => {
+        article.href = `articles/edit/${article.id}`;
+        return article;
+      }),
     )
+    .then((articles) => {
+      console.log(articles);
+      res.render('author/articles', {
+        title: '내 기사목록 페이지',
+        articles: articles,
+      });
+    })
     .catch((err) => console.log(err));
 });
 
 // NOTE: 기사 확인 페이지
-router.get('/articles/new/temp', (req, res, next) => {
-  res.render('author/checkArticle', { title: '기사 확인 페이지!!!' });
+router.get('/articles/new/temp/:articleId', (req, res, next) => {
+  Articles.findOne({ where: { id: req.params.articleId } })
+    .then((article) => {
+      let p = [];
+      if (article.additionalParagraph?.length > 1) {
+        p = article.additionalParagraph.split('|-|');
+      }
+      article.image = `/images/articleImages/${article.image}`;
+      res.render('author/checkArticle', {
+        title: '기사 확인 페이지!!!',
+        article: article,
+        paragraph: p,
+      });
+    })
+    .catch((err) => console.log(err));
 });
 
 module.exports = router;

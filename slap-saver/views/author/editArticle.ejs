@@ -11,9 +11,9 @@
 <body>
   <div class="side-nav">
     <button class="side-nav__logout">로그아웃</button>
-    <a href="edit-meeting">편집 회의</a>
-    <a href="articles/new">기사 작성</a>
-    <a href="articles">내 기사 목록</a>
+    <a href="/author/edit-meeting">편집 회의</a>
+    <a href="/author/articles/new">기사 작성</a>
+    <a href="/author/articles">내 기사 목록</a>
   </div>
   <form method="post" class="edit-article" action=<%=article.id %> enctype="multipart/form-data">
     <div class="edit-article__input">
@@ -47,15 +47,20 @@
           <input type="text" id="briefing" name="briefing" value=<%=article.briefing %> placeholder="뉴스에 대한 브리핑을 작성해주세요"
           maxlength="30" />
         </div>
-        <div class="edit-article__input--addition">
-          <label for="addtionalParagraph">단락</label>
-          <input type="text" id="addtionalParagraph" name="addtionalParagraph" placeholder="상세 내용" />
-          <button>단락추가</button>
+        <div class="article-add">
+          <% paragraph.forEach((p)=> { %>
+            <div>
+              <label for="addtion-section"></label>
+              <input id="addtion-section" name="additionalParagraph" value=<%=p %> placeholder="자세한 내용을 입력해주세요.">
+            </div>
+            <% }) %>
         </div>
+        <button type="button" class="article-add--Btn">단락추가</button>
     </div>
-    <button class="edit-article--save" type="submit">저장</button>
-    <button class="edit-article--complete" type="submit">완료</button>
+    <button class="edit-article--save" name="saveBtn" type="submit">저장</button>
+    <button class="edit-article--complete" name="completeBtn" type="submit">완료</button>
   </form>
+  <script src="/javascripts/addSection.js"></script>
 </body>
 
 </html>

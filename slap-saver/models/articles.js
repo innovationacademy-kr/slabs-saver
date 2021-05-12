@@ -42,7 +42,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      addtionalParagraph: {
+      additionalParagraph: {
         type: DataTypes.STRING,
       },
       isPublished: {

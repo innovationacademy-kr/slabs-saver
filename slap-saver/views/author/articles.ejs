@@ -27,11 +27,12 @@
         <th>출고 상황</th>
         <th>사진</th>
         <th>상태</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
       <% articles.forEach((article)=> { %>
-        <tr onClick="location.href='/author/articles/edit/3'">
+        <tr>
           <td>
             <%= article.id %>
           </td>
@@ -49,6 +50,9 @@
           </td>
           <td>
             <%= article.state %>
+          </td>
+          <td>
+            <a href=<%=article.href %> >수정하기</a>
           </td>
         </tr>
         <% }) %>
