@@ -9,6 +9,7 @@
     "reset": "npm run clear && npm run db"
   },
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "dotenv": "^9.0.0",
