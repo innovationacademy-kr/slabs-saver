@@ -1,5 +1,6 @@
 const { Author } = require('../models');
 
+
 module.exports = {
   index: (req, res, next) => {
     res.render('author/index', { title: 'authors!!!' });
@@ -13,16 +14,17 @@ module.exports = {
   signupPage: (req, res, next) => {
     res.render('author/signup', { title: 'author page' });
   },
-  signup: async (req, res, next)=> {
+  signup: async (req, res, next) => {
     const { email, password, confirm, contact } = req.body;
+    const photo = req.file ? req.file.filename : null;
     if (password !== confirm) {
       return res.redirect('/author/signup');
-    }    
+    }
     try {
-      await Author.create({ email, password, contact })
-    } catch (error) {
+      await Author.create({ email, password, contact, photo })
+    } catch ({errors}) {
       console.log('------- error message --------');
-      error.errors.forEach((e) => {
+      errors.forEach((e) => {
         console.log(e.message)
       })
       console.log('------------------------------');

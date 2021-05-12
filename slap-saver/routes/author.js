@@ -2,6 +2,9 @@ const express = require('express');
 const { Author } = require('../models');
 const router = express.Router();
 const authorCtrl = require('../controllers/authorController');
+const multer = require('multer');
+
+const upload = multer({ dest: 'public/images/authorImages'});
 
 /* GET users listing. */
 // NOTE: base: ~~/authors
@@ -17,7 +20,7 @@ router.post('/login', authorCtrl.login);
 router.get('/signup', authorCtrl.signupPage);
 
 // NOTE: 회원가입 요청
-router.post('/signup', authorCtrl.signup);
+router.post('/signup', upload.single('picture'), authorCtrl.signup);
 
 // TODO: Controller 로 리팩토링 진행하기
 // NOTE: 편집회의 페이지
