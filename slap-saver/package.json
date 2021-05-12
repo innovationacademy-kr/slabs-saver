@@ -9,7 +9,9 @@
     "reset": "npm run clear && npm run db"
   },
   "dependencies": {
+    "alert": "^5.0.10",
     "bcrypt": "^5.0.1",
+    "connect-flash": "^0.1.1",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "dotenv": "^9.0.0",

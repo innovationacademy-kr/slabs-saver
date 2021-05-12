@@ -1,3 +1,4 @@
+const alert = require('alert');
 const { Author } = require('../models');
 
 module.exports = {
@@ -30,20 +31,20 @@ module.exports = {
     const { email, password, confirm, contact } = req.body;
     const photo = req.file ? req.file.filename : null;
     if (password !== confirm) {
+      alert('비밀번호가 같지 않습니다.');
       return res.redirect('/author/signup');
     }
+    // TODO: Author Service 객체 만들어서 추상화하기
     try {
       await Author.create({ email, password, contact, photo })
     } catch (error) {
-      console.error('------- error message --------');
       if (error.errors) {
         error.errors.forEach((e) => {
-          console.error(e.message);
+          alert(e.message);
         })
       } else {
-        console.error(error)
+        alert('알 수 없는 에러 발생');
       }
-      console.error('------------------------------');
       return res.redirect('/author/signup');
     }
     return res.redirect('/login');
