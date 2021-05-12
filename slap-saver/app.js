@@ -20,7 +20,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 const session = require('express-session');
 
-app.use(session({ secret: 'anything' }));
+app.use(session({ 
+  secret: 'anything',
+  resave: false,
+  saveUninitialized: true,
+}));
 
 // TODO: 유저 작업을 할 때는 새로운 passport 를 만들어서 작업할 것
 const authorPassport = require('./lib/authorPassport')(app);
