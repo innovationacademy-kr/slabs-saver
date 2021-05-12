@@ -5,57 +5,59 @@
     <!-- <link rel="stylesheet" href="/stylesheets/login.css" /> -->
   </head>
   <body>
-    <form method="post" class="create-article" action="/author/articles/new">
-      <label for="category">카테고리</label>
-      <select name="categories" id="category">
-        <option value="politic">정치</option>
-        <option value="economy">경제</option>
-        <option value="technology">기술</option>
-        <option value="environment">환경</option>
-        <option value="science">과학</option>
-        <option value="health">건강</option>
-        <option value="sports">스포츠</option>
-      </select>
-      <div>
-        <label for="headline">헤드라인</label>
-        <input
-          type="text"
-          id="headline"
-          name="headline"
-          placeholder="뉴스의 헤드라인을 입력해주세요"
-          maxlength="30"
-        />
-        <br />
-        <div>
-          <label for="picture">사진</label>
-          <input
-            type="file"
-            id="picture"
-            name="picture"
-            accept="image/gif, image/jpeg, image/png"
-          />
-          <br />
-          <label for="description">사진 설명</label>
+    <form method="post" class="create-article" action="/author/articles/new" enctype="multipart/form-data">
+      <div class="create-article__input">
+        <label for="category">카테고리</label>
+        <select name="categories" id="category">
+          <option value="politic">정치</option>
+          <option value="economy">경제</option>
+          <option value="technology">기술</option>
+          <option value="environment">환경</option>
+          <option value="science">과학</option>
+          <option value="health">건강</option>
+          <option value="sports">스포츠</option>
+        </select>
+        <div class="create-article__input--default">
+          <label for="headline">헤드라인</label>
           <input
             type="text"
-            id="description"
-            name="description"
-            placeholder="사진에 대한 설명을 적어주세요"
+            id="headline"
+            name="headline"
+            placeholder="뉴스의 헤드라인을 입력해주세요"
+            maxlength="30"
+          />
+          <br />
+          <div>
+            <label for="picture">사진</label>
+            <input
+              type="file"
+              id="picture"
+              name="picture"
+              accept="image/gif, image/jpeg, image/png"
+            />
+            <br />
+            <label for="description">사진 설명</label>
+            <input
+              type="text"
+              id="description"
+              name="description"
+              placeholder="사진에 대한 설명을 적어주세요"
+            />
+          </div>
+          <label for="breifing">100자 브리핑</label>
+          <input
+            type="text"
+            id="breifing"
+            name="breifing"
+            placeholder="뉴스에 대한 브리핑을 작성해주세요"
+            maxlength="30"
           />
         </div>
-        <label for="breifing">100자 브리핑</label>
-        <input
-          type="text"
-          id="breifing"
-          name="breifing"
-          placeholder="뉴스에 대한 브리핑을 작성해주세요"
-          maxlength="30"
-        />
-      </div>
-      <div class="paragraph">
-        <label for="text">단락</label>
-        <input type="text" id="text" name="b" placeholder="상세 내용" />
-        <button>단락추가</button>
+        <div class="create-article__input--addition">
+          <label for="text">단락</label>
+          <input type="text" id="text" name="b" placeholder="상세 내용" />
+          <button>단락추가</button>
+        </div>
       </div>
       <button class="create-article--save" type="submit">저장</button>
       <button class="create-article--complete" type="submit">완료</button>

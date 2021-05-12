@@ -10,8 +10,8 @@
     <p>배열 데이터를 반환하여 목록으로 표시한다.</p>
     <p>
       <ol>
-        <% articles.forEach((val) => { %>
-          <li><%= val %></li>
+        <% articles.forEach((article) => { %>
+          <li><%= article.headline %></li>
         <% }) %>
       </ol>
     </p>

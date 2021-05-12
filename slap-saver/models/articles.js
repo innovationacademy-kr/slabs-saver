@@ -27,8 +27,9 @@ module.exports = (sequelize, DataTypes) => {
       author: {
         type: DataTypes.STRING,
       },
-      publishTime: {
-        type: DataTypes.DATE,
+      image: {
+        type: DataTypes.STRING,
+        allowNull: false,
       },
       isApproved: {
         type: DataTypes.BOOLEAN,
