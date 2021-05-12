@@ -14,15 +14,13 @@ module.exports = function(app) {
   passport.deserializeUser(function(id, done) {
   Author.findByPk(id)
     .then((author) => {
-      console.log('--------------- deserialize User --------------');
-      console.log(`${author.email} has loggined `);
-      console.log('-----------------------------------------------');
       return done(null, author);
     })
     .catch((err) => {
       console.log('not found?!');
     })
-  });
+    }
+  );
     
   passport.use(new LocalStrategy({
       usernameField: 'email',
