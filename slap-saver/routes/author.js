@@ -43,6 +43,9 @@ module.exports = function(passport) {
     })
   );
 
+  // NOTE: 로그아웃
+  router.get('/logout', authorCtrl.logout);
+
   // NOTE: 회원가입 페이지
   router.get('/signup', alreadyLoggedIn, authorCtrl.signupPage);
 
