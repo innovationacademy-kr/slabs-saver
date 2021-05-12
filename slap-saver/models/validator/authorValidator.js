@@ -1,9 +1,7 @@
 module.exports = {
   password: (value) => {
-
     // NOTE: password check -> 영 + 숫자 6자리 ~ 15
-    // if (!/^[a-zA-Z0-9]{6,15}$/.test(value)) {
-      if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,15}$/.test(value)) {
+    if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,15}$/.test(value)) {
       throw new Error('패스워드 형식 틀림');
     }
   },

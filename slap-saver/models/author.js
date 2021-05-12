@@ -16,8 +16,7 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     validPassword(password) {
-      return bcrypt.compare(password, this.password)
-        .then((result) => result)
+      return bcrypt.compare(password, this.password).then((result) => result);
     }
   }
 
@@ -54,22 +53,22 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           notNull: {
             msg: '사진을 첨부해 주세요',
-          }
-        }
-      }
+          },
+        },
+      },
     },
     {
       sequelize,
       modelName: 'Author',
     },
   );
-  
+
   Author.addHook('beforeCreate', async (author, options) => {
     const salt = await bcrypt.genSaltSync(+process.env.SALT_ROUNDS);
-    return bcrypt.hash(author.password, salt).then(hash => {
-      author.password = hash
-      author.salt = salt
-     })
-  })
+    return bcrypt.hash(author.password, salt).then((hash) => {
+      author.password = hash;
+      author.salt = salt;
+    });
+  });
   return Author;
 };

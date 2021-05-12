@@ -1,49 +1,45 @@
 const express = require('express');
-const router = express.Router();
-const authorCtrl = require('../controllers/authorController');
 const multer = require('multer');
+const authorCtrl = require('../controllers/authorController');
 
-const upload = multer({ dest: 'public/images/authorImages'});
+const router = express.Router();
+const upload = multer({ dest: 'public/images/authorImages' });
 
 // NOTE: 기자는 로그인을 하지 않은 상태라면 회원가입, 로그인 페이지를 제외하고는 로그인 페이지로 가야함
 // TODO: 모든 url 에 적용하기
-function loggedIn(req, res, next) {
+const loggedIn = (req, res, next) => {
   if (req.user) {
     console.log('---------------------');
     console.log(`${req.user.email} 은 로그인 한 유저입니다.`);
     console.log('---------------------');
-    next();
-  } else {
-    console.log('---------------');
-    console.log('로그인 먼저!');
-    console.log('---------------');
-    res.redirect('/author/login');
+    return next();
   }
-}
+  console.log('---------------');
+  console.log('로그인 먼저!');
+  console.log('---------------');
+  return res.redirect('/author/login');
+};
 
-function alreadyLoggedIn(req, res, next) {
-  // NOTE: 로그인이 된 유저는  login, signup 페이지 접근 x
+const alreadyLoggedIn = (req, res, next) => {
   if (req.user) {
     return res.redirect('/author');
   }
-  next();
-}
+  return next();
+};
 
-const {Author} = require('../models');
-const author = require('../models/author');
-
-module.exports = function(passport) {
-  // NOTE: base: ~~/authors
+module.exports = (passport) => {
   router.get('/', loggedIn, authorCtrl.index);
 
   // NOTE: 로그인 페이지
   router.get('/login', alreadyLoggedIn, authorCtrl.loginPage);
 
   // NOTE: 로그인 요청
-  router.post('/login', passport.authenticate('local', {
+  router.post(
+    '/login',
+    passport.authenticate('local', {
       successRedirect: '/author',
-      failureRedirect: '/author/login'
-    })
+      failureRedirect: '/author/login',
+    }),
   );
 
   // NOTE: 로그아웃
@@ -85,5 +81,5 @@ module.exports = function(passport) {
     res.render('author/checkArticle', { title: '기사 확인 페이지!!!' });
   });
 
-  return router
-}
+  return router;
+};
