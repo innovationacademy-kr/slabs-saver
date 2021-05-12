@@ -5,7 +5,18 @@
     <!-- <link rel="stylesheet" href="/stylesheets/login.css" /> -->
   </head>
   <body>
-    <form method="post" class="create-article" action="/author/articles/new" enctype="multipart/form-data">
+    <div class="side-nav">
+      <button class="side-nav__logout">로그아웃</button>
+      <a href="edit-meeting">편집 회의</a>
+      <a href="articles/new">기사 작성</a>
+      <a href="articles">내 기사 목록</a>
+    </div>
+    <form
+      method="post"
+      class="create-article"
+      action="/author/articles/new"
+      enctype="multipart/form-data"
+    >
       <div class="create-article__input">
         <label for="category">카테고리</label>
         <select name="categories" id="category">
@@ -43,12 +54,19 @@
               name="description"
               placeholder="사진에 대한 설명을 적어주세요"
             />
+            <label for="source">사진 출처</label>
+            <input
+              type="text"
+              id="source"
+              name="source"
+              placeholder="사진에 대한 출처를 적어주세요"
+            />
           </div>
           <label for="breifing">100자 브리핑</label>
           <input
             type="text"
-            id="breifing"
-            name="breifing"
+            id="briefing"
+            name="briefing"
             placeholder="뉴스에 대한 브리핑을 작성해주세요"
             maxlength="30"
           />

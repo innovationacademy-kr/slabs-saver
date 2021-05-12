@@ -1,19 +1,59 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>예제로 만든 탬플릿입니다.</p>
-    <p>배열 데이터를 반환하여 목록으로 표시한다.</p>
-    <p>
-      <ol>
-        <% articles.forEach((article) => { %>
-          <li><%= article.headline %></li>
+
+<head>
+  <title>
+    <%= title %>
+  </title>
+  <link rel="stylesheet" href="/stylesheets/style.css" />
+</head>
+
+<body>
+  <h1>
+    <%= title %>
+  </h1>
+  <div class="side-nav">
+    <button class="side-nav__logout">로그아웃</button>
+    <a href="edit-meeting">편집 회의</a>
+    <a href="articles/new">기사 작성</a>
+    <a href="articles">내 기사 목록</a>
+  </div>
+  <table class="my-articles">
+    <thead>
+      <tr class="my-articles__header">
+        <th>No</th>
+        <th>헤드라인</th>
+        <th>작성 일시</th>
+        <th>출고 상황</th>
+        <th>사진</th>
+        <th>상태</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% articles.forEach((article)=> { %>
+        <tr onClick="location.href='/author/articles/edit/3'">
+          <td>
+            <%= article.id %>
+          </td>
+          <td>
+            <%= article.headline %>
+          </td>
+          <td>
+            <%= article.updatedAt %>
+          </td>
+          <td>
+            <%= article.isPublished %>
+          </td>
+          <td>
+            <%= article.image %>
+          </td>
+          <td>
+            <%= article.state %>
+          </td>
+        </tr>
         <% }) %>
-      </ol>
-    </p>
-  </body>
+    </tbody>
+  </table>
+</body>
+
 </html>
