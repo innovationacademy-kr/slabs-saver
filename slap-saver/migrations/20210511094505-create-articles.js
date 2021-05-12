@@ -6,7 +6,7 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       headline: {
         type: Sequelize.STRING,
@@ -17,34 +17,35 @@ module.exports = {
         allowNull: false,
       },
       author: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
-      publishTime: {
-        type: Sequelize.DATE
+      image: {
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       isApproved: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
       },
       am7: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
       },
       pm7: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
       },
       approve: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable('Articles');
-  }
+  },
 };

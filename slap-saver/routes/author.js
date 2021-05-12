@@ -1,6 +1,9 @@
 const express = require('express');
 const { Author, Articles } = require('../models');
 const router = express.Router();
+const multer = require('multer');
+
+const articleUploader = multer({ dest: 'public/images/articleImages' });
 
 /* GET users listing. */
 // NOTE: base: ~~/authors
@@ -22,13 +25,13 @@ router.post('/login', (req, res, next) => {
 
 // NOTE: 회원가입 페이지
 router.get('/signup', (req, res, next) => {
-  Author.create({name:'sanam', password:'1234', email:'1234@asdf', contact:'1234'})
-    .then(((author) => {
+  Author.create({ name: 'sanam', password: '1234', email: '1234@asdf', contact: '1234' })
+    .then((author) => {
       res.render('author/signup', { title: author.name });
-    }))
+    })
     .catch((err) => {
       res.render('author/signup', { title: 'error!!' });
-    })
+    });
 });
 
 router.get('/all', (req, res, next) => {
@@ -36,12 +39,12 @@ router.get('/all', (req, res, next) => {
     .then((authors) => {
       authors.forEach((author) => {
         console.log(`${author.name} ${author.password} ${author.email}`);
-      })
+      });
       res.render('author/signup', { title: author.name });
     })
     .catch((err) => {
       res.render('author/signup', { title: 'error!!' });
-    })
+    });
 });
 
 // NOTE: 회원가입 요청
@@ -59,14 +62,19 @@ router.get('/articles/new', (req, res, next) => {
   res.render('author/newArticle', { title: '기사 작성 페이지!!' });
 });
 
-router.post('/articles/new', (req, res, next) => {
-  Articles.create({headline: req.body.headline, author: 'author', category: req.body.categories})
-  .then((article) => {
-    res.send(article);
+router.post('/articles/new', articleUploader.single('picture'), (req, res, next) => {
+  Articles.create({
+    headline: req.body.headline,
+    author: 'author',
+    category: req.body.categories,
+    image: req.file.filename,
   })
-  .catch((err) => {
-    res.send(err);
-  });
+    .then((article) => {
+      res.send('정상적으로 저장 되었습니다.');
+    })
+    .catch((err) => {
+      res.send('저장에 실패하였습니다.');
+    });
 });
 
 // NOTE: 기사 작성 페이지(수정)
@@ -76,36 +84,12 @@ router.get('/articles/edit', (req, res, next) => {
 
 // NOTE: 내 기사목록 페이지
 router.get('/articles', (req, res, next) => {
-  Articles.findAll({})
-  .then((myArticles) => {
-    myArticles.forEach((article) => [...article])})
-  .then((articles) => res.render('author/articles', { title: '내 기사목록 페이지', articles: articles }))
-  .catch((err) => console.log(err));
-//   let articles = [{
-//     id: 1,
-//     headline: 'asd',
-// category: 'politic',
-// author: 'author',
-// publishTime: null,
-// isApproved: null,
-// am7: null,
-// pm7: null,
-// approve: null,
-// createdAt: "2021-05-11T09:54:07.000Z",
-// updatedAt: "2021-05-11T09:54:07.000Z"
-// },{id: 2,
-//   headline: 'asd',
-// category: 'politic',
-// author: 'author',
-// publishTime: null,
-// isApproved: null,
-// am7: null,
-// pm7: null,
-// approve: null,
-// createdAt: "2021-05-11T09:54:07.000Z",
-// updatedAt: "2021-05-11T09:54:07.000Z"
-// }];
-//   res.render('author/articles', { title: '내 기사목록 페이지', articles: articles });
+  Articles.findAll()
+    .then((myArticles) => Array.from(myArticles).map((article) => article))
+    .then((articles) =>
+      res.render('author/articles', { title: '내 기사목록 페이지', articles: articles }),
+    )
+    .catch((err) => console.log(err));
 });
 
 // NOTE: 기사 확인 페이지
