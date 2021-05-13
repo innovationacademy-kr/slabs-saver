@@ -1,8 +1,10 @@
 const express = require('express');
+const router = express.Router();
 const multer = require('multer');
 const authorCtrl = require('../controllers/authorController');
+const { Author, Articles } = require('../models');
 
-const router = express.Router();
+const articleUploader = multer({ dest: 'public/images/articleImages' });
 const upload = multer({ dest: 'public/images/authorImages' });
 
 // NOTE: 기자는 로그인을 하지 않은 상태라면 회원가입, 로그인 페이지를 제외하고는 로그인 페이지로 가야함
@@ -51,35 +53,25 @@ module.exports = (passport) => {
   // NOTE: 회원가입 요청
   router.post('/signup', alreadyLoggedIn, upload.single('picture'), authorCtrl.signup);
 
-  // TODO: Controller 로 리팩토링 진행하기
   // NOTE: 편집회의 페이지
-  router.get('/edit-meeting', (req, res, next) => {
-    res.render('author/editMeeting', { title: '편집회의 페이지!' });
-  });
+  router.get('/edit-meeting', authorCtrl.getEditMeeting);
 
-  // NOTE: 기사 작성 페이지(새 기사)
-  router.get('/articles/new', (req, res, next) => {
-    res.render('author/newArticle', { title: '기사 작성 페이지!!' });
-  });
+  // NOTE: 새 기사 작성 페이지
+  router.get('/articles/new', authorCtrl.getNewArticle);
 
-  router.post('/articles/new', (req, res, next) => {
-    res.send(req.body);
-  });
+  // NOTE: 새 기사 작성 요청
+  router.post('/articles/new', articleUploader.single('picture'), authorCtrl.newArticle);
 
-  // NOTE: 기사 작성 페이지(수정)
-  router.get('/articles/edit', (req, res, next) => {
-    res.send(req.body);
-  });
+  // NOTE: 기사 수정 페이지
+  router.get('/articles/edit/:articleId', authorCtrl.getEditArticle);
+
+  // NOTE: 기사 수정 페이지 요청
+  router.post('/articles/edit/:articleId', articleUploader.single('picture'), authorCtrl.editArticle);
 
   // NOTE: 내 기사목록 페이지
-  router.get('/articles', (req, res, next) => {
-    res.render('author/articles', { title: '내 기사목록 페이지' });
-  });
+  router.get('/articles', authorCtrl.getMyArticles);
 
   // NOTE: 기사 확인 페이지
-  router.get('/articles/new/temp', (req, res, next) => {
-    res.render('author/checkArticle', { title: '기사 확인 페이지!!!' });
-  });
-
+  router.get('/articles/preview/:articleId', authorCtrl.checkArticle);
   return router;
 };
