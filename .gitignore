@@ -108,3 +108,8 @@ slap-saver/db/srcs/data/
 
 # images
 slap-saver/public/images/
+
+# session data
+slap-saver/sessions/
+
+
