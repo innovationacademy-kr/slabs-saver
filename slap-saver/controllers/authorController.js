@@ -52,7 +52,7 @@ module.exports = {
     }
     return res.redirect('/author/login');
   },
-  
+
   getEditMeeting: (req, res, next) => {
     res.render('author/editMeeting', { title: '편집회의 페이지!' });
   },
@@ -81,7 +81,7 @@ module.exports = {
     })
       .then(() => {
         alert('저장에 성공하였습니다.');
-        return res.redirect('/author/articles')
+        return res.redirect('/author/articles');
       })
       .catch((err) => {
         res.send(err);
@@ -117,7 +117,7 @@ module.exports = {
       .then((article) => {
         article.headline = req.body.headline;
         article.category = req.body.categories;
-        if (req.file?.filename) {
+        if (req.file && req.file.filename) {
           article.image = req.file.filename;
         }
         article.imageDesc = req.body.description;
@@ -132,28 +132,24 @@ module.exports = {
       .catch((err) => console.log(err));
   },
 
-  getMyArticles: (req, res, next) => {
-    Article.findAll()
-      .then((myArticles) =>
-        Array.from(myArticles).map((article) => {
-          article.href = `/author/articles/edit/${article.id}`;
-          return article;
-        }),
-      )
-      .then((articles) => {
-        res.render('author/articles', {
-          title: '내 기사목록 페이지',
-          articles: articles,
-        });
-      })
-      .catch((err) => console.log(err));
+  getMyArticles: async (req, res, next) => {
+    const author = await Author.findOne({ where: { id: req.user.id } });
+    const articles = await author.getArticles();
+    const newArticles = Array.from(articles).map((article) => {
+      article.href = `/author/articles/edit/${article.id}`;
+      return article;
+    });
+    return res.render('author/articles', {
+      title: '내 기사목록 페이지',
+      articles: newArticles,
+    });
   },
 
   checkArticle: (req, res, next) => {
     Article.findOne({ where: { id: req.params.articleId } })
       .then((article) => {
         let paragraph = [];
-        if (article.additionalParagraph?.length > 1) {
+        if (article.additionalParagraph && article.additionalParagraph.length > 1) {
           paragraph = article.additionalParagraph.split('|-|');
         }
         article.image = `/images/articleImages/${article.image}`;
@@ -164,5 +160,5 @@ module.exports = {
         });
       })
       .catch((err) => console.log(err));
-  }
+  },
 };
