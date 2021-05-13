@@ -77,9 +77,11 @@ module.exports = {
       imageFrom: req.body.source,
       briefing: req.body.briefing,
       additionalParagraph: additionalParagraph,
+      AuthorId: req.user.id,
     })
-      .then((article) => {
-        res.send('저장에 성공하였습니다.');
+      .then(() => {
+        alert('저장에 성공하였습니다.');
+        return res.redirect('/author/articles')
       })
       .catch((err) => {
         res.send(err);
@@ -94,7 +96,7 @@ module.exports = {
           paragraph = article.additionalParagraph.split('|-|');
         }
         article.image = `/images/articleImages/${article.image}`;
-        res.render('author/editArticle', {
+        return res.render('author/editArticle', {
           title: '기사 수정 페이지',
           article: article,
           paragraph: paragraph,
@@ -126,7 +128,7 @@ module.exports = {
         }
         article.save();
       })
-      .then(() => res.send('수정이 완료되었습니다.'))
+      .then(() => res.redirect('/author/articles'))
       .catch((err) => console.log(err));
   },
 
