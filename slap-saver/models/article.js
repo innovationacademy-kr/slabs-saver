@@ -7,7 +7,8 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models) {
+    static associate({ Author }) {
+      this.belongsTo(Author);
       // define association here
     }
   }
@@ -61,10 +62,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
       },
-      authorId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      }
+      // authorId: {
+      //   type: DataTypes.INTEGER,
+      //   allowNull: false,
+      // },
     },
     {
       sequelize,
