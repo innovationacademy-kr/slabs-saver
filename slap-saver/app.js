@@ -4,9 +4,6 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const indexRouter = require('./routes/index');
-const authorRouter = require('./routes/author');
-const articlesRouter = require('./routes/articles');
 const sequelize = require('./models').sequelize;
 
 const app = express();
@@ -20,6 +17,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// TODO: 유저 작업을 할 때는 새로운 passport 를 만들어서 작업할 것
+const authorPassport = require('./lib/authorPassport')(app);
+const indexRouter = require('./routes/index');
+const authorRouter = require('./routes/author')(authorPassport);
+const articlesRouter = require('./routes/articles');
 
 // NOTE: routing
 app.use('/', indexRouter);
