@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
+const alert = require('alert');
 const authorCtrl = require('../controllers/authorController');
 const { Author, Articles } = require('../models');
 
@@ -18,6 +19,7 @@ const loggedIn = (req, res, next) => {
   }
   console.log('---------------');
   console.log('로그인 먼저!');
+  alert('로그인 페이지로 이동합니다');
   console.log('---------------');
   return res.redirect('/author/login');
 };
@@ -54,24 +56,25 @@ module.exports = (passport) => {
   router.post('/signup', alreadyLoggedIn, upload.single('picture'), authorCtrl.signup);
 
   // NOTE: 편집회의 페이지
-  router.get('/edit-meeting', authorCtrl.getEditMeeting);
+  router.get('/edit-meeting', loggedIn, authorCtrl.getEditMeeting);
 
   // NOTE: 새 기사 작성 페이지
-  router.get('/articles/new', authorCtrl.getNewArticle);
+  router.get('/articles/new', loggedIn, authorCtrl.getNewArticle);
 
+  // TODO: post 문제 없나 확인하기
   // NOTE: 새 기사 작성 요청
   router.post('/articles/new', articleUploader.single('picture'), authorCtrl.newArticle);
 
   // NOTE: 기사 수정 페이지
-  router.get('/articles/edit/:articleId', authorCtrl.getEditArticle);
+  router.get('/articles/edit/:articleId', loggedIn, authorCtrl.getEditArticle);
 
   // NOTE: 기사 수정 페이지 요청
   router.post('/articles/edit/:articleId', articleUploader.single('picture'), authorCtrl.editArticle);
 
   // NOTE: 내 기사목록 페이지
-  router.get('/articles', authorCtrl.getMyArticles);
+  router.get('/articles', loggedIn, authorCtrl.getMyArticles);
 
   // NOTE: 기사 확인 페이지
-  router.get('/articles/preview/:articleId', authorCtrl.checkArticle);
+  router.get('/articles/preview/:articleId', loggedIn, authorCtrl.checkArticle);
   return router;
 };
