@@ -1,5 +1,5 @@
 const alert = require('alert');
-const { Author } = require('../models');
+const { Author, Article } = require('../models');
 
 module.exports = {
   index: (req, res, next) => {
@@ -52,4 +52,115 @@ module.exports = {
     }
     return res.redirect('/author/login');
   },
+  
+  getEditMeeting: (req, res, next) => {
+    res.render('author/editMeeting', { title: '편집회의 페이지!' });
+  },
+
+  getNewArticle: (req, res, next) => {
+    res.render('author/newArticle', { title: '기사 작성 페이지!!' });
+  },
+
+  newArticle: (req, res, next) => {
+    let additionalParagraph = '';
+    if (Array.isArray(req.body.additionalParagraph)) {
+      additionalParagraph = req.body.additionalParagraph.join('|-|');
+    } else {
+      additionalParagraph = req.body.additionalParagraph;
+    }
+    Article.create({
+      headline: req.body.headline,
+      author: 'author',
+      category: req.body.categories,
+      image: req.file.filename,
+      imageDesc: req.body.description,
+      imageFrom: req.body.source,
+      briefing: req.body.briefing,
+      additionalParagraph: additionalParagraph,
+    })
+      .then((article) => {
+        res.send('저장에 성공하였습니다.');
+      })
+      .catch((err) => {
+        res.send(err);
+      });
+  },
+
+  getEditArticle: (req, res, next) => {
+    Article.findOne({ where: { id: req.params.articleId } })
+      .then((article) => {
+        let paragraph = [];
+        if (article.additionalParagraph) {
+          paragraph = article.additionalParagraph.split('|-|');
+        }
+        article.image = `/images/articleImages/${article.image}`;
+        res.render('author/editArticle', {
+          title: '기사 수정 페이지',
+          article: article,
+          paragraph: paragraph,
+        });
+      })
+      .catch((err) => console.log(err));
+  },
+
+  editArticle: (req, res, next) => {
+    let additionalParagraph = '';
+    if (Array.isArray(req.body.additionalParagraph)) {
+      additionalParagraph = req.body.additionalParagraph.filter((p) => p.length > 0);
+      additionalParagraph = additionalParagraph.join('|-|');
+    } else {
+      additionalParagraph = req.body.additionalParagraph;
+    }
+    Article.findOne({ where: { id: req.params.articleId } })
+      .then((article) => {
+        article.headline = req.body.headline;
+        article.category = req.body.categories;
+        if (req.file?.filename) {
+          article.image = req.file.filename;
+        }
+        article.imageDesc = req.body.description;
+        article.imageFrom = req.body.source;
+        article.briefing = req.body.briefing;
+        if (additionalParagraph) {
+          article.additionalParagraph = additionalParagraph;
+        }
+        article.save();
+      })
+      .then(() => res.send('수정이 완료되었습니다.'))
+      .catch((err) => console.log(err));
+  },
+
+  getMyArticles: (req, res, next) => {
+    Article.findAll()
+      .then((myArticles) =>
+        Array.from(myArticles).map((article) => {
+          article.href = `/author/articles/edit/${article.id}`;
+          return article;
+        }),
+      )
+      .then((articles) => {
+        res.render('author/articles', {
+          title: '내 기사목록 페이지',
+          articles: articles,
+        });
+      })
+      .catch((err) => console.log(err));
+  },
+
+  checkArticle: (req, res, next) => {
+    Article.findOne({ where: { id: req.params.articleId } })
+      .then((article) => {
+        let paragraph = [];
+        if (article.additionalParagraph?.length > 1) {
+          paragraph = article.additionalParagraph.split('|-|');
+        }
+        article.image = `/images/articleImages/${article.image}`;
+        res.render('author/checkArticle', {
+          title: '기사 확인 페이지!!!',
+          article: article,
+          paragraph: paragraph,
+        });
+      })
+      .catch((err) => console.log(err));
+  }
 };
