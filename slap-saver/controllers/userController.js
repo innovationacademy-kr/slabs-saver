@@ -1,7 +1,24 @@
+const { Article } = require('../models');
+
 module.exports = {
-  home: (req, res, next) => {
-    res.render('index', { title: '기본 홈 화면' }
-  )},
+  home: async (req, res, next) => {
+    // NOTE: where: { todayNews: true } 인 것을 가져와야한다.
+    const todayNews = await Article.findOne({ where: { id: "1" } });
+    // NOTE: 오늘의 한마디를 저장한 후 가져와야 한다.
+    const todayWords = "helloworld";
+    const todayArticlesObj = await Article.findAll({
+      where: { category: 'politic' }
+    });
+    const todayArticles = Array.from(todayArticlesObj).map((todayArticle) => {
+      const additionalParagraph = todayArticle.additionalParagraph ? todayArticle.additionalParagraph.split("|-|") : [];
+      return {...todayArticle.dataValues, 
+        image: `/images/articleImages/${todayArticle.image}`, 
+        additionalParagraph: additionalParagraph}
+    })
+    res.render('index', { title: '기본 홈 화면', todayNews: todayNews,
+    todayWords: todayWords,
+    todayArticles: todayArticles })
+  },
 
   profile: (req, res, next) => {
     res.render('index', { title: '설정 화면' });
