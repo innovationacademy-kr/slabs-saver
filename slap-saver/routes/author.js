@@ -3,7 +3,6 @@ const router = express.Router();
 const multer = require('multer');
 const alert = require('alert');
 const authorCtrl = require('../controllers/authorController');
-const { Author, Articles } = require('../models');
 
 const articleUploader = multer({ dest: 'public/images/articleImages' });
 const upload = multer({ dest: 'public/images/authorImages' });
@@ -68,6 +67,7 @@ module.exports = (passport) => {
   // NOTE: 기사 수정 페이지
   router.get('/articles/edit/:articleId', loggedIn, authorCtrl.getEditArticle);
 
+  // TODO: post인 경우에는 어디서 유저 검사할지 생각하기
   // NOTE: 기사 수정 페이지 요청
   router.post('/articles/edit/:articleId', articleUploader.single('picture'), authorCtrl.editArticle);
 
