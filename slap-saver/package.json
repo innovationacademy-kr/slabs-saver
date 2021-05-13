@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "nodemon ./bin/www",
+    "dev": "pm2-dev ./bin/www",
     "db": "cd db && docker-compose up",
     "clear": "rm -rf db/srcs/data",
     "reset": "npm run clear && npm run db"
@@ -36,10 +36,5 @@
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react": "^7.23.2"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "eslint . --fix && prettier --write"
-    }
   }
 }
