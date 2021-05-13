@@ -53,42 +53,43 @@ module.exports = {
     return res.redirect('/author/login');
   },
 
-  getEditMeeting: (req, res, next) => {
+  editMeetingPage: (req, res, next) => {
     res.render('author/editMeeting', { title: '편집회의 페이지!' });
   },
 
-  getNewArticle: (req, res, next) => {
+  newArticlePage: (req, res, next) => {
     res.render('author/newArticle', { title: '기사 작성 페이지!!' });
   },
 
-  newArticle: (req, res, next) => {
-    let additionalParagraph = '';
-    if (Array.isArray(req.body.additionalParagraph)) {
-      additionalParagraph = req.body.additionalParagraph.join('|-|');
-    } else {
-      additionalParagraph = req.body.additionalParagraph;
-    }
-    Article.create({
-      headline: req.body.headline,
-      author: 'author',
-      category: req.body.categories,
-      image: req.file.filename,
-      imageDesc: req.body.description,
-      imageFrom: req.body.source,
-      briefing: req.body.briefing,
-      additionalParagraph: additionalParagraph,
-      AuthorId: req.user.id,
-    })
-      .then(() => {
-        alert('저장에 성공하였습니다.');
-        return res.redirect('/author/articles');
-      })
-      .catch((err) => {
-        res.send(err);
+  newArticle: async (req, res, next) => {
+    const {
+      body: { headline, categories, description, source, briefing, additionalParagraph },
+      user: { id },
+    } = req;
+    const image = req.file ? req.file.name : null;
+    const paragraphs = Array.isArray(additionalParagraph)
+      ? additionalParagraph.join('|-|')
+      : additionalParagraph;
+    try {
+      const author = await Author.findOne({ where: { id } });
+      await author.createArticle({
+        headline,
+        author: author.email,
+        category: categories,
+        image,
+        imageDesc: description,
+        imageFrom: source,
+        briefing,
+        additionalParagraph: paragraphs,
       });
+      alert('저장에 성공하였습니다.');
+    } catch (error) {
+      alert(error.errors ? error.errors[0].message : '생성실패');
+    }
+    return res.redirect('/author/articles');
   },
 
-  getEditArticle: (req, res, next) => {
+  editArticlePage: (req, res, next) => {
     Article.findOne({ where: { id: req.params.articleId } })
       .then((article) => {
         let paragraph = [];
@@ -132,20 +133,21 @@ module.exports = {
       .catch((err) => console.log(err));
   },
 
-  getMyArticles: async (req, res, next) => {
+  myArticlePage: async (req, res, next) => {
     const author = await Author.findOne({ where: { id: req.user.id } });
-    const articles = await author.getArticles();
-    const newArticles = Array.from(articles).map((article) => {
+    const myArticles = await author.getArticles();
+    const articles = myArticles.map((article) => {
+      // NOTE: model 인스턴스를 직접 건드리는 방법말고 더 좋은 방법은 없을까?
       article.href = `/author/articles/edit/${article.id}`;
       return article;
     });
     return res.render('author/articles', {
       title: '내 기사목록 페이지',
-      articles: newArticles,
+      articles,
     });
   },
 
-  checkArticle: (req, res, next) => {
+  previewPage: (req, res, next) => {
     Article.findOne({ where: { id: req.params.articleId } })
       .then((article) => {
         let paragraph = [];
@@ -155,8 +157,8 @@ module.exports = {
         article.image = `/images/articleImages/${article.image}`;
         res.render('author/checkArticle', {
           title: '기사 확인 페이지!!!',
-          article: article,
-          paragraph: paragraph,
+          article,
+          paragraph,
         });
       })
       .catch((err) => console.log(err));
