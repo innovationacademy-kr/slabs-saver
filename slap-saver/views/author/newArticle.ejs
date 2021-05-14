@@ -18,7 +18,7 @@
   <form method="post" class="create-article" action="/author/articles/new" enctype="multipart/form-data">
     <div class="create-article__input">
       <label for="category">카테고리</label>
-      <select name="categories" id="category">
+      <select name="category" id="category">
         <option value="politic">정치</option>
         <option value="economy">경제</option>
         <option value="technology">기술</option>
@@ -35,10 +35,10 @@
           <label for="picture">사진</label>
           <input type="file" id="picture" name="picture" accept="image/gif, image/jpeg, image/png" />
           <br />
-          <label for="description">사진 설명</label>
-          <input type="text" id="description" name="description" placeholder="사진에 대한 설명을 적어주세요" />
-          <label for="source">사진 출처</label>
-          <input type="text" id="source" name="source" placeholder="사진에 대한 출처를 적어주세요" />
+          <label for="imageDesc">사진 설명</label>
+          <input type="text" id="imageDesc" name="imageDesc" placeholder="사진에 대한 설명을 적어주세요" />
+          <label for="imageFrom">사진 출처</label>
+          <input type="text" id="imageFrom" name="imageFrom" placeholder="사진에 대한 출처를 적어주세요" />
         </div>
         <label for="breifing">100자 브리핑</label>
         <input type="text" id="briefing" name="briefing" placeholder="뉴스에 대한 브리핑을 작성해주세요" maxlength="30" />
