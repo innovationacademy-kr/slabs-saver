@@ -38,6 +38,11 @@ module.exports = (sequelize, DataTypes) => {
       code: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        validate: {
+          customValidator(value) {
+            authorValidator.code(value);
+          },
+        },
       },
       contact: {
         type: DataTypes.STRING,

@@ -31,7 +31,7 @@ module.exports = {
   },
 
   signup: async (req, res, next) => {
-    const { email, password, confirm, contact } = req.body;
+    const { email, password, confirm, name, code, contact } = req.body;
     const photo = req.file ? req.file.filename : null;
     if (password !== confirm) {
       alert('비밀번호가 같지 않습니다.');
@@ -39,7 +39,7 @@ module.exports = {
     }
     // TODO: Author Service 객체 만들어서 추상화하기
     try {
-      await Author.create({ email, password, contact, photo });
+      await Author.create({ email, password, name, code, contact, photo });
     } catch (error) {
       if (error.errors) {
         error.errors.forEach((e) => {
