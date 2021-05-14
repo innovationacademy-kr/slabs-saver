@@ -1,10 +1,19 @@
-<a href=<%= `/articles/${article.id}` %> >
-  <div class="content-wrapper">
-    <span><%= article.category %></span>
-    <span><%= article.author %></span>
-    <img width="320px" height="320px" src=<%= article.image %> >
-    <p><%= article.imageDesc %></p>
-    <p><%= article.imageFrom %></p>
-    <p><%= article.briefing %></p>
-  </div>
+<a class="article-link" href=<%= `/articles/${article.id}` %> >
+  <article class="article-wrapper">
+    <h1 class="article__title"><%= article.headline %> </h1>
+    <div class="article__info">
+      <p><%= article.category %></p>
+      <div>
+        <span><%= article.author %></span>
+        <span><%= article.updatedAt %> 작성됨</span>
+      </div>
+    </div>
+    <img class="article__image" src=<%= article.image %> >
+    <div class="article__image--info">
+      <p>Lorem Ipsum is simply dummy text of theLorem Ipsum is simply dummy text of the Lorem Ipsum is simply dummy text of the Lorem Ipsum is simply dummy text of the Lorem Ipsum is simply dummy text of the</p>
+      <p>Lorem Ipsum is simply dummy text of the</p>
+    </div>
+    <p class="article__briefing">Lorem Ipsum is simply dummy text of the printing and type, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Loremore recently with desktop publishing so of Lorem Ipsum.</p>
+    <hr class="solid">
+  </article>
   </a>
