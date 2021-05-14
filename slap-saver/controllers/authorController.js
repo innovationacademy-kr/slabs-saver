@@ -66,7 +66,7 @@ module.exports = {
       body: { headline, categories, description, source, briefing, additionalParagraph },
       user: { id },
     } = req;
-    const image = req.file ? req.file.name : null;
+    const image = req.file ? req.file.filename : null;
     const paragraphs = Array.isArray(additionalParagraph)
       ? additionalParagraph.join('|-|')
       : additionalParagraph;
