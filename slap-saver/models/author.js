@@ -31,6 +31,14 @@ module.exports = (sequelize, DataTypes) => {
           msg: '이미 존재하는 이메일입니다.',
         },
       },
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      code: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
       contact: {
         type: DataTypes.STRING,
         allowNull: false,

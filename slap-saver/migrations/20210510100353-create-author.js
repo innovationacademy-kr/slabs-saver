@@ -10,12 +10,23 @@ module.exports = {
       },
       email: {
         type: Sequelize.STRING,
+        allowNull: false,
+      },
+      name: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      code: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
       },
       contact: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       password: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       photo: {
         type: Sequelize.STRING,

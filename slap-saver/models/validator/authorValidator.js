@@ -1,4 +1,10 @@
 module.exports = {
+  levet: (value) => {
+    const validCode = [1, 2, 3, 201, 2001];
+    if (!validCode.includes(value)) {
+      throw new Error('올바른 코드를 입력하세요');
+    }
+  },
   password: (value) => {
     // NOTE: password check -> 영 + 숫자 6자리 ~ 15
     if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,15}$/.test(value)) {
