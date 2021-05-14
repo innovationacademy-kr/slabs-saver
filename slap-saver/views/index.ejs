@@ -2,10 +2,25 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <section class="mobile-view">
+      <article class="today-news">
+          <h1>오늘의 뉴스</h1>
+          <h2><%= todayArticle.headline %> </h2> 
+      </article>
+      <article class="today-words">
+        <h1>오늘의 한마디</h1>
+        <h2><%= todayWords %></h2>
+      </article>
+      <article class="articles">
+          <h1>일반 뉴스</h1>
+          <% Articles.map((article) => { %>
+            <%- include('partials/articleCard.ejs', { article }) %> 
+          <% }) %>
+        </article>
+      </article>
+    </section>
   </body>
 </html>
