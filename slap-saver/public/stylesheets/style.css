@@ -6,3 +6,8 @@ body {
 a {
   color: #00B7FF;
 }
+
+.today-news {
+  background-color: burlywood;
+  margin-top: 2em;
+}

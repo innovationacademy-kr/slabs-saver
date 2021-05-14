@@ -3,7 +3,8 @@ const { Article } = require('../models');
 module.exports = {
   home: async (req, res, next) => {
     // NOTE: where: { todayArticle: true } 인 것을 가져와야한다.
-    const todayArticle = await Article.findOne({ where: { id: "1" } });
+    const candidateArticle = await Article.findOne({ where: { id: "1" } });
+    const todayArticle = candidateArticle ? candidateArticle : { headline: "비어있는 항목입니다."} ;
     const todayWords = "helloworld";
     const AtriclesObj = await Article.findAll({
       where: { category: 'politic' }
