@@ -52,7 +52,7 @@ module.exports = {
       AuthorId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        // onDelete: 'cascade',
+        onDelete: 'cascade',
         references: {
           model: 'Authors',
           key: 'id',
