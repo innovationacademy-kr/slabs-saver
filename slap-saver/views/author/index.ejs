@@ -2,7 +2,7 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/authorIndex.css' />
   </head>
   <body>
     <h1><%= title %></h1>
@@ -13,5 +13,40 @@
       <a href="/author/articles">내 기사 목록</a>
     </div>
     <div class="articles-list">article list</div>
+    <table class="styled-table">
+      <!-- 기자: NO 헤드라인 작성자 작성일자  입력일시 게재일자 출고승인 -->
+      <!-- 데스크: pm7 am7 (승인 버튼이 활성화) -->
+      <!-- 편집장: 오늘의뉴스, 오늘의한마디, 최상단고정, 최종승인 -->
+      <thead>
+        <tr>
+          <th>NO</th>
+          <th>작성자</th>
+          <th>작성일자</th>
+          <th>입력일시</th>
+          <th>게재일자</th>
+          <th>출고승인</th>
+          <th>pm7</th>
+          <th>am7</th>
+          <th>승인</th>
+          <!-- <th>오늘의 뉴스</th>
+          <th>오늘의 한마디</th>
+          <th>최상단 고정</th>
+          <th>최종 승인</th> -->
+        </tr>
+      </thead>
+      <tbody>
+        <!-- articles 반복문을 돌면서 아래를 출력할 것. -->
+        <tr>
+          <td>0</td>
+          <td>헤드라인값!!</td>
+        </tr>
+        <!-- <tr class="active-row">
+          <td>Melissa</td>
+          <td>5150</td>
+        </tr> -->
+        </tbody>
+        <!-- class="active-row" 를 넣으면 하이라이팅 됨 -->
+        <!-- and so on... -->
+  </table>
   </body>
 </html>
