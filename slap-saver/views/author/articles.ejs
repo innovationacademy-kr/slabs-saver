@@ -52,7 +52,7 @@
             <%= article.state %>
           </td>
           <td>
-            <a href=<%=article.href %> >수정하기</a>
+            <a href=<%=`/author/articles/edit/${article.id}` %> >수정하기</a>
           </td>
         </tr>
         <% }) %>
