@@ -8,7 +8,7 @@ const { Author } = require('../models');
 module.exports = (app) => {
   app.use(
     session({
-      // store: new FileStore(),
+      store: new FileStore(),
       secret: 'anything',
       resave: false,
       saveUninitialized: true,
