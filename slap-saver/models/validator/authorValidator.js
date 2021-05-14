@@ -1,5 +1,5 @@
 module.exports = {
-  levet: (value) => {
+  code: (value) => {
     const validCode = [1, 2, 3, 201, 2001];
     if (!validCode.includes(value)) {
       throw new Error('올바른 코드를 입력하세요');
