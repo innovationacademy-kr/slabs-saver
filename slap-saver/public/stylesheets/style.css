@@ -1,3 +1,8 @@
+:root {
+  --light-text: #666464;
+  --darker-text: #636566;
+}
+
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
@@ -5,4 +10,94 @@ body {
 
 a {
   color: #00B7FF;
+}
+
+.main-title {
+  font-size: 2rem;
+}
+
+
+/* 오늘의 뉴스 */
+
+.today-article__title{
+  margin-top: 2em;
+  font-weight: bold;
+}
+
+.today-article__content {
+  font-weight: 500;
+  font: 500;
+  color: var(--light-text);
+}
+
+/* 오늘의 한마디 */
+
+.today-words__title{
+  margin-top: 2em;
+  font-weight: bold;
+}
+
+.today-words__content {
+  font-weight: 500;
+  font: 500;
+  color: var(--light-text);
+}
+
+/* 일반 기사 */
+
+.articles {
+  display: flex;
+  flex-direction: column;
+}
+
+.article-link {
+  text-decoration: none;
+  color: black;
+}
+
+.article__title {
+  font-size: 4rem;
+  font-weight: 500;
+  margin-bottom: 0.5em;
+}
+
+.article__info {
+  color: var(--light-text);
+  margin-bottom: 1em;
+}
+
+.article__info p {
+  font-size: 1.2rem;
+}
+
+.article__info div {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.5rem;
+}
+
+.article__image {
+  width: 100%;
+  height: 40rem;
+  padding-bottom: 0.5rem;
+}
+
+.article__image--info {
+  color: var(--darker-text);
+  font-size: 0.8rem;
+}
+
+.article__image--info > p {
+  margin: 0;
+}
+
+.article__briefing {
+  display: flex;
+  font-size: 2rem;
+  flex-wrap: wrap;
+}
+
+hr.solid {
+  margin-top: 5rem;
+  border-top: 1px solid #bbb;
 }

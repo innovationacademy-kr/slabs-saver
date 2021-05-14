@@ -10,7 +10,7 @@ module.exports = {
             headline: `article from ${author.email}`,
             category: 'politic',
             author: author.email,
-            image: 'b6781c46d6c102c20cf57394c4082bcc',
+            image: 'a74dc438fb6834f35e6c7968b57ae25f',
             imageDesc: 'this is image description',
             imageFrom: 'image source',
             briefing: 'this is briefing',
