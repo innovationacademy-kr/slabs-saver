@@ -6,7 +6,8 @@
     "dev": "pm2-dev ./bin/www",
     "db": "cd db && docker-compose up",
     "clear": "rm -rf db/srcs/data",
-    "reset": "npm run clear && npm run db"
+    "reset": "npm run clear && npm run db",
+    "test": "node ./bin/www"
   },
   "dependencies": {
     "alert": "^5.0.10",
@@ -26,8 +27,7 @@
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "pm2": "^4.5.6",
-    "sequelize": "^6.6.2",
-    "session-file-store": "^1.5.0"
+    "sequelize": "^6.6.2"
   },
   "devDependencies": {
     "eslint": "^7.2.0",
