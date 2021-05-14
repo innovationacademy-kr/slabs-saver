@@ -1,5 +1,4 @@
 const session = require('express-session');
-const FileStore = require('session-file-store')(session);
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const alert = require('alert');
@@ -8,7 +7,6 @@ const { Author } = require('../models');
 module.exports = (app) => {
   app.use(
     session({
-      store: new FileStore(),
       secret: 'anything',
       resave: false,
       saveUninitialized: true,
