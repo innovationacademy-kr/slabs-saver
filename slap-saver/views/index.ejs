@@ -17,7 +17,7 @@
       <article class="articles">
           <h1>일반 뉴스</h1>
           <% todayArticles.forEach((todayArticle)=> { %>
-            <a href=<%= `/articles/${todayArticle.headline}` %> >
+            <a href=<%= `/articles/${todayArticle.id}` %> >
               <div class="content-wrapper">
                 <span><%= todayArticle.category %></span>
                 <span><%= todayArticle.author %></span>
