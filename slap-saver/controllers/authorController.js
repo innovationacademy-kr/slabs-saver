@@ -5,6 +5,7 @@ module.exports = {
   index: (req, res, next) => {
     res.render('author/index', { title: 'authors!!!' });
   },
+
   loginPage: (req, res, next) => {
     res.render('author/login', { title: 'login!!!' });
   },
