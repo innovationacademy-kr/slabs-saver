@@ -63,10 +63,10 @@ module.exports = {
 
   newArticle: async (req, res, next) => {
     const {
-      body: { headline, categories, description, source, briefing, additionalParagraph },
+      body: { headline, category, imageDesc, imageFrom, briefing, additionalParagraph },
       user: { id },
     } = req;
-    const image = req.file ? req.file.filename : null;
+    // const image = req.file ? req.file.filename : null;
     const paragraphs = Array.isArray(additionalParagraph)
       ? additionalParagraph.join('|-|')
       : additionalParagraph;
@@ -74,13 +74,14 @@ module.exports = {
       const author = await Author.findOne({ where: { id } });
       await author.createArticle({
         headline,
-        author: author.email,
-        category: categories,
-        image,
-        imageDesc: description,
-        imageFrom: source,
+        category,
+        imageDesc,
+        imageFrom,
         briefing,
+        author: author.name,
+        image: req.file ? req.file.filename : null,
         additionalParagraph: paragraphs,
+        state: req.body.saveBtn === '' ? false : true,
       });
       alert('저장에 성공하였습니다.');
     } catch (error) {
@@ -127,6 +128,7 @@ module.exports = {
         if (additionalParagraph) {
           article.additionalParagraph = additionalParagraph;
         }
+        article.state = req.body.saveBtn === '' ? false : true,
         article.save();
       })
       .then(() => res.redirect('/author/articles'))
