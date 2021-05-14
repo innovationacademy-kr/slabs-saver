@@ -49,7 +49,7 @@ module.exports = {
       state: {
         type: Sequelize.BOOLEAN,
       },
-      authorId: {
+      AuthorId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         // onDelete: 'cascade',
