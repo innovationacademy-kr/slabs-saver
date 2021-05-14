@@ -7,7 +7,13 @@
     "db": "cd db && docker-compose up",
     "clear": "rm -rf db/srcs/data",
     "reset": "npm run clear && npm run db",
-    "test": "node ./bin/www"
+    "test": "node ./bin/www",
+    "do": "sequelize db:migrate && sequelize db:seed:all",
+    "m": "sequelize db:migrate",
+    "s": "sequelize db:seed:all",
+    "mu": "sequelize db:migrate:undo:all",
+    "su": "sequelize db:seed:undo:all",
+    "undo": "sequelize db:seed:undo:all && sequelize db:migrate:undo:all"
   },
   "dependencies": {
     "alert": "^5.0.10",
