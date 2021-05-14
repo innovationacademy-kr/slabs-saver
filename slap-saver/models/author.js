@@ -13,8 +13,6 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate({ Article }) {
       this.hasMany(Article);
-
-      // define association here
     }
 
     validPassword(password) {
@@ -43,6 +41,11 @@ module.exports = (sequelize, DataTypes) => {
             authorValidator.code(value);
           },
         },
+      },
+      desk: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+        allowNull: false,
       },
       contact: {
         type: DataTypes.STRING,
