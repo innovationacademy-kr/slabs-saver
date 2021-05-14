@@ -6,29 +6,29 @@
   </head>
   <body>
     <section class="mobile-view">
-      <article>
-        <div class="today-news">
+      <article class="today-news">
           <h1>오늘의 뉴스</h1>
           <h2><%= todayNews.headline %> </h2> 
-        </div>
-        <div class="today-words">
-          <h1>오늘의 한마디</h1>
-          <h2><%= todayWords %></h2>
-        </div>
-        <div class="articles">
+      </article>
+      <article class="today-words">
+        <h1>오늘의 한마디</h1>
+        <h2><%= todayWords %></h2>
+      </article>
+      <article class="articles">
           <h1>일반 뉴스</h1>
           <% todayArticles.forEach((todayArticle)=> { %>
-            <span><%= todayArticle.category %></span>
-            <span><%= todayArticle.author %></span>
-            <img width="320px" height="320px" src=<%= todayArticle.image %> >
-            <p><%= todayArticle.imageDesc %></p>
-            <p><%= todayArticle.imageFrom %></p>
-            <p><%= todayArticle.briefing %></p>
-            <% todayArticle.additionalParagraph.forEach((additionalParagraph)=> { %>
-              <p><%= additionalParagraph %></p>
-            <% }) %>
+            <a href=<%= `/articles/${todayArticle.headline}` %> >
+              <div class="content-wrapper">
+                <span><%= todayArticle.category %></span>
+                <span><%= todayArticle.author %></span>
+                <img width="320px" height="320px" src=<%= todayArticle.image %> >
+                <p><%= todayArticle.imageDesc %></p>
+                <p><%= todayArticle.imageFrom %></p>
+                <p><%= todayArticle.briefing %></p>
+              </div>
+              </a>
           <% }) %>
-        </div>
+        </article>
       </article>
     </section>
   </body>
