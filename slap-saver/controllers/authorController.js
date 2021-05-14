@@ -135,12 +135,7 @@ module.exports = {
 
   myArticlePage: async (req, res, next) => {
     const author = await Author.findOne({ where: { id: req.user.id } });
-    const myArticles = await author.getArticles();
-    const articles = myArticles.map((article) => {
-      // NOTE: model 인스턴스를 직접 건드리는 방법말고 더 좋은 방법은 없을까?
-      article.href = `/author/articles/edit/${article.id}`;
-      return article;
-    });
+    const articles = await author.getArticles();
     return res.render('author/articles', {
       title: '내 기사목록 페이지',
       articles,
