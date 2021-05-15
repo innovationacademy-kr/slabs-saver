@@ -15,9 +15,10 @@ module.exports = {
       where: { category },
       include: {
         model: Author,
-        attributes: ['name', 'desk', 'code'],
+        attributes: ['name', 'desk'],
       },
     });
+    currentUser.code = String(currentUser.code)[0];
     res.render('author/index', { articles, currentUser });
   },
 
