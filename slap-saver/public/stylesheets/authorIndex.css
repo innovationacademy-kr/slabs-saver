@@ -1,4 +1,11 @@
-.styled-table {
+:root {
+  --dark-cyan: #009879;
+  --white: #ffffff;
+  --smoke-white: #f3f3f3;
+  --light-gray: #dddddd;
+}
+
+.table {
   border-collapse: collapse;
   margin: 25px 0;
   font-size: 0.9em;
@@ -7,32 +14,30 @@
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
-.styled-table thead tr {
-  background-color: #009879;
-  color: #ffffff;
+.table-haeder__row {
+  background-color: var(--dark-cyan);
+  color: var(--white);
   text-align: left;
 }
 
-.styled-table th,
-.styled-table td {
+.table-header__cell,
+.table-body__cell {
   padding: 12px 15px;
 }
 
-/* NOTE: 홀수 줄 */
-.styled-table tbody tr {
-  border-bottom: 1px solid #dddddd;
-}
-/* NOTE: 짝수 줄 */
-.styled-table tbody tr:nth-of-type(even) {
-  background-color: #f3f3f3;
+  .table-body__row {
+  border-bottom: 1px solid var(--light-gray);
 }
 
-/* NOTE: 마지막열은 아래에 굵은 줄 */
-.styled-table tbody tr:last-of-type {
-  border-bottom: 2px solid #009879;
+.table-body__row:nth-of-type(even) {
+  background-color: var(--smoke-white);
 }
 
-.styled-table tbody tr.active-row {
+.table-body__row:last-of-type {
+  border-bottom: 2px solid var(--dark-cyan);
+}
+
+.table-body__row.active-row {
   font-weight: bold;
-  color: #009879;
+  color: var(--dark-cyan);
 }
