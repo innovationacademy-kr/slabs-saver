@@ -1,27 +1,22 @@
 const alert = require('alert');
-const moment = require('moment');
+const getCurrentUser = require('../lib/getCurrentUser');
+const isEmptyObject = require('../lib/isEmptyObject');
+const CATEGORY = require('../lib/constants/category');
 const { Author, Article } = require('../models');
 
 module.exports = {
   index: async (req, res, next) => {
-    const articlesObj = await Article.findAll({
+    const currentUser = await getCurrentUser(req.user?.id);
+    if (!currentUser) res.redirect('/author/login');
+    // TODO: 최근의 기사를 가져올 수 있게 sort 기능을 추가하자
+    const category = isEmptyObject(req.query) || req.query.category === '0' ?
+      CATEGORY.ALL : +req.query.category;
+    const articles = await Article.findAll({
+      where: { category },
       include: {
         model: Author,
-        attributes: ['name', 'desk'],
+        attributes: ['name', 'desk', 'code'],
       },
-    });
-    const currentUser = await Author.findOne({
-      where: {
-        id: req.user.id,
-      },
-      attributes: ['desk'],
-    });
-    const articles = articlesObj.map((article) => {
-      return {
-        ...article.dataValues,
-        createdAt: moment(article.getDataValue('createdAt')).format('YYYY.MM.DD HH:mm:ss'),
-        updatedAt: moment(article.getDataValue('updatedAt')).format('YYYY.MM.DD HH:mm:ss'),
-      };
     });
     res.render('author/index', { articles, currentUser });
   },
