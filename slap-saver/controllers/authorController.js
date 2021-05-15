@@ -26,6 +26,11 @@ module.exports = {
     res.render('author/login', { title: 'login!!!' });
   },
 
+  deskProcess: (req, res, next) => {
+    console.log(req.body);
+    res.redirect('/author');
+  },
+
   logout: (req, res, next) => {
     if (req.user) {
       req.logout();
