@@ -1,5 +1,6 @@
 'use strict';
 const { Author } = require('../models');
+const CATEGORY = require('../lib/constants/category');
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -8,7 +9,7 @@ module.exports = {
       authors.map(async (author) => {
         await author.createArticle({
           headline: 'thisisheadline',
-          category: 'politic',
+          category: CATEGORY.POLITIC,
           author: author.name,
           image: 'a74dc438fb6834f35e6c7968b57ae25f',
           imageDesc: 'this is image description',
