@@ -1,4 +1,5 @@
 module.exports = {
+    ALL: 0,
     POLITIC: 1,
     ECONOMY: 2,
     TECHNOLOGY: 3,
