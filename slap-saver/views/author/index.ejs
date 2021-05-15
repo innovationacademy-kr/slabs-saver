@@ -25,23 +25,23 @@
       <option value="sports">스포츠</option>
     </select>
 
-    <table class="styled-table">
+    <table class="table">
       <!-- 기자: NO 헤드라인 작성자 작성일자  입력일시 게재일자 출고승인 -->
       <!-- 데스크: pm7 am7 (승인 버튼이 활성화) -->
       <!-- 편집장: 오늘의뉴스, 오늘의한마디, 최상단고정, 최종승인 -->
-      <thead>
-        <tr>
-          <th>NO</th>
-          <th>헤드라인</th>
-          <th>작성자</th>
-          <th>작성일자</th>
-          <th>입력일자</th>
-          <th>게재일자</th>
-          <th>출고</th>
-          <th>승인</th>
+      <thead class="table-header">
+        <tr class="table-haeder__row">
+          <th class="table-header__cell">NO</th>
+          <th class="table-header__cell">헤드라인</th>
+          <th class="table-header__cell">작성자</th>
+          <th class="table-header__cell">작성일자</th>
+          <th class="table-header__cell">입력일자</th>
+          <th class="table-header__cell">게재일자</th>
+          <th class="table-header__cell">출고</th>
+          <th class="table-header__cell">승인</th>
           <% if (currentUser.desk) { %>
-          <th>pm7</th>
-          <th>am7</th>
+          <th class="table-header__cell">pm7</th>
+          <th class="table-header__cell">am7</th>
           <% } %>
           <!-- NOTE: 데스크 -->
           <!-- NOTE: 편집장 -->
@@ -51,29 +51,26 @@
           <th>최종 승인</th> -->
         </tr>
       </thead>
-      <tbody>
+      <tbody class="table-body">
         <!-- articles 반복문을 돌면서 아래를 출력할 것. -->
-        <tr>
           <% articles.map((article)=> { %>
-        </tr>
-
-        <tr>
-          <td><%= article.id %></td>
-          <td><%= article.headline %></td>
-          <td><%= article.Author.name %></td>
-          <td><%= article.createdAt %></td>
-          <td><%= article.updatedAt %></td>
+        <tr class="table-body__row">
+          <td class="table-body__cell"><%= article.id %></td>
+          <td class="table-body__cell"><%= article.headline %></td>
+          <td class="table-body__cell"><%= article.Author.name %></td>
+          <td class="table-body__cell"><%= article.createdAt %></td>
+          <td class="table-body__cell"><%= article.updatedAt %></td>
           <!-- <th>게재일자</th> -->
           <!-- TODO: publisedAt 만들기  -->
-          <td><%= Date.now() %></td>
-          <td>
+          <td class="table-body__cell"><%= Date.now() %></td>
+          <td class="table-body__cell">
             <!-- <%= article.isPublished %> -->
             <label>
               <input type="checkbox" name="color" value="blue" <%= article.isPublished ? 'checked '
               : '' %> disabled>
             </label>
           </td>
-          <td>
+          <td class="table-body__cell">
             <label>
               <input type="checkbox" name="color" value="blue" <%= article.Confirmed ? 'checked ' :
               '' %> <%= currentUser.desk ? '' : 'disabled' %> >
@@ -81,13 +78,13 @@
             <!-- <%= article.state %> -->
           </td>
           <% if (currentUser.desk) { %>
-          <td>
+          <td class="table-body__cell">
             <label>
               <input type="checkbox" name="color" value="blue" <%= article.Confirmed ? 'checked ' :
               '' %> >
             </label>
           </td>
-          <td>
+          <td class="table-body__cell">
             <label>
               <input type="checkbox" name="color" value="blue" <%= article.Confirmed ? 'checked ' :
               '' %> >
