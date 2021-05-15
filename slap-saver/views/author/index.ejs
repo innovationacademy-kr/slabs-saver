@@ -66,13 +66,13 @@
           <td class="table-body__cell">
             <!-- <%= article.isPublished %> -->
             <label>
-              <input type="checkbox" name="color" value="blue" <%= article.isPublished ? 'checked '
+              <input type="checkbox" <%= article.isPublished ? 'checked '
               : '' %> disabled>
             </label>
           </td>
           <td class="table-body__cell">
             <label>
-              <input type="checkbox" name="color" value="blue" <%= article.Confirmed ? 'checked ' :
+              <input type="checkbox" <%= article.Confirmed ? 'checked ' :
               '' %> <%= currentUser.desk ? '' : 'disabled' %> >
             </label>
             <!-- <%= article.state %> -->
@@ -80,13 +80,13 @@
           <% if (currentUser.desk) { %>
           <td class="table-body__cell">
             <label>
-              <input type="checkbox" name="color" value="blue" <%= article.Confirmed ? 'checked ' :
+              <input type="checkbox" <%= article.am7 ? 'checked ' :
               '' %> >
             </label>
           </td>
           <td class="table-body__cell">
             <label>
-              <input type="checkbox" name="color" value="blue" <%= article.Confirmed ? 'checked ' :
+              <input type="checkbox" <%= article.pm7 ? 'checked ' :
               '' %> >
             </label>
           </td>
