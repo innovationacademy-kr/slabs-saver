@@ -13,17 +13,22 @@
 
     <!-- NOTE: category select -->
     <br />
-    <label for="category">카테고리</label>
-    <select name="category" id="category">
-      <option value=0>전체</option>
-      <option value=1>정치</option>
-      <option value=2>경제</option>
-      <option value=3>기술</option>
-      <option value=4>환경</option>
-      <option value=5>과학</option>
-      <option value=6>건강</option>
-      <option value=7>스포츠</option>
-    </select>
+  <form method="get" action="/author" enctype="multipart/form-data">
+      <label for="category">카테고리</label>
+      <select name="category" id="category">
+        <option value=0>전체</option>
+        <option value=1>정치</option>
+        <option value=2>경제</option>
+        <option value=3>기술</option>
+        <option value=4>환경</option>
+        <option value=5>과학</option>
+        <option value=6>건강</option>
+        <option value=7>스포츠</option>
+      </select>
+      <button type="submit">이동</button>
+    </form>
+
+    
 
     <table class="table">
       <!-- 기자: NO 헤드라인 작성자 작성일자  입력일시 게재일자 출고승인 -->
