@@ -13,7 +13,7 @@ module.exports = {
         allowNull: false,
       },
       category: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
       author: {
