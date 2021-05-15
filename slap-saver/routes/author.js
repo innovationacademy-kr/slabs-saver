@@ -33,6 +33,8 @@ const alreadyLoggedIn = (req, res, next) => {
 module.exports = (passport) => {
   router.get('/', loggedIn, authorCtrl.index);
 
+  router.post('/desk-process', loggedIn, authorCtrl.deskProcess);
+
   // NOTE: 로그인 페이지
   router.get('/login', alreadyLoggedIn, authorCtrl.loginPage);
 
