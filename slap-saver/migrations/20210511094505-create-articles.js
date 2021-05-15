@@ -13,11 +13,12 @@ module.exports = {
         allowNull: false,
       },
       category: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
       author: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       image: {
         type: Sequelize.STRING,
@@ -39,15 +40,28 @@ module.exports = {
       },
       isPublished: {
         type: Sequelize.BOOLEAN,
+        defaultValue: false,
+        allowNull: false,
       },
       am7: {
         type: Sequelize.BOOLEAN,
+        defaultValue: false,
+        allowNull: false,
       },
       pm7: {
         type: Sequelize.BOOLEAN,
+        defaultValue: false,
+        allowNull: false,
       },
       state: {
         type: Sequelize.BOOLEAN,
+        defaultValue: false,
+        allowNull: false,
+      },
+      confirmed: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+        allowNull: false,
       },
       AuthorId: {
         type: Sequelize.INTEGER,

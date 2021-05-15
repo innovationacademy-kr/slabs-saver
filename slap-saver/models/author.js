@@ -13,8 +13,6 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate({ Article }) {
       this.hasMany(Article);
-
-      // define association here
     }
 
     validPassword(password) {
@@ -30,6 +28,24 @@ module.exports = (sequelize, DataTypes) => {
         unique: {
           msg: '이미 존재하는 이메일입니다.',
         },
+      },
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      code: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+          customValidator(value) {
+            authorValidator.code(value);
+          },
+        },
+      },
+      desk: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+        allowNull: false,
       },
       contact: {
         type: DataTypes.STRING,
