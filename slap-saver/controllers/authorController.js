@@ -1,9 +1,29 @@
 const alert = require('alert');
+const moment = require('moment');
 const { Author, Article } = require('../models');
 
 module.exports = {
-  index: (req, res, next) => {
-    res.render('author/index', { title: 'authors!!!' });
+  index: async (req, res, next) => {
+    const articlesObj = await Article.findAll({
+      include: {
+        model: Author,
+        attributes: ['name', 'desk'],
+      },
+    });
+    const currentUser = await Author.findOne({
+      where: {
+        id: req.user.id,
+      },
+      attributes: ['desk'],
+    });
+    const articles = articlesObj.map((article) => {
+      return {
+        ...article.dataValues,
+        createdAt: moment(article.getDataValue('createdAt')).format('YYYY.MM.DD HH:mm:ss'),
+        updatedAt: moment(article.getDataValue('updatedAt')).format('YYYY.MM.DD HH:mm:ss'),
+      };
+    });
+    res.render('author/index', { articles, currentUser });
   },
 
   loginPage: (req, res, next) => {
@@ -129,7 +149,7 @@ module.exports = {
         if (additionalParagraph) {
           article.additionalParagraph = additionalParagraph;
         }
-        article.state = req.body.saveBtn === '' ? false : true,
+        article.state = req.body.saveBtn !== '';
         article.save();
       })
       .then(() => res.redirect('/author/articles'))
