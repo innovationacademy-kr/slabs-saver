@@ -10,6 +10,21 @@
       <a href="/author/articles/new">기사 작성</a>
       <a href="/author/articles">내 기사 목록</a>
     </div>
+
+    <!-- NOTE: category select -->
+    <br />
+    <label for="category">카테고리</label>
+    <select name="category" id="category">
+      <option value="all">전체</option>
+      <option value="politic">정치</option>
+      <option value="economy">경제</option>
+      <option value="technology">기술</option>
+      <option value="environment">환경</option>
+      <option value="science">과학</option>
+      <option value="health">건강</option>
+      <option value="sports">스포츠</option>
+    </select>
+
     <table class="styled-table">
       <!-- 기자: NO 헤드라인 작성자 작성일자  입력일시 게재일자 출고승인 -->
       <!-- 데스크: pm7 am7 (승인 버튼이 활성화) -->
@@ -52,7 +67,6 @@
           <!-- TODO: publisedAt 만들기  -->
           <td><%= Date.now() %></td>
           <td>
-            <!-- <th>출고</th> -->
             <!-- <%= article.isPublished %> -->
             <label>
               <input type="checkbox" name="color" value="blue" <%= article.isPublished ? 'checked '
@@ -60,14 +74,12 @@
             </label>
           </td>
           <td>
-            <!-- <th>승인</th> -->
             <label>
               <input type="checkbox" name="color" value="blue" <%= article.Confirmed ? 'checked ' :
               '' %> <%= currentUser.desk ? '' : 'disabled' %> >
             </label>
             <!-- <%= article.state %> -->
           </td>
-          <!-- <th>am7</th> -->
           <% if (currentUser.desk) { %>
           <td>
             <label>
@@ -89,5 +101,8 @@
         </tr> -->
       </tbody>
     </table>
+    <% if (currentUser.desk) { %>
+      <button>업데이트</button>
+    <% } %>
   </body>
 </html>
