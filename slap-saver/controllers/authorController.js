@@ -18,11 +18,17 @@ module.exports = {
         attributes: ['name', 'desk', 'code'],
       },
     });
+    currentUser.code = String(currentUser.code)[0];
     res.render('author/index', { articles, currentUser });
   },
 
   loginPage: (req, res, next) => {
     res.render('author/login', { title: 'login!!!' });
+  },
+
+  deskProcess: (req, res, next) => {
+    console.log(req.body);
+    res.redirect('/author');
   },
 
   logout: (req, res, next) => {
