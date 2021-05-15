@@ -139,12 +139,12 @@ module.exports = {
     Article.findOne({ where: { id: req.params.articleId } })
       .then((article) => {
         article.headline = req.body.headline;
-        article.category = req.body.categories;
+        article.category = req.body.category;
         if (req.file && req.file.filename) {
           article.image = req.file.filename;
         }
-        article.imageDesc = req.body.description;
-        article.imageFrom = req.body.source;
+        article.imageDesc = req.body.imageDesc;
+        article.imageFrom = req.body.imageFrom;
         article.briefing = req.body.briefing;
         if (additionalParagraph) {
           article.additionalParagraph = additionalParagraph;
