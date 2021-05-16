@@ -5,7 +5,9 @@
   </head>
   <body>
     <div class="side-nav">
-      <button class="side-nav__logout">로그아웃</button>
+      <a href="/author/logout">
+        <button class="side-nav__logout">로그아웃</button>
+      </a>
       <a href="/author/edit-meeting">편집 회의</a>
       <a href="/author/articles/new">기사 작성</a>
       <a href="/author/articles">내 기사 목록</a>
@@ -13,93 +15,107 @@
 
     <!-- NOTE: category select -->
     <br />
-    <label for="category">카테고리</label>
-    <select name="category" id="category">
-      <option value=0>전체</option>
-      <option value=1>정치</option>
-      <option value=2>경제</option>
-      <option value=3>기술</option>
-      <option value=4>환경</option>
-      <option value=5>과학</option>
-      <option value=6>건강</option>
-      <option value=7>스포츠</option>
-    </select>
-
-    <table class="table">
-      <!-- 기자: NO 헤드라인 작성자 작성일자  입력일시 게재일자 출고승인 -->
-      <!-- 데스크: pm7 am7 (승인 버튼이 활성화) -->
-      <!-- 편집장: 오늘의뉴스, 오늘의한마디, 최상단고정, 최종승인 -->
-      <thead class="table-header">
-        <tr class="table-haeder__row">
-          <th class="table-header__cell">NO</th>
-          <th class="table-header__cell">헤드라인</th>
-          <th class="table-header__cell">작성자</th>
-          <th class="table-header__cell">작성일자</th>
-          <th class="table-header__cell">입력일자</th>
-          <th class="table-header__cell">게재일자</th>
-          <th class="table-header__cell">출고</th>
-          <th class="table-header__cell">승인</th>
-          <% if (currentUser.desk) { %>
-          <th class="table-header__cell">pm7</th>
-          <th class="table-header__cell">am7</th>
-          <% } %>
-          <!-- NOTE: 데스크 -->
-          <!-- NOTE: 편집장 -->
-          <!-- <th>오늘의 뉴스</th>
-          <th>오늘의 한마디</th>
-          <th>최상단 고정</th>
-          <th>최종 승인</th> -->
-        </tr>
-      </thead>
-      <tbody class="table-body">
-        <!-- articles 반복문을 돌면서 아래를 출력할 것. -->
-          <% articles.map((article)=> { %>
-        <tr class="table-body__row">
-          <td class="table-body__cell"><%= article.id %></td>
-          <td class="table-body__cell"><%= article.headline %></td>
-          <td class="table-body__cell"><%= article.Author.name %></td>
-          <td class="table-body__cell"><%= article.createdAt %></td>
-          <td class="table-body__cell"><%= article.updatedAt %></td>
-          <!-- <th>게재일자</th> -->
-          <!-- TODO: publisedAt 만들기  -->
-          <td class="table-body__cell"><%= Date.now() %></td>
-          <td class="table-body__cell">
-            <!-- <%= article.isPublished %> -->
-            <label>
-              <input type="checkbox" <%= article.isPublished ? 'checked '
-              : '' %> disabled>
-            </label>
-          </td>
-          <td class="table-body__cell">
-            <label>
-              <input type="checkbox" <%= article.Confirmed ? 'checked ' :
-              '' %> <%= currentUser.desk ? '' : 'disabled' %> >
-            </label>
-            <!-- <%= article.state %> -->
-          </td>
-          <% if (currentUser.desk) { %>
-          <td class="table-body__cell">
-            <label>
-              <input type="checkbox" <%= article.am7 ? 'checked ' :
-              '' %> >
-            </label>
-          </td>
-          <td class="table-body__cell">
-            <label>
-              <input type="checkbox" <%= article.pm7 ? 'checked ' :
-              '' %> >
-            </label>
-          </td>
-          <% } %> <% }) %>
-        </tr>
-        <!-- <tr class="active-row">
-          <td>Melissa</td>
-          <td>5150</td>
-        </tr> -->
-      </tbody>
-    </table>
+    <form method="get" action="/author" enctype="multipart/form-data">
+      <label for="category">카테고리</label>
+      <select name="category" id="category">
+        <option value="0">전체</option>
+        <option value="1">정치</option>
+        <option value="2">경제</option>
+        <option value="3">기술</option>
+        <option value="4">환경</option>
+        <option value="5">과학</option>
+        <option value="6">건강</option>
+        <option value="7">스포츠</option>
+      </select>
+      <button type="submit">이동</button>
+    </form>
     <% if (currentUser.desk) { %>
-      <button>업데이트</button>
+    <a href="/author?category=<%= currentUser.code %>">
+      <button type="submit">마이데스킹</button>
+    </a>
     <% } %>
+    <form action="/author/desk-process" method="post">
+      <table class="table" name="table">
+        <!-- 기자: NO 헤드라인 작성자 작성일자  입력일시 게재일자 출고승인 -->
+        <!-- 데스크: pm7 am7 (승인 버튼이 활성화) -->
+        <!-- 편집장: 오늘의뉴스, 오늘의한마디, 최상단고정, 최종승인 -->
+        <thead class="table-header">
+          <tr class="table-haeder__row">
+            <th class="table-header__cell">NO</th>
+            <th class="table-header__cell">헤드라인</th>
+            <th class="table-header__cell">작성자</th>
+            <th class="table-header__cell">작성일자</th>
+            <th class="table-header__cell">입력일자</th>
+            <th class="table-header__cell">게재일자</th>
+            <th class="table-header__cell">출고</th>
+            <th class="table-header__cell">승인</th>
+            <% if (currentUser.desk) { %>
+            <th class="table-header__cell">am7</th>
+            <th class="table-header__cell">pm7</th>
+            <% } %>
+            <!-- NOTE: 데스크 -->
+            <!-- NOTE: 편집장 -->
+            <!-- <th>오늘의 뉴스</th>
+            <th>오늘의 한마디</th>
+            <th>최상단 고정</th>
+            <th>최종 승인</th> -->
+          </tr>
+        </thead>
+        <tbody class="table-body">
+          <!-- articles 반복문을 돌면서 아래를 출력할 것. -->
+          <% articles.map((article)=> { %>
+          <tr class="table-body__row" name="cols">
+            <td class="table-body__cell"><%= article.id %></td>
+            <td class="table-body__cell">
+              <a href="/articles/<%= article.id %>" target="_blank"> <%= article.headline %> </a>
+            </td>
+            <td class="table-body__cell"><%= article.Author.name %></td>
+            <td class="table-body__cell"><%= article.createdAt %></td>
+            <td class="table-body__cell"><%= article.updatedAt %></td>
+            <!-- <th>게재일자</th> -->
+            <!-- TODO: publisedAt 만들기  -->
+            <td class="table-body__cell"><%= Date.now() %></td>
+
+            <td class="table-body__cell">
+              <label for="published"> </label>
+              <input id="published" name="<%= article.Author.id %>" type="checkbox" <%=
+              article.isPublished ? 'checked ' : '' %> disabled>
+            </td>
+
+            <td class="table-body__cell">
+              <label for="confirmed"> </label>
+              <input id="confirmed" type="checkbox" <%= article.confirmed ? "checked" : "" %> <%=
+              currentUser.desk ? "" : "disabled" %> <%= +currentUser.code !== article.category ?
+              "disabled" : "" %> <%= article.state ? '' : 'disabled' %> /> <% if (+currentUser.code
+              === article.category && article.state) { %> <input class="hidden" type="hidden"
+              name="<%= article.id %>" value=<%= article.confirmed ? "1" : "0" %> /> <% } %>
+            </td>
+
+            <% if (currentUser.desk) { %>
+            <td class="table-body__cell">
+              <label for="am7"></label>
+              <input id="am7" type="checkbox" <%= article.am7 ? 'checked ' : '' %> <%=
+              +currentUser.code !== article.category ? 'disabled' : '' %> <%= article.state ? '' :
+              'disabled' %> /> <% if (+currentUser.code === article.category && article.state) { %>
+              <input class="hidden" type="hidden" name="<%= article.id %>" value=<%= article.am7 ?
+              '1' : '0' %> /> <% } %>
+            </td>
+            <td class="table-body__cell">
+              <label for="pm7"> </label>
+              <input id="pm7" type="checkbox" <%= article.pm7 ? 'checked ' : '' %> <%=
+              +currentUser.code !== article.category ? 'disabled' : '' %> <%= article.state ? '' :
+              'disabled' %> /> <% if (+currentUser.code === article.category && article.state) { %>
+              <input class="hidden" type="hidden" name="<%= article.id %>" value=<%= article.pm7 ?
+              '1' : '0' %> /> <% } %>
+            </td>
+            <% } %> <% }) %>
+          </tr>
+        </tbody>
+      </table>
+      <% if (currentUser.desk) { %>
+      <button class="update-btn" type="submit">업데이트</button>
+      <% } %>
+    </form>
+    <script src="/javascripts/author/index.js"></script>
   </body>
 </html>
