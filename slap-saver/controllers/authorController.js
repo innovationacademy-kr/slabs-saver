@@ -9,13 +9,13 @@ module.exports = {
     const currentUser = await getCurrentUser(req.user?.id);
     if (!currentUser) res.redirect('/author/login');
     // TODO: 최근의 기사를 가져올 수 있게 sort 기능을 추가하자
-    const category = isEmptyObject(req.query) || req.query.category === '0' ?
-      CATEGORY.ALL : +req.query.category;
+    const category =
+      isEmptyObject(req.query) || req.query.category === '0' ? CATEGORY.ALL : +req.query.category;
     const articles = await Article.findAll({
       where: { category },
       include: {
         model: Author,
-        attributes: ['name', 'desk', 'code'],
+        attributes: ['id', 'name', 'desk', 'code'],
       },
     });
     currentUser.code = String(currentUser.code)[0];
@@ -26,8 +26,23 @@ module.exports = {
     res.render('author/login', { title: 'login!!!' });
   },
 
-  deskProcess: (req, res, next) => {
-    console.log(req.body);
+  deskProcess: async (req, res, next) => {
+    const articles = JSON.parse(JSON.stringify(req.body));
+    // TODO: 로딩 페이지 띄우기
+    await Promise.all(
+      Object.entries(articles).map(async (article) => {
+        await Article.update(
+          {
+            confirmed: +article[1][0],
+            am7: +article[1][1],
+            pm7: +article[1][2],
+          },
+          {
+            where: { id: +article[0][0] },
+          },
+        );
+      }),
+    );
     res.redirect('/author');
   },
 
