@@ -19,7 +19,9 @@
       </article>
       <article class="articles">
           <% Articles.map((article) => { %>
-            <%- include('partials/articleCard.ejs', { article }) %> 
+            <% if (article.confirmed) { %>
+              <%- include('partials/articleCard.ejs', { article }) %> 
+            <% } %>
           <% }) %>
         </article>
       </article>
