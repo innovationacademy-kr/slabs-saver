@@ -102,7 +102,7 @@ a {
 
 .article__image--info {
   color: var(--darker-text);
-  font-size: 0.8rem;
+  font-size: 1.3rem;
 }
 
 .article__image--info > p {

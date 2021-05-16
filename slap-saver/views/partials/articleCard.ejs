@@ -21,14 +21,16 @@
     </div>
     <img class="article__image" src=<%=article.image %> >
     <div class="article__image--info">
-      <p>Lorem Ipsum is simply dummy text of theLorem Ipsum is simply dummy text of the Lorem Ipsum is simply dummy
-        text
-        of the Lorem Ipsum is simply dummy text of the Lorem Ipsum is simply dummy text of the</p>
-      <p>Lorem Ipsum is simply dummy text of the</p>
+      <p>
+        <%= article.imageDesc %>
+      </p>
+      <p>
+        <%= article.imageFrom %>
+      </p>
     </div>
-    <p class="article__briefing">Lorem Ipsum is simply dummy text of the printing and type, but also the leap into
-      electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of
-      Letraset sheets containing Loremore recently with desktop publishing so of Lorem Ipsum.</p>
+    <p class="article__briefing">
+      <%= article.briefing %>
+    </p>
     <hr class="solid" noshade="true">
   </article>
 </a>
