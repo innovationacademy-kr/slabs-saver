@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500&display=swap');
+
 :root {
   --light-text: #666464;
   --darker-text: #636566;
@@ -5,21 +7,21 @@
 
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
+  /* font: 14px 'Lucida Grande', Helvetica, Arial, sans-serif; */
 }
 
 a {
-  color: #00B7FF;
+  color: #00b7ff;
 }
 
 .main-title {
   font-size: 2rem;
 }
 
-
 /* 오늘의 뉴스 */
 
-.today-article__title{
+.today-article__title {
   margin-top: 2em;
   font-weight: bold;
 }
@@ -32,7 +34,7 @@ a {
 
 /* 오늘의 한마디 */
 
-.today-words__title{
+.today-words__title {
   margin-top: 2em;
   font-weight: bold;
 }
@@ -56,14 +58,24 @@ a {
 }
 
 .article__title {
+  margin: 0;
+  padding: 10px 0px;
   font-size: 4rem;
   font-weight: 500;
-  margin-bottom: 0.5em;
 }
 
 .article__info {
+  display: flex;
+  align-items: center;
   color: var(--light-text);
-  margin-bottom: 1em;
+  padding: 1em 0;
+}
+
+.article__info--authorImg {
+  width: 100px;
+  height: 80px;
+  border-radius: 50%;
+  image-rendering: auto;
 }
 
 .article__info p {
@@ -72,8 +84,14 @@ a {
 
 .article__info div {
   display: flex;
-  justify-content: space-between;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
   font-size: 1.5rem;
+}
+
+.article__info div div {
+  width: 50%;
 }
 
 .article__image {
@@ -84,7 +102,7 @@ a {
 
 .article__image--info {
   color: var(--darker-text);
-  font-size: 0.8rem;
+  font-size: 1.3rem;
 }
 
 .article__image--info > p {
@@ -98,6 +116,38 @@ a {
 }
 
 hr.solid {
-  margin-top: 5rem;
-  border-top: 1px solid #bbb;
+  margin: 5rem;
+  border: solid 1px #cacaca;
+}
+
+/* 기사 상세 화면 */
+
+.detail__article {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+
+/* GENERAL BUTTON STYLING */
+.detail__article--button,
+.detail__article--button:active {
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
+}
+
+.detail__article--button {
+  background: none;
+  border: 3px solid #2e5bcc;
+  border-radius: 5px;
+  color: #2e5bcc;
+  font-size: 1.6em;
+  font-weight: bold;
+  padding: 2em 6em;
+}
+
+.detail__article--button:active {
+  color: #fff;
+  background-color: #2e5bcc;
 }

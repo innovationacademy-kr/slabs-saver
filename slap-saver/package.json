@@ -9,6 +9,8 @@
     "clear": "rm -rf db/srcs/data",
     "reset": "npm run clear && npm run db",
     "test": "node ./bin/www",
+    "seed-npx": "npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
+    "undo-seed-npx": "npx sequelize-cli db:migrate:undo && npx seqeulize-cli db:seed:undo:all",
     "do": "sequelize db:migrate && sequelize db:seed:all",
     "m": "sequelize db:migrate",
     "s": "sequelize db:seed:all",
