@@ -41,11 +41,11 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       briefing: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false,
       },
       additionalParagraph: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
       },
       // NOTE: 출고 여부를 알려준다. 출고가 됐다는 것은 편집장의 최종 승인이 있었다는 것.
       isPublished: {
