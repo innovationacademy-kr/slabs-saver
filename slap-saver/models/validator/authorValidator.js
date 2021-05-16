@@ -1,4 +1,11 @@
 module.exports = {
+  code: (value) => {
+    const validCode = [1, 2, 3, 201, 2001];
+    if (!validCode.includes(+value)) {
+      throw new Error('올바른 코드를 입력하세요');
+    }
+  },
+  // TODO: 정규표현 검사는 커스텀을 따로 만들 필요가 없다. 이후에 수정하자.
   password: (value) => {
     // NOTE: password check -> 영 + 숫자 6자리 ~ 15
     if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,15}$/.test(value)) {
