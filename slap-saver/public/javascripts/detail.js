@@ -1,4 +1,4 @@
-const detailBtn = document.querySelector('.article-detail');
+const detailBtn = document.querySelector('.detail__article--button');
 
 const detailSection = document.querySelector('.detail-sections');
 
