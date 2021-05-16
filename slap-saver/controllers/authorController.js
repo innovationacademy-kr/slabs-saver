@@ -1,33 +1,49 @@
 const alert = require('alert');
-const moment = require('moment');
+const getCurrentUser = require('../lib/getCurrentUser');
+const isEmptyObject = require('../lib/isEmptyObject');
+const CATEGORY = require('../lib/constants/category');
 const { Author, Article } = require('../models');
 
 module.exports = {
   index: async (req, res, next) => {
-    const articlesObj = await Article.findAll({
+    const currentUser = await getCurrentUser(req.user?.id);
+    if (!currentUser) res.redirect('/author/login');
+    // TODO: 최근의 기사를 가져올 수 있게 sort 기능을 추가하자
+    const category =
+      isEmptyObject(req.query) || req.query.category === '0' ? CATEGORY.ALL : +req.query.category;
+    const articles = await Article.findAll({
+      where: { category },
       include: {
         model: Author,
-        attributes: ['name', 'desk'],
+        attributes: ['id', 'name', 'desk', 'code'],
       },
     });
-    const currentUser = await Author.findOne({
-      where: {
-        id: req.user.id,
-      },
-      attributes: ['desk'],
-    });
-    const articles = articlesObj.map((article) => {
-      return {
-        ...article.dataValues,
-        createdAt: moment(article.getDataValue('createdAt')).format('YYYY.MM.DD HH:mm:ss'),
-        updatedAt: moment(article.getDataValue('updatedAt')).format('YYYY.MM.DD HH:mm:ss'),
-      };
-    });
+    currentUser.code = String(currentUser.code)[0];
     res.render('author/index', { articles, currentUser });
   },
 
   loginPage: (req, res, next) => {
     res.render('author/login', { title: 'login!!!' });
+  },
+
+  deskProcess: async (req, res, next) => {
+    const articles = JSON.parse(JSON.stringify(req.body));
+    // TODO: 로딩 페이지 띄우기
+    await Promise.all(
+      Object.entries(articles).map(async (article) => {
+        await Article.update(
+          {
+            confirmed: +article[1][0],
+            am7: +article[1][1],
+            pm7: +article[1][2],
+          },
+          {
+            where: { id: +article[0] },
+          },
+        );
+      }),
+    );
+    res.redirect('/author');
   },
 
   logout: (req, res, next) => {

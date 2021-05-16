@@ -8,7 +8,22 @@ module.exports = {
     await Promise.all(
       authors.map(async (author) => {
         await author.createArticle({
-          headline: `article from ${author.email}`,
+          headline: '경제 기사',
+          category: CATEGORY.ECONOMY,
+          author: author.name,
+          image: 'a74dc438fb6834f35e6c7968b57ae25f',
+          imageDesc: 'this is image description',
+          imageFrom: 'image source',
+          briefing: 'this is briefing',
+          additionalParagraph: 'additional paragraph',
+          state: true,
+        });
+      }),
+    );
+    await Promise.all(
+      authors.map(async (author) => {
+        await author.createArticle({
+          headline: '정치 기사',
           category: CATEGORY.POLITIC,
           author: author.email,
           image: '97579e23841e5530661bcf43dc4001f3',
@@ -24,6 +39,20 @@ module.exports = {
           Between the lines: In a contentious exchange with Sen. Rand Paul this week, Anthony Fauci said he was "fully in favor of any further investigation of what went on in China," while denying the National Institutes of Health had funded any "gain of function" research in China\'s Wuhan Institute of Virology.|-| \
           Former New York Times science journalist Nicholas Wade raised more questions recently with a long article noting, among other things, the paucity of any clear evidence of a zoological spillover more than 16 months after the pandemic began.|-| \
           The bottom line: Given the Chinese government\'s opacity on the issue, we may never know the true origins of a virus that has killed millions of people.',
+        });
+      }),
+    );
+    await Promise.all(
+      authors.map(async (author) => {
+        await author.createArticle({
+          headline: '스포츠 기사',
+          category: CATEGORY.SPORTS,
+          author: author.name,
+          image: 'a74dc438fb6834f35e6c7968b57ae25f',
+          imageDesc: 'this is image description',
+          imageFrom: 'image source',
+          briefing: 'this is briefing',
+          additionalParagraph: 'additional paragraph',
         });
       }),
     );
