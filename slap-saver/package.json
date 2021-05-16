@@ -7,7 +7,9 @@
     "db": "cd db && docker-compose up",
     "clear": "rm -rf db/srcs/data",
     "reset": "npm run clear && npm run db",
-    "test": "node ./bin/www"
+    "test": "node ./bin/www",
+    "seed-npx": "npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
+    "undo-seed-npx": "npx sequelize-cli db:migrate:undo && npx seqeulize-cli db:seed:undo:all"
   },
   "dependencies": {
     "alert": "^5.0.10",

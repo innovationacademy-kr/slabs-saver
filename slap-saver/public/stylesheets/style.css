@@ -5,21 +5,20 @@
 
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 14px 'Lucida Grande', Helvetica, Arial, sans-serif;
 }
 
 a {
-  color: #00B7FF;
+  color: #00b7ff;
 }
 
 .main-title {
   font-size: 2rem;
 }
 
-
 /* 오늘의 뉴스 */
 
-.today-article__title{
+.today-article__title {
   margin-top: 2em;
   font-weight: bold;
 }
@@ -32,7 +31,7 @@ a {
 
 /* 오늘의 한마디 */
 
-.today-words__title{
+.today-words__title {
   margin-top: 2em;
   font-weight: bold;
 }
@@ -56,14 +55,23 @@ a {
 }
 
 .article__title {
+  margin: 0;
   font-size: 4rem;
   font-weight: 500;
-  margin-bottom: 0.5em;
 }
 
 .article__info {
+  display: flex;
+  align-items: center;
   color: var(--light-text);
   margin-bottom: 1em;
+}
+
+.article__info--authorImg {
+  width: 100px;
+  height: 80px;
+  border-radius: 50%;
+  image-rendering: auto;
 }
 
 .article__info p {
@@ -72,8 +80,14 @@ a {
 
 .article__info div {
   display: flex;
+  width: 100%;
   justify-content: space-between;
+  align-items: center;
   font-size: 1.5rem;
+}
+
+.article__info div div {
+  width: 50%;
 }
 
 .article__image {
