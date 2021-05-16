@@ -15,24 +15,24 @@
 
     <!-- NOTE: category select -->
     <br />
-  <form method="get" action="/author" enctype="multipart/form-data">
+    <form method="get" action="/author" enctype="multipart/form-data">
       <label for="category">카테고리</label>
       <select name="category" id="category">
-        <option value=0>전체</option>
-        <option value=1>정치</option>
-        <option value=2>경제</option>
-        <option value=3>기술</option>
-        <option value=4>환경</option>
-        <option value=5>과학</option>
-        <option value=6>건강</option>
-        <option value=7>스포츠</option>
+        <option value="0">전체</option>
+        <option value="1">정치</option>
+        <option value="2">경제</option>
+        <option value="3">기술</option>
+        <option value="4">환경</option>
+        <option value="5">과학</option>
+        <option value="6">건강</option>
+        <option value="7">스포츠</option>
       </select>
       <button type="submit">이동</button>
     </form>
     <% if (currentUser.desk) { %>
-      <a href="/author?category=<%= currentUser.code %>">
-        <button type="submit"> 마이데스킹 </button>
-      </a>
+    <a href="/author?category=<%= currentUser.code %>">
+      <button type="submit">마이데스킹</button>
+    </a>
     <% } %>
     <form action="/author/desk-process" method="post">
       <table class="table" name="table">
@@ -63,54 +63,59 @@
         </thead>
         <tbody class="table-body">
           <!-- articles 반복문을 돌면서 아래를 출력할 것. -->
-            <% articles.map((article)=> { %>
-          <tr class="table-body__row">
+          <% articles.map((article)=> { %>
+          <tr class="table-body__row" name="cols">
             <td class="table-body__cell"><%= article.id %></td>
-            <td class="table-body__cell"> <a href="/articles/<%= article.id %>" target="_blank"> <%= article.headline %> </a> </td>
+            <td class="table-body__cell">
+              <a href="/articles/<%= article.id %>" target="_blank"> <%= article.headline %> </a>
+            </td>
             <td class="table-body__cell"><%= article.Author.name %></td>
             <td class="table-body__cell"><%= article.createdAt %></td>
             <td class="table-body__cell"><%= article.updatedAt %></td>
             <!-- <th>게재일자</th> -->
             <!-- TODO: publisedAt 만들기  -->
             <td class="table-body__cell"><%= Date.now() %></td>
+
             <td class="table-body__cell">
-              <!-- <%= article.isPublished %> -->
-              <label for="published">
-              </label>
-                <input id="published" name="published" type="checkbox" <%= article.isPublished ? 'checked '
-                : '' %> disabled>
+              <label for="published"> </label>
+              <input id="published" name="<%= article.Author.id %>" type="checkbox" <%=
+              article.isPublished ? 'checked ' : '' %> disabled>
             </td>
+
             <td class="table-body__cell">
-              <label>
-                <input type="checkbox" <%= article.Confirmed ? 'checked ' :
-                '' %> <%= currentUser.desk ? '' : 'disabled' %> <%= +currentUser.code !== article.category ? 'disabled' : '' %> >
-              </label>
-              <!-- <%= article.state %> -->
+              <label for="confirmed"> </label>
+              <input id="confirmed" type="checkbox" <%= article.confirmed ? "checked" : "" %> <%=
+              currentUser.desk ? "" : "disabled" %> <%= +currentUser.code !== article.category ?
+              "disabled" : "" %> <%= article.state ? '' : 'disabled' %> /> <% if (+currentUser.code
+              === article.category) { %> <input class="hidden" type="hidden" name="<%=
+              article.Author.id %>" value=<%= article.confirmed ? "1" : "0" %> /> <% } %>
             </td>
+
             <% if (currentUser.desk) { %>
             <td class="table-body__cell">
-              <label for="am7">
-                <input id="am7" name="am7" type="checkbox" <%= article.am7 ? 'checked ' :
-                '' %> <%= +currentUser.code !== article.category ? 'disabled' : '' %> >
-              </label>
+              <label for="am7"></label>
+              <input id="am7" type="checkbox" <%= article.am7 ? 'checked ' : '' %> <%=
+              +currentUser.code !== article.category ? 'disabled' : '' %> <%= article.state ? '' :
+              'disabled' %> /> <% if (+currentUser.code === article.category) { %> <input
+              class="hidden" type="hidden" name="<%= article.Author.id %>" value=<%= article.am7 ?
+              '1' : '0' %> /> <% } %>
             </td>
             <td class="table-body__cell">
-              <label>
-                <input type="checkbox" <%= article.pm7 ? 'checked ' :
-                '' %> <%= +currentUser.code !== article.category ? 'disabled' : '' %> >
-              </label>
+              <label for="pm7"> </label>
+              <input id="pm7" type="checkbox" <%= article.pm7 ? 'checked ' : '' %> <%=
+              +currentUser.code !== article.category ? 'disabled' : '' %> <%= article.state ? '' :
+              'disabled' %> /> <% if (+currentUser.code === article.category) { %> <input
+              class="hidden" type="hidden" name="<%= article.Author.id %>" value=<%= article.pm7 ?
+              '1' : '0' %> /> <% } %>
             </td>
             <% } %> <% }) %>
           </tr>
-          <!-- <tr class="active-row">
-            <td>Melissa</td>
-            <td>5150</td>
-          </tr> -->
         </tbody>
       </table>
       <% if (currentUser.desk) { %>
-        <button type="submit">업데이트</button>
+      <button class="update-btn" type="submit">업데이트</button>
       <% } %>
     </form>
+    <script src="/javascripts/author/index.js"></script>
   </body>
 </html>
