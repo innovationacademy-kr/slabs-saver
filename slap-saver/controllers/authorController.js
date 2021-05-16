@@ -38,7 +38,7 @@ module.exports = {
             pm7: +article[1][2],
           },
           {
-            where: { id: +article[0][0] },
+            where: { id: +article[0] },
           },
         );
       }),

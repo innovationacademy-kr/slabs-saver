@@ -87,8 +87,8 @@
               <input id="confirmed" type="checkbox" <%= article.confirmed ? "checked" : "" %> <%=
               currentUser.desk ? "" : "disabled" %> <%= +currentUser.code !== article.category ?
               "disabled" : "" %> <%= article.state ? '' : 'disabled' %> /> <% if (+currentUser.code
-              === article.category) { %> <input class="hidden" type="hidden" name="<%=
-              article.Author.id %>" value=<%= article.confirmed ? "1" : "0" %> /> <% } %>
+              === article.category && article.state) { %> <input class="hidden" type="hidden"
+              name="<%= article.id %>" value=<%= article.confirmed ? "1" : "0" %> /> <% } %>
             </td>
 
             <% if (currentUser.desk) { %>
@@ -96,16 +96,16 @@
               <label for="am7"></label>
               <input id="am7" type="checkbox" <%= article.am7 ? 'checked ' : '' %> <%=
               +currentUser.code !== article.category ? 'disabled' : '' %> <%= article.state ? '' :
-              'disabled' %> /> <% if (+currentUser.code === article.category) { %> <input
-              class="hidden" type="hidden" name="<%= article.Author.id %>" value=<%= article.am7 ?
+              'disabled' %> /> <% if (+currentUser.code === article.category && article.state) { %>
+              <input class="hidden" type="hidden" name="<%= article.id %>" value=<%= article.am7 ?
               '1' : '0' %> /> <% } %>
             </td>
             <td class="table-body__cell">
               <label for="pm7"> </label>
               <input id="pm7" type="checkbox" <%= article.pm7 ? 'checked ' : '' %> <%=
               +currentUser.code !== article.category ? 'disabled' : '' %> <%= article.state ? '' :
-              'disabled' %> /> <% if (+currentUser.code === article.category) { %> <input
-              class="hidden" type="hidden" name="<%= article.Author.id %>" value=<%= article.pm7 ?
+              'disabled' %> /> <% if (+currentUser.code === article.category && article.state) { %>
+              <input class="hidden" type="hidden" name="<%= article.id %>" value=<%= article.pm7 ?
               '1' : '0' %> /> <% } %>
             </td>
             <% } %> <% }) %>
