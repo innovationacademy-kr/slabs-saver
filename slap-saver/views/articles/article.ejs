@@ -1,28 +1,62 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <section class="content">
-      <article>
-        <h1> <%= article.headline %></h1>
-        <span><%= article.category %></span>
-        <span><%= article.author %></span>
-        <img width="320px" height="320px" src=<%= `/images/articleImages/${article.image}` %> />
-        <p><%= article.imageDesc %></p>
-        <p><%= article.imageFrom %></p>
-        <p><%= article.briefing %></p>
-        <button class="article-detail">더 자세히</button>
-        <article class="detail-sections" style="display: none;">
-          <% article.additionalParagraph.forEach((p)=> { %>
-            <p> <%=p %> </p>
+
+<head>
+  <title>
+    <!-- <%= article.headline %> -->
+    신규 확진 610명…일상 속 감염비율 높아
+  </title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+  <article class="article-wrapper">
+    <h1 class="article__title">
+      <!-- <%= article.headline %> -->
+      신규 확진 610명…일상 속 감염비율 높아
+    </h1>
+    <div class="article__info">
+      <div>
+        <img class="article__info--authorImg" src=<%=article.authorImg %> />
+        <div>
+          <span>
+            <%= article.author %>
+          </span>
+          <span>
+            <%= article.category %>
+          </span>
+        </div>
+        <span>
+          <%= article.updatedAt %> 작성됨
+        </span>
+      </div>
+    </div>
+    <img class="article__image" src=<%=article.image %> >
+    <div class="article__image--info">
+      <p>
+        <%= article.imageDesc %>
+      </p>
+      <p>
+        <%= article.imageFrom %>
+      </p>
+    </div>
+    <p class="article__briefing">
+      <%= article.briefing %>
+    </p>
+  </article>
+  <section class="detail">
+    <article class="detail__article">
+      <button class="detail__article--button">자세히 보기</button>
+      <article class="detail-sections" style="display: none;">
+        <% article.additionalParagraph.forEach((p)=> { %>
+          <p class="article__briefing">
+            <%=p %>
+          </p>
           <% }) %>
-        </article>
       </article>
-    </section>
-    <script src="/javascripts/detail.js"></script>
-  </body>
+    </article>
+  </section>
+  <script src="/javascripts/detail.js"></script>
+</body>
+
 </html>
