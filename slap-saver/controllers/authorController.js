@@ -1,10 +1,31 @@
 const alert = require('alert');
+const moment = require('moment');
 const { Author, Article } = require('../models');
 
 module.exports = {
-  index: (req, res, next) => {
-    res.render('author/index', { title: 'authors!!!' });
+  index: async (req, res, next) => {
+    const articlesObj = await Article.findAll({
+      include: {
+        model: Author,
+        attributes: ['name', 'desk'],
+      },
+    });
+    const currentUser = await Author.findOne({
+      where: {
+        id: req.user.id,
+      },
+      attributes: ['desk'],
+    });
+    const articles = articlesObj.map((article) => {
+      return {
+        ...article.dataValues,
+        createdAt: moment(article.getDataValue('createdAt')).format('YYYY.MM.DD HH:mm:ss'),
+        updatedAt: moment(article.getDataValue('updatedAt')).format('YYYY.MM.DD HH:mm:ss'),
+      };
+    });
+    res.render('author/index', { articles, currentUser });
   },
+
   loginPage: (req, res, next) => {
     res.render('author/login', { title: 'login!!!' });
   },
@@ -31,7 +52,7 @@ module.exports = {
   },
 
   signup: async (req, res, next) => {
-    const { email, password, confirm, contact } = req.body;
+    const { email, password, confirm, name, code, contact } = req.body;
     const photo = req.file ? req.file.filename : null;
     if (password !== confirm) {
       alert('비밀번호가 같지 않습니다.');
@@ -39,7 +60,7 @@ module.exports = {
     }
     // TODO: Author Service 객체 만들어서 추상화하기
     try {
-      await Author.create({ email, password, contact, photo });
+      await Author.create({ email, password, name, code, contact, photo });
     } catch (error) {
       if (error.errors) {
         error.errors.forEach((e) => {
@@ -63,10 +84,10 @@ module.exports = {
 
   newArticle: async (req, res, next) => {
     const {
-      body: { headline, categories, description, source, briefing, additionalParagraph },
+      body: { headline, category, imageDesc, imageFrom, briefing, additionalParagraph },
       user: { id },
     } = req;
-    const image = req.file ? req.file.filename : null;
+    // const image = req.file ? req.file.filename : null;
     const paragraphs = Array.isArray(additionalParagraph)
       ? additionalParagraph.join('|-|')
       : additionalParagraph;
@@ -74,13 +95,14 @@ module.exports = {
       const author = await Author.findOne({ where: { id } });
       await author.createArticle({
         headline,
-        author: author.email,
-        category: categories,
-        image,
-        imageDesc: description,
-        imageFrom: source,
+        category,
+        imageDesc,
+        imageFrom,
         briefing,
+        author: author.name,
+        image: req.file ? req.file.filename : null,
         additionalParagraph: paragraphs,
+        state: req.body.saveBtn === '' ? false : true,
       });
       alert('저장에 성공하였습니다.');
     } catch (error) {
@@ -117,16 +139,17 @@ module.exports = {
     Article.findOne({ where: { id: req.params.articleId } })
       .then((article) => {
         article.headline = req.body.headline;
-        article.category = req.body.categories;
+        article.category = req.body.category;
         if (req.file && req.file.filename) {
           article.image = req.file.filename;
         }
-        article.imageDesc = req.body.description;
-        article.imageFrom = req.body.source;
+        article.imageDesc = req.body.imageDesc;
+        article.imageFrom = req.body.imageFrom;
         article.briefing = req.body.briefing;
         if (additionalParagraph) {
           article.additionalParagraph = additionalParagraph;
         }
+        article.state = req.body.saveBtn !== '';
         article.save();
       })
       .then(() => res.redirect('/author/articles'))
