@@ -40,11 +40,11 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       briefing: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false,
       },
       additionalParagraph: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
       },
       isPublished: {
         type: DataTypes.BOOLEAN,

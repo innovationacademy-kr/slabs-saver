@@ -31,11 +31,11 @@ module.exports = {
         allowNull: false,
       },
       briefing: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
         allowNull: false,
       },
       additionalParagraph: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
       },
       isPublished: {
         type: Sequelize.BOOLEAN,
