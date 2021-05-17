@@ -1,7 +1,6 @@
 const { Model } = require('sequelize');
 const moment = require('moment');
 
-
 module.exports = (sequelize, DataTypes) => {
   class Article extends Model {
     /**
@@ -72,6 +71,11 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: false,
         allowNull: false,
       },
+      status: {
+        type: DataTypes.INTEGER,
+        defaultValue: 1,
+        allowNull: false,
+      },
       confirmed: {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
@@ -81,15 +85,15 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.DATE,
         get() {
-          return moment(this.getDataValue('createdAt')).format('YYYY.MM.DD HH:mm:ss')
-        }
+          return moment(this.getDataValue('createdAt')).format('YYYY.MM.DD HH:mm:ss');
+        },
       },
       updatedAt: {
         allowNull: false,
         type: DataTypes.DATE,
         get() {
-          return moment(this.getDataValue('updatedAt')).format('YYYY.MM.DD HH:mm:ss')
-        }
+          return moment(this.getDataValue('updatedAt')).format('YYYY.MM.DD HH:mm:ss');
+        },
       },
     },
     {
