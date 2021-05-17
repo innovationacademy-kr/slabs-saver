@@ -5,4 +5,4 @@ module.exports = async (id) => {
     where: { id },
   });
   return user;
-}
+};

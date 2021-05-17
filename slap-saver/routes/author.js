@@ -88,6 +88,9 @@ module.exports = (passport) => {
 
   // NOTE: 신원인증 요청
   router.post('/auth', authorCtrl.authRequest);
-  
+
+  // NOTE: admin 페이지
+  router.get('/_admin', authorCtrl.admin);
+
   return router;
 };
