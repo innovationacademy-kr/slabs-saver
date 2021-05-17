@@ -5,6 +5,26 @@
   --light-gray: #dddddd;
 }
 
+a {
+  text-decoration: none;
+}
+
+button {
+  margin-left: 5px;
+}
+
+.desking-table {
+  display: flex;
+  margin: auto;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.desking-table__category {
+  display: flex;
+}
+
 .table {
   border-collapse: collapse;
   margin: 25px 0;
@@ -25,7 +45,7 @@
   padding: 12px 15px;
 }
 
-  .table-body__row {
+.table-body__row {
   border-bottom: 1px solid var(--light-gray);
 }
 
