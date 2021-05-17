@@ -15,7 +15,7 @@ module.exports = {
       where: { category },
       include: {
         model: Author,
-        attributes: ['id', 'name', 'desk', 'code'],
+        attributes: ['id', 'name', 'code'],
       },
     });
     currentUser.code = String(currentUser.code)[0];
