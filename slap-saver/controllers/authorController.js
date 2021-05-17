@@ -2,7 +2,7 @@ const alert = require('alert');
 const getCurrentUser = require('../lib/getCurrentUser');
 const isEmptyObject = require('../lib/isEmptyObject');
 const CATEGORY = require('../lib/constants/category');
-const { Author, Article } = require('../models');
+const { Author, Article, Authentication } = require('../models');
 
 module.exports = {
   index: async (req, res, next) => {
@@ -197,4 +197,25 @@ module.exports = {
       })
       .catch((err) => console.log(err));
   },
+
+  auth: (req, res, next) => {
+    res.render('author/auth', {title: "승인 페이지"});
+  },
+
+  authRequest: async (req, res, next) => {
+    const { email, name } = req.body;
+    try {
+      await Authentication.create({ email, name });
+    } catch (error) {
+      if (error.errors) {
+        error.errors.forEach((e) => {
+          alert(e.message);
+        });
+      } else {
+        alert('알 수 없는 에러 발생');
+      }
+      return res.redirect('/author/signup');
+    }
+    return res.redirect('/author/login');
+  }
 };

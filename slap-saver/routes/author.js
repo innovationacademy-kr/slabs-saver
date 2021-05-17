@@ -82,5 +82,12 @@ module.exports = (passport) => {
 
   // NOTE: 기사 확인 페이지
   router.get('/articles/preview/:articleId', loggedIn, authorCtrl.previewPage);
+
+  // NOTE: 신원인증
+  router.get('/auth', authorCtrl.auth);
+
+  // NOTE: 신원인증 요청
+  router.post('/auth', authorCtrl.authRequest);
+  
   return router;
 };
