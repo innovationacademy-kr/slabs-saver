@@ -58,6 +58,11 @@ module.exports = {
         defaultValue: false,
         allowNull: false,
       },
+      status: {
+        type: Sequelize.INTEGER,
+        defaultValue: 1,
+        allowNull: false,
+      },
       confirmed: {
         type: Sequelize.BOOLEAN,
         defaultValue: false,

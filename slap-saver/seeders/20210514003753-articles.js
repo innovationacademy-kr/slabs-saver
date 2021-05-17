@@ -1,4 +1,3 @@
-'use strict';
 const { Author } = require('../models');
 const CATEGORY = require('../lib/constants/category');
 
@@ -17,6 +16,7 @@ module.exports = {
           briefing: 'this is briefing',
           additionalParagraph: 'additional paragraph',
           state: true,
+          status: 2,
         });
       }),
     );
@@ -39,6 +39,7 @@ module.exports = {
           Between the lines: In a contentious exchange with Sen. Rand Paul this week, Anthony Fauci said he was "fully in favor of any further investigation of what went on in China," while denying the National Institutes of Health had funded any "gain of function" research in China\'s Wuhan Institute of Virology.|-| \
           Former New York Times science journalist Nicholas Wade raised more questions recently with a long article noting, among other things, the paucity of any clear evidence of a zoological spillover more than 16 months after the pandemic began.|-| \
           The bottom line: Given the Chinese government\'s opacity on the issue, we may never know the true origins of a virus that has killed millions of people.',
+          status: 1,
         });
       }),
     );
@@ -53,6 +54,7 @@ module.exports = {
           imageFrom: 'image source',
           briefing: 'this is briefing',
           additionalParagraph: 'additional paragraph',
+          status: 1,
         });
       }),
     );
