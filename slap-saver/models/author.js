@@ -47,6 +47,11 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: false,
         allowNull: false,
       },
+      position: {
+        type: DataTypes.INTEGER,
+        defaultValue: 1,
+        allowNull: false,
+      },
       contact: {
         type: DataTypes.STRING,
         allowNull: false,

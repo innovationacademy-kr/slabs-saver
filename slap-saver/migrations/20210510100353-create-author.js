@@ -25,6 +25,11 @@ module.exports = {
         defaultValue: false,
         allowNull: false,
       },
+      position: {
+        type: Sequelize.INTEGER,
+        defaultValue: 1,
+        allowNull: false,
+      },
       contact: {
         type: Sequelize.STRING,
         allowNull: false,
