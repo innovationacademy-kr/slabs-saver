@@ -198,8 +198,10 @@ module.exports = {
       .catch((err) => console.log(err));
   },
 
+  // admin //
+
   auth: (req, res, next) => {
-    res.render('author/auth', {title: "승인 페이지"});
+    res.render('author/auth', { title: '승인 페이지' });
   },
 
   authRequest: async (req, res, next) => {
@@ -217,5 +219,19 @@ module.exports = {
       return res.redirect('/author/signup');
     }
     return res.redirect('/author/login');
-  }
+  },
+
+  admin: async (req, res, next) => {
+    if (!req.user) {
+      res.redirect('/author/login');
+    }
+    const currentUser = await getCurrentUser(req.user?.id);
+    if (currentUser.code !== 4) {
+      // NOTE: confirm이 더 낫나?
+      alert('권한이 없습니다.');
+      res.redirect('/author');
+    }
+    const standByUser = await Authentication.findAll({ where: { isApproved: 0 } });
+    res.render('admin/index', { standByUser });
+  },
 };

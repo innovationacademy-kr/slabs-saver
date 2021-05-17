@@ -6,15 +6,15 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       email: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
       },
       name: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
       },
       isApproved: {
         type: Sequelize.INTEGER,
@@ -22,15 +22,15 @@ module.exports = {
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable('Authentications');
-  }
+  },
 };

@@ -1,42 +1,37 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <link rel="stylesheet" href="/stylesheets/author/index.css" />
-  </head>
-  <body>
-    <nav></nav>
-    <div class="side-nav">
-      <a href="/author/logout">
-        <button class="side-nav__logout">로그아웃</button>
-      </a>
-      <a href="/author">홈</a>
-      <a href="/author/edit-meeting">편집 회의</a>
-      <a href="/author/articles/new">기사 작성</a>
-      <a href="/author/articles">내 기사 목록</a>
-    </div>
 
-    <section class="admin-table">
-      <!-- NOTE: category select -->
-      <br />
-      <div class="admin-table__category">
-        <form method="get" action="/author" enctype="multipart/form-data">
-          <label for="category">카테고리</label>
-          <select name="category" id="category">
-            <option value="0">전체</option>
-            <option value="1">정치</option>
-            <option value="2">경제</option>
-            <option value="3">기술</option>
-            <option value="4">환경</option>
-            <option value="5">과학</option>
-            <option value="6">건강</option>
-            <option value="7">스포츠</option>
-          </select>
-          <button type="submit">이동</button>
-        </form>
-        <a href="/author?category=<%= currentUser.code %>">
-          <button type="submit">마이데스킹</button>
-        </a>
-      </div>
-    </section>
-  </body>
+<head>
+  <link rel="stylesheet" href="/stylesheets/author/index.css" />
+</head>
+
+<body>
+  <nav></nav>
+  <div class="side-nav">
+    <a href="/author/logout">
+      <button class="side-nav__logout">로그아웃</button>
+    </a>
+    <a href="/author/_admin">회원 관리</a>
+  </div>
+
+  <section class="admin-table">
+    <!-- NOTE: category select -->
+    <br />
+    <div class="admin-table__category">
+      <form method="post" action="/_admin" enctype="multipart/form-data">
+        <table class="standby-user" name="standby-user">
+          <thead class="standby-user-header">
+            <tr class="standby-user-header__row">
+              <th class="standby-user-header__cell">NO</th>
+              <th class="standby-user-header__cell">이메일</th>
+              <th class="standby-user-header__cell">이름</th>
+              <th class="standby-user-header__cell">상태</th>
+            </tr>
+          </thead>
+        </table>
+      </form>
+    </div>
+  </section>
+</body>
+
 </html>
