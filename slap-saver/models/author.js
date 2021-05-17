@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       code: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         validate: {
           customValidator(value) {
             authorValidator.code(value);
@@ -45,11 +45,11 @@ module.exports = (sequelize, DataTypes) => {
       desk: {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
-        allowNull: false,
+        allowNull: true,
       },
       contact: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         validate: {
           customValidator(value) {
             authorValidator.contact(value);
@@ -58,7 +58,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       password: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         validate: {
           customValidator(value) {
             authorValidator.password(value);
@@ -67,13 +67,18 @@ module.exports = (sequelize, DataTypes) => {
       },
       photo: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         validate: {
           notNull: {
             msg: '사진을 첨부해 주세요',
           },
         },
       },
+      isApproved: {
+        type: DataTypes.INTEGER,
+        defaultValue = true,
+        allowNull: false,
+      }
     },
     {
       sequelize,
