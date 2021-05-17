@@ -39,7 +39,7 @@
             <td class="table-body__cell"><%= article.updatedAt %></td>
             <td class="table-body__cell"><%= article.isPublished ? 'O' : 'X' %></td>
             <td class="table-body__cell"><%= article.image ? 'O' : 'X' %></td>
-            <td class="table-body__cell"><%= article.state ? '완료' : '임시저장'%></td>
+            <td class="table-body__cell"><%= article.status === 2 ? '작성완료' : '임시저장' %></td>
           </tr>
           <% }) %>
         </tbody>

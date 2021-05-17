@@ -33,17 +33,9 @@
           </select>
           <button type="submit">이동</button>
         </form>
-        <% if (currentUser.position > 1) { %>
-        <a href="/author?category=<%= currentUser.code %>">
-          <button type="submit">마이데스킹</button>
-        </a>
       </div>
-      <% } %>
       <form action="/author/desk-process" method="post">
         <table class="table" name="table">
-          <!-- 기자: NO 헤드라인 작성자 작성일자  입력일시 게재일자 출고승인 -->
-          <!-- 데스크: pm7 am7 (승인 버튼이 활성화) -->
-          <!-- 편집장: 오늘의뉴스, 오늘의한마디, 최상단고정, 최종승인 -->
           <thead class="table-header">
             <tr class="table-haeder__row">
               <th class="table-header__cell">NO</th>
@@ -52,22 +44,14 @@
               <th class="table-header__cell">작성일자</th>
               <th class="table-header__cell">입력일자</th>
               <th class="table-header__cell">게재일자</th>
+              <th class="table-header__cell">상태</th>
               <th class="table-header__cell">출고</th>
-              <th class="table-header__cell">승인</th>
-              <% if (currentUser.position > 1) { %>
+              <th class="table-header__cell">게재</th>
               <th class="table-header__cell">am7</th>
               <th class="table-header__cell">pm7</th>
-              <% } %>
-              <!-- NOTE: 데스크 -->
-              <!-- NOTE: 편집장 -->
-              <!-- <th>오늘의 뉴스</th>
-            <th>오늘의 한마디</th>
-            <th>최상단 고정</th>
-            <th>최종 승인</th> -->
             </tr>
           </thead>
           <tbody class="table-body">
-            <!-- articles 반복문을 돌면서 아래를 출력할 것. -->
             <% articles.map((article)=> { %>
             <tr class="table-body__row" name="cols">
               <td class="table-body__cell"><%= article.id %></td>
@@ -77,45 +61,77 @@
               <td class="table-body__cell"><%= article.Author.name %></td>
               <td class="table-body__cell"><%= article.createdAt %></td>
               <td class="table-body__cell"><%= article.updatedAt %></td>
-              <!-- <th>게재일자</th> -->
-              <!-- TODO: publisedAt 만들기  -->
-              <td class="table-body__cell"><%= Date.now() %></td>
-
+              <%# TODO: 게재 일자도 만들고 여기다가 넣자 %>
               <td class="table-body__cell">
-                <label for="published"> </label>
-                <input id="published" name="<%= article.Author.id %>" type="checkbox" <%=
-                article.isPublished ? 'checked ' : '' %> disabled>
+                <% if (article.status < 4) { %>
+                미승인
+                <% } else { %>
+                게시됨(시간으로바꾸기)
+                <% } %>
               </td>
-
+              <%# TODO: status는 js파일에서 만들고 여기에 넣자. %> <%# %>
               <td class="table-body__cell">
-                <label for="confirmed"> </label>
-                <input id="confirmed" type="checkbox" <%= article.confirmed ? "checked" : "" %> <%=
-                currentUser.position > 1 ? "" : "disabled" %> <%= +currentUser.code !== article.category ?
-                "disabled" : "" %> <%= article.state ? '' : 'disabled' %> /> <% if
-                (+currentUser.code === article.category && article.state) { %> <input class="hidden"
-                type="hidden" name="<%= article.id %>" value=<%= article.confirmed ? "1" : "0" %> />
+                <% if (article.status === 1) { %>
+                임시저장
+                <% } else if (article.status === 2) { %>
+                작성완료
+                <% } else if (article.status === 3) { %>
+                출고
+                <% } else if (article.status === 4) { %> 
+                게재
+                <% } %>
+              </td>
+              <%# NOTE: 출고-> article.status === 2 인 것만 수정할 수 있다.%>
+              <td class="table-body__cell">
+                <label for="released"> </label>
+                <input id="released" type="checkbox" <%= article.status > 2 ? "checked" : "" %>
+                <% if (article.status === 1 || article.status === 4) { %>
+                disabled
+                <% } %>
+                />
+                <% if (article.status > 1) { %>
+                <input class="hidden" type="hidden" name="<%= article.id %>" value=<%= article.status > 2 ? "1" : "0" %> />
                 <% } %>
               </td>
 
-            
-              <% if (currentUser.position > 1) { %>
+              <%# NOTE: 게재 %>
+              <td class="table-body__cell">
+                <label for="confirmed"> </label>
+                <input id="confirmed" type="checkbox" <%= article.status === 4 ? "checked" : "" %>
+                <% if (article.status < 3) { %>
+                  disabled
+                <% } %>
+                />
+                <% if (article.status === 3 || article.status === 4 ) { %>
+                <input class="hidden" type="hidden" name="<%= article.id %>" value=<%= article.status === 4 ? "1" : "0" %> />
+                <% } %>
+              </td>
+
+
+              <%# NOTE: 출고가 되어야지만 활성화가 된다. 즉 status === 인 경우에만 활성화됨%>
               <td class="table-body__cell">
                 <label for="am7"></label>
-                <input id="am7" type="checkbox" <%= article.am7 ? 'checked ' : '' %> <%=
-                +currentUser.code !== article.category ? 'disabled' : '' %> <%= article.state ? '' :
-                'disabled' %> /> <% if (+currentUser.code === article.category && article.state) {
-                %> <input class="hidden" type="hidden" name="<%= article.id %>" value=<%=
-                article.am7 ? '1' : '0' %> /> <% } %>
+                <input id="am7" type="checkbox" <%= article.am7 ? 'checked ' : '' %>
+                <% if (article.status !== 3 && article.status !== 4) { %>
+                  disabled
+                <% } %>
+                />
+                <% if (article.status === 3 || article.status === 4 ) { %>
+                    <input class="hidden" type="hidden" name="<%= article.id %>" value=<%= article.am7 ? '1' : '0' %> />
+                <% } %>
               </td>
               <td class="table-body__cell">
-                <label for="pm7"> </label>
-                <input id="pm7" type="checkbox" <%= article.pm7 ? 'checked ' : '' %> <%=
-                +currentUser.code !== article.category ? 'disabled' : '' %> <%= article.state ? '' :
-                'disabled' %> /> <% if (+currentUser.code === article.category && article.state) {
-                %> <input class="hidden" type="hidden" name="<%= article.id %>" value=<%=
-                article.pm7 ? '1' : '0' %> /> <% } %>
+                <label for="pm7"></label>
+                <input id="pm7" type="checkbox" <%= article.pm7 ? 'checked ' : '' %>
+                <% if (article.status !== 3 && article.status !== 4) { %>
+                  disabled
+                <% } %>
+                />
+                <% if (article.status === 3 || article.status === 4 ) { %>
+                  <input class="hidden" type="hidden" name="<%= article.id %>" value=<%= article.pm7 ? '1' : '0' %> />
+                <% } %>
               </td>
-              <% } %> <% }) %>
+              <% }) %>
             </tr>
           </tbody>
         </table>
