@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+  </head>
+  <body>
+    <form method="post" class="auth-form" action="auth">
+      <div class="auth-form__input">
+        <label for="email">아이디</label>
+        <input type="email" name="email" placeholder="인증 메일을 받을 주소를 입력해주십시오" />
+        <br />
+        <label for="name">이름</label>
+        <input
+          type="text"
+          name="name"
+          placeholder="이름을 입력해주십시오"
+        />
+        <br />
+      <button class="submit-button" type="submit">회원가입</button>
+    </form>
+  </body>
+</html>
