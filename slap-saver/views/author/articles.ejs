@@ -1,63 +1,49 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/author/articles.css" />
+  </head>
 
-<head>
-  <title>
-    <%= title %>
-  </title>
-  <link rel="stylesheet" href="/stylesheets/style.css" />
-</head>
+  <body>
+    <h1><%= title %></h1>
+    <div class="side-nav">
+      <a href="/author/logout">
+        <button class="side-nav__logout">로그아웃</button>
+      </a>
+      <a href="/author">홈</a>
+      <a href="/author/edit-meeting">편집 회의</a>
+      <a href="/author/articles/new">기사 작성</a>
+      <a href="/author/articles">내 기사 목록</a>
+    </div>
 
-<body>
-  <h1>
-    <%= title %>
-  </h1>
-  <div class="side-nav">
-    <button class="side-nav__logout">로그아웃</button>
-    <a href="/author/edit-meeting">편집 회의</a>
-    <a href="/author/articles/new">기사 작성</a>
-    <a href="/author/articles">내 기사 목록</a>
-  </div>
-  <table class="my-articles">
-    <thead>
-      <tr class="my-articles__header">
-        <th>No</th>
-        <th>헤드라인</th>
-        <th>작성 일시</th>
-        <th>출고 상황</th>
-        <th>사진</th>
-        <th>상태</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% articles.forEach((article)=> { %>
-        <tr>
-          <td>
-            <%= article.id %>
-          </td>
-          <td>
-            <%= article.headline %>
-          </td>
-          <td>
-            <%= article.updatedAt %>
-          </td>
-          <td>
-            <%= article.isPublished %>
-          </td>
-          <td>
-            <%= article.image %>
-          </td>
-          <td>
-            <%= article.state %>
-          </td>
-          <td>
-            <a href=<%=`/author/articles/edit/${article.id}` %> >수정하기</a>
-          </td>
-        </tr>
-        <% }) %>
-    </tbody>
-  </table>
-</body>
-
+    <section class="list-table">
+      <table class="table">
+        <thead class="table-header">
+          <tr class="table-header__row">
+            <th class="table-header__cell">No</th>
+            <th class="table-header__cell">헤드라인</th>
+            <th class="table-header__cell">작성 일시</th>
+            <th class="table-header__cell">출고 상황</th>
+            <th class="table-header__cell">사진</th>
+            <th class="table-header__cell">상태</th>
+          </tr>
+        </thead>
+        <tbody class="table-body">
+          <% articles.forEach((article)=> { %>
+          <tr class="table-body__row">
+            <td class="table-body__cell"><%= article.id %></td>
+            <td class="table-body__cell">
+              <a href=<%= `/author/articles/edit/${article.id}` %> > <%= article.headline %> </a>
+            </td>
+            <td class="table-body__cell"><%= article.updatedAt %></td>
+            <td class="table-body__cell"><%= article.isPublished ? 'O' : 'X' %></td>
+            <td class="table-body__cell"><%= article.image ? 'O' : 'X' %></td>
+            <td class="table-body__cell"><%= article.state ? '완료' : '임시저장'%></td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </section>
+  </body>
 </html>
