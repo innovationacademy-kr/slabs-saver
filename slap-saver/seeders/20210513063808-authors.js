@@ -8,6 +8,7 @@ module.exports = {
         name: 'desk',
         code: 2,
         desk: true,
+        position: 2,
         contact: '01012341234',
         password: '$2b$10$fO/O6fF5w1HDkXNab8AMBOYE/9ByW8/sjIeXpQONQgJxkegxdFDIq',
         photo: '0d948b18cc861228a65625ff96b5c4c7',
