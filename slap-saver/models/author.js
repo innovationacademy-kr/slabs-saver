@@ -42,11 +42,6 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       },
-      desk: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: false,
-        allowNull: false,
-      },
       position: {
         type: DataTypes.INTEGER,
         defaultValue: 1,
