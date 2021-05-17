@@ -18,28 +18,23 @@ module.exports = {
       },
       code: {
         type: Sequelize.INTEGER,
-        allowNull: true,
+        allowNull: false,
       },
       desk: {
         type: Sequelize.BOOLEAN,
         defaultValue: false,
-        allowNull: true,
+        allowNull: false,
       },
       contact: {
         type: Sequelize.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       password: {
         type: Sequelize.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       photo: {
         type: Sequelize.STRING,
-        allowNull: true,
-      },
-      isApproved: {
-        type: Sequelize.INTEGER,
-        defaultValue: false,
         allowNull: false,
       },
       createdAt: {
