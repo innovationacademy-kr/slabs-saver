@@ -15,7 +15,6 @@ module.exports = {
           imageFrom: 'image source',
           briefing: 'this is briefing',
           additionalParagraph: 'additional paragraph',
-          state: true,
           status: 2,
         });
       }),

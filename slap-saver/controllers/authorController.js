@@ -165,8 +165,6 @@ module.exports = {
         author: author.name,
         image: req.file ? req.file.filename : null,
         additionalParagraph: paragraphs,
-        // TODO: state는 삭제하기
-        state: req.body.saveBtn === '' ? false : true,
         status: req.body.saveBtn === '' ? STATUS.DRAFTS : STATUS.COMPLETED,
       });
       alert('저장에 성공하였습니다.');
@@ -214,7 +212,6 @@ module.exports = {
         if (additionalParagraph) {
           article.additionalParagraph = additionalParagraph;
         }
-        article.state = req.body.saveBtn !== '';
         article.status = req.body.saveBtn === '' ? STATUS.DRAFTS : STATUS.COMPLETED;
         article.save();
       })

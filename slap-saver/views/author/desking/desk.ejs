@@ -91,7 +91,7 @@
                 disabled
                 <% } %>
                 />
-                <% if (+currentUser.code === article.category && article.state) { %>
+                <% if (+currentUser.code === article.category) { %>
                 <input class="hidden" type="hidden" name="<%= article.id %>" value=<%= article.status > 2 ? "1" : "0" %> />
                 <% } %>
               </td>
