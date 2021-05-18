@@ -42,9 +42,9 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       },
-      desk: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: false,
+      position: {
+        type: DataTypes.INTEGER,
+        defaultValue: 1,
         allowNull: false,
       },
       contact: {

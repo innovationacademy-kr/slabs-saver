@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="/stylesheets/author/index.css" />
+  </head>
+  <body>
+    <nav></nav>
+    <div class="side-nav">
+      <a href="/author/logout">
+        <button class="side-nav__logout">로그아웃</button>
+      </a>
+      <a href="/author">홈</a>
+      <a href="/author/edit-meeting">편집 회의</a>
+      <a href="/author/articles/new">기사 작성</a>
+      <a href="/author/articles">내 기사 목록</a>
+    </div>
+
+    <section class="desking-table">
+      <!-- NOTE: category select -->
+      <br />
+      <div class="desking-table__category">
+        <form method="get" action="/author" enctype="multipart/form-data">
+          <label for="category">카테고리</label>
+          <select name="category" id="category">
+            <option value="0">전체</option>
+            <option value="1">정치</option>
+            <option value="2">경제</option>
+            <option value="3">기술</option>
+            <option value="4">환경</option>
+            <option value="5">과학</option>
+            <option value="6">건강</option>
+            <option value="7">스포츠</option>
+          </select>
+          <button type="submit">이동</button>
+        </form>
+      </div>
+      <form action="/author/desk-process" method="post">
+        <table class="table" name="table">
+          <thead class="table-header">
+            <tr class="table-haeder__row">
+              <th class="table-header__cell">NO</th>
+              <th class="table-header__cell">헤드라인</th>
+              <th class="table-header__cell">작성자</th>
+              <th class="table-header__cell">작성일자</th>
+              <th class="table-header__cell">입력일자</th>
+              <th class="table-header__cell">게재일자</th>
+              <th class="table-header__cell">상태</th>
+              <th class="table-header__cell">출고</th>
+            </tr>
+          </thead>
+          <tbody class="table-body">
+            <!-- articles 반복문을 돌면서 아래를 출력할 것. -->
+            <% articles.map((article)=> { %>
+            <tr class="table-body__row" name="cols">
+              <td class="table-body__cell"><%= article.id %></td>
+              <td class="table-body__cell">
+                <a href="/articles/<%= article.id %>" target="_blank"> <%= article.headline %> </a>
+              </td>
+              <td class="table-body__cell"><%= article.Author.name %></td>
+              <td class="table-body__cell"><%= article.createdAt %></td>
+              <td class="table-body__cell"><%= article.updatedAt %></td>
+              <%# TODO: 게재 일자도 만들고 여기다가 넣자 %>
+              <td class="table-body__cell">
+                <% if (article.status < 4) { %>
+                미승인
+                <% } else { %>
+                <%= article.publishedAt %> 
+                <% } %>
+              </td>
+
+              <%# TODO: status는 js파일에서 만들고 여기에 넣자. %> <%# %>
+              <td class="table-body__cell">
+                <% if (article.status === 1) { %> 임시저장 <% } else if (article.status === 2) { %>
+                작성완료 <% } else if (article.status === 3) { %> 출고 <% } else if (article.status
+                === 4) { %> 게재 <% } %>
+              </td>
+              <td class="table-body__cell">
+              <% if (article.status > 2) { %>
+                <input type="checkbox" checked disabled />
+              <% } else { %>
+                <input type="checkbox"  disabled />
+              <% } %>
+              </td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </form>
+    </section>
+    <script src="/javascripts/author/index.js"></script>
+  </body>
+</html>
