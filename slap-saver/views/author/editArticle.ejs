@@ -54,7 +54,7 @@
         </select>
       <button type="button" class="paragraph-list--Btn">소단락 추가</button>
       <div class="paragraph-list">
-            <% Object.entries(paragraphs).map((p)=> { %>
+            <% paragraphs && Object.entries(paragraphs).map((p)=> { %>
               <div class="paragraph-list__item">
                 <label for=paragraph-title ></label>
                 <input id=paragraph-title name=paragraph-title class="paragraph-item__title" value= <%= p[0] %> />
