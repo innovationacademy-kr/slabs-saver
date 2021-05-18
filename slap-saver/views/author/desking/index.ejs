@@ -64,7 +64,11 @@
               <td class="table-body__cell"><%= article.updatedAt %></td>
               <%# TODO: 게재 일자도 만들고 여기다가 넣자 %>
               <td class="table-body__cell">
-                <% if (article.status < 4) { %> 미승인 <% } else { %> 게시됨(시간으로바꾸기) <% } %>
+                <% if (article.status < 4) { %>
+                미승인
+                <% } else { %>
+                <%= article.publishedAt %> 
+                <% } %>
               </td>
 
               <%# TODO: status는 js파일에서 만들고 여기에 넣자. %> <%# %>
