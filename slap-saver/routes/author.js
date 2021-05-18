@@ -37,7 +37,7 @@ const checkCode = async (req, res, next) => {
     res.redirect('/author');    
   }
   const currentUser = await getCurrentUser(req.user?.id);
-  if (currentUser.code !== 4) {
+  if (currentUser.position !== 4) {
     // NOTE: confirm이 더 낫나?
     alert('권한이 없습니다.');
     res.redirect('/author');

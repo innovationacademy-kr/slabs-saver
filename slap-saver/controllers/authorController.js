@@ -28,7 +28,9 @@ module.exports = {
       res.render('author/desking/desk', { articles, currentUser });
     } else if (currentUser.position === 3) {
       res.render('author/desking/chiefEditor', { articles, currentUser });
-    }
+    } else if (currentUser.position === 4) {
+      res.redirect('/author/_admin');
+    } 
   },
 
   loginPage: (req, res, next) => {
