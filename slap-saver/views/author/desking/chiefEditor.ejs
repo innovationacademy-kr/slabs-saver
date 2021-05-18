@@ -16,7 +16,6 @@
     </div>
 
     <section class="desking-table">
-      <!-- NOTE: category select -->
       <br />
       <div class="desking-table__category">
         <form method="get" action="/author" enctype="multipart/form-data">
@@ -61,7 +60,6 @@
               <td class="table-body__cell"><%= article.Author.name %></td>
               <td class="table-body__cell"><%= article.createdAt %></td>
               <td class="table-body__cell"><%= article.updatedAt %></td>
-              <%# TODO: 게재 일자도 만들고 여기다가 넣자 %>
               <td class="table-body__cell">
                 <% if (article.status < 4) { %>
                 미승인
