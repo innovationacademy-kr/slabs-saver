@@ -6,32 +6,12 @@
 </head>
 
 <body>
-  <nav></nav>
   <div class="side-nav">
     <a href="/author/logout">
       <button class="side-nav__logout">로그아웃</button>
     </a>
-    <a href="/author/_admin">회원 관리</a>
+    <a href="/author/_admin/invitation">초대 관리</a>
   </div>
-
-  <section class="admin-table">
-    <!-- NOTE: category select -->
-    <br />
-    <div class="admin-table__category">
-      <form method="post" action="/_admin" enctype="multipart/form-data">
-        <table class="standby-user" name="standby-user">
-          <thead class="standby-user-header">
-            <tr class="standby-user-header__row">
-              <th class="standby-user-header__cell">NO</th>
-              <th class="standby-user-header__cell">이메일</th>
-              <th class="standby-user-header__cell">이름</th>
-              <th class="standby-user-header__cell">상태</th>
-            </tr>
-          </thead>
-        </table>
-      </form>
-    </div>
-  </section>
 </body>
 
 </html>
