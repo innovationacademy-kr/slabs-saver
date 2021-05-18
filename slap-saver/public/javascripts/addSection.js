@@ -5,9 +5,9 @@ var addParagraphBtn = document.querySelector('.paragraph-list--Btn');
 function makeParagraph(title) {
   return '<div class="paragraph-list__item">' + '\n'
           + '<label for=paragraph-title ></label>'
-          + '<input id=paragraph-title name=paragraph-title class="paragraph-item__title" value=' + title + ' />' + '\n'
+          + '<input id=paragraph-title name=paragraph-title class="paragraph-item__title" type="text" value=' + title +' >' + '\n'
           + '<label for=paragraph-conetent ></label>'
-          + '<input id=paragraph-content name=paragraph-content class="paragraph-item__content" type="text" />' + '\n'
+          + '<textarea id=paragraph-content name=paragraph-content class="paragraph-item__content" > </textarea>' + '\n'
         + '</div>'
 }
 
