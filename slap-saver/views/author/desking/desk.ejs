@@ -68,7 +68,7 @@
                 <% if (article.status < 4) { %>
                 미승인
                 <% } else { %>
-                게시됨(시간으로바꾸기)
+                <%= article.publishedAt %> 
                 <% } %>
               </td>
               <%# TODO: status는 js파일에서 만들고 여기에 넣자. %> <%# %>

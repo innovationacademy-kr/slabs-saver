@@ -70,6 +70,13 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: false,
         allowNull: false,
       },
+      publishedAt: {
+        allowNull: true,
+        type: DataTypes.DATE,
+        get() {
+          return moment(this.getDataValue('publishedAt')).format('YYYY.MM.DD HH:mm:ss');
+        },
+      },
       createdAt: {
         allowNull: false,
         type: DataTypes.DATE,
@@ -91,5 +98,14 @@ module.exports = (sequelize, DataTypes) => {
     },
   );
 
+  Article.addHook('beforeUpdate', async (article, options) => {
+    const currentStatus = article._previousDataValues.status;
+    const afterStatus = article.dataValues.status;
+    if (currentStatus === 3 && afterStatus === 4) {
+      article.publishedAt = Date.now();
+    } else if (currentStatus === 4 && afterStatus === 3) {
+      article.publishedAt = null;
+    }
+  });
   return Article;
 };

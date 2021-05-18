@@ -53,11 +53,10 @@ module.exports = {
               am7: +article[1][1],
               pm7: +article[1][2], 
             }
-          await Article.update( updateContent, { where: { id: +article[0] } });
+          await Article.update( updateContent, { where: { id: +article[0] }, individualHooks: true });
         }),
       );
     } else if (currentUser.position > 2) {
-      // TODO: 여기서는 게재 일자도 업데이트해줘야한다.
       // TODO: 게재 일자도 기사 모델의 칼럼에 추가하자
       // TODO: 편집장이 출고가 안된걸 게재하려고 하면 beforeUpdate 훅에서 에러 발생하게 하자
       // TODO: beforeUpdate 에서 게재가 되었다면 am7, pm7은 off하자
@@ -72,7 +71,7 @@ module.exports = {
                 am7: +article[1][2],
                 pm7: +article[1][3], 
               }
-              await Article.update( updateContent, { where: { id: +article[0] } });
+              await Article.update( updateContent, { where: { id: +article[0] }, individualHooks: true  });
             } else {
               let status;
               if (+article[1][1] === 1) {
@@ -85,7 +84,7 @@ module.exports = {
                 am7: +article[1][2],
                 pm7: +article[1][3], 
               }
-              await Article.update( updateContent, { where: { id: +article[0] } });
+              await Article.update( updateContent, { where: { id: +article[0] } , individualHooks: true });
             }
           }
         }),
