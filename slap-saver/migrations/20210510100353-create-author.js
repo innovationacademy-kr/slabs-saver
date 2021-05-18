@@ -20,9 +20,9 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      desk: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false,
+      position: {
+        type: Sequelize.INTEGER,
+        defaultValue: 1,
         allowNull: false,
       },
       contact: {

@@ -1,7 +1,6 @@
 const { Model } = require('sequelize');
 const moment = require('moment');
 
-
 module.exports = (sequelize, DataTypes) => {
   class Article extends Model {
     /**
@@ -50,11 +49,6 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.TEXT,
       },
       // NOTE: 출고 여부를 알려준다. 출고가 됐다는 것은 편집장의 최종 승인이 있었다는 것.
-      isPublished: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: false,
-        allowNull: false,
-      },
       // NOTE: am7, pm7 출고가 된 기사들만 체크를 할 수 있게 만들어야겠지?
       am7: {
         type: DataTypes.BOOLEAN,
@@ -66,10 +60,9 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: false,
         allowNull: false,
       },
-      // NOTE: 임시저장, 작성 완료의 여부를 확인한다.
-      state: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: false,
+      status: {
+        type: DataTypes.INTEGER,
+        defaultValue: 1,
         allowNull: false,
       },
       confirmed: {
@@ -77,19 +70,26 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: false,
         allowNull: false,
       },
+      publishedAt: {
+        allowNull: true,
+        type: DataTypes.DATE,
+        get() {
+          return moment(this.getDataValue('publishedAt')).format('YYYY.MM.DD HH:mm:ss');
+        },
+      },
       createdAt: {
         allowNull: false,
         type: DataTypes.DATE,
         get() {
-          return moment(this.getDataValue('createdAt')).format('YYYY.MM.DD HH:mm:ss')
-        }
+          return moment(this.getDataValue('createdAt')).format('YYYY.MM.DD HH:mm:ss');
+        },
       },
       updatedAt: {
         allowNull: false,
         type: DataTypes.DATE,
         get() {
-          return moment(this.getDataValue('updatedAt')).format('YYYY.MM.DD HH:mm:ss')
-        }
+          return moment(this.getDataValue('updatedAt')).format('YYYY.MM.DD HH:mm:ss');
+        },
       },
     },
     {
@@ -98,5 +98,14 @@ module.exports = (sequelize, DataTypes) => {
     },
   );
 
+  Article.addHook('beforeUpdate', async (article, options) => {
+    const currentStatus = article._previousDataValues.status;
+    const afterStatus = article.dataValues.status;
+    if (currentStatus === 3 && afterStatus === 4) {
+      article.publishedAt = Date.now();
+    } else if (currentStatus === 4 && afterStatus === 3) {
+      article.publishedAt = null;
+    }
+  });
   return Article;
 };

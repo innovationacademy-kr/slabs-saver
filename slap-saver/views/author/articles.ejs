@@ -23,7 +23,7 @@
           <tr class="table-header__row">
             <th class="table-header__cell">No</th>
             <th class="table-header__cell">헤드라인</th>
-            <th class="table-header__cell">작성 일시</th>
+            <th class="table-header__cell">작성일시</th>
             <th class="table-header__cell">출고 상황</th>
             <th class="table-header__cell">사진</th>
             <th class="table-header__cell">상태</th>
@@ -37,9 +37,19 @@
               <a href=<%= `/author/articles/edit/${article.id}` %> > <%= article.headline %> </a>
             </td>
             <td class="table-body__cell"><%= article.updatedAt %></td>
-            <td class="table-body__cell"><%= article.isPublished ? 'O' : 'X' %></td>
+            <td class="table-body__cell"><%= article.status === 4 ? 'O' : 'X' %></td>
             <td class="table-body__cell"><%= article.image ? 'O' : 'X' %></td>
-            <td class="table-body__cell"><%= article.state ? '완료' : '임시저장'%></td>
+            <td class="table-body__cell">
+            <% if (article.status === 1) { %>
+              임시저장
+            <% } else if (article.status === 2) { %>
+              완료
+            <% } else if (article.status === 3) { %>
+              출고
+            <% } else { %>
+              게재
+            <% } %>  
+            </td>
           </tr>
           <% }) %>
         </tbody>

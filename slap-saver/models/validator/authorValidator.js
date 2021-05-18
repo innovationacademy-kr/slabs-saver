@@ -1,6 +1,6 @@
 module.exports = {
   code: (value) => {
-    const validCode = [1, 2, 3, 201, 2001];
+    const validCode = [1, 2, 3, 4, 5, 6, 7, 8, 201, 301, 401, 501, 601, 701, 801];
     if (!validCode.includes(+value)) {
       throw new Error('올바른 코드를 입력하세요');
     }
