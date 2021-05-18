@@ -38,22 +38,12 @@ module.exports = {
       additionalParagraph: {
         type: Sequelize.TEXT,
       },
-      isPublished: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false,
-        allowNull: false,
-      },
       am7: {
         type: Sequelize.BOOLEAN,
         defaultValue: false,
         allowNull: false,
       },
       pm7: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false,
-        allowNull: false,
-      },
-      state: {
         type: Sequelize.BOOLEAN,
         defaultValue: false,
         allowNull: false,
