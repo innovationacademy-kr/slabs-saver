@@ -2,6 +2,7 @@ const alert = require('alert');
 const getCurrentUser = require('../lib/getCurrentUser');
 const isEmptyObject = require('../lib/isEmptyObject');
 const CATEGORY = require('../lib/constants/category');
+const STATUS = require('../lib/constants/articleStatus');
 const { Author, Article } = require('../models');
 
 module.exports = {
@@ -15,11 +16,17 @@ module.exports = {
       where: { category },
       include: {
         model: Author,
-        attributes: ['id', 'name', 'desk', 'code'],
+        attributes: ['id', 'name', 'code'],
       },
     });
     currentUser.code = String(currentUser.code)[0];
-    res.render('author/index', { articles, currentUser });
+    if (currentUser.position === 1) {
+      res.render('author/desking/index', { articles, currentUser });
+    } else if (currentUser.position === 2) {
+      res.render('author/desking/desk', { articles, currentUser });
+    } else if (currentUser.position === 3) {
+      res.render('author/desking/chiefEditor', { articles, currentUser });
+    }
   },
 
   loginPage: (req, res, next) => {
@@ -29,20 +36,60 @@ module.exports = {
   deskProcess: async (req, res, next) => {
     const articles = JSON.parse(JSON.stringify(req.body));
     // TODO: 로딩 페이지 띄우기
-    await Promise.all(
-      Object.entries(articles).map(async (article) => {
-        await Article.update(
-          {
-            confirmed: +article[1][0],
-            am7: +article[1][1],
-            pm7: +article[1][2],
-          },
-          {
-            where: { id: +article[0] },
-          },
-        );
-      }),
-    );
+    // TODO: 데스크인 경우와 편집장인 경우 나누기
+    // TODO: 데스크가 출고를 off 하고 am7, pm7을 ON 하고 보내면 beforeUpdate 훅에서 에러 발생하게 만들자
+    const currentUser = await getCurrentUser(req.user.id);
+    if (currentUser.position === 2) {
+      await Promise.all(
+        Object.entries(articles).map(async (article) => {
+          // TODO: 이미 데이터가 4면 바꾸지 말아야함.
+          // TODO: 이미 4라는건 편집장이 바꿨다는 거임.
+          // TODO: 이건 beforeUpdate 에서 하면 될거같은데?
+          // TODO: 아니다. 그냥 지금처럼 말고 findOne으로 기사를 찾은다음에 수정하고 save 하는 방식으로 변경하자
+          const updateContent = !Array.isArray(article[1]) ?
+            { status: +article[1] === 1 ? 3 : 2 } : 
+            {
+              status: +article[1][0] === 1 ? 3 : 2,
+              am7: +article[1][1],
+              pm7: +article[1][2], 
+            }
+          await Article.update( updateContent, { where: { id: +article[0] }, individualHooks: true });
+        }),
+      );
+    } else if (currentUser.position > 2) {
+      // TODO: 게재 일자도 기사 모델의 칼럼에 추가하자
+      // TODO: 편집장이 출고가 안된걸 게재하려고 하면 beforeUpdate 훅에서 에러 발생하게 하자
+      // TODO: beforeUpdate 에서 게재가 되었다면 am7, pm7은 off하자
+      await Promise.all(
+        Object.entries(articles).map(async (article) => {
+          if (!Array.isArray(article[1])) {
+            await Article.update({ status: +article[1] === 1 ? 3 : 2 }, { where: { id: +article[0] } });
+          } else {
+            if (article[1].length === 3) {
+              const updateContent = {
+                status: +article[1][0] === 1 ? 4 : 3,
+                am7: +article[1][2],
+                pm7: +article[1][3], 
+              }
+              await Article.update( updateContent, { where: { id: +article[0] }, individualHooks: true  });
+            } else {
+              let status;
+              if (+article[1][1] === 1) {
+                status = 4;
+              } else {
+                status = +article[1][0] === 1 ? 3 : 2;
+              }
+              const updateContent = {
+                status,
+                am7: +article[1][2],
+                pm7: +article[1][3], 
+              }
+              await Article.update( updateContent, { where: { id: +article[0] } , individualHooks: true });
+            }
+          }
+        }),
+      );
+    }
     res.redirect('/author');
   },
 
@@ -103,7 +150,6 @@ module.exports = {
       body: { headline, category, imageDesc, imageFrom, briefing, additionalParagraph },
       user: { id },
     } = req;
-    // const image = req.file ? req.file.filename : null;
     const paragraphs = Array.isArray(additionalParagraph)
       ? additionalParagraph.join('|-|')
       : additionalParagraph;
@@ -118,7 +164,7 @@ module.exports = {
         author: author.name,
         image: req.file ? req.file.filename : null,
         additionalParagraph: paragraphs,
-        state: req.body.saveBtn === '' ? false : true,
+        status: req.body.saveBtn === '' ? STATUS.DRAFTS : STATUS.COMPLETED,
       });
       alert('저장에 성공하였습니다.');
     } catch (error) {
@@ -165,7 +211,7 @@ module.exports = {
         if (additionalParagraph) {
           article.additionalParagraph = additionalParagraph;
         }
-        article.state = req.body.saveBtn !== '';
+        article.status = req.body.saveBtn === '' ? STATUS.DRAFTS : STATUS.COMPLETED;
         article.save();
       })
       .then(() => res.redirect('/author/articles'))

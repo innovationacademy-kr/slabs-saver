@@ -26,8 +26,10 @@
     </article>
     <article class="articles">
       <% Articles.map((article)=> { %>
-        <%- include('partials/articleCard.ejs', { article }) %>
-          <% }) %>
+        <% if (article.status === 4) { %>
+          <%- include('partials/articleCard.ejs', { article }) %>
+        <% } %>
+      <% }) %>
     </article>
     </article>
   </section>
