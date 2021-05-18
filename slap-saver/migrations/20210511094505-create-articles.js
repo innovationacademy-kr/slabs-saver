@@ -38,11 +38,6 @@ module.exports = {
       additionalParagraph: {
         type: Sequelize.TEXT,
       },
-      isPublished: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false,
-        allowNull: false,
-      },
       am7: {
         type: Sequelize.BOOLEAN,
         defaultValue: false,
@@ -53,9 +48,9 @@ module.exports = {
         defaultValue: false,
         allowNull: false,
       },
-      state: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false,
+      status: {
+        type: Sequelize.INTEGER,
+        defaultValue: 1,
         allowNull: false,
       },
       confirmed: {
@@ -71,6 +66,10 @@ module.exports = {
           model: 'Authors',
           key: 'id',
         },
+      },
+      publishedAt: {
+        allowNull: true,
+        type: Sequelize.DATE,
       },
       createdAt: {
         allowNull: false,
