@@ -42,8 +42,16 @@
         <label for="breifing">100자 브리핑</label>
         <input type="text" id="briefing" name="briefing" placeholder="뉴스에 대한 브리핑을 작성해주세요" maxlength="30" />
       </div>
-      <div class="article-add"></div>
-      <button type="button" class="article-add--Btn">단락추가</button>
+      <br>
+      <select name="paragraph-select" class="paragraph-select">
+        <option value='포인트'>포인트</option>
+        <option value='향후예측'>향후예측</option>
+        <option value='논쟁점'>논쟁점</option>
+        <option value='직접입력(더블클릭으로 수정)'>직접입력</option>
+      </select>
+      <button type="button" class="paragraph-list--Btn">소단락 추가</button>
+      <div class="paragraph-list">
+      </div>
     </div>
     <button class="create-article--save" name="saveBtn" type="submit">저장</button>
     <button class="create-article--complete" name="completeBtn" type="submit">완료</button>
