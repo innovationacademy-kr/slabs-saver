@@ -34,7 +34,11 @@
           <tr class="table-body__row">
             <td class="table-body__cell"><%= article.id %></td>
             <td class="table-body__cell">
-              <a href=<%= `/author/articles/edit/${article.id}` %> > <%= article.headline %> </a>
+              <% if (article.status < 3) { %>
+                <a href=<%= `/author/articles/edit/${article.id}` %> > <%= article.headline %> </a>
+              <% } else { %>
+                  <%= article.headline %> 
+              <% } %>
             </td>
             <td class="table-body__cell"><%= article.updatedAt %></td>
             <td class="table-body__cell"><%= article.status === 4 ? 'O' : 'X' %></td>
