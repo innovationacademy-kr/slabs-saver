@@ -1,30 +1,33 @@
 'use strict';
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Authentication extends Model {
+  class Invitation extends Model {
     static associate(models) {
       // define association here
     }
   }
-  Authentication.init(
+  Invitation.init(
     {
       email: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: {
+          msg: '이미 존재하는 이메일입니다.',
+        },
       },
       name: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      isApproved: {
+      state: {
         type: DataTypes.INTEGER,
         defaultValue: 0,
       },
     },
     {
       sequelize,
-      modelName: 'Authentication',
+      modelName: 'Invitation',
     },
   );
-  return Authentication;
+  return Invitation;
 };
