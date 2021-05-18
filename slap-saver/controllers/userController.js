@@ -1,5 +1,5 @@
 const { Article } = require('../models');
-const convertCategory = require('../lib/convertCategory');
+const converter = require('../lib/converter');
 const moment = require('moment');
 
 module.exports = {
@@ -22,7 +22,7 @@ module.exports = {
           image: `/images/articleImages/${article.image}`,
           additionalParagraph,
           updatedAt,
-          category: convertCategory(article.getDataValue('category')),
+          category: converter.category(article.getDataValue('category')),
         };
       }),
     );

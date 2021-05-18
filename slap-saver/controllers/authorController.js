@@ -1,8 +1,10 @@
 const alert = require('alert');
 const getCurrentUser = require('../lib/getCurrentUser');
 const isEmptyObject = require('../lib/isEmptyObject');
+const sendMail = require('../lib/sendMail');
 const CATEGORY = require('../lib/constants/category');
-const { Author, Article, Authentication } = require('../models');
+const converter = require('../lib/converter');
+const { Author, Article, Invitation } = require('../models');
 
 module.exports = {
   index: async (req, res, next) => {
@@ -64,7 +66,13 @@ module.exports = {
   },
 
   signupPage: (req, res, next) => {
-    res.render('author/signup', { title: 'author page' });
+    const { email, name, code } = req.query;
+    const user = {
+      email,
+      name,
+      code
+    };
+    res.render('author/signup', { title: 'author page', user });
   },
 
   signup: async (req, res, next) => {
@@ -77,6 +85,7 @@ module.exports = {
     // TODO: Author Service 객체 만들어서 추상화하기
     try {
       await Author.create({ email, password, name, code, contact, photo });
+      await Invitation.update( { state: 2 }, { where: { email }, individualHooks: true } );
     } catch (error) {
       if (error.errors) {
         error.errors.forEach((e) => {
@@ -88,7 +97,7 @@ module.exports = {
       return res.redirect('/author/signup');
     }
     return res.redirect('/author/login');
-  },
+  },  
 
   editMeetingPage: (req, res, next) => {
     res.render('author/editMeeting', { title: '편집회의 페이지!' });
@@ -200,14 +209,14 @@ module.exports = {
 
   // admin //
 
-  auth: (req, res, next) => {
-    res.render('author/auth', { title: '승인 페이지' });
+  preSignup: (req, res, next) => {
+    res.render('author/preSignup', { title: '임시 회원가입 페이지' });
   },
 
-  authRequest: async (req, res, next) => {
+  preSignupRequest: async (req, res, next) => {
     const { email, name } = req.body;
     try {
-      await Authentication.create({ email, name });
+      await Invitation.create({ email, name });
     } catch (error) {
       if (error.errors) {
         error.errors.forEach((e) => {
@@ -216,22 +225,52 @@ module.exports = {
       } else {
         alert('알 수 없는 에러 발생');
       }
-      return res.redirect('/author/signup');
+      return res.redirect('/author/pre-signup');
     }
+    alert("성공적으로 저장되었습니다.");
     return res.redirect('/author/login');
   },
 
   admin: async (req, res, next) => {
-    if (!req.user) {
-      res.redirect('/author/login');
-    }
-    const currentUser = await getCurrentUser(req.user?.id);
-    if (currentUser.code !== 4) {
-      // NOTE: confirm이 더 낫나?
-      alert('권한이 없습니다.');
-      res.redirect('/author');
-    }
-    const standByUser = await Authentication.findAll({ where: { isApproved: 0 } });
-    res.render('admin/index', { standByUser });
+    res.render('admin/index');
   },
+
+  invite: async (req, res, next) => {
+    const userList = await Invitation.findAll({});
+    const standByUsers = userList.map((user) => {
+      return {
+        ...user.dataValues,
+        intState: +user.state,
+        state: converter.inviteState(user.state)
+      };
+    });
+    res.render('admin/invitation', { standByUsers });
+  },
+
+  inviteRequest: async (req, res, next) => {
+    const { approved, declined, email, name, code } = req.body;
+    if (approved == '' &&  code != '0') {
+      await Invitation.update(
+        {
+          state: 1
+        },
+        {
+          where: { email }
+        });
+        sendMail(email, name, code);
+    } else if (declined == '') {
+      await Invitation.update(
+        {
+          state: 2
+        },
+        {
+          where: { email }
+        });
+    }
+    res.redirect('/author/_admin/invitation');
+  },
+
+  authorizedSignup: (req, res, next) => {
+    res.render('author/authorizedSignup', {title: '인증된 회원가입 페이지'});
+  }
 };
