@@ -30,7 +30,7 @@ module.exports = {
       res.render('author/desking/chiefEditor', { articles, currentUser });
     } else if (currentUser.position === 4) {
       res.redirect('/author/_admin');
-    } 
+    }
   },
 
   loginPage: (req, res, next) => {
@@ -50,14 +50,17 @@ module.exports = {
           // TODO: 이미 4라는건 편집장이 바꿨다는 거임.
           // TODO: 이건 beforeUpdate 에서 하면 될거같은데?
           // TODO: 아니다. 그냥 지금처럼 말고 findOne으로 기사를 찾은다음에 수정하고 save 하는 방식으로 변경하자
-          const updateContent = !Array.isArray(article[1]) ?
-            { status: +article[1] === 1 ? 3 : 2 } : 
-            {
-              status: +article[1][0] === 1 ? 3 : 2,
-              am7: +article[1][1],
-              pm7: +article[1][2], 
-            }
-          await Article.update( updateContent, { where: { id: +article[0] }, individualHooks: true });
+          const updateContent = !Array.isArray(article[1])
+            ? { status: +article[1] === 1 ? 3 : 2 }
+            : {
+                status: +article[1][0] === 1 ? 3 : 2,
+                am7: +article[1][1],
+                pm7: +article[1][2],
+              };
+          await Article.update(updateContent, {
+            where: { id: +article[0] },
+            individualHooks: true,
+          });
         }),
       );
     } else if (currentUser.position > 2) {
@@ -67,15 +70,21 @@ module.exports = {
       await Promise.all(
         Object.entries(articles).map(async (article) => {
           if (!Array.isArray(article[1])) {
-            await Article.update({ status: +article[1] === 1 ? 3 : 2 }, { where: { id: +article[0] } });
+            await Article.update(
+              { status: +article[1] === 1 ? 3 : 2 },
+              { where: { id: +article[0] } },
+            );
           } else {
             if (article[1].length === 3) {
               const updateContent = {
                 status: +article[1][0] === 1 ? 4 : 3,
                 am7: +article[1][2],
-                pm7: +article[1][3], 
-              }
-              await Article.update( updateContent, { where: { id: +article[0] }, individualHooks: true  });
+                pm7: +article[1][3],
+              };
+              await Article.update(updateContent, {
+                where: { id: +article[0] },
+                individualHooks: true,
+              });
             } else {
               let status;
               if (+article[1][1] === 1) {
@@ -86,9 +95,12 @@ module.exports = {
               const updateContent = {
                 status,
                 am7: +article[1][2],
-                pm7: +article[1][3], 
-              }
-              await Article.update( updateContent, { where: { id: +article[0] } , individualHooks: true });
+                pm7: +article[1][3],
+              };
+              await Article.update(updateContent, {
+                where: { id: +article[0] },
+                individualHooks: true,
+              });
             }
           }
         }),
@@ -114,12 +126,17 @@ module.exports = {
     }
   },
 
-  signupPage: (req, res, next) => {
+  signupPage: async (req, res, next) => {
     const { email, name, code } = req.query;
+    const candidate = await Invitation.findOne({ where: { email, name } });
+    if (candidate == null || candidate.state == 0 || candidate.state == 3) {
+      alert('회원가입의 대상이 아닙니다!');
+      return res.redirect('/author/pre-signup');
+    }
     const user = {
       email,
       name,
-      code
+      code,
     };
     res.render('author/signup', { title: 'author page', user });
   },
@@ -134,7 +151,7 @@ module.exports = {
     // TODO: Author Service 객체 만들어서 추상화하기
     try {
       await Author.create({ email, password, name, code, contact, photo });
-      await Invitation.update( { state: 2 }, { where: { email }, individualHooks: true } );
+      await Invitation.update({ state: 2 }, { where: { email } });
     } catch (error) {
       if (error.errors) {
         error.errors.forEach((e) => {
@@ -146,7 +163,7 @@ module.exports = {
       return res.redirect('/author/signup');
     }
     return res.redirect('/author/login');
-  },  
+  },
 
   editMeetingPage: (req, res, next) => {
     res.render('author/editMeeting', { title: '편집회의 페이지!' });
@@ -275,7 +292,7 @@ module.exports = {
       }
       return res.redirect('/author/pre-signup');
     }
-    alert("성공적으로 저장되었습니다.");
+    alert('성공적으로 저장되었습니다.');
     return res.redirect('/author/login');
   },
 
@@ -289,36 +306,25 @@ module.exports = {
       return {
         ...user.dataValues,
         intState: +user.state,
-        state: converter.inviteState(user.state)
+        state: converter.inviteState(user.state),
       };
     });
     res.render('admin/invitation', { standByUsers });
   },
 
+  // NOTE: state
+  // state: 0 -> 가입 대기
+  // state: 1 -> 가입 승인
+  // state: 2 -> 가입 완료
+  // state: 3 -> 가입 거절
   inviteRequest: async (req, res, next) => {
     const { approved, declined, email, name, code } = req.body;
-    if (approved == '' &&  code != '0') {
-      await Invitation.update(
-        {
-          state: 1
-        },
-        {
-          where: { email }
-        });
-        sendMail(email, name, code);
+    if (approved == '' && code != '0') {
+      await Invitation.update({ state: 1 }, { where: { email } });
+      sendMail(email, name, code);
     } else if (declined == '') {
-      await Invitation.update(
-        {
-          state: 2
-        },
-        {
-          where: { email }
-        });
+      await Invitation.update({ state: 3 }, { where: { email } });
     }
     res.redirect('/author/_admin/invitation');
   },
-
-  authorizedSignup: (req, res, next) => {
-    res.render('author/authorizedSignup', {title: '인증된 회원가입 페이지'});
-  }
 };
