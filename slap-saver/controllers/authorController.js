@@ -160,7 +160,7 @@ module.exports = {
     } = req;
     try {
       const author = await Author.findOne({ where: { id } });
-      const a = await author.createArticle({
+      await author.createArticle({
         headline,
         category,
         imageDesc,
