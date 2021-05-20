@@ -24,10 +24,11 @@
         <option value=5 <%=article.category==="environment" ? 'selected' : '' %> >환경</option>
         <option value=6 <%=article.category==="science" ? 'selected' : '' %> >과학</option>
         <option value=7 <%=article.category==="health" ? 'selected' : '' %> >건강</option>
-        <option value=8 <%=article.category==="sports" ? 'selected' : '' %> >스포츠</option </select>
+        <option value=8 <%=article.category==="sports" ? 'selected' : '' %> >스포츠</option>
+      </select>
         <div class="edit-article__input--default">
           <label for="headline">헤드라인</label>
-          <input type="text" id="headline" name="headline" value=<%=article.headline %> placeholder="뉴스의 헤드라인을 입력해주세요"
+          <input type="text" id="headline" name="headline" value='<%= article.headline %>' placeholder="뉴스의 헤드라인을 입력해주세요"
           maxlength="30" />
           <br />
           <div>
@@ -37,14 +38,14 @@
             <input type="file" id="picture" name="picture" accept="image/gif, image/jpeg, image/png" />
             <br />
             <label for="imageDesc">사진 설명</label>
-            <input type="text" id="imageDesc" name="imageDesc" value=<%=article.imageDesc %> placeholder="사진에 대한 설명을
+            <input type="text" id="imageDesc" name="imageDesc" value='<%=article.imageDesc %>' placeholder="사진에 대한 설명을
             적어주세요" />
             <label for="imageFrom">사진 출처</label>
-            <input type="text" id="imageFrom" name="imageFrom" value=<%=article.imageFrom %> placeholder="사진에 대한 출처를 적어주세요" />
+            <input type="text" id="imageFrom" name="imageFrom" value='<%=article.imageFrom %>' placeholder="사진에 대한 출처를 적어주세요" />
           </div>
           <label for="breifing">100자 브리핑</label>
-          <input type="text" id="briefing" name="briefing" value=<%=article.briefing %> placeholder="뉴스에 대한 브리핑을 작성해주세요"
-          maxlength="30" />
+          <textarea id="briefing" name="briefing" placeholder="뉴스에 대한 브리핑을 작성해주세요"
+          maxlength="30"> <%=article.briefing %>  </textarea>
         </div>
         <select name="paragraph-select" class="paragraph-select">
             <option value='포인트'>포인트</option>
