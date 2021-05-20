@@ -46,14 +46,13 @@
   </article>
   <section class="detail">
     <article class="detail__article">
-      <button class="detail__article--button">자세히 보기</button>
       <article class="detail-sections" style="display: none;">
-        <% article.additionalParagraph.forEach((p)=> { %>
-          <p class="article__briefing">
-            <%=p %>
-          </p>
-          <% }) %>
+        <% article.paragraphs['paragraphs'].forEach(element => { %>
+          <h3><%= element[0] %> </h3>
+          <p><%= element[1] %> </p>
+        <% }) %>
       </article>
+      <button class="detail__article--button">자세히 보기</button>
     </article>
   </section>
   <script src="/javascripts/detail.js"></script>
