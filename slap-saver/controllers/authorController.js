@@ -127,16 +127,16 @@ module.exports = {
   },
 
   signupPage: async (req, res, next) => {
-    const { email, name, code } = req.query;
-    const candidate = await Invitation.findOne({ where: { email, name } });
-    if (candidate == null || candidate.state == 0 || candidate.state == 2 || candidate.state == 3) {
+    const { id } = req.query;
+    const candidate = await Invitation.findOne({ where: { id } });
+    if (candidate == null || candidate.state != 1) {
       alert('회원가입의 대상이 아닙니다!');
       return res.redirect('/author/pre-signup');
     }
     const user = {
-      email,
-      name,
-      code,
+      email: candidate.email,
+      name: candidate.name,
+      code: candidate.code,
     };
     res.render('author/signup', { title: 'author page', user });
   },
@@ -320,8 +320,12 @@ module.exports = {
   inviteRequest: async (req, res, next) => {
     const { approved, declined, email, name, code } = req.body;
     if (approved == '' && code != '0') {
-      await Invitation.update({ state: 1 }, { where: { email } });
-      sendMail(email, name, code);
+      const candidate = await Invitation.findOne({ where: { email } });
+      const invitationId = candidate.id;
+      candidate.state = 1;
+      candidate.code = code;
+      sendMail(invitationId, email, code);
+      await candidate.save();
     } else if (declined == '') {
       await Invitation.update({ state: 3 }, { where: { email } });
     }
