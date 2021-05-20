@@ -148,9 +148,9 @@ module.exports = {
   newArticle: async (req, res, next) => {
     const titles = Array.isArray(req.body['paragraph-title']) ? req.body['paragraph-title'] : [req.body['paragraph-title']];
     const contents = Array.isArray(req.body['paragraph-content']) ? req.body['paragraph-content'] : [req.body['paragraph-content']];
-    const paragraphs = {}
+    const paragraphs = { paragraphs: [] };
     titles.forEach((element, index) => {
-      paragraphs[element] = contents[index];
+      paragraphs['paragraphs'].push([element, contents[index]]);
     })
     const {
       body: { headline, category, imageDesc, imageFrom, briefing},
@@ -169,7 +169,6 @@ module.exports = {
         status: req.body.saveBtn === '' ? STATUS.DRAFTS : STATUS.COMPLETED,
         paragraphs: JSON.stringify(paragraphs),
       });
-      alert('저장에 성공하였습니다.');
     } catch (error) {
       alert(error.errors ? error.errors[0].message : '생성실패');
     }
@@ -183,7 +182,7 @@ module.exports = {
         return res.render('author/editArticle', {
           title: '기사 수정 페이지',
           article: article,
-          paragraphs: article.paragraphs,
+          paragraphs: article.paragraphs['paragraphs'],
         });
       })
       .catch((err) => console.log(err));
@@ -192,7 +191,10 @@ module.exports = {
   editArticle: (req, res, next) => {
     const titles = Array.isArray(req.body['paragraph-title']) ? req.body['paragraph-title'] : [req.body['paragraph-title']];
     const contents = Array.isArray(req.body['paragraph-content']) ? req.body['paragraph-content'] : [req.body['paragraph-content']];
-    const paragraphs = {}
+    const paragraphs = { paragraphs: [] };
+    titles.forEach((element, index) => {
+      paragraphs['paragraphs'].push([element, contents[index]]);
+    })
     titles.forEach((element, index) => {
       paragraphs[element] = contents[index];
     })
