@@ -176,3 +176,7 @@ hr.solid {
   border: 1px solid #888;
   width: 80%; 
 }
+
+.invite-section__content > .closeBtn {
+  cursor: pointer;
+}
