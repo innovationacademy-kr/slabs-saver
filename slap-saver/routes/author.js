@@ -111,5 +111,7 @@ module.exports = (passport) => {
 
   router.post('/_admin/invitation', authorCtrl.inviteRequest);
 
+  router.post('/_admin/decision', authorCtrl.decision);
+
   return router;
 };
