@@ -174,13 +174,18 @@ module.exports = {
   },
 
   newArticle: async (req, res, next) => {
+    const titles = Array.isArray(req.body['paragraph-title']) ? req.body['paragraph-title'] : [req.body['paragraph-title']];
+    const contents = Array.isArray(req.body['paragraph-content']) ? req.body['paragraph-content'] : [req.body['paragraph-content']];
+    const paragraphs = { paragraphs: [] };
+    titles.forEach((element, index) => {
+      if (element && contents[index]) {
+        paragraphs['paragraphs'].push([element, contents[index]]);
+      }
+    })
     const {
-      body: { headline, category, imageDesc, imageFrom, briefing, additionalParagraph },
+      body: { headline, category, imageDesc, imageFrom, briefing},
       user: { id },
     } = req;
-    const paragraphs = Array.isArray(additionalParagraph)
-      ? additionalParagraph.join('|-|')
-      : additionalParagraph;
     try {
       const author = await Author.findOne({ where: { id } });
       await author.createArticle({
@@ -191,10 +196,9 @@ module.exports = {
         briefing,
         author: author.name,
         image: req.file ? req.file.filename : null,
-        additionalParagraph: paragraphs,
         status: req.body.saveBtn === '' ? STATUS.DRAFTS : STATUS.COMPLETED,
+        paragraphs: JSON.stringify(paragraphs),
       });
-      alert('저장에 성공하였습니다.');
     } catch (error) {
       alert(error.errors ? error.errors[0].message : '생성실패');
     }
@@ -204,28 +208,26 @@ module.exports = {
   editArticlePage: (req, res, next) => {
     Article.findOne({ where: { id: req.params.articleId } })
       .then((article) => {
-        let paragraph = [];
-        if (article.additionalParagraph) {
-          paragraph = article.additionalParagraph.split('|-|');
-        }
         article.image = `/images/articleImages/${article.image}`;
         return res.render('author/editArticle', {
           title: '기사 수정 페이지',
           article: article,
-          paragraph: paragraph,
+          paragraphs: article.paragraphs['paragraphs'],
         });
       })
       .catch((err) => console.log(err));
   },
 
   editArticle: (req, res, next) => {
-    let additionalParagraph = '';
-    if (Array.isArray(req.body.additionalParagraph)) {
-      additionalParagraph = req.body.additionalParagraph.filter((p) => p.length > 0);
-      additionalParagraph = additionalParagraph.join('|-|');
-    } else {
-      additionalParagraph = req.body.additionalParagraph;
-    }
+    const titles = Array.isArray(req.body['paragraph-title']) ? req.body['paragraph-title'] : [req.body['paragraph-title']];
+    const contents = Array.isArray(req.body['paragraph-content']) ? req.body['paragraph-content'] : [req.body['paragraph-content']];
+    const paragraphs = { paragraphs: [] };
+    titles.forEach((element, index) => {
+      paragraphs['paragraphs'].push([element, contents[index]]);
+    })
+    titles.forEach((element, index) => {
+      paragraphs[element] = contents[index];
+    })
     Article.findOne({ where: { id: req.params.articleId } })
       .then((article) => {
         article.headline = req.body.headline;
@@ -236,9 +238,7 @@ module.exports = {
         article.imageDesc = req.body.imageDesc;
         article.imageFrom = req.body.imageFrom;
         article.briefing = req.body.briefing;
-        if (additionalParagraph) {
-          article.additionalParagraph = additionalParagraph;
-        }
+        article.paragraphs = JSON.stringify(paragraphs);
         article.status = req.body.saveBtn === '' ? STATUS.DRAFTS : STATUS.COMPLETED;
         article.save();
       })
