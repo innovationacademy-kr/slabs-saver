@@ -48,10 +48,11 @@
     <article class="detail__article">
       <article class="detail-sections" style="display: none;">
         <% article.paragraphs && Object.entries(article.paragraphs).forEach(paragraph => { %>
-          <%= paragraph[0] %>
+          <h3><%= paragraph[0] %></h3>
           <br> 
           <%= paragraph[1] %> 
-        <% }) %>
+          <br> 
+          <% }) %>
       </article>
       <button class="detail__article--button">자세히 보기</button>
     </article>
