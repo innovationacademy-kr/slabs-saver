@@ -3,13 +3,14 @@ const nodemailer = require('nodemailer');
 module.exports = (invitationId, email, code) => {
   if (code != '0') {
     const myEmail = {
-      host: process.env.MAILTRAP_HOST,
-      port: 2525,
-      secure: false,
+      service:'gmail',
       auth: {
-        user: process.env.MAILTRAP_USER_NAME,
-        pass: process.env.MAILTRAP_PASSWORD,
+        user: process.env.GMAIL_USER_NAME,
+        pass: process.env.GMAIL_PASSWORD,
       },
+      tls: {
+        rejectUnauthorized: false,
+      }
     };
     const send = async (data) => {
       nodemailer.createTransport(myEmail).sendMail(data, function (error, info) {
