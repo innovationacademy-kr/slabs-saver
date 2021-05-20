@@ -60,11 +60,6 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: 1,
         allowNull: false,
       },
-      confirmed: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: false,
-        allowNull: false,
-      },
       publishedAt: {
         allowNull: true,
         type: DataTypes.DATE,
