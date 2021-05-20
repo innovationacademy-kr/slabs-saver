@@ -35,9 +35,6 @@ module.exports = {
         type: Sequelize.TEXT,
         allowNull: false,
       },
-      additionalParagraph: {
-        type: Sequelize.TEXT,
-      },
       am7: {
         type: Sequelize.BOOLEAN,
         defaultValue: false,
@@ -53,11 +50,6 @@ module.exports = {
         defaultValue: 1,
         allowNull: false,
       },
-      confirmed: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false,
-        allowNull: false,
-      },
       AuthorId: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -70,6 +62,9 @@ module.exports = {
       publishedAt: {
         allowNull: true,
         type: Sequelize.DATE,
+      },
+      paragraphs: {
+        type: Sequelize.JSON,
       },
       createdAt: {
         allowNull: false,
