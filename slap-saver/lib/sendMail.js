@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer');
 
-module.exports = (email, name, code) => {
+module.exports = (invitationId, email, code) => {
   if (code != '0') {
     const myEmail = {
       host: process.env.MAILTRAP_HOST,
@@ -24,7 +24,7 @@ module.exports = (email, name, code) => {
       from: 'saver@saver.com',
       to: email,
       subject: 'saver입니다',
-      html: `<h1>SAVER</h1><a href="">http://localhost:4000/author/signup?email=${email}&name=${name}&code=${code}</a>`,
+      html: `<h1>SAVER</h1><a href="">http://localhost:4000/author/signup?id=${invitationId}</a>`,
     };
     send(content);
   }

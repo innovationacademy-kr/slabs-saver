@@ -34,7 +34,7 @@ const alreadyLoggedIn = (req, res, next) => {
 
 const checkCode = async (req, res, next) => {
   if (req.user == null) {
-    res.redirect('/author');    
+    res.redirect('/author');
   }
   const currentUser = await getCurrentUser(req.user?.id);
   if (currentUser.position !== 4) {
@@ -43,7 +43,7 @@ const checkCode = async (req, res, next) => {
     res.redirect('/author');
   }
   next();
-}
+};
 
 module.exports = (passport) => {
   router.get('/', loggedIn, authorCtrl.index);
@@ -64,9 +64,6 @@ module.exports = (passport) => {
 
   // NOTE: 로그아웃
   router.get('/logout', authorCtrl.logout);
-
-
-
 
   // NOTE: 회원가입 페이지
   router.get('/signup', alreadyLoggedIn, authorCtrl.signupPage);
