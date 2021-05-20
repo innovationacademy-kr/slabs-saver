@@ -12,15 +12,11 @@ module.exports = {
     const Articles = await Promise.all(
       ArticlesObj.map(async (article) => {
         const updatedAt = moment(article.updatedAt).format('YYYY.MM.DD HH:mm:ss');
-        const additionalParagraph = article.additionalParagraph
-          ? article.additionalParagraph.split('|-|')
-          : [];
         const { photo } = await article.getAuthor();
         return {
           ...article.dataValues,
           authorImg: `/images/authorImages/${photo}`,
           image: `/images/articleImages/${article.image}`,
-          additionalParagraph,
           updatedAt,
           category: converter.category(article.getDataValue('category')),
         };
