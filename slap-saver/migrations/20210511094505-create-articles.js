@@ -50,11 +50,6 @@ module.exports = {
         defaultValue: 1,
         allowNull: false,
       },
-      confirmed: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false,
-        allowNull: false,
-      },
       AuthorId: {
         type: Sequelize.INTEGER,
         allowNull: false,
