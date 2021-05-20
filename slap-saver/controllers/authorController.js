@@ -150,7 +150,9 @@ module.exports = {
     const contents = Array.isArray(req.body['paragraph-content']) ? req.body['paragraph-content'] : [req.body['paragraph-content']];
     const paragraphs = { paragraphs: [] };
     titles.forEach((element, index) => {
-      paragraphs['paragraphs'].push([element, contents[index]]);
+      if (element && contents[index]) {
+        paragraphs['paragraphs'].push([element, contents[index]]);
+      }
     })
     const {
       body: { headline, category, imageDesc, imageFrom, briefing},

@@ -55,15 +55,17 @@
         </select>
       <button type="button" class="paragraph-list--Btn">소단락 추가</button>
       <div class="paragraph-list">
-            <% paragraphs && paragraphs.forEach((p)=> { %>
-              <div class="paragraph-list__item">
-                <label for=paragraph-title ></label>
-                <input id=paragraph-title name=paragraph-title class="paragraph-item__title" value= <%= p[0] %> >
-                <label for=paragraph-conetent ></label>
-                <textarea id=paragraph-content name=paragraph-content class="paragraph-item__content" type="text" value=<%= p[1] %> ><%= p[1] %></textarea>
-              </div>
-              <% }) %>
+        <% if (paragraphs?.length > 0) { %>
+          <% paragraphs.forEach((p)=> { %>
+          <div class="paragraph-list__item">
+            <label for=paragraph-title ></label>
+            <input id=paragraph-title name=paragraph-title class="paragraph-item__title" value= <%= p[0] %> >
+            <label for=paragraph-conetent ></label>
+            <textarea id=paragraph-content name=paragraph-content class="paragraph-item__content" type="text" value=<%= p[1] %> ><%= p[1] %></textarea>
           </div>
+          <% }) %>
+        <% } %>
+      </div>
     </div>
     <button class="edit-article--save" name="saveBtn" type="submit">저장</button>
     <button class="edit-article--complete" name="completeBtn" type="submit">완료</button>
