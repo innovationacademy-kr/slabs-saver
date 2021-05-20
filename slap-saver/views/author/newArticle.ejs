@@ -18,14 +18,15 @@
     <form method="post" class="article" action="/author/articles/new" enctype="multipart/form-data">
       <div class="article__category">
         <label for="category">카테고리</label>
-        <select name="category" id="category">
-          <option value=2>정치</option>
-          <option value=3>경제</option>
-          <option value=4>기술</option>
-          <option value=5>환경</option>
-          <option value=6>과학</option>
-          <option value=7>건강</option>
-          <option value=8>스포츠</option>
+        <select name="category" id="category" >
+          <% const options = ['정치', '경제', '기술', '환경', '과학', '건강', '스포츠']; %>
+          <% options.forEach((option, index) => { %>
+            <% if (+defaultCategory === index + 2) { %>
+              <option value="<%= index + 2 %>" selected><%= option %> </option>
+            <% } else { %>
+              <option value="<%= index + 2 %>"><%= option %> </option>
+            <% } %>
+          <% }) %>
         </select>
       </div>
       <div class="article__headline">

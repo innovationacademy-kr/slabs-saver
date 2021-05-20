@@ -141,8 +141,12 @@ module.exports = {
     res.render('author/editMeeting', { title: '편집회의 페이지!' });
   },
 
-  newArticlePage: (req, res, next) => {
-    res.render('author/newArticle', { title: '기사 작성 페이지!!' });
+  newArticlePage: async (req, res, next) => {
+    const currentUser = await getCurrentUser(req.user?.id);
+    if (!currentUser) return res.redirect('/author/login');
+    let defaultCategory = String(currentUser.code)[0];
+    if (defaultCategory === '1') defaultCategory = '2';
+    res.render('author/newArticle', { title: '기사 작성 페이지!!', defaultCategory });
   },
 
   newArticle: async (req, res, next) => {
