@@ -17,6 +17,7 @@ module.exports = {
           imageFrom: 'image source',
           briefing: 'this is briefing',
           status: getRandomInt(1, 4),
+          paragraphs: JSON.stringify({ paragraphs: [] }),
         });
       }),
     );
@@ -33,6 +34,7 @@ module.exports = {
           briefing:
             'A group of high-profile scientists published a letter calling for renewed investigation into the origins of COVID-19 — including the theory that it spilled out of a virology lab',
           status: getRandomInt(1, 4),
+          paragraphs: JSON.stringify({ paragraphs: [] }),
         });
       }),
     );
@@ -47,6 +49,7 @@ module.exports = {
           imageFrom: 'image source',
           briefing: 'this is briefing',
           status: getRandomInt(1, 4),
+          paragraphs: JSON.stringify({ paragraphs: [] }),
         });
       }),
     );
