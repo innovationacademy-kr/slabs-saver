@@ -317,17 +317,35 @@ module.exports = {
   // state: 1 -> 가입 승인
   // state: 2 -> 가입 완료
   // state: 3 -> 가입 거절
-  inviteRequest: async (req, res, next) => {
-    const { approved, declined, email, name, code } = req.body;
-    if (approved == '' && code != '0') {
+  decision: async (req, res, next) => {
+    const { approved, declined, email, code } = req.body;
+    if (approved === '' && code !== '0') {
       const candidate = await Invitation.findOne({ where: { email } });
       const invitationId = candidate.id;
       candidate.state = 1;
       candidate.code = code;
       sendMail(invitationId, email, code);
       await candidate.save();
-    } else if (declined == '') {
+    } else if (declined === '') {
       await Invitation.update({ state: 3 }, { where: { email } });
+    }
+    res.redirect('/author/_admin/invitation');
+  },
+
+  inviteRequest: async (req, res, next) => {
+    const { invite, email, name, code } = req.body;
+    console.log(req.body);
+    if (email === '' || name === '' || code === '') {
+      alert("빈 항목이 있어서는 안됩니다.");
+    } else if (invite === '') {
+      try {
+        await Invitation.create({ email, name, code, state: 1 });
+        const candidate = await Invitation.findOne({ where: { email } });
+        const invitationId = candidate.id;
+        sendMail(invitationId, email, code);
+      } catch (error) {
+        alert("에러가 발생하였습니다!");
+      }
     }
     res.redirect('/author/_admin/invitation');
   },
