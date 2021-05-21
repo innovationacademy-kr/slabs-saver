@@ -4,6 +4,8 @@ const multer = require('multer');
 const alert = require('alert');
 const authorCtrl = require('../controllers/authorController');
 
+const getCurrentUser = require('../lib/getCurrentUser');
+
 const articleUploader = multer({ dest: 'public/images/articleImages' });
 const upload = multer({ dest: 'public/images/authorImages' });
 
@@ -28,6 +30,19 @@ const alreadyLoggedIn = (req, res, next) => {
     return res.redirect('/author');
   }
   return next();
+};
+
+const checkCode = async (req, res, next) => {
+  if (req.user == null) {
+    res.redirect('/author');
+  }
+  const currentUser = await getCurrentUser(req.user?.id);
+  if (currentUser.position !== 4) {
+    // NOTE: confirm이 더 낫나?
+    alert('권한이 없습니다.');
+    res.redirect('/author');
+  }
+  next();
 };
 
 module.exports = (passport) => {
@@ -82,5 +97,21 @@ module.exports = (passport) => {
 
   // NOTE: 기사 확인 페이지
   router.get('/articles/preview/:articleId', loggedIn, authorCtrl.previewPage);
+
+  // NOTE: 신원인증
+  router.get('/pre-signup', alreadyLoggedIn, authorCtrl.preSignup);
+
+  // NOTE: 신원인증 요청
+  router.post('/pre-signup', authorCtrl.preSignupRequest);
+
+  // NOTE: admin 페이지
+  router.get('/_admin', loggedIn, checkCode, authorCtrl.admin);
+
+  router.get('/_admin/invitation', loggedIn, checkCode, authorCtrl.invite);
+
+  router.post('/_admin/invitation', authorCtrl.inviteRequest);
+
+  router.post('/_admin/decision', authorCtrl.decision);
+
   return router;
 };
