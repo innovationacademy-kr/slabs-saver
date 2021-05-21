@@ -128,6 +128,9 @@ module.exports = {
 
   signupPage: async (req, res, next) => {
     const { id } = req.query;
+    if (!id) {
+      return res.redirect('/author/pre-signup');
+    }
     const candidate = await Invitation.findOne({ where: { id } });
     if (candidate == null || candidate.state != 1) {
       alert('회원가입의 대상이 아닙니다!');
