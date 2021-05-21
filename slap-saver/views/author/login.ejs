@@ -3,39 +3,47 @@
   <head>
     <title><%= title %></title>
     <link href="/vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/stylesheets/author/login.css" rel="stylesheet">
   </head>
   <body>
-    <div class="container">
-      <div class="d-flex min-vh-100 align-items-center row justify-content-center" >
-        <div class="col-md-6 contents">
-          <div class="col-md-12">
-            <div class="mb-4">
-              <h3>Sign In to <strong>slab-saver</strong></h3>
-              <p class="mb-4">기자 페이지에 접근하셨습니다. 로그인을 먼저 진행해주세요. 아이디가 없다면 관리자에게 문의하세요.</p>
+    <div class="content">
+      <div class="container">
+        <div class="row justify-content-center" >
+          <div class="col-md-6 contents">
+            <div class="row justify-content-center">
+              <div class="col-md-12">
+                <div class="form-block">
+                  <div class="mb-4">
+                    <h3>Sign In to <strong>slab-saver</strong></h3>
+                    <p class="mb-4">기자 페이지에 접근하셨습니다. 로그인을 먼저 진행해주세요. 아이디가 없다면 관리자에게 문의하세요.</p>
+                  </div>
+                  <form class="login-form" method="post" action="/author/login">
+                    <div class="mb-4">
+                      <label for="email" class="form-label">이메일</label>
+                      <input type="email" class="form-control" name="email" placeholder="ID" />
+                    </div>
+                    <div class="mb-4">
+                      <label for="password" class="form-label">비밀번호</label>
+                      <input
+                        type="password"
+                        name="password"
+                        placeholder="Password"
+                        class="form-control"
+                      />
+                    </div>
+                    <button type="submit" class="btn btn-primary">로그인</button>
+                    <a href="/author/pre-signup">
+                      <button type="button" class="btn btn-info">회원가입</button>
+                    </a>
+                  </form>
+                </div>
+              </div>
             </div>
-            <form class="login-form" method="post" action="/author/login">
-              <div class="mb-4">
-                <label for="email" class="form-label">이메일</label>
-                <input type="email" class="form-control" name="email" placeholder="ID" />
-              </div>
-              <div class="mb-4">
-                <label for="password" class="form-label">비밀번호</label>
-                <input
-                  type="password"
-                  name="password"
-                  placeholder="Password"
-                  class="form-control"
-                />
-              </div>
-              <button type="submit" class="btn btn-primary">로그인</button>
-              <a href="/author/pre-signup">
-                <button type="button" class="btn btn-info">회원가입</button>
-              </a>
-            </form>
           </div>
         </div>
       </div>
     </div>
+
     <script src="/vendors/bootstrap/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
