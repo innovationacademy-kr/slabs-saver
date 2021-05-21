@@ -151,3 +151,32 @@ hr.solid {
   color: #fff;
   background-color: #2e5bcc;
 }
+
+.invite-button {
+
+}
+
+.invite-section {
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+
+}
+
+.invite-section__content {
+  background-color: #fefefe; 
+  margin: 30% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; 
+}
+
+.invite-section__content > .closeBtn {
+  cursor: pointer;
+}
