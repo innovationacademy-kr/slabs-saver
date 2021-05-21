@@ -1,0 +1,10 @@
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: #f8fafb;
+}
+
+.content {
+  position: absolute;
+  width: 100%;
+  top: 30%;
+}
