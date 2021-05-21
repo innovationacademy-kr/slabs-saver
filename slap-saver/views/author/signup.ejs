@@ -6,9 +6,11 @@
   <body>
     <form method="post" class="signup-form" action="/author/signup" enctype="multipart/form-data">
       <div class="signup-form__input">
-        <label for="email">아이디</label>
-        <input type="email" name="email" placeholder="Email" />
-        <br />
+        <div>
+          <label for="email">아이디</label>
+          <span><%= user.email %></span>
+          <input type="hidden" name="email" value=<%= user.email %> />
+        </div>
         <label for="password">비밀번호</label>
         <input
         class="signup-form__password"
@@ -26,22 +28,16 @@
         />
         <br />
 
-        <label for="confirm">이름</label>
-        <input
-        class="signup-form__name"
-          type="text"
-          name="name"
-          placeholder="your name..."
-        />
-        <br />
-        <label for="confirm">코드</label>
-        <input
-        class="signup-form__code"
-          type="number"
-          name="code"
-          value=201
-        />
-        <br />
+        <div>
+            <label for="name">이름</label>
+            <span><%= user.name %></span>
+            <input type="hidden" name="name" value=<%= user.name %> />
+        </div>
+        <div>
+            <label for="code">코드</label>
+            <span><%= user.code %></span>
+            <input type="hidden" name="code" value=<%= user.code %> />
+        </div>
 
         <label for="contact">연락처</label>
         <input
