@@ -3,22 +3,14 @@
   <head>
     <title><%= title %></title>
     <link rel="stylesheet" href="/stylesheets/author/articles.css" />
+    <link href="/vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   </head>
 
   <body>
-    <h1><%= title %></h1>
-    <div class="side-nav">
-      <a href="/author/logout">
-        <button class="side-nav__logout">로그아웃</button>
-      </a>
-      <a href="/author">홈</a>
-      <a href="/author/edit-meeting">편집 회의</a>
-      <a href="/author/articles/new">기사 작성</a>
-      <a href="/author/articles">내 기사 목록</a>
-    </div>
+    <%- include('../partials/navbar.ejs') %>
 
     <section class="list-table">
-      <table class="table">
+      <table class="mytable">
         <thead class="table-header">
           <tr class="table-header__row">
             <th class="table-header__cell">No</th>
@@ -59,5 +51,6 @@
         </tbody>
       </table>
     </section>
+    <script src="/vendors/bootstrap/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

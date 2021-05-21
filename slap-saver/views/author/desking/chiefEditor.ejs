@@ -1,22 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link href="/vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/stylesheets/author/index.css" />
   </head>
   <body>
-    <nav></nav>
-    <div class="side-nav">
-      <a href="/author/logout">
-        <button class="side-nav__logout">로그아웃</button>
-      </a>
-      <a href="/author">홈</a>
-      <a href="/author/edit-meeting">편집 회의</a>
-      <a href="/author/articles/new">기사 작성</a>
-      <a href="/author/articles">내 기사 목록</a>
-    </div>
+    <%- include('../../partials/navbar.ejs') %>
 
     <section class="desking-table">
-      <br />
       <div class="desking-table__category">
         <form method="get" action="/author" enctype="multipart/form-data">
           <label for="category">카테고리</label>
@@ -30,7 +21,7 @@
             <option value="7">건강</option>
             <option value="8">스포츠</option>
           </select>
-          <button type="submit">이동</button>
+            <button class="btn btn-primary"type="submit">이동</button>
         </form>
       </div>
       <form action="/author/desk-process" method="post">
@@ -91,7 +82,6 @@
                 <input class="hidden" type="hidden" name="<%= article.id %>" value=<%= article.status > 2 ? "1" : "0" %> />
                 <% } %>
               </td>
-
               <%# NOTE: 게재 %>
               <td class="table-body__cell">
                 <label for="confirmed"> </label>
@@ -139,5 +129,6 @@
       </form>
     </section>
     <script src="/javascripts/author/index.js"></script>
+    <script src="/vendors/bootstrap/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
