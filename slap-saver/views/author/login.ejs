@@ -5,23 +5,37 @@
     <link href="/vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   </head>
   <body>
-    <form class="login-form" method="post" action="/author/login">
-      <div class="login-form__input">
-        <label for="email">아이디</label>
-        <input type="email" name="email" placeholder="ID" />
-        <label for="password">비밀번호</label>
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-        />
+    <div class="container">
+      <div class="d-flex min-vh-100 align-items-center row justify-content-center" >
+        <div class="col-md-6 contents">
+          <div class="col-md-12">
+            <div class="mb-4">
+              <h3>Sign In to <strong>slab-saver</strong></h3>
+              <p class="mb-4">기자 페이지에 접근하셨습니다. 로그인을 먼저 진행해주세요. 아이디가 없다면 관리자에게 문의하세요.</p>
+            </div>
+            <form class="login-form" method="post" action="/author/login">
+              <div class="mb-4">
+                <label for="email" class="form-label">이메일</label>
+                <input type="email" class="form-control" name="email" placeholder="ID" />
+              </div>
+              <div class="mb-4">
+                <label for="password" class="form-label">비밀번호</label>
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  class="form-control"
+                />
+              </div>
+              <button type="submit" class="btn btn-primary">로그인</button>
+              <a href="/author/pre-signup">
+                <button type="button" class="btn btn-info">회원가입</button>
+              </a>
+            </form>
+          </div>
+        </div>
       </div>
-      <button class="submit-button" type="submit">로그인</button>
-      <div class="keep-login">
-        <input type="checkbox" name="keepLogin" />
-        <label for="keep-login"><span>로그인 상태 유지</span></label>
-      </div>
-    </form>
+    </div>
     <script src="/vendors/bootstrap/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
