@@ -6,7 +6,7 @@
 }
 
 body {
-  padding: 50px;
+  padding: 0;
   font-family: 'Noto Sans KR', sans-serif;
   /* font: 14px 'Lucida Grande', Helvetica, Arial, sans-serif; */
 }
@@ -15,37 +15,97 @@ a {
   color: #00b7ff;
 }
 
-.main-title {
+main {
+  padding: 50px;
+}
+
+.saver-header {
+  display: flex;
+  width: 100%;
+  height: 10rem;
+}
+
+.saver-header .title {
+  font-size: 3rem;
+  padding: 1rem;
+  font-weight: bold;
+}
+
+.saver-search {
+  width: 50%;
+  height: 50%;
+}
+
+.saver-search__input, .saver-search__button {
   font-size: 2rem;
 }
 
-/* 오늘의 뉴스 */
 
-.today-article__title {
-  margin-top: 2em;
+.saver-setting {
+  padding: 1rem;
+}
+
+.today-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 2em;
+}
+
+.today-title {
+  font-size: 3rem;
   font-weight: bold;
-}
-
-.today-article__content {
-  font-weight: 500;
-  font: 500;
-  color: var(--light-text);
-}
-
-/* 오늘의 한마디 */
-
-.today-words__title {
-  margin-top: 2em;
-  font-weight: bold;
-}
-
-.today-words__content {
-  font-weight: 500;
-  font: 500;
-  color: var(--light-text);
 }
 
 /* 일반 기사 */
+
+.content-category {
+  font-size: 2rem;
+}
+
+.content-title {
+  font-size: 3.5rem;
+}
+
+.action-button {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.action-button > span {
+  padding-right: 1rem;
+}
+
+.action-button > span > svg {
+  font-size: 2rem;
+  margin: 2rem 2rem;
+}
+
+
+
+
+
+.image-info {
+  font-size: 1.7rem;
+  color: var(--darker-text);
+}
+
+.content-text {
+  font-size: 2.5rem;
+}
+
+.article-info {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 2rem;
+}
+
+.article-info > span {
+  padding-right: 1em;
+}
+
+
+
 
 .articles {
   display: flex;
@@ -180,3 +240,5 @@ hr.solid {
 .invite-section__content > .closeBtn {
   cursor: pointer;
 }
+
+

@@ -4,35 +4,92 @@
 <head>
   <title>SAVER</title>
   <meta content="target-densitydpi=device-dpi">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="/stylesheets/style.css" />
 </head>
 
 <body>
-  <header class="main-title">
-    <h1>SAVER</h1>
-  </header>
-  <section class="mobile-view">
-    <article class="today-article">
-      <h1 class="today-article__title">오늘의 뉴스</h1>
-      <h2 class="today-article__content">
-        <%= todayArticle.headline %>
-      </h2>
-    </article>
-    <article class="today-words">
-      <h1 class="today-words__title">오늘의 한마디</h1>
-      <h2 class="today-words__content">
-        <%= todayWords %>
-      </h2>
-    </article>
-    <article class="articles">
-      <% Articles.map((article)=> { %>
-        <% if (article.status === 4) { %>
-          <%- include('partials/articleCard.ejs', { article }) %>
-        <% } %>
-      <% }) %>
-    </article>
-    </article>
-  </section>
+  <nav class="navbar sticky-top navbar-light bg-light saver-header">
+    <div class="container-fluid saver-header">
+        <a class="navbar-brand title">SAVER</a>
+        <form class="d-flex saver-search">
+          <input class="form-control me-2 saver-search__input" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success saver-search__button" type="submit">Search</button>
+        </form>
+
+        
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+        <i class="fa fa-gear saver-setting" style="font-size:48px;"></i>          
+        </button>
+        <div
+          class="navbar-collapse justify-content-center collapse"
+          id="navbarSupportedContent"
+        >
+          <ul
+            class="navbar-nav d-lg-flex justify-content-between align-items-center"
+          >
+            <li>
+              <button class="navbar-close">
+                <i class="mdi mdi-close"></i>
+              </button>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="#home">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#aaa">MAGAZINE</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#bbb">Business</a>
+            </li>
+          </ul>
+        </div>
+
+
+      </div>
+    </div>
+  </nav>
+  <main class="main">
+    <section class="today-section">
+      <div class="card text-dark bg-light mb-3" style="width: 100%; height: 100%;">
+        <div class="card-header today-title">오늘의 뉴스</div>
+        <div class="card-body">
+          <h1 class="card-title">
+              <%= todayArticle.headline %>asdadsadasdsadasda
+          </h1>
+        </div>
+      </div>
+
+      <div class="card text-dark bg-light mb-3" style="width: 100%; height: 100%;">
+        <div class="card-header today-title">오늘의 한마디</div>
+        <div class="card-body">
+          <h1 class="card-title">
+            <%= todayWords %>adasdasdasdasdasdasdas %>
+          </h1>
+        </div>
+      </div>
+    </section>
+    <section class="mobile-view">
+      <article class="articles">
+        <div class="row row-cols-1 g-4">
+          <% Articles.map((article)=> { %>
+            <% if (article.status === 4) { %>
+              <%- include('partials/articleCard.ejs', { article }) %>
+            <% } %>
+          <% }) %>
+        </div>
+      </article>
+    </section>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 </body>
 
 </html>
