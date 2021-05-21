@@ -1,5 +1,5 @@
 const { Article } = require('../models');
-const convertCategory = require('../lib/convertCategory');
+const converter = require('../lib/converter');
 const moment = require('moment');
 
 module.exports = {
@@ -8,9 +8,9 @@ module.exports = {
     const candidateArticle = await Article.findOne({ where: { id: '1' } });
     const todayArticle = candidateArticle ? candidateArticle : { headline: '비어있는 항목입니다.' };
     const todayWords = 'helloworld';
-    const AtriclesObj = await Article.findAll({});
+    const ArticlesObj = await Article.findAll({});
     const Articles = await Promise.all(
-      AtriclesObj.map(async (article) => {
+      ArticlesObj.map(async (article) => {
         const updatedAt = moment(article.updatedAt).format('YYYY.MM.DD HH:mm:ss');
         const { photo } = await article.getAuthor();
         return {
@@ -18,7 +18,7 @@ module.exports = {
           authorImg: `/images/authorImages/${photo}`,
           image: `/images/articleImages/${article.image}`,
           updatedAt,
-          category: convertCategory(article.getDataValue('category')),
+          category: converter.category(article.getDataValue('category')),
         };
       }),
     );
