@@ -2,15 +2,10 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link href="/vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   </head>
   <body>
-    <h1><%= title %></h1>
-    <div class="side-nav">
-      <button class="side-nav__logout">로그아웃</button>
-      <a href="/author/edit-meeting">편집 회의</a>
-      <a href="/author/articles/new">기사 작성</a>
-      <a href="/author/articles">내 기사 목록</a>
-    </div>
+    <%- include('../partials/navbar.ejs') %>
+    <script src="/vendors/bootstrap/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

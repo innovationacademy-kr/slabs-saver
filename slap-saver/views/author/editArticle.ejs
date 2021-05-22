@@ -18,8 +18,7 @@
               <div class="col-md-12">
                 <div class="form-block">
                   <div class="mb-4">
-                    <h3>기사 작성</h3>
-                    <p class="mb-4">새로운 기사를 작성합니다.</p>
+                    <h3>기사 수정</h3>
                   </div>
                   <form method="post" class="edit-article" action=<%= article.id %> enctype="multipart/form-data">
                     <div class="mb-4">
@@ -46,7 +45,7 @@
                       <br>
                       <img src=<%=article.image %> alt="current-picture" width="300px" height="300px">
                       <br>
-                      <label class="form-label" for="picture">사진</label>
+                      <label class="form-label" for="picture">새로운 사진</label>
                       <input class="form-control" type="file" id="picture" name="picture" accept="image/gif, image/jpeg, image/png" />
                       <label class="form-label" for="imageDesc">사진 설명</label>
                       <input class="form-control" type="text" id="imageDesc" name="imageDesc" placeholder="사진에 대한 설명을 적어주세요" />

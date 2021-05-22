@@ -1,20 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link href="/vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/stylesheets/author/index.css" />
   </head>
   <body>
-    <nav></nav>
-    <div class="side-nav">
-      <a href="/author/logout">
-        <button class="side-nav__logout">로그아웃</button>
-      </a>
-      <a href="/author">홈</a>
-      <a href="/author/edit-meeting">편집 회의</a>
-      <a href="/author/articles/new">기사 작성</a>
-      <a href="/author/articles">내 기사 목록</a>
-    </div>
-
+    <%- include('../../partials/navbar.ejs') %>
     <section class="desking-table">
       <!-- NOTE: category select -->
       <br />
@@ -88,5 +79,6 @@
       </form>
     </section>
     <script src="/javascripts/author/index.js"></script>
+    <script src="/vendors/bootstrap/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
