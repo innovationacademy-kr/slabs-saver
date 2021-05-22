@@ -10,16 +10,6 @@
 
 <body>
     <%- include('../partials/navbar.ejs') %>
-  <div class="container">
-
-
-      <div class="article__buttons">
-        <button class="article--save" name="saveBtn" type="submit">저장</button>
-        <button class="article--complete" name="completeBtn" type="submit">완료</button>
-      </div>
-    </form>
-  </div>
-
   <div class="content">
     <div class="container">
       <div class="row justify-content-center" >
@@ -28,10 +18,10 @@
             <div class="col-md-12">
               <div class="form-block">
                 <div class="mb-4">
-                  <h3>Sign In to <strong>slab-saver</strong></h3>
-                  <p class="mb-4">기자 페이지에 접근하셨습니다. 로그인을 먼저 진행해주세요. 아이디가 없다면 관리자에게 문의하세요.</p>
+                  <h3>기사 작성</h3>
+                  <p class="mb-4">새로운 기사를 작성합니다.</p>
                 </div>
-                <form method="post" class="article" action="/author/articles/new" enctype="multipart/form-data"></form>
+                <form method="post" class="article" action="/author/articles/new" enctype="multipart/form-data">
                   <div class="mb-4">
                     <label class="form-label" for="category">카테고리</label>
                     <select class="form-control" name="category" id="category" >
@@ -66,13 +56,13 @@
                   <div class="mb-4">
                     <div class="article__paragraphs">
                       <div class="article__paragraphs--select">
-                        <select name="paragraph-select" class="paragraph-select">
+                        <select name="paragraph-select" class="form-control paragraph-select">
                           <option value='포인트'>포인트</option>
                           <option value='향후예측'>향후예측</option>
                           <option value='논쟁점'>논쟁점</option>
                           <option value='직접입력(더블클릭으로 수정)'>직접입력</option>
                         </select>
-                        <button type="button" class="paragraph-list--Btn">소단락 추가</button>
+                        <button  type="button" class="btn btn-primary paragraph-list--Btn">소단락 추가</button>
                       </div>
                       <div class="paragraph-list"> </div>
                     </div>
