@@ -5,72 +5,102 @@
   <title>
     <%= title %>
   </title>
+  <link href="/vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
-  <div class="side-nav">
-    <button class="side-nav__logout">로그아웃</button>
-    <a href="/author/edit-meeting">편집 회의</a>
-    <a href="/author/articles/new">기사 작성</a>
-    <a href="/author/articles">내 기사 목록</a>
-  </div>
-  <form method="post" class="edit-article" action=<%=article.id %> enctype="multipart/form-data">
-    <div class="edit-article__input">
-      <label for="category">카테고리</label>
-      <select name="category" id="category">
-        <option value=2 <%= article.category === 2 ? 'selected' : '' %> >정치</option>
-        <option value=3 <%= article.category === 3 ? 'selected' : '' %> >경제</option>
-        <option value=4 <%= article.category === 4 ? 'selected' : '' %> >기술</option>
-        <option value=5 <%= article.category === 5 ? 'selected' : '' %> >환경</option>
-        <option value=6 <%= article.category === 6 ? 'selected' : '' %> >과학</option>
-        <option value=7 <%= article.category === 7 ? 'selected' : '' %> >건강</option>
-        <option value=8 <%= article.category === 8 ? 'selected' : '' %> >스포츠</option>
-      </select>
-        <div class="edit-article__input--default">
-          <label for="headline">헤드라인</label>
-          <input type="text" id="headline" name="headline" value='<%= article.headline %>' placeholder="뉴스의 헤드라인을 입력해주세요"
-          maxlength="30" />
-          <br />
-          <div>
-            <label for="current-picture">현재 사진</label>
-            <img src=<%=article.image %> alt="current-picture" width="300px" height="300px">
-            <label for="picture">사진</label>
-            <input type="file" id="picture" name="picture" accept="image/gif, image/jpeg, image/png" />
-            <br />
-            <label for="imageDesc">사진 설명</label>
-            <input type="text" id="imageDesc" name="imageDesc" value='<%=article.imageDesc %>' placeholder="사진에 대한 설명을
-            적어주세요" />
-            <label for="imageFrom">사진 출처</label>
-            <input type="text" id="imageFrom" name="imageFrom" value='<%=article.imageFrom %>' placeholder="사진에 대한 출처를 적어주세요" />
+   <%- include('../partials/navbar.ejs') %>
+  <div class="content">
+      <div class="container">
+        <div class="row justify-content-center" >
+          <div class="col-md-6 contents">
+            <div class="row justify-content-center">
+              <div class="col-md-12">
+                <div class="form-block">
+                  <div class="mb-4">
+                    <h3>기사 작성</h3>
+                    <p class="mb-4">새로운 기사를 작성합니다.</p>
+                  </div>
+                  <form method="post" class="edit-article" action=<%= article.id %> enctype="multipart/form-data">
+                    <div class="mb-4">
+                        <label class="form-label" for="category">카테고리</label>
+                        <select class="form-control" name="category" id="category">
+                          <option value=2 <%= article.category === 2 ? 'selected' : '' %> >정치</option>
+                          <option value=3 <%= article.category === 3 ? 'selected' : '' %> >경제</option>
+                          <option value=4 <%= article.category === 4 ? 'selected' : '' %> >기술</option>
+                          <option value=5 <%= article.category === 5 ? 'selected' : '' %> >환경</option>
+                          <option value=6 <%= article.category === 6 ? 'selected' : '' %> >과학</option>
+                          <option value=7 <%= article.category === 7 ? 'selected' : '' %> >건강</option>
+                          <option value=8 <%= article.category === 8 ? 'selected' : '' %> >스포츠</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                      <div class="article__headline">
+                          <label class="form-label" for="headline">헤드라인</label>
+                          <input class="form-control" type="text" id="headline" name="headline" value='<%= article.headline %>' placeholder="뉴스의 헤드라인을 입력해주세요"
+                          maxlength="30" />
+                      </div>
+                    </div>
+                    <div class="mb-4">
+                      <label for="current-picture">현재 사진</label>
+                      <br>
+                      <img src=<%=article.image %> alt="current-picture" width="300px" height="300px">
+                      <br>
+                      <label class="form-label" for="picture">사진</label>
+                      <input class="form-control" type="file" id="picture" name="picture" accept="image/gif, image/jpeg, image/png" />
+                      <label class="form-label" for="imageDesc">사진 설명</label>
+                      <input class="form-control" type="text" id="imageDesc" name="imageDesc" placeholder="사진에 대한 설명을 적어주세요" />
+                      <label class="form-label" for="imageFrom">사진 출처</label>
+                      <input class="form-control" type="text" id="imageFrom" name="imageFrom" placeholder="사진에 대한 출처를 적어주세요" />
+                    </div>
+                    <div class="mb-4">
+                      <label class="form-label" for="breifing">100자 브리핑</label>
+                      <textarea class="form-control" id="briefing" name="briefing" placeholder="뉴스에 대한 브리핑을 작성해주세요"><%=article.briefing %></textarea>
+                    </div>
+                    <div class="mb-4">
+                      <div class="article__paragraphs">
+                        <div class="article__paragraphs--select">
+                          <select name="paragraph-select" class="form-control paragraph-select">
+                            <option value='포인트'>포인트</option>
+                            <option value='향후예측'>향후예측</option>
+                            <option value='논쟁점'>논쟁점</option>
+                            <option value='직접입력(더블클릭으로 수정)'>직접입력</option>
+                          </select>
+                          <button  type="button" class="btn btn-primary paragraph-list--Btn">소단락 추가</button>
+                        </div>
+                        <div class="paragraph-list">
+                        <% if (paragraphs?.length > 0) { %>
+                          <% paragraphs.forEach((p)=> { %>
+                          <div class="paragraph-list__item">
+                            <label class="form-label" for=paragraph-title ></label>
+                            <input class="form-control" id=paragraph-title name=paragraph-title class="paragraph-item__title" value= <%= p[0] %> readonly="readonly" >
+                            <label class="form-label" for=paragraph-conetent ></label>
+                            <textarea class="form-control" id=paragraph-content name=paragraph-content class="paragraph-item__content" type="text" value=<%= p[1] %> ><%= p[1] %></textarea>
+                          </div>
+                          <% }) %>
+                        <% } %>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="mb-4">
+                    </div>                    
+                    <div class="mb-4">
+                    </div>
+                    <div class="d-grid gap-2">
+                      <button class="article--save btn btn-primary" name="saveBtn" type="submit">저장</button>
+                      <button class="article--complete btn btn-info" name="completeBtn" type="submit">완료</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
           </div>
-          <label for="breifing">100자 브리핑</label>
-          <textarea id="briefing" name="briefing" placeholder="뉴스에 대한 브리핑을 작성해주세요"
-          maxlength="30"> <%=article.briefing %>  </textarea>
         </div>
-        <select name="paragraph-select" class="paragraph-select">
-            <option value='포인트'>포인트</option>
-            <option value='향후예측'>향후예측</option>
-            <option value='논쟁점'>논쟁점</option>
-            <option value='직접입력(더블클릭으로 수정)'>직접입력</option>
-        </select>
-      <button type="button" class="paragraph-list--Btn">소단락 추가</button>
-      <div class="paragraph-list">
-        <% if (paragraphs?.length > 0) { %>
-          <% paragraphs.forEach((p)=> { %>
-          <div class="paragraph-list__item">
-            <label for=paragraph-title ></label>
-            <input id=paragraph-title name=paragraph-title class="paragraph-item__title" value= <%= p[0] %> >
-            <label for=paragraph-conetent ></label>
-            <textarea id=paragraph-content name=paragraph-content class="paragraph-item__content" type="text" value=<%= p[1] %> ><%= p[1] %></textarea>
-          </div>
-          <% }) %>
-        <% } %>
       </div>
     </div>
-    <button class="edit-article--save" name="saveBtn" type="submit">저장</button>
-    <button class="edit-article--complete" name="completeBtn" type="submit">완료</button>
-  </form>
+
   <script src="/javascripts/addSection.js"></script>
+  <script src="/vendors/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
