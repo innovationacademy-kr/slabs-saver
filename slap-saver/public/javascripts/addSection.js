@@ -5,10 +5,10 @@ var form = document.querySelector('form');
 
 function makeParagraph(title) {
   return '<div class="paragraph-list__item">' + '\n'
-          + '<label for=paragraph-title ></label>'
-          + '<input id=paragraph-title name=paragraph-title class="paragraph-item__title" type="text" value=' + title +' readonly="readonly" >' + '\n'
-          + '<label for=paragraph-conetent ></label>'
-          + '<textarea id=paragraph-content name=paragraph-content class="paragraph-item__content" > </textarea>' + '\n'
+          + '<label class="form-label"  for=paragraph-title ></label>'
+          + '<input class="form-control" id=paragraph-title name=paragraph-title class="paragraph-item__title" type="text" value=' + title +' readonly="readonly" >' + '\n'
+          + '<label class="form-label" for=paragraph-conetent ></label>'
+          + '<textarea class="form-control" id=paragraph-content name=paragraph-content class="paragraph-item__content" > </textarea>' + '\n'
         + '</div>'
 }
 
@@ -18,7 +18,7 @@ addParagraphBtn.addEventListener('click', function(e) {
 })
 
 paragraphList.addEventListener('dblclick', function(e) {
-  var paragraphTitle = e.target.closest('.paragraph-item__title');
+  var paragraphTitle = e.target.closest('#paragraph-title');
   if (!paragraphTitle) return;
   console.log('dblclick')
   paragraphTitle.readOnly = false;
@@ -33,7 +33,7 @@ paragraphList.addEventListener('keydown', function(e) {
 })
 
 paragraphList.addEventListener('focusout', function(e) {
-  var paragraphTitle = e.target.closest('.paragraph-item__title');
+  var paragraphTitle = e.target.closest('#paragraph-title');
   if (!paragraphTitle) return ;
   paragraphTitle.readOnly = true;
 })
