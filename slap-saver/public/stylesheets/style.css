@@ -36,10 +36,10 @@ main {
   height: 50%;
 }
 
-.saver-search__input, .saver-search__button {
+.saver-search__input,
+.saver-search__button {
   font-size: 2rem;
 }
-
 
 .saver-setting {
   padding: 1rem;
@@ -58,6 +58,10 @@ main {
 }
 
 /* 일반 기사 */
+
+.content {
+  background-color: #f0f1f2;
+}
 
 .content-category {
   font-size: 2rem;
@@ -81,10 +85,6 @@ main {
   margin: 2rem 2rem;
 }
 
-
-
-
-
 .image-info {
   font-size: 1.7rem;
   color: var(--darker-text);
@@ -103,9 +103,6 @@ main {
 .article-info > span {
   padding-right: 1em;
 }
-
-
-
 
 .articles {
   display: flex;
@@ -212,13 +209,9 @@ hr.solid {
   background-color: #2e5bcc;
 }
 
-.invite-button {
-
-}
-
 .invite-section {
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
   left: 0;
@@ -226,19 +219,16 @@ hr.solid {
   width: 100%; /* Full width */
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
-
 }
 
 .invite-section__content {
-  background-color: #fefefe; 
+  background-color: #fefefe;
   margin: 30% auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 80%; 
+  width: 80%;
 }
 
 .invite-section__content > .closeBtn {
   cursor: pointer;
 }
-
-
