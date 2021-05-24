@@ -2,26 +2,35 @@
 <html>
 
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SAVER</title>
-  <meta content="target-densitydpi=device-dpi">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="/stylesheets/style.css" />
 </head>
 
 <body>
-  <nav class="navbar sticky-top navbar-light bg-light saver-header">
-    <div class="container-fluid saver-header">
-      <a class="navbar-brand title">SAVER</a>
-      <form class="d-flex saver-search">
-        <input class="form-control me-2 saver-search__input" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success saver-search__button" type="submit">Search</button>
-      </form>
-
-      <button class="btn float-end" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" role="button">
-        <i class="fa fa-gear saver-setting" style="font-size:3rem;"></i>
-      </button>
+  <nav class="navbar sticky-top navbar-light bg-light">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-3 p-2">
+          <a class="d-flex navbar-brand">
+            <h3>
+              SAVER
+            </h3>
+          </a>
+        </div>
+        <div class="col-7">
+          <form class="d-flex p-2">
+            <input class="form-control input-sm" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+        </div>
+        <div class="d-flex col-2 p-2">
+          <button class="btn float-end" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" role="button">
+            <i class="fa fa-gear fs-1"></i>
+          </button>
+        </div>
+      </div>
       <div class="offcanvas offcanvas-end w-30" tabindex="-1" id="offcanvas" data-bs-keyboard="false"
         data-bs-backdrop="false">
         <div class="offcanvas-header">
@@ -70,50 +79,34 @@
           </ul>
         </div>
       </div>
-
     </div>
   </nav>
+  
   <main class="main">
-    <section class="today-section">
-      <div class="card text-dark bg-light mb-3" style="width: 100%; height: 100%;">
-        <div class="card-header today-title">오늘의 뉴스</div>
-        <div class="card-body">
-          <h1 class="card-title">
-            <%= todayArticle.headline %>asdadsadasdsadasda
-          </h1>
-        </div>
+    <div class="card text-dark bg-light mb-3">
+      <div class="card-header">오늘의 뉴스</div>
+      <div class="card-body">
+        <h3 class="card-title">
+          <%= todayArticle.headline %>asdadsadasdsadasda
+        </h3>
       </div>
-
-      <div class="card text-dark bg-light mb-3" style="width: 100%; height: 100%;">
-        <div class="card-header today-title">오늘의 한마디</div>
-        <div class="card-body">
-          <h1 class="card-title">
-            <%= todayWords %>adasdasdasdasdasdasdas
-          </h1>
-        </div>
+    </div>
+    <div class="card text-dark bg-light mb-3">
+      <div class="card-header">오늘의 한마디</div>
+      <div class="card-body">
+        <h1 class="card-title">
+          <%= todayWords %>adasdasdasdasdasdasdas
+        </h1>
       </div>
-    </section>
-    <section class="mobile-view">
-      <article class="articles">
-        <div class="row row-cols-1 g-4">
-          <% Articles.map((article)=> { %>
-            <% if (article.status===4) { %>
-              <%- include('partials/articleCard.ejs', { article }) %>
-                <% } %>
-                  <% }) %>
-        </div>
-      </article>
-    </section>
+    </div>
+    <div class="row row-cols-1 g-4">
+      <% Articles.map((article)=> { %>
+        <% if (article.status===4) { %>
+          <%- include('partials/articleCard.ejs', { article }) %>
+        <% } %>
+      <% }) %>
+    </div>
   </main>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
-    crossorigin="anonymous"></script>
-  <script src=" https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js "
-    integrity=" sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo "
-    crossorigin=" anonymous "></script>
-  <script src=" https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js "
-    integrity=" sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/ "
-    crossorigin=" anonymous "></script>
 </body>
 
 </html>
