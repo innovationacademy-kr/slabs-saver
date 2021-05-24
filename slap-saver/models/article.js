@@ -69,6 +69,13 @@ module.exports = (sequelize, DataTypes) => {
       },
       paragraphs: {
         type: DataTypes.JSON,
+        get() {
+          if (this.getDataValue('paragraphs')) {
+            return JSON.parse(this.getDataValue('paragraphs'));
+          } else {
+            return this.getDataValue('paragraphs');
+          }
+        }
       },
       createdAt: {
         allowNull: false,
