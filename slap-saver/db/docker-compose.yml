@@ -2,7 +2,7 @@ version: '3'
 
 services:
   db:
-    image: mariadb
+    image: mariadb:10.4
     ports:
       - 3306:3306
     volumes:
