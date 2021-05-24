@@ -25,6 +25,12 @@ const indexRouter = require('./routes/index');
 const authorRouter = require('./routes/author')(authorPassport);
 const articlesRouter = require('./routes/articles');
 
+const layout = require('express-ejs-layouts');
+app.use(layout);
+app.set('layout', 'layout/layout');
+app.set("layout extractScripts", true);
+app.set("layout extractStyles", true);
+
 // NOTE: routing
 app.use('/', indexRouter);
 app.use('/author', authorRouter);
