@@ -1,62 +1,87 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-  </head>
-  <body>
-    <form method="post" class="signup-form" action="/author/signup" enctype="multipart/form-data">
-      <div class="signup-form__input">
-        <div>
-          <label for="email">아이디</label>
-          <span><%= user.email %></span>
-          <input type="hidden" name="email" value=<%= user.email %> />
+<%- contentFor('body') %>
+<div class="signup">
+  <div class="container">
+    <div class="row justify-content-center" >
+      <div class="col-md-6 contents">
+        <div class="row justify-content-center">
+          <div class="col-md-12">
+            <div class="form-block">
+              <div class="mb-4">
+                <h3>Sign Up to <strong>slab-saver</strong></h3>
+                <p class="mb-4">회원가입 페이지입니다. 모든 칸을 채워주세요.</p>
+              </div>
+              <form method="post" action="/author/signup" enctype="multipart/form-data">
+                <div class="mb-4">
+                  <label for="email" class="form-label">이메일</label>
+                  <input type="email" class="form-control" value="<%= user.email %>" disabled />
+                  <input type="hidden" name="email" value=<%= user.email %> />
+                </div>
+                <div class="mb-4">
+                  <label for="password" class="form-label">비밀번호</label>
+                  <input
+                    class="form-control"
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                  />
+                </div>
+                <div class="mb-4">
+                  <label for="confirm" class="form-label">비밀번호 확인</label>
+                  <input
+                    class="form-control"
+                    type="password"
+                    name="confirm"
+                    placeholder="Confirm password"
+                  />
+                </div>
+                <div class="mb-4">
+                  <label for="name" class="form-label">이름</label>
+                  <input
+                  type="text"
+                  class="form-control"
+                  value="<%= user.name %>"
+                  disabled
+                />
+                <input type="hidden" name="name" value=<%= user.email %> />
+                </div>
+                <div class="mb-4">
+                  <label for="code">코드</label>
+                  <input
+                  type="text"
+                  class="form-control"
+                  value="<%= user.code %> "
+                  disabled
+                  />
+                  <input type="hidden" name="code" value=<%= user.code %> />
+                </div>
+                <div class="mb-4">
+                  <label for="contact">연락처</label>
+                  <input
+                    class="form-control"
+                    type="tel"
+                    name="contact"
+                    placeholder="01012347890"
+                  />
+                </div>
+                <div class="mb-4">
+                  <label for="picture">사진</label>
+                  <input
+                    type="file"
+                    class="form-control"
+                    id="picture"
+                    name="picture"
+                    accept="image/gif, image/jpeg, image/png"
+                  />
+                </div>
+                <div class="d-grid gap-2">
+                  <button type="submit" class="btn btn-primary">회원가입</button>
+                  <a class="btn btn-info" href="/author/login"  style="color:white">로그인</a>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
-        <label for="password">비밀번호</label>
-        <input
-        class="signup-form__password"
-        type="password"
-          name="password"
-          placeholder="Password"
-        />
-        <br />
-        <label for="confirm">비밀번호 확인</label>
-        <input
-        class="signup-form__confirm"
-          type="password"
-          name="confirm"
-          placeholder="Password confirm"
-        />
-        <br />
-
-        <div>
-            <label for="name">이름</label>
-            <span><%= user.name %></span>
-            <input type="hidden" name="name" value=<%= user.name %> />
-        </div>
-        <div>
-            <label for="code">코드</label>
-            <span><%= user.code %></span>
-            <input type="hidden" name="code" value=<%= user.code %> />
-        </div>
-
-        <label for="contact">연락처</label>
-        <input
-          type="tel"
-          name="contact"
-          placeholder="010-1234-7890"
-        />
-        <br />
-        <label for="picture">사진</label>
-        <input
-          type="file"
-          id="picture"
-          name="picture"
-          accept="image/gif, image/jpeg, image/png"
-        />
       </div>
-      <button class="submit-button" type="submit">회원가입</button>
-    </form>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous"></script>
-    <script src="/javascripts/authorSignup.js"></script>
-  </body>
-</html>
+    </div>
+  </div>
+</div>

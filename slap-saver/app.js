@@ -5,6 +5,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const sequelize = require('./models').sequelize;
+const vendorsRouter = require('./routes/vendors');
 
 const app = express();
 sequelize.sync();
@@ -24,10 +25,17 @@ const indexRouter = require('./routes/index');
 const authorRouter = require('./routes/author')(authorPassport);
 const articlesRouter = require('./routes/articles');
 
+const layout = require('express-ejs-layouts');
+app.use(layout);
+app.set('layout', 'layout/layout');
+app.set("layout extractScripts", true);
+app.set("layout extractStyles", true);
+
 // NOTE: routing
 app.use('/', indexRouter);
 app.use('/author', authorRouter);
 app.use('/articles', articlesRouter);
+app.use('/vendors',  vendorsRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

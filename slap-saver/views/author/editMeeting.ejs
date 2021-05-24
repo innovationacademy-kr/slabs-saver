@@ -1,16 +1,8 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <div class="side-nav">
-      <button class="side-nav__logout">로그아웃</button>
-      <a href="/author/edit-meeting">편집 회의</a>
-      <a href="/author/articles/new">기사 작성</a>
-      <a href="/author/articles">내 기사 목록</a>
-    </div>
-  </body>
-</html>
+<%- contentFor('navbar') %>
+<%- include('../partials/navbar.ejs') %>
+
+<%- contentFor('body') %>
+<p>편집회의</p>
+
+<%- contentFor('footer') %>
+<%- include('../partials/footer.ejs') %>
