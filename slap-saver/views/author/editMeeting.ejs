@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link href="/vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  </head>
-  <body>
-    <%- include('../partials/navbar.ejs') %>
-    <script src="/vendors/bootstrap/js/bootstrap.bundle.min.js"></script>
-  </body>
-</html>
+<%- contentFor('navbar') %>
+<%- include('../partials/navbar.ejs') %>
+
+<%- contentFor('body') %>
+<p>편집회의</p>
+
+<%- contentFor('footer') %>
+<%- include('../partials/footer.ejs') %>
