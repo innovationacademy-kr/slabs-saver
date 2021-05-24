@@ -153,7 +153,13 @@ module.exports = {
     }
     // TODO: Author Service 객체 만들어서 추상화하기
     try {
-      await Author.create({ email, password, name, code, contact, photo });
+      let position = 1;
+      if (+code[0] === 1) {
+        position = 3;
+      } else if (code.length == 1 && +code[0] < 9) {
+        position = 2;
+      }
+      await Author.create({ email, password, name, code, position, contact, photo });
       await Invitation.update({ state: 2 }, { where: { email } });
     } catch (error) {
       if (error.errors) {
@@ -341,7 +347,6 @@ module.exports = {
 
   inviteRequest: async (req, res, next) => {
     const { invite, email, name, code } = req.body;
-    console.log(req.body);
     if (email === '' || name === '' || code === '') {
       alert("빈 항목이 있어서는 안됩니다.");
     } else if (invite === '') {
