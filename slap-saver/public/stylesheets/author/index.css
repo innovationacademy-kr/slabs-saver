@@ -19,6 +19,7 @@ button {
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 20px;
 }
 
 .desking-table__category {
@@ -26,6 +27,15 @@ button {
 }
 
 .table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  min-width: 400px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.mytable {
   border-collapse: collapse;
   margin: 25px 0;
   font-size: 0.9em;
