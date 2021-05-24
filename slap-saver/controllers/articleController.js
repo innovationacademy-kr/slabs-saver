@@ -13,6 +13,7 @@ module.exports = {
     // const author = await article.getAuthor();
     article.authorImg = `/images/authorImages/${article.Author.photo}`;
     article.image = `/images/articleImages/${article.image}`;
+    article.paragraphs = JSON.parse(article.paragraphs);
     article.dataValues.updatedAt = moment(article.updatedAt).format('YYYY.MM.DD HH:mm:ss');
     res.render('articles/article', { article });
   },
