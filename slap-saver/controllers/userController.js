@@ -8,7 +8,13 @@ module.exports = {
     const candidateArticle = await Article.findOne({ where: { id: '1' } });
     const todayArticle = candidateArticle ? candidateArticle : { headline: '비어있는 항목입니다.' };
     const todayWords = 'helloworld';
-    const ArticlesObj = await Article.findAll({});
+    const ArticlesObj = await Article.findAll({
+      where: {
+        status: 4
+      },
+      order: [['updatedAt', 'DESC']],
+      limit: 3,
+    });
     const Articles = await Promise.all(
       ArticlesObj.map(async (article) => {
         const updatedAt = moment(article.updatedAt).format('YYYY.MM.DD HH:mm:ss');
