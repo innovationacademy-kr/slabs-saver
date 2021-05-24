@@ -1,143 +1,129 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <link rel="stylesheet" href="/stylesheets/author/index.css" />
-  </head>
-  <body>
-    <nav></nav>
-    <div class="side-nav">
-      <a href="/author/logout">
-        <button class="side-nav__logout">로그아웃</button>
-      </a>
-      <a href="/author">홈</a>
-      <a href="/author/edit-meeting">편집 회의</a>
-      <a href="/author/articles/new">기사 작성</a>
-      <a href="/author/articles">내 기사 목록</a>
-    </div>
+<%- contentFor('navbar') %>
+<%- include('../../partials/navbar.ejs') %>
 
-    <section class="desking-table">
-      <br />
-      <div class="desking-table__category">
-        <form method="get" action="/author" enctype="multipart/form-data">
-          <label for="category">카테고리</label>
-          <select name="category" id="category">
-            <option value="0">전체</option>
-            <option value="2">정치</option>
-            <option value="3">경제</option>
-            <option value="4">기술</option>
-            <option value="5">환경</option>
-            <option value="6">과학</option>
-            <option value="7">건강</option>
-            <option value="8">스포츠</option>
-          </select>
-          <button type="submit">이동</button>
-        </form>
-      </div>
-      <form action="/author/desk-process" method="post">
-        <table class="table" name="table">
-          <thead class="table-header">
-            <tr class="table-haeder__row">
-              <th class="table-header__cell">NO</th>
-              <th class="table-header__cell">헤드라인</th>
-              <th class="table-header__cell">작성자</th>
-              <th class="table-header__cell">작성일자</th>
-              <th class="table-header__cell">입력일자</th>
-              <th class="table-header__cell">게재일자</th>
-              <th class="table-header__cell">상태</th>
-              <th class="table-header__cell">출고</th>
-              <th class="table-header__cell">게재</th>
-              <th class="table-header__cell">am7</th>
-              <th class="table-header__cell">pm7</th>
-            </tr>
-          </thead>
-          <tbody class="table-body">
-            <% articles.map((article)=> { %>
-            <tr class="table-body__row" name="cols">
-              <td class="table-body__cell"><%= article.id %></td>
-              <td class="table-body__cell">
-                <a href="/articles/<%= article.id %>" target="_blank"> <%= article.headline %> </a>
-              </td>
-              <td class="table-body__cell"><%= article.Author.name %></td>
-              <td class="table-body__cell"><%= article.createdAt %></td>
-              <td class="table-body__cell"><%= article.updatedAt %></td>
-              <td class="table-body__cell">
-                <% if (article.status < 4) { %>
-                미승인
-                <% } else { %>
-                  <%= article.publishedAt %> 
-                <% } %>
-              </td>
-              <%# TODO: status는 js파일에서 만들고 여기에 넣자. %> <%# %>
-              <td class="table-body__cell">
-                <% if (article.status === 1) { %>
-                임시저장
-                <% } else if (article.status === 2) { %>
-                작성완료
-                <% } else if (article.status === 3) { %>
-                출고
-                <% } else if (article.status === 4) { %> 
-                게재
-                <% } %>
-              </td>
-              <%# NOTE: 출고-> article.status === 2 인 것만 수정할 수 있다.%>
-              <td class="table-body__cell">
-                <label for="released"> </label>
-                <input id="released" type="checkbox" <%= article.status > 2 ? "checked" : "" %>
-                <% if (article.status === 1 || article.status === 4) { %>
-                disabled
-                <% } %>
-                />
-                <% if (article.status > 1) { %>
-                <input class="hidden" type="hidden" name="<%= article.id %>" value=<%= article.status > 2 ? "1" : "0" %> />
-                <% } %>
-              </td>
-
-              <%# NOTE: 게재 %>
-              <td class="table-body__cell">
-                <label for="confirmed"> </label>
-                <input id="confirmed" type="checkbox" <%= article.status === 4 ? "checked" : "" %>
-                <% if (article.status < 3) { %>
-                  disabled
-                <% } %>
-                />
-                <% if (article.status === 3 || article.status === 4 ) { %>
-                <input class="hidden" type="hidden" name="<%= article.id %>" value=<%= article.status === 4 ? "1" : "0" %> />
-                <% } %>
-              </td>
+<%- contentFor('body') %>
+<section class="desking-table">
+  <div class="desking-table__category">
+    <form method="get" action="/author" enctype="multipart/form-data">
+      <label for="category">카테고리</label>
+      <select name="category" id="category">
+        <option value="0">전체</option>
+        <option value="2">정치</option>
+        <option value="3">경제</option>
+        <option value="4">기술</option>
+        <option value="5">환경</option>
+        <option value="6">과학</option>
+        <option value="7">건강</option>
+        <option value="8">스포츠</option>
+      </select>
+        <button class="btn btn-primary"type="submit">이동</button>
+    </form>
+  </div>
+  <form action="/author/desk-process" method="post">
+    <table class="table" name="table">
+      <thead class="table-header">
+        <tr class="table-haeder__row">
+          <th class="table-header__cell">NO</th>
+          <th class="table-header__cell">헤드라인</th>
+          <th class="table-header__cell">작성자</th>
+          <th class="table-header__cell">작성일자</th>
+          <th class="table-header__cell">입력일자</th>
+          <th class="table-header__cell">게재일자</th>
+          <th class="table-header__cell">상태</th>
+          <th class="table-header__cell">출고</th>
+          <th class="table-header__cell">게재</th>
+          <th class="table-header__cell">am7</th>
+          <th class="table-header__cell">pm7</th>
+        </tr>
+      </thead>
+      <tbody class="table-body">
+        <% articles.map((article)=> { %>
+        <tr class="table-body__row" name="cols">
+          <td class="table-body__cell"><%= article.id %></td>
+          <td class="table-body__cell">
+            <a href="/articles/<%= article.id %>" target="_blank"> <%= article.headline %> </a>
+          </td>
+          <td class="table-body__cell"><%= article.Author.name %></td>
+          <td class="table-body__cell"><%= article.createdAt %></td>
+          <td class="table-body__cell"><%= article.updatedAt %></td>
+          <td class="table-body__cell">
+            <% if (article.status < 4) { %>
+            미승인
+            <% } else { %>
+              <%= article.publishedAt %> 
+            <% } %>
+          </td>
+          <%# TODO: status는 js파일에서 만들고 여기에 넣자. %> <%# %>
+          <td class="table-body__cell">
+            <% if (article.status === 1) { %>
+            임시저장
+            <% } else if (article.status === 2) { %>
+            작성완료
+            <% } else if (article.status === 3) { %>
+            출고
+            <% } else if (article.status === 4) { %> 
+            게재
+            <% } %>
+          </td>
+          <%# NOTE: 출고-> article.status === 2 인 것만 수정할 수 있다.%>
+          <td class="table-body__cell">
+            <label for="released"> </label>
+            <input id="released" type="checkbox" <%= article.status > 2 ? "checked" : "" %>
+            <% if (article.status === 1 || article.status === 4) { %>
+            disabled
+            <% } %>
+            />
+            <% if (article.status > 1) { %>
+            <input class="hidden" type="hidden" name="<%= article.id %>" value=<%= article.status > 2 ? "1" : "0" %> />
+            <% } %>
+          </td>
+          <%# NOTE: 게재 %>
+          <td class="table-body__cell">
+            <label for="confirmed"> </label>
+            <input id="confirmed" type="checkbox" <%= article.status === 4 ? "checked" : "" %>
+            <% if (article.status < 3) { %>
+              disabled
+            <% } %>
+            />
+            <% if (article.status === 3 || article.status === 4 ) { %>
+            <input class="hidden" type="hidden" name="<%= article.id %>" value=<%= article.status === 4 ? "1" : "0" %> />
+            <% } %>
+          </td>
 
 
-              <%# NOTE: 출고가 되어야지만 활성화가 된다. 즉 status === 인 경우에만 활성화됨%>
-              <td class="table-body__cell">
-                <label for="am7"></label>
-                <input id="am7" type="checkbox" <%= article.am7 ? 'checked ' : '' %>
-                <% if (article.status !== 3 && article.status !== 4) { %>
-                  disabled
-                <% } %>
-                />
-                <% if (article.status === 3 || article.status === 4 ) { %>
-                    <input class="hidden" type="hidden" name="<%= article.id %>" value=<%= article.am7 ? '1' : '0' %> />
-                <% } %>
-              </td>
-              <td class="table-body__cell">
-                <label for="pm7"></label>
-                <input id="pm7" type="checkbox" <%= article.pm7 ? 'checked ' : '' %>
-                <% if (article.status !== 3 && article.status !== 4) { %>
-                  disabled
-                <% } %>
-                />
-                <% if (article.status === 3 || article.status === 4 ) { %>
-                  <input class="hidden" type="hidden" name="<%= article.id %>" value=<%= article.pm7 ? '1' : '0' %> />
-                <% } %>
-              </td>
-              <% }) %>
-            </tr>
-          </tbody>
-        </table>
-        <% if (currentUser.position > 1) { %>
-        <button class="update-btn" type="submit">업데이트</button>
-        <% } %>
-      </form>
-    </section>
-    <script src="/javascripts/author/index.js"></script>
-  </body>
-</html>
+          <%# NOTE: 출고가 되어야지만 활성화가 된다. 즉 status === 인 경우에만 활성화됨%>
+          <td class="table-body__cell">
+            <label for="am7"></label>
+            <input id="am7" type="checkbox" <%= article.am7 ? 'checked ' : '' %>
+            <% if (article.status !== 3 && article.status !== 4) { %>
+              disabled
+            <% } %>
+            />
+            <% if (article.status === 3 || article.status === 4 ) { %>
+                <input class="hidden" type="hidden" name="<%= article.id %>" value=<%= article.am7 ? '1' : '0' %> />
+            <% } %>
+          </td>
+          <td class="table-body__cell">
+            <label for="pm7"></label>
+            <input id="pm7" type="checkbox" <%= article.pm7 ? 'checked ' : '' %>
+            <% if (article.status !== 3 && article.status !== 4) { %>
+              disabled
+            <% } %>
+            />
+            <% if (article.status === 3 || article.status === 4 ) { %>
+              <input class="hidden" type="hidden" name="<%= article.id %>" value=<%= article.pm7 ? '1' : '0' %> />
+            <% } %>
+          </td>
+          <% }) %>
+        </tr>
+      </tbody>
+    </table>
+    <% if (currentUser.position > 1) { %>
+    <button class="update-btn" type="submit">업데이트</button>
+    <% } %>
+  </form>
+</section>
+<script src="/javascripts/author/index.js"></script>
+
+<%- contentFor('footer') %>
+<%- include('../../partials/footer.ejs') %>
