@@ -2,31 +2,34 @@
   <div class="col">
     <div class="card content">
       <div class="content-header">
-        <span class="badge rounded-pill bg-primary">
+        <span class="badge rounded-pill bg-primary mb-1">
           <%= article.category %>
         </span>
-        <span class="card-title article-title">
+        <span class="card-title article-title h2">
           <%= article.headline %>
         </span>
       </div>
-      <div class="d-flex flex-row-reverse card-footer">
+      <div class="d-flex align-items-center justify-content-around flex-row-reverse card-footer p-1">
         <small class="text-muted">
-          <span class="p-2">
+          <span class="p-1" style="font-size: 0.8em;">
             <%= article.author %>
           </span>
-          <span>
+          <span class="p-1" style="font-size: 0.8em;">
             <%= article.updatedAt %> 작성됨
           </span>
         </small>
+        <div class="image mr-3">
+          <img src=<%=article.authorImg %> class="rounded-circle" width="50px" height="50px" />
+        </div>
       </div>
       <img src=<%=article.image %> class="card-img-top"/>
-      <div class="card-header bg-transparent border-success image-info">
+      <div class="card-header bg-transparent image-info">
         <span>
           <%= article.imageDesc %>
         </span>
         <span>
           <%= article.imageFrom %>
-        </span>>
+        </span>
       </div>
       <div class="card-body">
         <p class="card-text">
