@@ -165,8 +165,9 @@ module.exports = {
     return res.redirect('/author/login');
   },
 
-  editMeetingPage: (req, res, next) => {
-    res.render('author/editMeeting', { title: '편집회의 페이지!' });
+  editMeetingPage: async (req, res, next) => {
+    const currentUser = await getCurrentUser(req.user?.id);
+    res.render('author/editMeeting', { title: '편집회의 페이지!', currentUser });
   },
 
   newArticlePage: async (req, res, next) => {
@@ -174,7 +175,7 @@ module.exports = {
     if (!currentUser) return res.redirect('/author/login');
     let defaultCategory = String(currentUser.code)[0];
     if (defaultCategory === '1') defaultCategory = '2';
-    res.render('author/newArticle', { title: '기사 작성 페이지!!', defaultCategory });
+    res.render('author/newArticle', { title: '기사 작성 페이지!!', defaultCategory, currentUser });
   },
 
   newArticle: async (req, res, next) => {
@@ -209,7 +210,8 @@ module.exports = {
     return res.redirect('/author/articles');
   },
 
-  editArticlePage: (req, res, next) => {
+  editArticlePage: async (req, res, next) => {
+    const currentUser = await getCurrentUser(req.user?.id);
     Article.findOne({ where: { id: req.params.articleId } })
       .then((article) => {
         article.image = `/images/articleImages/${article.image}`;
@@ -218,6 +220,7 @@ module.exports = {
           title: '기사 수정 페이지',
           article: article,
           paragraphs,
+          currentUser,
         });
       })
       .catch((err) => console.log(err));
@@ -252,15 +255,17 @@ module.exports = {
   },
 
   myArticlePage: async (req, res, next) => {
+    const currentUser = await getCurrentUser(req.user?.id);
     const author = await Author.findOne({ where: { id: req.user.id } });
     const articles = await author.getArticles();
     return res.render('author/articles', {
       title: '내 기사목록 페이지',
       articles,
+      currentUser,
     });
   },
 
-  previewPage: (req, res, next) => {
+  previewPage: async (req, res, next) => {
     Article.findOne({ where: { id: req.params.articleId } })
       .then((article) => {
         let paragraph = [];
