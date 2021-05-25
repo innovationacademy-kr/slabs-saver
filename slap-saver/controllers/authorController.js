@@ -225,34 +225,85 @@ module.exports = {
       })
       .catch((err) => console.log(err));
   },
-
-  editArticle: (req, res, next) => {
+  editArticle: async (req, res, next) => {
     const titles = Array.isArray(req.body['paragraph-title']) ? req.body['paragraph-title'] : [req.body['paragraph-title']];
     const contents = Array.isArray(req.body['paragraph-content']) ? req.body['paragraph-content'] : [req.body['paragraph-content']];
-    const paragraphs = { paragraphs: [] };
-    titles.forEach((element, index) => {
-      paragraphs['paragraphs'].push([element, contents[index]]);
+    // const paragraphs = { paragraphs: [] };
+    const test = [];
+    
+    titles.forEach((title, index) => {
+      // TODO: 여기서 기존의 타이틀이 같으면 데이터만 수정하게 만들면 될 듯.
+      // paragraphs['paragraphs'].push([title, contents[index]]);
+      test.push([title, contents[index]]);
     })
-    titles.forEach((element, index) => {
-      paragraphs[element] = contents[index];
-    })
-    Article.findOne({ where: { id: req.params.articleId } })
-      .then((article) => {
-        article.headline = req.body.headline;
-        article.category = req.body.category;
-        if (req.file && req.file.filename) {
-          article.image = req.file.filename;
-        }
-        article.imageDesc = req.body.imageDesc;
-        article.imageFrom = req.body.imageFrom;
-        article.briefing = req.body.briefing;
-        article.paragraphs = JSON.stringify(paragraphs);
-        article.status = req.body.saveBtn === '' ? STATUS.DRAFTS : STATUS.COMPLETED;
-        article.save();
-      })
-      .then(() => res.redirect('/author/articles'))
-      .catch((err) => console.log(err));
+    
+    try {
+      const article = Article.findOne({ where: { id: req.params.articleId } });
+      const paragraphs = article.paragraphs && JSON.parse(article.paragraphs).paragraphs;
+      if (!paragraphs) {
+        article.paragraphs = JSON.stringify({test});
+        console.log('*******************************')
+        console.log(article.paragraphs)
+        console.log('*******************************')
+      } else {
+
+      }
+      console.log('2')
+      console.log('-------------------------------')
+      console.log(paragraphs);
+      console.log('-------------------------------')
+    } catch (error) {
+      console.log('-------------------------------')
+      console.log('error?!!');
+      console.log('-------------------------------')
+    }
+
+    // Article.findOne({ where: { id: req.params.articleId } })
+    //   .then((article) => {
+    //     article.headline = req.body.headline;
+    //     article.category = req.body.category;
+    //     if (req.file && req.file.filename) {
+    //       article.image = req.file.filename;
+    //     }
+    //     article.imageDesc = req.body.imageDesc;
+    //     article.imageFrom = req.body.imageFrom;
+    //     article.briefing = req.body.briefing;
+    //     article.paragraphs = JSON.stringify(paragraphs);
+    //     article.status = req.body.saveBtn === '' ? STATUS.DRAFTS : STATUS.COMPLETED;
+    //     article.save();
+    //   })
+    //   .then(() => res.redirect('/author/articles'))
+    //   .catch((err) => console.log(err));
   },
+
+  // editArticle: (req, res, next) => {
+  //   const titles = Array.isArray(req.body['paragraph-title']) ? req.body['paragraph-title'] : [req.body['paragraph-title']];
+  //   const contents = Array.isArray(req.body['paragraph-content']) ? req.body['paragraph-content'] : [req.body['paragraph-content']];
+  //   const paragraphs = { paragraphs: [] };
+  //   titles.forEach((element, index) => {
+  //     // TODO: 여기서 기존의 타이틀이 같으면 데이터만 수정하게 만들면 될 듯.
+  //     paragraphs['paragraphs'].push([element, contents[index]]);
+  //   })
+  //   titles.forEach((element, index) => {
+  //     paragraphs[element] = contents[index];
+  //   })
+  //   Article.findOne({ where: { id: req.params.articleId } })
+  //     .then((article) => {
+  //       article.headline = req.body.headline;
+  //       article.category = req.body.category;
+  //       if (req.file && req.file.filename) {
+  //         article.image = req.file.filename;
+  //       }
+  //       article.imageDesc = req.body.imageDesc;
+  //       article.imageFrom = req.body.imageFrom;
+  //       article.briefing = req.body.briefing;
+  //       article.paragraphs = JSON.stringify(paragraphs);
+  //       article.status = req.body.saveBtn === '' ? STATUS.DRAFTS : STATUS.COMPLETED;
+  //       article.save();
+  //     })
+  //     .then(() => res.redirect('/author/articles'))
+  //     .catch((err) => console.log(err));
+  // },
 
   myArticlePage: async (req, res, next) => {
     const currentUser = await getCurrentUser(req.user?.id);
