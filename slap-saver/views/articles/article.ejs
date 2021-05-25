@@ -4,6 +4,7 @@
   <title>
     <!-- <%= article.headline %> -->
   </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel='stylesheet' href='/stylesheets/style.css' />
 </head>
 <body>
@@ -18,51 +19,64 @@
     </div>
   </nav>
   <div class="frame">
-  <article class="article-wrapper">
-    <h1 class="article__title">
-      <!-- <%= article.headline %> -->
-    </h1>
-    <div class="article__info">
-      <div>
-        <img class="article__info--authorImg" src=<%=article.authorImg %> />
-        <div>
-          <span>
-            <%= article.author %>
-          </span>
-          <span>
+    <div class="col">
+      <div class="card content">
+        <div class="content-header">
+          <span class="badge rounded-pill bg-primary mb-1">
             <%= article.category %>
           </span>
+          <span class="card-title article-title h2">
+            <%= article.headline %>
+          </span>
         </div>
-        <span>
-          <%= article.updatedAt %> 작성됨
-        </span>
+        <div class="d-flex align-items-center justify-content-around flex-row-reverse card-footer p-1">
+          <small class="text-muted">
+            <span class="p-1" style="font-size: 0.8em;">
+              <%= article.author %>
+            </span>
+            <span class="p-1" style="font-size: 0.8em">
+              <%= article.updatedAt %> 작성됨
+            </span>
+          </small>
+          <div class="image mr-3">
+            <img src=<%=article.authorImg %> class="rounded-circle" width="50px" height="50px" />
+          </div>
+        </div>
+        
+          <class class="card-body">
+            <img src=<%=article.image %> class="img-fluid" alt="...">
+            <div class="card-header bg-transparent image-info">
+              <span>
+                <%= article.imageDesc %>
+              </span>
+              <span>
+                <%= article.imageFrom %>
+              </span>
+            </div>
+            <p class="article__briefing">
+              <%= article.briefing %>
+            </p>
+            <section class="detail">
+              <article class="detail__article">
+                <article class="detail-sections" style="display: none;">
+                  <% article.paragraphs['paragraphs'] && article.paragraphs['paragraphs'].forEach(element => { %>
+                    <h3><%= element[0] %> </h3>
+                    <p><%= element[1] %> </p>
+                  <% }) %>
+                </article>
+              </article>
+            </section>
+          </class>
+        </div>
       </div>
     </div>
-    <img class="article__image" src=<%=article.image %> >
-    <div class="article__image--info">
-      <p>
-        <%= article.imageDesc %>
-      </p>
-      <p>
-        <%= article.imageFrom %>
-      </p>
-    </div>
-    <p class="article__briefing">
-      <%= article.briefing %>
-    </p>
-    <section class="detail">
-      <article class="detail__article">
-        <article class="detail-sections" style="display: none;">
-          <% article.paragraphs['paragraphs'] && article.paragraphs['paragraphs'].forEach(element => { %>
-            <h3><%= element[0] %> </h3>
-            <p><%= element[1] %> </p>
-            <% }) %>
-          </article>
-        </article>
-      </section>
-    </article>
-  </div>
-  <button class="detail--button detail__article--button">자세히 보기</button>
+
+
+
+
+    
+
+  <button class="btn btn-primary btn-lg detail--button p-2" style="width: 100%">자세히 보기</button>
   <script src="/javascripts/detail.js"></script>
 </body>
 </html>
