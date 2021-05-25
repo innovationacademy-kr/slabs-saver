@@ -9,7 +9,7 @@ module.exports = {
     await Promise.all(
       authors.map(async (author) => {
         await author.createArticle({
-          headline: '경제 기사',
+          headline: 'economy article',
           category: CATEGORY.ECONOMY,
           author: author.name,
           image: 'a74dc438fb6834f35e6c7968b57ae25f',
@@ -24,7 +24,7 @@ module.exports = {
     await Promise.all(
       authors.map(async (author) => {
         await author.createArticle({
-          headline: '정치 기사',
+          headline: 'politic article',
           category: CATEGORY.POLITIC,
           author: author.email,
           image: '97579e23841e5530661bcf43dc4001f3',
@@ -41,7 +41,7 @@ module.exports = {
     await Promise.all(
       authors.map(async (author) => {
         await author.createArticle({
-          headline: '스포츠 기사',
+          headline: 'sports article',
           category: CATEGORY.SPORTS,
           author: author.name,
           image: 'a74dc438fb6834f35e6c7968b57ae25f',
