@@ -1,40 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
+<%- contentFor('navbar') %>
+<nav class="navbar navbar-expand-md navbar-dark bg-success mb-4">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">SLAB-SAVER</a>
+    <ul class="navbar-nav me-auto mb-2 mb-md-0">
+      <li class="nav-item">
+        <a class="nav-link" aria-current="page" href="/author/_admin">홈</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/author/_admin/invitation">초대관리</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link" href="#">기사 관리</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link" href="#">기자 관리</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link" href="#">유저 관리</a>
+      </li>
+    </ul>
+    <a class="btn btn-primary" href="/author/logout">로그아웃</a>
+  </div>
+</nav>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="/stylesheets/style.css">
-  <title>Document</title>
-</head>
-
-<body>
-  <header class="side-nav">
-    <a href="/author/logout">
-      <button class="side-nav__logout">로그아웃</button>
-    </a>
-    <a href="/author/_admin">홈</a>
-    <a href="/author/_admin/invitation">초대 관리</a>
-    <button class="detail--button invite-button">초대하기</button>
-  </header>
-  <section class="admin-table">
-    <!-- NOTE: category select -->
-    <br />
-    <div class="detail-sections invite-section" style="display: none;">
-      <div class="invite-section__content">
-        <span class="closeBtn">&times;</span>
+<%- contentFor('body') %>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+  초대하기
+</button>
+<div class="modal fade modal-dialog-centered" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-10" aria-labelledby="staticBackdropLabel" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">초대하기</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
         <form method="post" action="/author/_admin/invitation">
           <div class="modal-email">
-            <label for="email">이메일</label>
+            <label for="email" class="col-sm-2 text-center">이메일</label>
             <input type="email" autocapitalize="off" class="invite-email" name="email">
           </div>
           <div class="modal-name">
-            <label for="name">이름</label>
+            <label for="name" class="col-sm-2 text-center">이름</label>
             <input class="invite-name" name="name">
           </div>
           <div class="modal-code">
-            <label for="code">코드</label>
+            <label for="code" class="col-sm-2 text-center">코드</label>    
             <select name="code" id="code">
               <option value="0" selected>역할을 설정해 주십시오</option>
               <option value="1">편집장</option>
@@ -54,75 +65,77 @@
               <option value="801">일반기자8</option>
             </select>
           </div>
-          <button name="invite">초대하기</button>
+          <button class="btn btn-primary mt-3 text-center" name="invite">초대하기</button>
         </form>
       </div>
     </div>
-    <div class="admin-table__category">
-      <table class="standby-user" name="standby-user">
-        <thead class="standby-user-header">
-          <tr class="standby-user-header__row">
-            <th class="standby-user-header__cell">NO</th>
-            <th class="standby-user-header__cell">이메일</th>
-            <th class="standby-user-header__cell">이름</th>
-            <th class="standby-user-header__cell">진행 상황</th>
-            <th class="standby-user-header__cell">역할</th>
-            <th class="standby-user-header__cell"></th>
-            <th class="standby-user-header__cell"></th>
-          </tr>
-        </thead>
-        <tbody class="standby-user-body">
-          <% standByUsers.map((standByUser)=> { %>
-          <form method="post" action="/author/_admin/decision">
-            <tr>
-              <td><%= standByUser.id %></td>
-              <td><%= standByUser.email %></td>
-              <td><%= standByUser.name %></td>
-              <td>
-                <div>
-                  <progress value=<%= standByUser.intState %> max="2"></progress>
-                </div>
-                <%= standByUser.state %>
-              </td>
-              <% if (standByUser.intState == 0) { %>
-              <td>
-                <select name="code" id="code">
-                  <option value="0" selected>역할을 설정해 주십시오</option>
-                  <option value="1">편집장</option>
-                  <option value="2">데스크2</option>
-                  <option value="3">데스크3</option>
-                  <option value="4">데스크4</option>
-                  <option value="5">데스크5</option>
-                  <option value="6">데스크6</option>
-                  <option value="7">데스크7</option>
-                  <option value="8">데스크8</option>
-                  <option value="201">일반기자2</option>
-                  <option value="301">일반기자3</option>
-                  <option value="401">일반기자4</option>
-                  <option value="501">일반기자5</option>
-                  <option value="601">일반기자6</option>
-                  <option value="701">일반기자7</option>
-                  <option value="801">일반기자8</option>
-                </select>
-              <td>
-                <button class="standby-user-body__approve" name="approved">승인</button>
-              </td>
-              <td>
-                <button class="standby-user-body__decline" name="declined">거절</button>
-              </td>
-              </td>
-              <% } %>
-              <input type="hidden" value=<%= standByUser.email %> name="email">
-              <input type="hidden" value=<%= standByUser.name %> name="name">
-            </tr>
-          </form>
-          <% }) %>
-        </tbody>
-      </table>
-    </div>
-  </section>
-  <script src="/javascripts/detail.js"></script>
-  <script src="/javascripts/modal.js"></script>
-</body>
+  </div>
+</div>
 
-</html>
+<section class="admin-table content">
+  <div class="admin-table__category">
+    <table class="table table-hover" name="table">
+      <thead class="standby-user-header">
+        <tr class="standby-user-header__row">
+          <th scope="col">NO</th>
+          <th scope="col">이메일</th>
+          <th scope="col">이름</th>
+          <th scope="col">진행 상황</th>
+          <th scope="col">역할</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody class="standby-user-body">
+        <% standByUsers.map((standByUser)=> { %>
+        <form method="post" action="/author/_admin/decision">
+          <tr scope="row">
+            <td><%= standByUser.id %></td>
+            <td><%= standByUser.email %></td>
+            <td><%= standByUser.name %></td>
+            <td>
+              <div>
+                <progress value=<%= standByUser.intState %> max="2"></progress>
+              </div>
+              <%= standByUser.state %>
+            </td>
+            <% if (standByUser.intState == 0) { %>
+            <td>
+              <select name="code" id="code">
+                <option value="0" selected>역할을 설정해 주십시오</option>
+                <option value="1">편집장</option>
+                <option value="2">데스크2</option>
+                <option value="3">데스크3</option>
+                <option value="4">데스크4</option>
+                <option value="5">데스크5</option>
+                <option value="6">데스크6</option>
+                <option value="7">데스크7</option>
+                <option value="8">데스크8</option>
+                <option value="201">일반기자2</option>
+                <option value="301">일반기자3</option>
+                <option value="401">일반기자4</option>
+                <option value="501">일반기자5</option>
+                <option value="601">일반기자6</option>
+                <option value="701">일반기자7</option>
+                <option value="801">일반기자8</option>
+              </select>
+            <td>
+              <button class="btn btn-success" name="approved">승인</button>
+            </td>
+            <td>
+              <button class="btn btn-danger" name="declined">거절</button>
+            </td>
+            </td>
+            <% } %>
+            <input type="hidden" value=<%= standByUser.email %> name="email">
+            <input type="hidden" value=<%= standByUser.name %> name="name">
+          </tr>
+        </form>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<%- contentFor('footer') %>
+<%- include('../partials/footer.ejs') %>

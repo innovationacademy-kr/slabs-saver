@@ -1,18 +1,37 @@
-<!DOCTYPE html>
-<html>
+<%- contentFor('navbar') %>
+<nav class="navbar navbar-expand-md navbar-dark bg-success mb-4">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">SLAB-SAVER</a>
+    <ul class="navbar-nav me-auto mb-2 mb-md-0">
+      <li class="nav-item">
+        <a class="nav-link" aria-current="page" href="/author/_admin">홈</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/author/_admin/invitation">초대관리</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link" href="#">기사 관리</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link" href="#">기자 관리</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link" href="#">유저 관리</a>
+      </li>
+    </ul>
+    <a class="btn btn-primary" href="/author/logout">로그아웃</a>
+  </div>
+</nav>
+<!-- <script src="/javascripts/navbar.js"></script> -->
 
-<head>
-  <link rel="stylesheet" href="/stylesheets/author/index.css" />
-</head>
+<%- contentFor('body') %>
+<div>
+  어드민 홈. 추후 추가할 것.
+</div>
 
-<body>
-  <header class="side-nav">
-    <a href="/author/logout">
-      <button class="side-nav__logout">로그아웃</button>
-    </a>
-    <a href="/author/_admin">홈</a>
-    <a href="/author/_admin/invitation">초대 관리</a>
-  </header>
-</body>
+<%- contentFor('footer') %>
+<%- include('../partials/footer.ejs') %>
 
-</html>
+
+
+

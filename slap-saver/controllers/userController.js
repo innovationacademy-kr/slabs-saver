@@ -8,12 +8,14 @@ module.exports = {
     const candidateArticle = await Article.findOne({ where: { id: '1' } });
     const todayArticle = candidateArticle ? candidateArticle : { headline: '비어있는 항목입니다.' };
     const todayWords = 'helloworld';
+    const ARTICLE_LIMIT = 3;
     const ArticlesObj = await Article.findAll({
       where: {
         status: 4
       },
       order: [['updatedAt', 'DESC']],
-      limit: 3,
+      // TODO: 기능 점검 이후 10으로 변경
+      limit: ARTICLE_LIMIT,
     });
     const Articles = await Promise.all(
       ArticlesObj.map(async (article) => {
