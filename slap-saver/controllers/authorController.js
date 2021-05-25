@@ -240,19 +240,20 @@ module.exports = {
       params: { articleId },
     } = req;
     try {
-        const article = await Article.update({
-          headline,
-          category,
-          imageDesc,
-          imageFrom,
-          briefing,
-          image: (req.file && req.file.filename) ? req.file.filename : '',
-          paragraphs: JSON.stringify(paragraphs),
-          status: req.body.saveBtn === '' ? STATUS.DRAFTS : STATUS.COMPLETED,
-        }, {
-          where: { id: articleId }
-        })
-    } catch (error) {
+      await Article.update({
+        headline,
+        category,
+        imageDesc,
+        imageFrom,
+        briefing,
+        image: (req.file && req.file.filename) ? req.file.filename : '',
+        paragraphs: JSON.stringify(paragraphs),
+        status: req.body.saveBtn === '' ? STATUS.DRAFTS : STATUS.COMPLETED,
+      }, {
+        where: { id: articleId },
+        individualHooks: true,
+      })
+  } catch (error) {
       alert(error.errors ? error.errors[0].message : '생성실패');
     }
     return res.redirect('/author/articles');
