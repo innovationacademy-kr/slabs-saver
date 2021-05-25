@@ -213,10 +213,11 @@ module.exports = {
     Article.findOne({ where: { id: req.params.articleId } })
       .then((article) => {
         article.image = `/images/articleImages/${article.image}`;
+        const paragraphs = JSON.parse(article.paragraphs).paragraphs;
         return res.render('author/editArticle', {
           title: '기사 수정 페이지',
           article: article,
-          paragraphs: article.paragraphs['paragraphs'],
+          paragraphs,
         });
       })
       .catch((err) => console.log(err));
