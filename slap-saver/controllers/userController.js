@@ -10,7 +10,7 @@ module.exports = {
     const todayWords = 'helloworld';
     const ArticlesObj = await Article.findAll({
       where: {
-        status: 4
+        status: 4,
       },
       order: [['updatedAt', 'DESC']],
       limit: 3,
