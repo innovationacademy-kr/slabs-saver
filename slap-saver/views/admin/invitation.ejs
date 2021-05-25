@@ -27,7 +27,7 @@
         <form method="post" action="/author/_admin/invitation">
           <div class="modal-email">
             <label for="email">이메일</label>
-            <input class="invite-email" name="email">
+            <input type="email" autocapitalize="off" class="invite-email" name="email">
           </div>
           <div class="modal-name">
             <label for="name">이름</label>
@@ -35,7 +35,24 @@
           </div>
           <div class="modal-code">
             <label for="code">코드</label>
-            <input class="invite-code" name="code">
+            <select name="code" id="code">
+              <option value="0" selected>역할을 설정해 주십시오</option>
+              <option value="1">편집장</option>
+              <option value="2">데스크2</option>
+              <option value="3">데스크3</option>
+              <option value="4">데스크4</option>
+              <option value="5">데스크5</option>
+              <option value="6">데스크6</option>
+              <option value="7">데스크7</option>
+              <option value="8">데스크8</option>
+              <option value="201">일반기자2</option>
+              <option value="301">일반기자3</option>
+              <option value="401">일반기자4</option>
+              <option value="501">일반기자5</option>
+              <option value="601">일반기자6</option>
+              <option value="701">일반기자7</option>
+              <option value="801">일반기자8</option>
+            </select>
           </div>
           <button name="invite">초대하기</button>
         </form>

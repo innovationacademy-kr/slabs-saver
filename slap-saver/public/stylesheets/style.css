@@ -6,7 +6,7 @@
 }
 
 body {
-  padding: 50px;
+  padding: 0;
   font-family: 'Noto Sans KR', sans-serif;
   /* font: 14px 'Lucida Grande', Helvetica, Arial, sans-serif; */
 }
@@ -15,37 +15,46 @@ a {
   color: #00b7ff;
 }
 
-.main-title {
-  font-size: 2rem;
-}
-
-/* 오늘의 뉴스 */
-
-.today-article__title {
-  margin-top: 2em;
-  font-weight: bold;
-}
-
-.today-article__content {
-  font-weight: 500;
-  font: 500;
-  color: var(--light-text);
-}
-
-/* 오늘의 한마디 */
-
-.today-words__title {
-  margin-top: 2em;
-  font-weight: bold;
-}
-
-.today-words__content {
-  font-weight: 500;
-  font: 500;
-  color: var(--light-text);
+main {
+  padding: 0.5em;
 }
 
 /* 일반 기사 */
+
+.content {
+  background-color: #f0f1f2;
+}
+
+/* .content-category {
+  font-size: 2rem;
+}
+
+.content-title {
+  font-size: 3.5rem;
+} */
+
+.action-button {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.action-button > span {
+  padding-right: 1rem;
+}
+
+.action-button > span > svg {
+  margin: 1rem 1rem;
+}
+
+.image-info {
+  color: var(--darker-text);
+}
+
+.article-title {
+  font-weight: 600;
+}
+
+
 
 .articles {
   display: flex;
@@ -57,12 +66,6 @@ a {
   color: black;
 }
 
-.article__title {
-  margin: 0;
-  padding: 10px 0px;
-  font-size: 4rem;
-  font-weight: 500;
-}
 
 .article__info {
   display: flex;
@@ -78,16 +81,12 @@ a {
   image-rendering: auto;
 }
 
-.article__info p {
-  font-size: 1.2rem;
-}
 
 .article__info div {
   display: flex;
   width: 100%;
   justify-content: space-around;
   align-items: center;
-  font-size: 1.5rem;
 }
 
 .article__info div div {
@@ -102,7 +101,6 @@ a {
 
 .article__image--info {
   color: var(--darker-text);
-  font-size: 1.3rem;
 }
 
 .article__image--info > p {
@@ -111,7 +109,6 @@ a {
 
 .article__briefing {
   display: flex;
-  font-size: 2rem;
   flex-wrap: wrap;
 }
 
@@ -142,9 +139,7 @@ hr.solid {
   border: 3px solid #2e5bcc;
   border-radius: 5px;
   color: #2e5bcc;
-  font-size: 1.6em;
   font-weight: bold;
-  padding: 2em 6em;
 }
 
 .detail__article--button:active {
@@ -152,13 +147,9 @@ hr.solid {
   background-color: #2e5bcc;
 }
 
-.invite-button {
-
-}
-
 .invite-section {
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
   left: 0;
@@ -166,17 +157,22 @@ hr.solid {
   width: 100%; /* Full width */
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
-
 }
 
 .invite-section__content {
-  background-color: #fefefe; 
+  background-color: #fefefe;
   margin: 30% auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 80%; 
+  width: 80%;
 }
 
 .invite-section__content > .closeBtn {
   cursor: pointer;
+}
+
+.frame {
+  margin: 0 1rem;
+  border-radius: 2rem;
+  background-color: #e1e1e1;
 }
