@@ -75,30 +75,30 @@
       </div>
     </div>
   </nav>
-  
+
   <main class="main">
-    <div class="card text-dark bg-light mb-3">
-      <div class="card-header">오늘의 뉴스</div>
-      <div class="card-body">
-        <h3 class="card-title">
+    <div class="card text-dark bg-light mb-1" style="height: 5rem;">
+      <div class="card-header p-2">오늘의 뉴스</div>
+      <div class="card-body p-2">
+        <h5 class="card-title text-truncate">
           <%= todayArticle.headline %>
-        </h3>
+        </h5>
       </div>
     </div>
-    <div class="card text-dark bg-light mb-3">
-      <div class="card-header">오늘의 한마디</div>
-      <div class="card-body">
-        <h1 class="card-title">
+    <div class="card text-dark bg-light mb-1" style="height: 5rem;">
+      <div class="card-header p-2">오늘의 한마디</div>
+      <div class="card-body p-2">
+        <h5 class="card-title text-truncate">
           <%= todayWords %>
-        </h1>
+        </h5>
       </div>
     </div>
     <div class="row row-cols-1 g-4">
       <% Articles.map((article)=> { %>
         <% if (article.status===4) { %>
           <%- include('partials/articleCard.ejs', { article }) %>
-        <% } %>
-      <% }) %>
+            <% } %>
+              <% }) %>
     </div>
   </main>
 </body>
