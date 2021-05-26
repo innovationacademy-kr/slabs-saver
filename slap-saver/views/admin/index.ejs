@@ -1,18 +1,14 @@
-<!DOCTYPE html>
-<html>
+<%- contentFor('navbar') %>
+<%- include('../partials/navbar.ejs') %>
 
-<head>
-  <link rel="stylesheet" href="/stylesheets/author/index.css" />
-</head>
+<%- contentFor('body') %>
+<div>
+  어드민 홈. 추후 추가할 것.
+</div>
 
-<body>
-  <header class="side-nav">
-    <a href="/author/logout">
-      <button class="side-nav__logout">로그아웃</button>
-    </a>
-    <a href="/author/_admin">홈</a>
-    <a href="/author/_admin/invitation">초대 관리</a>
-  </header>
-</body>
+<%- contentFor('footer') %>
+<%- include('../partials/footer.ejs') %>
 
-</html>
+
+
+

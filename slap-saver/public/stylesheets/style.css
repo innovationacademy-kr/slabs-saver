@@ -55,6 +55,37 @@ main {
 }
 
 
+.declined {
+  height: 7px;
+  border-radius: 50px;
+
+  background: red;
+}
+
+progress::-webkit-progress-value {
+  height: 8px;
+  border: gray;
+  border: none;
+  border-radius: 50px;
+  background: red;
+}
+
+progress::-moz-progress-bar {
+  background: red;
+  border-radius: 50px;
+}
+
+progress::-webkit-progress-value {
+  background: red;
+  border-radius: 50px;
+
+}
+
+progress::-webkit-progress-bar {
+  background: red;
+  border-radius: 50px;
+
+}
 
 .articles {
   display: flex;
