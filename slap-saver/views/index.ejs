@@ -94,7 +94,7 @@
         </h5>
       </div>
     </div>
-    <div class="row row-cols-1 g-4">
+    <div class="row row-cols-1 g-4 article-list">
       <% Articles.map((article)=> { %>
         <% if (article.status===4) { %>
           <%- include('partials/articleCard.ejs', { article }) %>
@@ -102,6 +102,8 @@
               <% }) %>
     </div>
   </main>
+  <script src="/vendors/jquery/jquery.min.js"></script>
+  <script src="/javascripts/infiniteScroll.js"></script>
 </body>
 
 </html>

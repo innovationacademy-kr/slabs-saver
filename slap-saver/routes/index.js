@@ -8,6 +8,9 @@ const userCtrl = require('../controllers/userController');
 // NOTE: 기본 홈 화면
 router.get('/', userCtrl.home);
 
+// NOTE: 추가 기사 요청
+router.get('/moreArticles', userCtrl.moreArticles);
+
 // NOTE: 설정 화면 페이지
 router.get('/profile', userCtrl.profile);
 
