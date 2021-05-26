@@ -23,11 +23,11 @@ module.exports = {
     });
     currentUser.code = String(currentUser.code)[0];
     if (currentUser.position === 1) {
-      res.render('author/desking/index', { articles, currentUser });
+      res.render('author/desking/index', { articles, currentUser, admin: false });
     } else if (currentUser.position === 2) {
-      res.render('author/desking/desk', { articles, currentUser });
+      res.render('author/desking/desk', { articles, currentUser, admin: false });
     } else if (currentUser.position === 3) {
-      res.render('author/desking/chiefEditor', { articles, currentUser });
+      res.render('author/desking/chiefEditor', { articles, currentUser, admin: false });
     } else if (currentUser.position === 4) {
       res.redirect('/author/_admin');
     }
@@ -176,7 +176,7 @@ module.exports = {
 
   editMeetingPage: async (req, res, next) => {
     const currentUser = await getCurrentUser(req.user?.id);
-    res.render('author/editMeeting', { title: '편집회의 페이지!', currentUser });
+    res.render('author/editMeeting', { title: '편집회의 페이지!', currentUser, admin: false });
   },
 
   newArticlePage: async (req, res, next) => {
@@ -184,7 +184,7 @@ module.exports = {
     if (!currentUser) return res.redirect('/author/login');
     let defaultCategory = String(currentUser.code)[0];
     if (defaultCategory === '1') defaultCategory = '2';
-    res.render('author/newArticle', { title: '기사 작성 페이지!!', defaultCategory, currentUser });
+    res.render('author/newArticle', { title: '기사 작성 페이지!!', defaultCategory, currentUser, admin : false  });
   },
 
   newArticle: async (req, res, next) => {
@@ -275,6 +275,7 @@ module.exports = {
     return res.render('author/articles', {
       title: '내 기사목록 페이지',
       articles,
+      admin: false,
       currentUser,
     });
   },
@@ -321,11 +322,15 @@ module.exports = {
   },
 
   admin: async (req, res, next) => {
-    res.render('admin/index');
+    const currentUser = await getCurrentUser(req.user?.id);
+    if (!currentUser) res.redirect('/author/login');
+    res.render('admin/index', { currentUser, admin: true } );
   },
 
   invite: async (req, res, next) => {
     const userList = await Invitation.findAll({});
+    const currentUser = await getCurrentUser(req.user?.id);
+    if (!currentUser) res.redirect('/author/login');    
     const standByUsers = userList.map((user) => {
       return {
         ...user.dataValues,
@@ -333,7 +338,7 @@ module.exports = {
         state: converter.inviteState(user.state),
       };
     });
-    res.render('admin/invitation', { standByUsers });
+    res.render('admin/invitation', { currentUser , standByUsers, admin: true });
   },
 
   // NOTE: state
@@ -352,6 +357,8 @@ module.exports = {
       await candidate.save();
     } else if (declined === '') {
       await Invitation.update({ state: 3 }, { where: { email } });
+    } else if (code === '0') {
+      alert("역할을 설정해 주십시오!");
     }
     res.redirect('/author/_admin/invitation');
   },
