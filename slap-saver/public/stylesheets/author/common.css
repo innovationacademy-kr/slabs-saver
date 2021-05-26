@@ -24,3 +24,8 @@ body {
 .content {
   margin-bottom: 20px;
 }
+
+.navbar__user-image {
+  height: 100%;
+  padding: 5px;
+}

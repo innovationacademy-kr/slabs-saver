@@ -40,13 +40,13 @@
                     <label class="form-label" for="picture">새로운 사진</label>
                     <input class="form-control" type="file" id="picture" name="picture" accept="image/gif, image/jpeg, image/png" />
                     <label class="form-label" for="imageDesc">사진 설명</label>
-                    <input class="form-control" type="text" id="imageDesc" name="imageDesc" placeholder="사진에 대한 설명을 적어주세요" />
+                    <input class="form-control" type="text" id="imageDesc" name="imageDesc" value="<%= article.imageDesc %>" placeholder="사진에 대한 설명을 적어주세요" />
                     <label class="form-label" for="imageFrom">사진 출처</label>
-                    <input class="form-control" type="text" id="imageFrom" name="imageFrom" placeholder="사진에 대한 출처를 적어주세요" />
+                    <input class="form-control" type="text" id="imageFrom" name="imageFrom" value="<%= article.imageFrom %>" placeholder="사진에 대한 출처를 적어주세요" />
                   </div>
                   <div class="mb-4">
                     <label class="form-label" for="breifing">100자 브리핑</label>
-                    <textarea class="form-control" id="briefing" name="briefing" placeholder="뉴스에 대한 브리핑을 작성해주세요"><%=article.briefing %></textarea>
+                    <textarea class="form-control" id="briefing" name="briefing" placeholder="뉴스에 대한 브리핑을 작성해주세요" maxlength="150"><%=article.briefing %></textarea>
                   </div>
                   <div class="mb-4">
                     <div class="article__paragraphs">
@@ -67,6 +67,7 @@
                           <input class="form-control" id=paragraph-title name=paragraph-title class="paragraph-item__title" value= <%= p[0] %> readonly="readonly" >
                           <label class="form-label" for=paragraph-conetent ></label>
                           <textarea class="form-control" id=paragraph-content name=paragraph-content class="paragraph-item__content" type="text" value=<%= p[1] %> ><%= p[1] %></textarea>
+                          <button type="button" class="btn btn-warning paragraph-item__deleteBtn">삭제</button>
                         </div>
                         <% }) %>
                       <% } %>
