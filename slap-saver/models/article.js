@@ -99,6 +99,11 @@ module.exports = (sequelize, DataTypes) => {
     } else if (currentStatus === 4 && afterStatus === 3) {
       article.publishedAt = null;
     }
+    // TODO: 이 부분에서 조금 문제 있는듯
+    const currentImage = article._previousDataValues.image;
+    if (article.dataValues.image === '') {
+      article.image = currentImage;
+    }
   });
   return Article;
 };
