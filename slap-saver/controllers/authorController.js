@@ -174,8 +174,9 @@ module.exports = {
     return res.redirect('/author/login');
   },
 
-  editMeetingPage: (req, res, next) => {
-    res.render('author/editMeeting', { title: '편집회의 페이지!', admin: false });
+  editMeetingPage: async (req, res, next) => {
+    const currentUser = await getCurrentUser(req.user?.id);
+    res.render('author/editMeeting', { title: '편집회의 페이지!', currentUser, admin: false });
   },
 
   newArticlePage: async (req, res, next) => {
@@ -183,7 +184,7 @@ module.exports = {
     if (!currentUser) return res.redirect('/author/login');
     let defaultCategory = String(currentUser.code)[0];
     if (defaultCategory === '1') defaultCategory = '2';
-    res.render('author/newArticle', { title: '기사 작성 페이지!!', defaultCategory, admin : false });
+    res.render('author/newArticle', { title: '기사 작성 페이지!!', defaultCategory, currentUser, admin : false  });
   },
 
   newArticle: async (req, res, next) => {
@@ -218,7 +219,8 @@ module.exports = {
     return res.redirect('/author/articles');
   },
 
-  editArticlePage: (req, res, next) => {
+  editArticlePage: async (req, res, next) => {
+    const currentUser = await getCurrentUser(req.user?.id);
     Article.findOne({ where: { id: req.params.articleId } })
       .then((article) => {
         article.image = `/images/articleImages/${article.image}`;
@@ -227,50 +229,58 @@ module.exports = {
           title: '기사 수정 페이지',
           article: article,
           paragraphs,
+          currentUser,
         });
       })
       .catch((err) => console.log(err));
   },
 
-  editArticle: (req, res, next) => {
+  editArticle: async (req, res, next) => {
     const titles = Array.isArray(req.body['paragraph-title']) ? req.body['paragraph-title'] : [req.body['paragraph-title']];
     const contents = Array.isArray(req.body['paragraph-content']) ? req.body['paragraph-content'] : [req.body['paragraph-content']];
     const paragraphs = { paragraphs: [] };
     titles.forEach((element, index) => {
-      paragraphs['paragraphs'].push([element, contents[index]]);
+      if (element && contents[index]) {
+        paragraphs['paragraphs'].push([element, contents[index]]);
+      }
     })
-    titles.forEach((element, index) => {
-      paragraphs[element] = contents[index];
-    })
-    Article.findOne({ where: { id: req.params.articleId } })
-      .then((article) => {
-        article.headline = req.body.headline;
-        article.category = req.body.category;
-        if (req.file && req.file.filename) {
-          article.image = req.file.filename;
-        }
-        article.imageDesc = req.body.imageDesc;
-        article.imageFrom = req.body.imageFrom;
-        article.briefing = req.body.briefing;
-        article.paragraphs = JSON.stringify(paragraphs);
-        article.status = req.body.saveBtn === '' ? STATUS.DRAFTS : STATUS.COMPLETED;
-        article.save();
+    const {
+      body: { headline, category, imageDesc, imageFrom, briefing },
+      params: { articleId },
+    } = req;
+    try {
+      await Article.update({
+        headline,
+        category,
+        imageDesc,
+        imageFrom,
+        briefing,
+        image: (req.file && req.file.filename) ? req.file.filename : '',
+        paragraphs: JSON.stringify(paragraphs),
+        status: req.body.saveBtn === '' ? STATUS.DRAFTS : STATUS.COMPLETED,
+      }, {
+        where: { id: articleId },
+        individualHooks: true,
       })
-      .then(() => res.redirect('/author/articles'))
-      .catch((err) => console.log(err));
+  } catch (error) {
+      alert(error.errors ? error.errors[0].message : '생성실패');
+    }
+    return res.redirect('/author/articles');
   },
 
   myArticlePage: async (req, res, next) => {
+    const currentUser = await getCurrentUser(req.user?.id);
     const author = await Author.findOne({ where: { id: req.user.id } });
     const articles = await author.getArticles();
     return res.render('author/articles', {
       title: '내 기사목록 페이지',
       articles,
-      admin: false
+      admin: false,
+      currentUser,
     });
   },
 
-  previewPage: (req, res, next) => {
+  previewPage: async (req, res, next) => {
     Article.findOne({ where: { id: req.params.articleId } })
       .then((article) => {
         let paragraph = [];
@@ -312,11 +322,15 @@ module.exports = {
   },
 
   admin: async (req, res, next) => {
-    res.render('admin/index', { admin: true } );
+    const currentUser = await getCurrentUser(req.user?.id);
+    if (!currentUser) res.redirect('/author/login');
+    res.render('admin/index', { currentUser, admin: true } );
   },
 
   invite: async (req, res, next) => {
     const userList = await Invitation.findAll({});
+    const currentUser = await getCurrentUser(req.user?.id);
+    if (!currentUser) res.redirect('/author/login');    
     const standByUsers = userList.map((user) => {
       return {
         ...user.dataValues,
@@ -324,7 +338,7 @@ module.exports = {
         state: converter.inviteState(user.state),
       };
     });
-    res.render('admin/invitation', { standByUsers, admin: true });
+    res.render('admin/invitation', { currentUser , standByUsers, admin: true });
   },
 
   // NOTE: state
