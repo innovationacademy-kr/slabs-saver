@@ -229,6 +229,7 @@ module.exports = {
           title: '기사 수정 페이지',
           article: article,
           paragraphs,
+          admin: false,
           currentUser,
         });
       })
@@ -291,6 +292,7 @@ module.exports = {
         res.render('author/checkArticle', {
           title: '기사 확인 페이지!!!',
           article,
+          admin: false,
           paragraph,
         });
       })
