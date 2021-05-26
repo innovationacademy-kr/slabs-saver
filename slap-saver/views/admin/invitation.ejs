@@ -1,4 +1,5 @@
 <%- contentFor('navbar') %>
+<link rel="stylesheet" href="/stylesheets/style.css">
 <nav class="navbar navbar-expand-md navbar-dark bg-success mb-4">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">SLAB-SAVER</a>
@@ -94,9 +95,15 @@
             <td><%= standByUser.email %></td>
             <td><%= standByUser.name %></td>
             <td>
-              <div>
-                <progress value=<%= standByUser.intState %> max="2"></progress>
-              </div>
+              <% if (standByUser.intState > 2) { %>
+                <div>
+                  <progress class="declined" value=<%= standByUser.intState %> max="2"></progress>
+                </div>
+              <% } else { %>
+                <div>
+                  <progress value=<%= standByUser.intState %> max="2"></progress>
+                </div>
+              <% } %>
               <%= standByUser.state %>
             </td>
             <% if (standByUser.intState == 0) { %>
