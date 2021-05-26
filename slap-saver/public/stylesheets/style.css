@@ -39,11 +39,11 @@ main {
 }
 
 .action-button > span {
-  padding-right: 1rem;
+  /* padding-right: 1rem; */
 }
 
 .action-button > span > svg {
-  margin: 1rem 1rem;
+  margin: 1rem 0.75rem 1rem 0.75rem;
 }
 
 .image-info {
@@ -203,7 +203,13 @@ hr.solid {
 }
 
 .frame {
-  margin: 0 1rem;
   border-radius: 2rem;
   background-color: #e1e1e1;
+}
+
+.action-button__icon {
+  padding-right: 0;
+  
+  /* margin-left: 8px;
+  margin-right: 8px; */
 }
