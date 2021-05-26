@@ -25,7 +25,7 @@ module.exports = (invitationId, email, code) => {
       from: 'saver@saver.com',
       to: email,
       subject: 'saver입니다',
-      html: `<h1>SAVER</h1><a href="">http://localhost:4000/author/signup?id=${invitationId}</a>`,
+      html: `<h1>SAVER</h1><a href="">http://saver.42seoul.io/author/signup?id=${invitationId}</a>`,
     };
     send(content);
   }

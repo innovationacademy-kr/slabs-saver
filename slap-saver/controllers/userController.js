@@ -11,7 +11,7 @@ module.exports = {
     const ARTICLE_LIMIT = 3;
     const ArticlesObj = await Article.findAll({
       where: {
-        status: 4
+        status: 4,
       },
       order: [['updatedAt', 'DESC']],
       // TODO: 기능 점검 이후 10으로 변경
