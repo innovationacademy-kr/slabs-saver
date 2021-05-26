@@ -39,30 +39,29 @@ module.exports = {
 
   deskProcess: async (req, res, next) => {
     const articles = JSON.parse(JSON.stringify(req.body));
+    console.log('-------------- parse and string ---------------')
+    console.log(JSON.parse(JSON.stringify(req.body)));
+    console.log('----------------------------------------')
     // TODO: 로딩 페이지 띄우기
     // TODO: 데스크인 경우와 편집장인 경우 나누기
     // TODO: 데스크가 출고를 off 하고 am7, pm7을 ON 하고 보내면 beforeUpdate 훅에서 에러 발생하게 만들자
     const currentUser = await getCurrentUser(req.user.id);
     if (currentUser.position === 2) {
       await Promise.all(
-        Object.entries(articles).map(async (article) => {
-          // TODO: 이미 데이터가 4면 바꾸지 말아야함.
-          // TODO: 이미 4라는건 편집장이 바꿨다는 거임.
-          // TODO: 이건 beforeUpdate 에서 하면 될거같은데?
-          // TODO: 아니다. 그냥 지금처럼 말고 findOne으로 기사를 찾은다음에 수정하고 save 하는 방식으로 변경하자
-          const updateContent = !Array.isArray(article[1])
-            ? { status: +article[1] === 1 ? 3 : 2 }
-            : {
-                status: +article[1][0] === 1 ? 3 : 2,
-                am7: +article[1][1],
-                pm7: +article[1][2],
-              };
-          await Article.update(updateContent, {
-            where: { id: +article[0] },
-            individualHooks: true,
-          });
-        }),
-      );
+        Object.entries(articles).map(async (data) => {
+          const article = await Article.findOne({where: {id: +data[0]}});
+          if (article.status < 4) {
+            if (!Array.isArray(data[1])) {
+              article.status = +data[1] === 1 ? 3 : 2;
+            } else {
+              article.status = +data[1][0] === 1 ? 3 : 2;
+              article.am7 = +data[1][1];
+              article.pm7 = +data[1][2];
+            }
+            await article.save();
+         }
+        }
+      ))
     } else if (currentUser.position > 2) {
       // TODO: 게재 일자도 기사 모델의 칼럼에 추가하자
       // TODO: 편집장이 출고가 안된걸 게재하려고 하면 beforeUpdate 훅에서 에러 발생하게 하자
