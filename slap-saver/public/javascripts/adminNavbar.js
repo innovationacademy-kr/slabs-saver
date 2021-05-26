@@ -1,10 +1,8 @@
 var lis = document.querySelectorAll('li a');
 var current = window.location.pathname;
 var options = [
-    '/author',
-    '/author/edit-meeting',
-    '/author/articles',
-    '/author/articles/new',
+    '/author/_admin',
+    '/author/_admin/invitation',
 ]
 
 options.forEach(function(opt, index) {
