@@ -64,9 +64,9 @@
                         <% paragraphs.forEach((p)=> { %>
                         <div class="paragraph-list__item">
                           <label class="form-label" for=paragraph-title ></label>
-                          <input class="form-control" id=paragraph-title name=paragraph-title class="paragraph-item__title" value= <%= p[0] %> readonly="readonly" >
+                          <input class="form-control" id=paragraph-title name=paragraph-title class="paragraph-item__title" value="<%= p[0] %>" readonly="readonly" >
                           <label class="form-label" for=paragraph-conetent ></label>
-                          <textarea class="form-control" id=paragraph-content name=paragraph-content class="paragraph-item__content" type="text" value=<%= p[1] %> ><%= p[1] %></textarea>
+                          <textarea class="form-control" id=paragraph-content name=paragraph-content class="paragraph-item__content" type="text" value="<%= p[1] %>" ><%= p[1] %></textarea>
                           <button type="button" class="btn btn-warning paragraph-item__deleteBtn">삭제</button>
                         </div>
                         <% }) %>
