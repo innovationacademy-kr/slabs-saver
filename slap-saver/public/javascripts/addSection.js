@@ -10,6 +10,7 @@ function makeParagraph(title) {
           + '<input class="form-control paragraph-item__title" id="paragraph-title" name="paragraph-title" type="text" value=' + title +' readonly="readonly" >' + '\n'
           + '<label class="form-label" for=paragraph-conetent ></label>'
           + '<textarea class="form-control paragraph-item__content" id=paragraph-content name=paragraph-content  > </textarea>' + '\n'
+          + '<button type="button" class="btn btn-warning paragraph-item__deleteBtn">삭제</button>'
         + '</div>'
 }
 
@@ -22,6 +23,14 @@ briefing.addEventListener('keydown', function(e) {
 addParagraphBtn.addEventListener('click', function(e) {
   var title = select.options[select.selectedIndex].value;  
   paragraphList.insertAdjacentHTML('beforeend', makeParagraph(title));
+})
+
+paragraphList.addEventListener('click', function(e) {
+  var deleteBtn = e.target.closest('.paragraph-item__deleteBtn');
+  if (!deleteBtn) return;
+  if (!window.confirm('정말로 삭제하시겠습니까?')) return ;
+  var paragraph = deleteBtn.closest('.paragraph-list__item');
+  paragraph.remove();
 })
 
 paragraphList.addEventListener('dblclick', function(e) {
@@ -47,5 +56,4 @@ paragraphList.addEventListener('focusout', function(e) {
 
 form.addEventListener('keydown', function(e) {
   if (e.keyCode === 13) e.preventDefault();
-
 })
