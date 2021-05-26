@@ -39,9 +39,6 @@ module.exports = {
 
   deskProcess: async (req, res, next) => {
     const articles = JSON.parse(JSON.stringify(req.body));
-    console.log('-------------- parse and string ---------------')
-    console.log(JSON.parse(JSON.stringify(req.body)));
-    console.log('----------------------------------------')
     // TODO: 로딩 페이지 띄우기
     // TODO: 데스크인 경우와 편집장인 경우 나누기
     // TODO: 데스크가 출고를 off 하고 am7, pm7을 ON 하고 보내면 beforeUpdate 훅에서 에러 발생하게 만들자
