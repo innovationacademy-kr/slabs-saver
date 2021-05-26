@@ -8,10 +8,8 @@ var options = [
 ]
 
 options.forEach(function(opt, index) {
-  console.log(lis[index].firstChild)
   lis[index].classList.remove('active');
   if (current === opt) {
-    console.log(current, opt, 'here!!!')
     lis[index].classList.add('active');
   }
 })
