@@ -96,7 +96,7 @@ module.exports = (passport) => {
   router.get('/articles', loggedIn, authorCtrl.myArticlePage);
 
   // NOTE: 기사 확인 페이지
-  router.get('/articles/preview/:articleId', loggedIn, authorCtrl.previewPage);
+  router.get('/articles/:articleId/preview', loggedIn, authorCtrl.previewPage);
 
   // NOTE: 신원인증
   router.get('/pre-signup', alreadyLoggedIn, authorCtrl.preSignup);

@@ -280,20 +280,16 @@ module.exports = {
   },
 
   previewPage: async (req, res, next) => {
-    Article.findOne({ where: { id: req.params.articleId } })
-      .then((article) => {
-        let paragraph = [];
-        if (article.additionalParagraph && article.additionalParagraph.length > 1) {
-          paragraph = article.additionalParagraph.split('|-|');
-        }
-        article.image = `/images/articleImages/${article.image}`;
-        res.render('author/checkArticle', {
-          title: '기사 확인 페이지!!!',
-          article,
-          paragraph,
-        });
-      })
-      .catch((err) => console.log(err));
+    const article = await Article.findOne({
+      where: { id: req.params.articleId },
+      include: {
+        model: Author,
+        attributes: ['photo'],
+    } });
+    article.authorImg = `/images/authorImages/${article.Author.photo}`;
+    article.image = `/images/articleImages/${article.image}`;
+    article.paragraphs = JSON.parse(article.paragraphs);
+    res.render('articles/article', { article });
   },
 
   // admin //
