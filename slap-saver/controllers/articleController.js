@@ -1,6 +1,8 @@
 const { Article, Author } = require('../models');
+const STATUS = require('../lib/constants/articleStatus');
 const converter = require('../lib/converter');
 const moment = require('moment');
+const getCurrentUser = require('../lib/getCurrentUser');
 
 module.exports = {
   viewDetail: async (req, res, next) => {
@@ -11,6 +13,10 @@ module.exports = {
         model: Author,
         attributes: ['photo'],
     } });
+    if (article.status < STATUS.CONFIRMED) {
+      return res.redirect('/');
+    }
+    const author = await article.getAuthor();
     article.authorImg = `/images/authorImages/${article.Author.photo}`;
     article.image = `/images/articleImages/${article.image}`;
     article.paragraphs = JSON.parse(article.paragraphs);
