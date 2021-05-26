@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-success mb-4">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">SLAB-SAVER</a>
+    <a class="navbar-brand" href="/author">SLAB-SAVER</a>
     <ul class="navbar-nav me-auto mb-2 mb-md-0">
       <li class="nav-item">
         <a class="nav-link" aria-current="page" href="/author">홈</a>
@@ -15,7 +15,20 @@
           <a class="nav-link" href="/author/articles/new">기사 작성</a>
       </li>
     </ul>
-    <a class="btn btn-primary" href="/author/logout">로그아웃</a>
+    <ul class="navbar-nav mb-2 mb-md-0">
+      <li class="nav-item" style="margin-right: 10px">
+        <a class="btn btn-primary" href="/author/logout">로그아웃</a>
+      </li>
+      <li class="nav-item">
+        <a class="btn btn-danger navbar__user-image" href="/author">
+          <img
+            height="25px"
+            width="25px"
+            src="/images/authorImages/<%= currentUser.photo %>"
+            alt="user-image">  <%= currentUser.name %>
+        </a>
+      </li>
+    </ul>
   </div>
 </nav>
 <script src="/javascripts/navbar.js"></script>
