@@ -1,5 +1,6 @@
 const { Article, Author } = require('../models');
 const STATUS = require('../lib/constants/articleStatus');
+const converter = require('../lib/converter');
 const moment = require('moment');
 const getCurrentUser = require('../lib/getCurrentUser');
 
@@ -20,6 +21,7 @@ module.exports = {
     article.image = `/images/articleImages/${article.image}`;
     article.paragraphs = JSON.parse(article.paragraphs);
     article.dataValues.updatedAt = moment(article.updatedAt).format('YYYY.MM.DD HH:mm:ss');
+    article.category = converter.category(article.getDataValue('category'));
     res.render('articles/article', { article });
   },
 };
