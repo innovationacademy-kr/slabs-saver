@@ -34,6 +34,17 @@ module.exports = {
     res.render('index', { title: 'slab-saver', todayArticle, todayWords, Articles });
   },
 
+  moreArticles: async (req, res, next) => {
+    const { page } = req.query;
+    const articles = await Article.findAll({
+      where: { status: 4 },
+      order: [['updatedAt', 'DESC']],
+      offset: +page,
+      limit: 3,
+    });
+    res.send(JSON.stringify(articles));
+  },
+
   profile: (req, res, next) => {
     res.render('index', { title: '설정 화면' });
   },

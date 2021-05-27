@@ -218,6 +218,7 @@ module.exports = {
         return res.render('author/editArticle', {
           article: article,
           paragraphs,
+          admin: false,
           currentUser,
           title: "edit article",
           admin: false,
@@ -281,7 +282,7 @@ module.exports = {
     article.authorImg = `/images/authorImages/${article.Author.photo}`;
     article.image = `/images/articleImages/${article.image}`;
     article.paragraphs = JSON.parse(article.paragraphs);
-    res.render('articles/article', { title: "preview", article });
+    res.render('articles/article', { title: "preview", article, admin: false });
   },
 
   // admin //
