@@ -1,4 +1,5 @@
 const { Model } = require('sequelize');
+const converter = require('../lib/converter');
 const moment = require('moment');
 
 module.exports = (sequelize, DataTypes) => {
@@ -25,6 +26,9 @@ module.exports = (sequelize, DataTypes) => {
       category: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        get() {
+          return converter.category(this.getDataValue('category'));
+        },
       },
       author: {
         type: DataTypes.STRING,
