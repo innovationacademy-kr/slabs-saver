@@ -6,18 +6,17 @@ var isUsed = false;
 var articleList = document.querySelector('.article-list');
 
 $(window).scroll(function() {
-  console.log($(window).scrollTop()+DEFAULT_HEIGHT, $(document).height(), $(window).height());
   if ($(window).scrollTop() + DEFAULT_HEIGHT > ($(document).height() - $(window).height()) && !isUsed) {
     isUsed = !isUsed;
     $.ajax({
       url:`/moreArticles?page=${page}`,
       type:'get',
       success: function(articles) {
-        isUsed = !isUsed;
-        page += ADD_PAGE;
         JSON.parse(articles).map(function(article) {
           return articleList.insertAdjacentHTML('beforeend', makeTemplate(article))
         })
+        isUsed = !isUsed;
+        page += ADD_PAGE;
       },
       error: function(err) {
         console.error("error");
