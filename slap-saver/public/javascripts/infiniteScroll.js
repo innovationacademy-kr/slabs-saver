@@ -1,28 +1,29 @@
 var INITIAL_PAGE = 4;
 var ADD_PAGE = 3;
-var DEFAULT_HEIGHT = 20;
+var DEFAULT_HEIGHT = $(window).height() + 10;
 var page = INITIAL_PAGE;
 var isUsed = false;
 var articleList = document.querySelector('.article-list');
 
 $(window).scroll(function() {
-    if ($(window).scrollTop() + DEFAULT_HEIGHT > ($(document).height() - $(window).height()) && !isUsed) {
-      isUsed = !isUsed;
-      $.ajax({
-        url:`/moreArticles?page=${page}`,
-        type:'get',
-        success: function(articles) {
-          JSON.parse(articles).map(function(article) {
-            return articleList.insertAdjacentHTML('beforeend', makeTemplate(article))
-          })
-        },
-        error: function(err) {
-          console.error("error");
-        }
-      });
-      isUsed = !isUsed;
-      page += ADD_PAGE;
-    }
+  console.log($(window).scrollTop()+DEFAULT_HEIGHT, $(document).height(), $(window).height());
+  if ($(window).scrollTop() + DEFAULT_HEIGHT > ($(document).height() - $(window).height()) && !isUsed) {
+    isUsed = !isUsed;
+    $.ajax({
+      url:`/moreArticles?page=${page}`,
+      type:'get',
+      success: function(articles) {
+        isUsed = !isUsed;
+        page += ADD_PAGE;
+        JSON.parse(articles).map(function(article) {
+          return articleList.insertAdjacentHTML('beforeend', makeTemplate(article))
+        })
+      },
+      error: function(err) {
+        console.error("error");
+      }
+    });
+  }
 });
 
 function makeTemplate(article) {
