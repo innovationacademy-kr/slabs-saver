@@ -1,0 +1,73 @@
+:root {
+  --dark-cyan: #009879;
+  --white: #ffffff;
+  --smoke-white: #f3f3f3;
+  --light-gray: #dddddd;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  margin-left: 5px;
+}
+
+.desking-table {
+  display: flex;
+  margin: auto;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.desking-table__category {
+  display: flex;
+}
+
+.table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  min-width: 400px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.mytable {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  min-width: 400px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.table-haeder__row {
+  background-color: var(--dark-cyan);
+  color: var(--white);
+  text-align: left;
+}
+
+.table-header__cell,
+.table-body__cell {
+  padding: 12px 15px;
+}
+
+.table-body__row {
+  border-bottom: 1px solid var(--light-gray);
+}
+
+.table-body__row:nth-of-type(even) {
+  background-color: var(--smoke-white);
+}
+
+.table-body__row:last-of-type {
+  border-bottom: 2px solid var(--dark-cyan);
+}
+
+.table-body__row.active-row {
+  font-weight: bold;
+  color: var(--dark-cyan);
+}

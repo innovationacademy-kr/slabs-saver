@@ -1,81 +1,117 @@
 const express = require('express');
-const {Author} = require('../models');
 const router = express.Router();
+const multer = require('multer');
+const alert = require('alert');
+const authorCtrl = require('../controllers/authorController');
 
-/* GET users listing. */
-// NOTE: base: ~~/authors
-router.get('/', (req, res, next) => {
-  res.render('author/index', { title: 'authors!!!' });
-});
+const getCurrentUser = require('../lib/getCurrentUser');
 
-// NOTE: 로그인 페이지
-router.get('/login', (req, res, next) => {
-  // NOTE: render: 무언가를 그려준다. context -> 상태
-  res.render('author/login', { title: 'login!!!' });
-});
+const articleUploader = multer({ dest: 'public/images/articleImages' });
+const upload = multer({ dest: 'public/images/authorImages' });
 
-// NOTE: 로그인 요청
-router.post('/login', (req, res, next) => {
-  // NOTE: 그냥 데이터를 클라이언트한테 보낸다. 그러면 브라우저가 자기가 알아서 클라이언트한테 보여준다. ft_write
-  res.send(req.body);
-});
+// NOTE: 기자는 로그인을 하지 않은 상태라면 회원가입, 로그인 페이지를 제외하고는 로그인 페이지로 가야함
+// TODO: 모든 url 에 적용하기
+const loggedIn = (req, res, next) => {
+  if (req.user) {
+    console.log('---------------------');
+    console.log(`${req.user.email} 은 로그인 한 유저입니다.`);
+    console.log('---------------------');
+    return next();
+  }
+  console.log('---------------');
+  console.log('로그인 먼저!');
+  alert('로그인 페이지로 이동합니다');
+  console.log('---------------');
+  return res.redirect('/author/login');
+};
 
-// NOTE: 회원가입 페이지
-router.get('/signup', (req, res, next) => {
-  Author.create({name:'sanam', password:'1234', email:'1234@asdf', contact:'1234'})
-    .then(((author) => {
-      res.render('author/signup', { title: author.name });
-    }))
-    .catch((err) => {
-      res.render('author/signup', { title: 'error!!' });
-    })
-});
+const alreadyLoggedIn = (req, res, next) => {
+  if (req.user) {
+    return res.redirect('/author');
+  }
+  return next();
+};
 
-router.get('/all', (req, res, next) => {
-  Author.findAll({})
-    .then((authors) => {
-      authors.forEach((author) => {
-        console.log(`${author.name} ${author.password} ${author.email}`);
-      })
-      res.render('author/signup', { title: author.name });
-    })
-    .catch((err) => {
-      res.render('author/signup', { title: 'error!!' });
-    })
-});
+const checkCode = async (req, res, next) => {
+  if (req.user == null) {
+    res.redirect('/author');
+  }
+  const currentUser = await getCurrentUser(req.user?.id);
+  if (currentUser.position !== 4) {
+    // NOTE: confirm이 더 낫나?
+    alert('권한이 없습니다.');
+    res.redirect('/author');
+  }
+  next();
+};
 
-// NOTE: 회원가입 요청
-router.post('/signup', (req, res, next) => {
-  res.send(req.body);
-});
+module.exports = (passport) => {
+  router.get('/', loggedIn, authorCtrl.index);
 
-// NOTE: 편집회의 페이지
-router.get('/edit-meeting', (req, res, next) => {
-  res.render('author/editMeeting', { title: '편집회의 페이지!' });
-});
+  router.post('/desk-process', loggedIn, authorCtrl.deskProcess);
 
-// NOTE: 기사 작성 페이지(새 기사)
-router.get('/articles/new', (req, res, next) => {
-  res.render('author/newArticle', { title: '기사 작성 페이지!!' });
-});
+  // NOTE: 로그인 페이지
+  router.get('/login', alreadyLoggedIn, authorCtrl.loginPage);
 
-router.post('/articles/new', (req, res, next) => {
-  res.send(req.body);
-});
+  // NOTE: 로그인 요청
+  router.post(
+    '/login',
+    passport.authenticate('local', {
+      successRedirect: '/author',
+      failureRedirect: '/author/login',
+    }),
+  );
 
-// NOTE: 기사 작성 페이지(수정)
-router.get('/articles/edit', (req, res, next) => {
-  res.send(req.body);
-});
+  // NOTE: 로그아웃
+  router.get('/logout', authorCtrl.logout);
 
-// NOTE: 내 기사목록 페이지
-router.get('/articles', (req, res, next) => {
-  res.render('author/articles', { title: '내 기사목록 페이지' });
-});
+  // NOTE: 회원가입 페이지
+  router.get('/signup', alreadyLoggedIn, authorCtrl.signupPage);
 
-// NOTE: 기사 확인 페이지
-router.get('/articles/new/temp', (req, res, next) => {
-  res.render('author/checkArticle', { title: '기사 확인 페이지!!!' });
-});
+  // NOTE: 회원가입 요청
+  router.post('/signup', alreadyLoggedIn, upload.single('picture'), authorCtrl.signup);
 
-module.exports = router;
+  // NOTE: 편집회의 페이지
+  router.get('/edit-meeting', loggedIn, authorCtrl.editMeetingPage);
+
+  // NOTE: 새 기사 작성 페이지
+  router.get('/articles/new', loggedIn, authorCtrl.newArticlePage);
+
+  // TODO: post 문제 없나 확인하기
+  // NOTE: 새 기사 작성 요청
+  router.post('/articles/new', articleUploader.single('picture'), authorCtrl.newArticle);
+
+  // NOTE: 기사 수정 페이지
+  router.get('/articles/edit/:articleId', loggedIn, authorCtrl.editArticlePage);
+
+  // TODO: post인 경우에는 어디서 유저 검사할지 생각하기
+  // NOTE: 기사 수정 페이지 요청
+  router.post(
+    '/articles/edit/:articleId',
+    articleUploader.single('picture'),
+    authorCtrl.editArticle,
+  );
+
+  // NOTE: 내 기사목록 페이지
+  router.get('/articles', loggedIn, authorCtrl.myArticlePage);
+
+  // NOTE: 기사 확인 페이지
+  router.get('/articles/:articleId/preview', loggedIn, authorCtrl.previewPage);
+
+  // NOTE: 신원인증
+  router.get('/pre-signup', alreadyLoggedIn, authorCtrl.preSignup);
+
+  // NOTE: 신원인증 요청
+  router.post('/pre-signup', authorCtrl.preSignupRequest);
+
+  // NOTE: admin 페이지
+  router.get('/_admin', loggedIn, checkCode, authorCtrl.admin);
+
+  router.get('/_admin/invitation', loggedIn, checkCode, authorCtrl.invite);
+
+  router.post('/_admin/invitation', authorCtrl.inviteRequest);
+
+  router.post('/_admin/decision', authorCtrl.decision);
+
+  return router;
+};
