@@ -40,7 +40,7 @@ function makeTemplate(article) {
       </div>
       <div class="d-flex align-items-center card-footer p-1">
         <div class="image mr-3">
-          <img src="${ article.authorImg }" class="rounded-circle" width="50px" height="50px" />
+          <img src="/images/authorImages/${ article.Author.photo }" class="rounded-circle" width="50px" height="50px" />
         </div>
         <small class="text-muted">
           <span class="p-1" style="font-size: 0.8em;">

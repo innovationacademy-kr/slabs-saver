@@ -1,4 +1,4 @@
-const { Article } = require('../models');
+const { Article, Author } = require('../models');
 const converter = require('../lib/converter');
 const moment = require('moment');
 
@@ -41,6 +41,10 @@ module.exports = {
       order: [['updatedAt', 'DESC']],
       offset: +page,
       limit: 3,
+      include: {
+        model: Author,
+        attributes: ['photo'],
+      }
     });
     res.send(JSON.stringify(articles));
   },

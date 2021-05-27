@@ -21,7 +21,7 @@ module.exports = {
     article.image = `/images/articleImages/${article.image}`;
     article.paragraphs = JSON.parse(article.paragraphs);
     article.dataValues.updatedAt = moment(article.updatedAt).format('YYYY.MM.DD HH:mm:ss');
-    article.category = converter.category(article.getDataValue('category'));
+    article.category = article.getDataValue('category');
     res.render('articles/article', { title: article.headline, article });
   },
 };
