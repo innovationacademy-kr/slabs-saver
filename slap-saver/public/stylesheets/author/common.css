@@ -1,0 +1,31 @@
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: #f8fafb;
+}
+
+.btn {
+  margin: 0;
+}
+
+.login,
+.presignup
+ {
+  position: absolute;
+  width: 100%;
+  top: 30%;
+}
+
+.signup {
+  position: absolute;
+  width: 100%;
+  top: 10%;
+}
+
+.content {
+  margin-bottom: 20px;
+}
+
+.navbar__user-image {
+  height: 100%;
+  padding: 5px;
+}

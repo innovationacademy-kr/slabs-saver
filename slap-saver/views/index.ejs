@@ -1,11 +1,108 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/stylesheets/style.css" />
+</head>
+
+<body>
+  <nav class="navbar sticky-top navbar-light bg-light">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-3 px-3 p-2">
+          <a href="/" class="d-flex navbar-brand">
+            <h3 class="m-0">
+              SAVER
+            </h3>
+          </a>
+        </div>
+        <div class="col-7">
+          <form class="d-flex p-2">
+            <input class="form-control input-sm" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">
+              <i class="fa fa-search" aria-hidden="true"></i>
+            </button>
+          </form>
+        </div>
+        <div class="d-flex col-2 p-2">
+          <button class="btn float-end" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" role="button">
+            <i class="fa fa-gear fs-1"></i>
+          </button>
+        </div>
+      </div>
+      <div class="offcanvas offcanvas-end w-50" tabindex="-1" id="offcanvas" data-bs-keyboard="false"
+        data-bs-backdrop="false">
+        <div class="offcanvas-header">
+          <h2 class="offcanvas-title d-lg-block" id="offcanvas">Menu</h2>
+          <button type="button" class="btn-close text-reset fs-3" data-bs-dismiss="offcanvas"
+            aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body px-0">
+          <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start" id="menu">
+            <li class="nav-item">
+              <a href="#" class="nav-link text-truncate">
+                <i class="bi-house"></i><span class="ms-1 d-md-inline">알림</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#submenu1" data-bs-toggle="collapse" class="nav-link text-truncate">
+                <i class="bi-speedometer2"></i><span class="ms-1 d-sm-inline">고객센터</span> </a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link text-truncate">
+                <i class="bi-table"></i><span class="ms-1 d-sm-inline">이용안내</span></a>
+            </li>
+            <li class="dropdown" class="nav-item">
+              <a href="#" class="nav-link dropdown-toggle  text-truncate" id="dropdown" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                <i class="bi-bootstrap"></i><span class="ms-1 d-sm-inline">기타 메뉴...</span>
+              </a>
+              <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown">
+                <li><a class="dropdown-item" href="#">New project...</a></li>
+                <li><a class="dropdown-item" href="#">Settings</a></li>
+                <li><a class="dropdown-item" href="#">Profile</a></li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="#">Sign out</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <main class="main">
+    <a href=<%=`/articles/${todayArticle.id}` %> >
+      <div class="card text-dark bg-light mb-1" style="height: 5rem;">
+        <div class="card-header p-2">오늘의 뉴스</div>
+        <div class="card-body p-2">
+          <h5 class="card-title text-truncate">
+            <%= todayArticle.headline %>
+          </h5>
+        </div>
+      </div>
+    </a>
+    <div class="card text-dark bg-light mb-1" style="height: 5rem;">
+      <div class="card-header p-2">오늘의 한마디</div>
+      <div class="card-body p-2">
+        <h5 class="card-title text-truncate">
+          <%= todayWords %>
+        </h5>
+      </div>
+    </div>
+    <div class="row row-cols-1 g-4 article-list">
+      <% Articles.map((article)=> { %>
+        <% if (article.status===4) { %>
+          <%- include('partials/articleCard.ejs', { article }) %>
+            <% } %>
+              <% }) %>
+    </div>
+  </main>
+  <script src="/vendors/jquery/jquery.min.js"></script>
+  <script src="/javascripts/infiniteScroll.js"></script>
+</body>
+
 </html>
