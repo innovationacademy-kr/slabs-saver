@@ -23,18 +23,18 @@ module.exports = {
     });
     currentUser.code = String(currentUser.code)[0];
     if (currentUser.position === 1) {
-      res.render('author/desking/index', { articles, currentUser, admin: false });
+      res.render('author/desking/index', { title: "home", articles, currentUser, admin: false });
     } else if (currentUser.position === 2) {
-      res.render('author/desking/desk', { articles, currentUser, admin: false });
+      res.render('author/desking/desk', { title: "home", articles, currentUser, admin: false });
     } else if (currentUser.position === 3) {
-      res.render('author/desking/chiefEditor', { articles, currentUser, admin: false });
+      res.render('author/desking/chiefEditor', { title: "home", articles, currentUser, admin: false });
     } else if (currentUser.position === 4) {
       res.redirect('/author/_admin');
     }
   },
 
   loginPage: (req, res, next) => {
-    res.render('author/login', { title: 'login!!!' });
+    res.render('author/login', { title: 'login' });
   },
 
   deskProcess: async (req, res, next) => {
@@ -109,15 +109,9 @@ module.exports = {
     if (req.user) {
       req.logout();
       req.session.save(() => {
-        console.log('---------------------------------------');
-        console.log('로그아웃 성공 로그인페이지로 이동합니다.');
-        console.log('---------------------------------------');
         return res.redirect('/author');
       });
     } else {
-      console.log('---------------------------------------');
-      console.log('-------- 로그인을 먼저 해주세요!! -----------');
-      console.log('---------------------------------------');
       res.redirect('/author');
     }
   },
@@ -137,7 +131,7 @@ module.exports = {
       name: candidate.name,
       code: candidate.code,
     };
-    res.render('author/signup', { title: 'author page', user });
+    res.render('author/signup', { title: 'signup', user });
   },
 
   signup: async (req, res, next) => {
@@ -172,7 +166,7 @@ module.exports = {
 
   editMeetingPage: async (req, res, next) => {
     const currentUser = await getCurrentUser(req.user?.id);
-    res.render('author/editMeeting', { title: '편집회의 페이지!', currentUser, admin: false });
+    res.render('author/editMeeting', { title: 'edit-meeting', currentUser, admin: false });
   },
 
   newArticlePage: async (req, res, next) => {
@@ -180,7 +174,7 @@ module.exports = {
     if (!currentUser) return res.redirect('/author/login');
     let defaultCategory = String(currentUser.code)[0];
     if (defaultCategory === '1') defaultCategory = '2';
-    res.render('author/newArticle', { title: '기사 작성 페이지!!', defaultCategory, currentUser, admin : false  });
+    res.render('author/newArticle', { title: 'new article', defaultCategory, currentUser, admin : false  });
   },
 
   newArticle: async (req, res, next) => {
@@ -222,10 +216,11 @@ module.exports = {
         article.image = `/images/articleImages/${article.image}`;
         const paragraphs = JSON.parse(article.paragraphs).paragraphs;
         return res.render('author/editArticle', {
-          title: '기사 수정 페이지',
           article: article,
           paragraphs,
           currentUser,
+          title: "edit article",
+          admin: false,
         });
       })
       .catch((err) => console.log(err));
@@ -269,7 +264,7 @@ module.exports = {
     const author = await Author.findOne({ where: { id: req.user.id } });
     const articles = await author.getArticles();
     return res.render('author/articles', {
-      title: '내 기사목록 페이지',
+      title: 'my articles',
       articles,
       admin: false,
       currentUser,
@@ -286,13 +281,13 @@ module.exports = {
     article.authorImg = `/images/authorImages/${article.Author.photo}`;
     article.image = `/images/articleImages/${article.image}`;
     article.paragraphs = JSON.parse(article.paragraphs);
-    res.render('articles/article', { article });
+    res.render('articles/article', { title: "preview", article });
   },
 
   // admin //
 
   preSignup: (req, res, next) => {
-    res.render('author/preSignup', { title: '임시 회원가입 페이지' });
+    res.render('author/preSignup', { title: 'signup request', admin: false });
   },
 
   preSignupRequest: async (req, res, next) => {
@@ -316,7 +311,7 @@ module.exports = {
   admin: async (req, res, next) => {
     const currentUser = await getCurrentUser(req.user?.id);
     if (!currentUser) res.redirect('/author/login');
-    res.render('admin/index', { currentUser, admin: true } );
+    res.render('admin/index', { title: "admin home", currentUser, admin: true } );
   },
 
   invite: async (req, res, next) => {
@@ -330,7 +325,7 @@ module.exports = {
         state: converter.inviteState(user.state),
       };
     });
-    res.render('admin/invitation', { currentUser , standByUsers, admin: true });
+    res.render('admin/invitation', { title: "invite", currentUser , standByUsers, admin: true });
   },
 
   // NOTE: state

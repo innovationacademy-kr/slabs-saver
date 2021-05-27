@@ -22,6 +22,6 @@ module.exports = {
     article.paragraphs = JSON.parse(article.paragraphs);
     article.dataValues.updatedAt = moment(article.updatedAt).format('YYYY.MM.DD HH:mm:ss');
     article.category = converter.category(article.getDataValue('category'));
-    res.render('articles/article', { article });
+    res.render('articles/article', { title: article.headline, article });
   },
 };
