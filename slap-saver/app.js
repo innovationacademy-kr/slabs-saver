@@ -8,6 +8,7 @@ const sequelize = require('./models').sequelize;
 const vendorsRouter = require('./routes/vendors');
 
 const app = express();
+
 sequelize.sync();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
