@@ -11,7 +11,6 @@ module.exports = {
   index: async (req, res, next) => {
     const currentUser = await getCurrentUser(req.user?.id);
     if (!currentUser) res.redirect('/author/login');
-    // TODO: 최근의 기사를 가져올 수 있게 sort 기능을 추가하자
     const category =
       isEmptyObject(req.query) || req.query.category === '0' ? CATEGORY.ALL : +req.query.category;
     const articles = await Article.findAll({
@@ -122,15 +121,12 @@ module.exports = {
       return res.redirect('/author/pre-signup');
     }
     const candidate = await Invitation.findOne({ where: { id } });
-    if (candidate == null || candidate.state != 1) {
+    if (candidate === null || candidate.state !== 1) {
       alert('회원가입의 대상이 아닙니다!');
       return res.redirect('/author/pre-signup');
     }
-    const user = {
-      email: candidate.email,
-      name: candidate.name,
-      code: candidate.code,
-    };
+    const { email, name, code } = candidate;
+    const user = { email, name, code };
     res.render('author/signup', { title: 'signup', user });
   },
 
