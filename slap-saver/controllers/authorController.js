@@ -7,6 +7,18 @@ const converter = require('../lib/converter');
 const { Author, Article, Invitation } = require('../models');
 const STATUS = require('../lib/constants/articleStatus');
 
+const parseParagraps = (body) => {
+  const titles = Array.isArray(body['paragraph-title']) ? body['paragraph-title'] : [body['paragraph-title']];
+  const contents = Array.isArray(body['paragraph-content']) ? body['paragraph-content'] : [body['paragraph-content']];
+  const paragraphs = { paragraphs: [] };
+  titles.forEach((title, index) => {
+    if (title && contents[index]) {
+      paragraphs['paragraphs'].push([title, contents[index]]);
+    }
+  })
+  return paragraphs;
+}
+
 module.exports = {
   index: async (req, res, next) => {
     const currentUser = await getCurrentUser(req.user?.id);
@@ -174,14 +186,7 @@ module.exports = {
   },
 
   newArticle: async (req, res, next) => {
-    const titles = Array.isArray(req.body['paragraph-title']) ? req.body['paragraph-title'] : [req.body['paragraph-title']];
-    const contents = Array.isArray(req.body['paragraph-content']) ? req.body['paragraph-content'] : [req.body['paragraph-content']];
-    const paragraphs = { paragraphs: [] };
-    titles.forEach((element, index) => {
-      if (element && contents[index]) {
-        paragraphs['paragraphs'].push([element, contents[index]]);
-      }
-    })
+    const paragraphs = parseParagraps(req.body);
     const {
       body: { headline, category, imageDesc, imageFrom, briefing},
       user: { id },
@@ -225,14 +230,7 @@ module.exports = {
   },
 
   editArticle: async (req, res, next) => {
-    const titles = Array.isArray(req.body['paragraph-title']) ? req.body['paragraph-title'] : [req.body['paragraph-title']];
-    const contents = Array.isArray(req.body['paragraph-content']) ? req.body['paragraph-content'] : [req.body['paragraph-content']];
-    const paragraphs = { paragraphs: [] };
-    titles.forEach((element, index) => {
-      if (element && contents[index]) {
-        paragraphs['paragraphs'].push([element, contents[index]]);
-      }
-    })
+    const paragraphs = parseParagraps(req.body);
     const {
       body: { headline, category, imageDesc, imageFrom, briefing },
       params: { articleId },
