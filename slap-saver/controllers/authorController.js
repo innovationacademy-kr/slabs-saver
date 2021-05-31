@@ -207,20 +207,21 @@ module.exports = {
 
   editArticlePage: async (req, res, next) => {
     const currentUser = await getCurrentUser(req.user?.id);
-    Article.findOne({ where: { id: req.params.articleId } })
-      .then((article) => {
-        article.image = `/images/articleImages/${article.image}`;
-        const paragraphs = JSON.parse(article.paragraphs).paragraphs;
-        return res.render('author/editArticle', {
-          article: article,
-          paragraphs,
-          admin: false,
-          currentUser,
-          title: "edit article",
-          admin: false,
-        });
-      })
-      .catch((err) => console.log(err));
+    try {
+      const article = await Article.findOne({ where: { id: req.params.articleId } })
+      console.log(article)
+      article.image = `/images/articleImages/${article.image}`;
+      const paragraphs = JSON.parse(article.paragraphs).paragraphs;
+      return res.render('author/editArticle', {
+        article,
+        paragraphs,
+        currentUser,
+        admin: false,
+        title: "edit article",
+      });
+    } catch (error) {
+      console.log(error)
+    }
   },
 
   editArticle: async (req, res, next) => {
