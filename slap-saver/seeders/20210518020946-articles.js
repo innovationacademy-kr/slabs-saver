@@ -1,6 +1,6 @@
 'use strict';
 const { Author } = require('../models');
-const CATEGORY = require('../lib/constants/category')
+const CATEGORY = require('../lib/constants/category');
 const getRandomInt = require('../lib/getRandomInt');
 
 module.exports = {
@@ -11,7 +11,6 @@ module.exports = {
         await author.createArticle({
           headline: 'economy article',
           category: CATEGORY.ECONOMY,
-          author: author.name,
           image: 'fb15fbc7348eea8bfe0849096a31354f',
           imageDesc: 'this is image description',
           imageFrom: 'image source',
@@ -26,7 +25,6 @@ module.exports = {
         await author.createArticle({
           headline: 'politic article',
           category: CATEGORY.POLITIC,
-          author: author.email,
           image: 'fb15fbc7348eea8bfe0849096a31354f',
           imageDesc: 'The Wuhan Institute of Virology.',
           imageFrom:
@@ -43,7 +41,6 @@ module.exports = {
         await author.createArticle({
           headline: 'sports article',
           category: CATEGORY.SPORTS,
-          author: author.name,
           image: 'fb15fbc7348eea8bfe0849096a31354f',
           imageDesc: 'this is image description',
           imageFrom: 'image source',
