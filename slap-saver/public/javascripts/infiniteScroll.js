@@ -5,68 +5,71 @@ var page = INITIAL_PAGE;
 var isUsed = false;
 var articleList = document.querySelector('.article-list');
 
-$(window).scroll(function() {
-  if ($(window).scrollTop() + DEFAULT_HEIGHT > ($(document).height() - $(window).height()) && !isUsed) {
+$(window).scroll(function () {
+  if (
+    $(window).scrollTop() + DEFAULT_HEIGHT > $(document).height() - $(window).height() &&
+    !isUsed
+  ) {
     isUsed = !isUsed;
     $.ajax({
-      url:`/moreArticles?page=${page}`,
-      type:'get',
-      success: function(articles) {
-        JSON.parse(articles).map(function(article) {
-          return articleList.insertAdjacentHTML('beforeend', makeTemplate(article))
-        })
+      url: `/moreArticles?page=${page}`,
+      type: 'get',
+      success: function (articles) {
+        JSON.parse(articles).map(function (article) {
+          return articleList.insertAdjacentHTML('beforeend', makeTemplate(article));
+        });
         isUsed = !isUsed;
         page += ADD_PAGE;
       },
-      error: function(err) {
-        console.error("error");
-      }
+      error: function (err) {
+        console.error('error');
+      },
     });
   }
 });
 
 function makeTemplate(article) {
-  return `<a class="article-link" href="/articles/${ article.id }" >
+  return `<a class="article-link" href="/articles/${article.id}" >
   <div class="col">
     <div class="card content">
       <div class="content-header p-2">
         <span class="badge rounded-pill bg-primary mb-1">
-          ${ article.category }
+          ${article.category}
         </span>
         <span class="card-title article-title h5">
-          ${ article.headline }
+          ${article.headline}
         </span>
         </span>
       </div>
       <div class="d-flex align-items-center card-footer p-1">
         <div class="image mr-3">
-          <img src="/images/authorImages/${ article.Author.photo }" class="rounded-circle" width="50px" height="50px" />
+          <img src="/images/authorImages/${article.Author.photo}" class="rounded-circle" width="50px" height="50px" />
         </div>
         <small class="text-muted">
           <span class="p-1" style="font-size: 0.8em;">
-            "${ article.author }"
+            "${article.Author.name}"
           </span>
           <span class="p-1" style="font-size: 0.8em;">
-            "${ article.updatedAt }" 작성됨
+            "${article.updatedAt}" 작성됨
           </span>
         </small>
       </div>
-      <img src="/images/articleImages/${ article.image }" class="card-img-top"/>
+      <img src="/images/articleImages/${article.image}" class="card-img-top"/>
       <div class="card-header bg-transparent image-info">
         <span class="p-0">
           <p class="m-0" style="font-size: 0.5rem; line-height: 15px;">
-            "${ article.imageDesc }"
+            "${article.imageDesc}"
           </p>
         </span>
         <span class="p-0" style="font-size: 0.5rem; line-height: 15px;">
           <p class="m-0">
-            "${ article.imageFrom }"
+            "${article.imageFrom}"
           </p>
         </span>
       </div>
       <div class="card-body">
         <p class="card-text">
-          "${ article.briefing}"
+          "${article.briefing}"
         </p>
       </div>
       <div class="action-button">
