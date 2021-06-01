@@ -39,7 +39,7 @@ module.exports = {
       order: [['updatedAt', 'DESC']],
       offset: +page,
       limit: 3,
-      include: { model: Author, attributes: ['photo'] },
+      include: { model: Author, attributes: ['photo', 'name'] },
     });
     res.send(JSON.stringify(articles));
   },
