@@ -73,11 +73,11 @@
           <td class="table-body__cell">
             <label for="released"> </label>
             <input id="released" type="checkbox" <%= article.status > 2 ? "checked" : "" %>
-            <% if (article.status === 1 || article.status === 4 || +currentUser.code !== article.category) { %>
+            <% if (article.status === 1 || article.status === 4 || currentUser.category !== article.category) { %>
             disabled
             <% } %>
             />
-            <% if (+currentUser.code === article.category) { %>
+            <% if (currentUser.category === article.category) { %>
             <input class="hidden" type="hidden" name="<%= article.id %>" value=<%= article.status > 2 ? "1" : "0" %> />
             <% } %>
           </td>
@@ -85,22 +85,22 @@
           <td class="table-body__cell">
             <label for="am7"></label>
             <input id="am7" type="checkbox" <%= article.am7 ? 'checked ' : '' %>
-            <% if (article.status !== 3 || +currentUser.code !== article.category) { %>
+            <% if (article.status !== 3 || currentUser.category !== article.category) { %>
               disabled
             <% } %>
             />
-            <% if (+currentUser.code === article.category && article.status === 3) { %>
+            <% if (currentUser.category === article.category && article.status === 3) { %>
             <input class="hidden" type="hidden" name="<%= article.id %>" value=<%= article.am7 ? '1' : '0' %> />
             <% } %>
           </td>
           <td class="table-body__cell">
             <label for="pm7"></label>
             <input id="pm7" type="checkbox" <%= article.pm7 ? 'checked ' : '' %>
-            <% if (article.status !== 3 || +currentUser.code !== article.category) { %>
+            <% if (article.status !== 3 || currentUser.category !== article.category) { %>
               disabled
             <% } %>
             />
-            <% if (+currentUser.code === article.category && article.status === 3) { %>
+            <% if (currentUser.category === article.category && article.status === 3) { %>
             <input class="hidden" type="hidden" name="<%= article.id %>" value=<%= article.pm7 ? '1' : '0' %> />
             <% } %>
           </td>

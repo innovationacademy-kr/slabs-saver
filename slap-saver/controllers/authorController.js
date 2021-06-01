@@ -33,10 +33,11 @@ module.exports = {
       where: { category },
       include: { model: Author, attributes: ['id', 'name', 'code'] },
     });
-    currentUser.code = String(currentUser.code)[0];
     if (currentUser.position === 1) {
       res.render('author/desking/index', { title: 'home', articles, currentUser, admin: false });
     } else if (currentUser.position === 2) {
+      currentUser.code = String(currentUser.code)[0];
+      currentUser.category = converter.category(+currentUser.code[0]);
       res.render('author/desking/desk', { title: 'home', articles, currentUser, admin: false });
     } else if (currentUser.position === 3) {
       res.render('author/desking/chiefEditor', {
