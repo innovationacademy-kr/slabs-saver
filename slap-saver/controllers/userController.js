@@ -1,29 +1,27 @@
+const moment = require('moment');
 const { Article, Author } = require('../models');
 const converter = require('../lib/converter');
-const moment = require('moment');
 
 module.exports = {
   home: async (req, res, next) => {
-    // NOTE: where: { todayArticle: true } 인 것을 가져와야한다.
+    // TODO: where: { todayArticle: true } 인 것을 가져와야한다.
     const candidateArticle = await Article.findOne({ where: { status: 4 } });
-    const todayArticle = candidateArticle ? candidateArticle : { headline: '비어있는 항목입니다.' };
-    const todayWords = 'helloworld';
+    const todayArticle = candidateArticle || { headline: '비어있는 항목입니다.' };
+    // TODO: todayWords 기능 추가해야함
+    const todayWords = 'Hello World';
     const ARTICLE_LIMIT = 3;
     const ArticlesObj = await Article.findAll({
-      where: {
-        status: 4,
-      },
+      where: { status: 4 },
       order: [['updatedAt', 'DESC']],
-      // TODO: 기능 점검 이후 10으로 변경
       limit: ARTICLE_LIMIT,
+      include: { model: Author, attributes: ['photo', 'name'] },
     });
     const Articles = await Promise.all(
       ArticlesObj.map(async (article) => {
         const updatedAt = moment(article.updatedAt).format('YYYY.MM.DD HH:mm:ss');
-        const { photo } = await article.getAuthor();
         return {
           ...article.dataValues,
-          authorImg: `/images/authorImages/${photo}`,
+          authorImg: `/images/authorImages/${article.Author.photo}`,
           image: `/images/articleImages/${article.image}`,
           updatedAt,
           category: converter.category(article.getDataValue('category')),
@@ -41,10 +39,7 @@ module.exports = {
       order: [['updatedAt', 'DESC']],
       offset: +page,
       limit: 3,
-      include: {
-        model: Author,
-        attributes: ['photo'],
-      }
+      include: { model: Author, attributes: ['photo'] },
     });
     res.send(JSON.stringify(articles));
   },
