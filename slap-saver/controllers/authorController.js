@@ -31,10 +31,7 @@ module.exports = {
       isEmptyObject(req.query) || req.query.category === '0' ? CATEGORY.ALL : +req.query.category;
     const articles = await Article.findAll({
       where: { category },
-      include: {
-        model: Author,
-        attributes: ['id', 'name', 'code'],
-      },
+      include: { model: Author, attributes: ['id', 'name', 'code'] },
     });
     currentUser.code = String(currentUser.code)[0];
     if (currentUser.position === 1) {
@@ -285,14 +282,7 @@ module.exports = {
   previewPage: async (req, res, next) => {
     const article = await Article.findOne({
       where: { id: req.params.articleId },
-      include: {
-        model: Author,
-        attributes: ['photo'],
-      },
-      include: {
-        model: Author,
-        attributes: ['name', 'photo'],
-      },
+      include: { model: Author, attributes: ['name', 'photo'] },
     });
     article.authorImg = `/images/authorImages/${article.Author.photo}`;
     article.image = `/images/articleImages/${article.image}`;
