@@ -13,15 +13,9 @@ const upload = multer({ dest: 'public/images/authorImages' });
 // TODO: 모든 url 에 적용하기
 const loggedIn = (req, res, next) => {
   if (req.user) {
-    console.log('---------------------');
-    console.log(`${req.user.email} 은 로그인 한 유저입니다.`);
-    console.log('---------------------');
     return next();
   }
-  console.log('---------------');
-  console.log('로그인 먼저!');
   alert('로그인 페이지로 이동합니다');
-  console.log('---------------');
   return res.redirect('/author/login');
 };
 

@@ -30,10 +30,6 @@ module.exports = (sequelize, DataTypes) => {
           return converter.category(this.getDataValue('category'));
         },
       },
-      author: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
       image: {
         type: DataTypes.STRING,
       },
