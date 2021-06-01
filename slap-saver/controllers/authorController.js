@@ -8,16 +8,20 @@ const { Author, Article, Invitation } = require('../models');
 const STATUS = require('../lib/constants/articleStatus');
 
 const parseParagraps = (body) => {
-  const titles = Array.isArray(body['paragraph-title']) ? body['paragraph-title'] : [body['paragraph-title']];
-  const contents = Array.isArray(body['paragraph-content']) ? body['paragraph-content'] : [body['paragraph-content']];
+  const titles = Array.isArray(body['paragraph-title'])
+    ? body['paragraph-title']
+    : [body['paragraph-title']];
+  const contents = Array.isArray(body['paragraph-content'])
+    ? body['paragraph-content']
+    : [body['paragraph-content']];
   const paragraphs = { paragraphs: [] };
   titles.forEach((title, index) => {
     if (title && contents[index]) {
       paragraphs['paragraphs'].push([title, contents[index]]);
     }
-  })
+  });
   return paragraphs;
-}
+};
 
 module.exports = {
   index: async (req, res, next) => {
@@ -34,11 +38,16 @@ module.exports = {
     });
     currentUser.code = String(currentUser.code)[0];
     if (currentUser.position === 1) {
-      res.render('author/desking/index', { title: "home", articles, currentUser, admin: false });
+      res.render('author/desking/index', { title: 'home', articles, currentUser, admin: false });
     } else if (currentUser.position === 2) {
-      res.render('author/desking/desk', { title: "home", articles, currentUser, admin: false });
+      res.render('author/desking/desk', { title: 'home', articles, currentUser, admin: false });
     } else if (currentUser.position === 3) {
-      res.render('author/desking/chiefEditor', { title: "home", articles, currentUser, admin: false });
+      res.render('author/desking/chiefEditor', {
+        title: 'home',
+        articles,
+        currentUser,
+        admin: false,
+      });
     } else if (currentUser.position === 4) {
       res.redirect('/author/_admin');
     }
@@ -57,7 +66,7 @@ module.exports = {
     if (currentUser.position === 2) {
       await Promise.all(
         Object.entries(articles).map(async (data) => {
-          const article = await Article.findOne({where: {id: +data[0]}});
+          const article = await Article.findOne({ where: { id: +data[0] } });
           if (article.status < 4) {
             if (!Array.isArray(data[1])) {
               article.status = +data[1] === 1 ? 3 : 2;
@@ -67,9 +76,9 @@ module.exports = {
               article.pm7 = +data[1][2];
             }
             await article.save();
-         }
-        }
-      ))
+          }
+        }),
+      );
     } else if (currentUser.position > 2) {
       // TODO: 게재 일자도 기사 모델의 칼럼에 추가하자
       // TODO: 편집장이 출고가 안된걸 게재하려고 하면 beforeUpdate 훅에서 에러 발생하게 하자
@@ -182,13 +191,18 @@ module.exports = {
     if (!currentUser) return res.redirect('/author/login');
     let defaultCategory = String(currentUser.code)[0];
     if (defaultCategory === '1') defaultCategory = '2';
-    res.render('author/newArticle', { title: 'new article', defaultCategory, currentUser, admin : false  });
+    res.render('author/newArticle', {
+      title: 'new article',
+      defaultCategory,
+      currentUser,
+      admin: false,
+    });
   },
 
   newArticle: async (req, res, next) => {
     const paragraphs = parseParagraps(req.body);
     const {
-      body: { headline, category, imageDesc, imageFrom, briefing},
+      body: { headline, category, imageDesc, imageFrom, briefing },
       user: { id },
     } = req;
     try {
@@ -199,7 +213,6 @@ module.exports = {
         imageDesc,
         imageFrom,
         briefing,
-        author: author.name,
         image: req.file ? req.file.filename : null,
         status: req.body.saveBtn === '' ? STATUS.DRAFTS : STATUS.COMPLETED,
         paragraphs: JSON.stringify(paragraphs),
@@ -213,8 +226,7 @@ module.exports = {
   editArticlePage: async (req, res, next) => {
     const currentUser = await getCurrentUser(req.user?.id);
     try {
-      const article = await Article.findOne({ where: { id: req.params.articleId } })
-      console.log(article)
+      const article = await Article.findOne({ where: { id: req.params.articleId } });
       article.image = `/images/articleImages/${article.image}`;
       const paragraphs = JSON.parse(article.paragraphs).paragraphs;
       return res.render('author/editArticle', {
@@ -222,10 +234,10 @@ module.exports = {
         paragraphs,
         currentUser,
         admin: false,
-        title: "edit article",
+        title: 'edit article',
       });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   },
 
@@ -236,20 +248,23 @@ module.exports = {
       params: { articleId },
     } = req;
     try {
-      await Article.update({
-        headline,
-        category,
-        imageDesc,
-        imageFrom,
-        briefing,
-        image: (req.file && req.file.filename) ? req.file.filename : '',
-        paragraphs: JSON.stringify(paragraphs),
-        status: req.body.saveBtn === '' ? STATUS.DRAFTS : STATUS.COMPLETED,
-      }, {
-        where: { id: articleId },
-        individualHooks: true,
-      })
-  } catch (error) {
+      await Article.update(
+        {
+          headline,
+          category,
+          imageDesc,
+          imageFrom,
+          briefing,
+          image: req.file && req.file.filename ? req.file.filename : '',
+          paragraphs: JSON.stringify(paragraphs),
+          status: req.body.saveBtn === '' ? STATUS.DRAFTS : STATUS.COMPLETED,
+        },
+        {
+          where: { id: articleId },
+          individualHooks: true,
+        },
+      );
+    } catch (error) {
       alert(error.errors ? error.errors[0].message : '생성실패');
     }
     return res.redirect('/author/articles');
@@ -273,11 +288,16 @@ module.exports = {
       include: {
         model: Author,
         attributes: ['photo'],
-    } });
+      },
+      include: {
+        model: Author,
+        attributes: ['name', 'photo'],
+      },
+    });
     article.authorImg = `/images/authorImages/${article.Author.photo}`;
     article.image = `/images/articleImages/${article.image}`;
     article.paragraphs = JSON.parse(article.paragraphs);
-    res.render('articles/article', { title: "preview", article, admin: false });
+    res.render('articles/article', { title: 'preview', article, admin: false });
   },
 
   // admin //
@@ -307,13 +327,13 @@ module.exports = {
   admin: async (req, res, next) => {
     const currentUser = await getCurrentUser(req.user?.id);
     if (!currentUser) res.redirect('/author/login');
-    res.render('admin/index', { title: "admin home", currentUser, admin: true } );
+    res.render('admin/index', { title: 'admin home', currentUser, admin: true });
   },
 
   invite: async (req, res, next) => {
     const userList = await Invitation.findAll({});
     const currentUser = await getCurrentUser(req.user?.id);
-    if (!currentUser) res.redirect('/author/login');    
+    if (!currentUser) res.redirect('/author/login');
     const standByUsers = userList.map((user) => {
       return {
         ...user.dataValues,
@@ -321,7 +341,7 @@ module.exports = {
         state: converter.inviteState(user.state),
       };
     });
-    res.render('admin/invitation', { title: "invite", currentUser , standByUsers, admin: true });
+    res.render('admin/invitation', { title: 'invite', currentUser, standByUsers, admin: true });
   },
 
   // NOTE: state
@@ -341,7 +361,7 @@ module.exports = {
     } else if (declined === '') {
       await Invitation.update({ state: 3 }, { where: { email } });
     } else if (code === '0') {
-      alert("역할을 설정해 주십시오!");
+      alert('역할을 설정해 주십시오!');
     }
     res.redirect('/author/_admin/invitation');
   },
@@ -349,7 +369,7 @@ module.exports = {
   inviteRequest: async (req, res, next) => {
     const { invite, email, name, code } = req.body;
     if (email === '' || name === '' || code === '') {
-      alert("빈 항목이 있어서는 안됩니다.");
+      alert('빈 항목이 있어서는 안됩니다.');
     } else if (invite === '') {
       try {
         await Invitation.create({ email, name, code, state: 1 });
@@ -357,7 +377,7 @@ module.exports = {
         const invitationId = candidate.id;
         sendMail(invitationId, email, code);
       } catch (error) {
-        alert("에러가 발생하였습니다!");
+        alert('에러가 발생하였습니다!');
       }
     }
     res.redirect('/author/_admin/invitation');

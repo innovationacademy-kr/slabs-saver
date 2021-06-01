@@ -16,14 +16,17 @@ module.exports = {
       order: [['updatedAt', 'DESC']],
       // TODO: 기능 점검 이후 10으로 변경
       limit: ARTICLE_LIMIT,
+      include: {
+        model: Author,
+        attributes: ['photo', 'name'],
+      },
     });
     const Articles = await Promise.all(
       ArticlesObj.map(async (article) => {
         const updatedAt = moment(article.updatedAt).format('YYYY.MM.DD HH:mm:ss');
-        const { photo } = await article.getAuthor();
         return {
           ...article.dataValues,
-          authorImg: `/images/authorImages/${photo}`,
+          authorImg: `/images/authorImages/${article.Author.photo}`,
           image: `/images/articleImages/${article.image}`,
           updatedAt,
           category: converter.category(article.getDataValue('category')),
@@ -44,7 +47,7 @@ module.exports = {
       include: {
         model: Author,
         attributes: ['photo'],
-      }
+      },
     });
     res.send(JSON.stringify(articles));
   },
