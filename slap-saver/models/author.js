@@ -1,7 +1,6 @@
 'use strict';
 require('dotenv').config();
 const { Model } = require('sequelize');
-const authorValidator = require('./validator/authorValidator');
 const bcrypt = require('bcrypt');
 
 module.exports = (sequelize, DataTypes) => {
@@ -37,9 +36,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
-          customValidator(value) {
-            authorValidator.code(value);
-          },
+          isIn: [[1, 2, 3, 4, 5, 6, 7, 8, 201, 301, 401, 501, 601, 701, 801]],
         },
       },
       position: {
@@ -51,18 +48,14 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          customValidator(value) {
-            authorValidator.contact(value);
-          },
+          is: /^\d{11}$/i,
         },
       },
       password: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          customValidator(value) {
-            authorValidator.password(value);
-          },
+          is: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,15}$/i,
         },
       },
       photo: {
