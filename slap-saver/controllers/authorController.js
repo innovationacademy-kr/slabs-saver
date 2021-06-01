@@ -237,7 +237,7 @@ module.exports = {
         title: 'edit article',
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   },
 
