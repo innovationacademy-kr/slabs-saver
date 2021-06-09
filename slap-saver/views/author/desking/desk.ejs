@@ -54,7 +54,7 @@
             <% if (article.status < 4) { %>
             미승인
             <% } else { %>
-            <%= article.publishedAt %> 
+            <%= article.publishedAt %>
             <% } %>
           </td>
           <%# TODO: status는 js파일에서 만들고 여기에 넣자. %> <%# %>
@@ -65,7 +65,7 @@
             작성완료
             <% } else if (article.status === 3) { %>
             출고
-            <% } else if (article.status === 4) { %> 
+            <% } else if (article.status === 4) { %>
             게재
             <% } %>
           </td>
@@ -117,4 +117,3 @@
 
 <%- contentFor('footer') %>
 <%- include('../../partials/footer.ejs') %>
-  
