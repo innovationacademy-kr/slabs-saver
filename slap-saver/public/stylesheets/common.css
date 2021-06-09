@@ -1,0 +1,499 @@
+@import url('https///fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+
+:root {
+	--white: #ffffff;
+	--black: #000000;
+	--dark-sky-blue: #2b94e8;
+	--greyish-brown: #434343;
+	--pinkish-grey: #c2c2c2;
+	--greyish: #a7a7a7;
+	--sky-blue: #70b9f9;
+	--perrywinkle: #a3ace9;
+	--white-two: #f5f5f5;
+	--white-three: #ececec;
+	--ice-blue: #f1f4ff;
+	--ice-blue-two: #eef8ff;
+  }
+
+.white
+{
+	background-color :#ffffff;
+}
+
+.black
+{
+	background-color :#000000;
+}
+
+.dark-sky-blue
+{
+	background-color :#2b94e8;
+}
+
+.greyish-brown
+{
+	background-color :#434343;
+}
+
+.pinkish-grey
+{
+	background-color :#c2c2c2;
+}
+
+.greyish
+{
+	background-color :#a7a7a7;
+}
+
+.sky-blue
+{
+	background-color :#70b9f9;
+}
+
+.perrywinkle
+{
+	background-color :#a3ace9;
+}
+
+.white-Two
+{
+	background-color :#f5f5f5;
+}
+
+.white-Three
+{
+	background-color :#ececec;
+}
+
+.ice-blue
+{
+	background-color :#f1f4ff;
+}
+
+.ice-blue-Two
+{
+	background-color: eef8ff;
+}
+
+@font-face {
+	font-family: NotoSansCJKkr;
+	src: local(NotoSansCJKkr-Regular),
+	  url(/path/to/NotoSansCJKkr-Regular.woff2) format("woff2"),
+	  url(/path/to/NotoSansCJKkr-Regular.woff) format("woff"),
+	  url(/path/to/NotoSansCJKkr-Regular.ttf) format("truetype");
+	font-weight: normal;
+	font-style: normal;
+	font-stretch: normal;
+  }
+
+  @font-face {
+	font-family: NotoSansCJKkr;
+	src: local(NotoSansCJKkr-Medium),
+	  url(/path/to/NotoSansCJKkr-Medium.woff2) format("woff2"),
+	  url(/path/to/NotoSansCJKkr-Medium.woff) format("woff"),
+	  url(/path/to/NotoSansCJKkr-Medium.ttf) format("truetype");
+	font-weight: 500;
+	font-style: normal;
+	font-stretch: normal;
+  }
+
+  @font-face {
+	font-family: NotoSansCJKkr;
+	src: local(NotoSansCJKkr-Bold),
+	  url(/path/to/NotoSansCJKkr-Bold.woff2) format("woff2"),
+	  url(/path/to/NotoSansCJKkr-Bold.woff) format("woff"),
+	  url(/path/to/NotoSansCJKkr-Bold.ttf) format("truetype");
+	font-weight: bold;
+	font-style: normal;
+	font-stretch: normal;
+  }
+
+.ft-title {
+	font-family: NotoSansCJKkr;
+	font-size: 21px;
+	font-weight: bold;
+	font-stretch: normal;
+	font-style: normal;
+	line-height: 1.5;
+	letter-spacing: -0.6px;
+	text-align: left;
+	color: #434343;
+  }
+
+  .ft-main-bold {
+	font-family: NotoSansCJKkr;
+	font-size: 16px;
+	font-weight: 500;
+	font-stretch: normal;
+	font-style: normal;
+	line-height: 1.6;
+	letter-spacing: -0.3px;
+	text-align: left;
+	color: #2b94e8;
+  }
+
+  .ft-main-bold-link {
+	font-family: NotoSansCJKkr;
+	font-size: 16px;
+	font-weight: 500;
+	font-stretch: normal;
+	font-style: normal;
+	line-height: 1.6;
+	letter-spacing: -0.3px;
+	text-align: left;
+	color: #000000;
+  }
+
+ .ft-main{
+	font-family: NotoSansCJKkr;
+	font-size: 16px;
+	font-weight: normal;
+	font-stretch: normal;
+	font-style: normal;
+	line-height: 2;
+	letter-spacing: 0px;
+	text-align: left;
+	color: #434343;
+ }
+
+  .ft-main-link {
+	font-family: NotoSansCJKkr;
+	font-size: 16px;
+	font-weight: normal;
+	font-stretch: normal;
+	font-style: normal;
+	line-height: 2;
+	letter-spacing: 0px;
+	text-align: left;
+	color: #2b94e8;
+  }
+
+  .ft-detail {
+	font-family: NotoSansCJKkr;
+	font-size: 11px;
+	font-weight: 500;
+	font-stretch: normal;
+	font-style: normal;
+	line-height: 2;
+	letter-spacing: 0px;
+	text-align: left;
+	color: #a7a7a7;
+  }
+
+/*icons*/
+
+/*economy*/
+
+ .icon-economy-black
+ {
+    background-image: url('icons/Economy-black.svg');
+	background-position: center;
+	background-size: cover;
+
+    height: 18px;
+    width: 22px;    /* Other styles here */
+ }
+
+ .icon-economy-blue
+ {
+    background-image: url('icons/Economy-blue.svg');
+	background-position: center;
+	background-size: cover;
+
+    height: 18px;
+    width: 22px;    /* Other styles here */
+ }
+
+ .icon-economy-grey
+ {
+    background-image: url('icons/Economy-grey.svg');
+	background-position: center;
+	background-size: cover;
+
+    height: 18px;
+    width: 22px;    /* Other styles here */
+ }
+
+ .icon-economy-big-blue
+ {
+    background-image: url('icons/economy-big-blue.svg');
+	background-position: center;
+	background-size: cover;
+
+    height: 51px;
+    width: 44px;    /* Other styles here */
+ }
+
+ .icon-economy-big-purple
+ {
+    background-image: url('icons/economy-big-purple.svg');
+	background-position: center;
+	background-size: cover;
+
+    height: 51px;
+    width: 44px;    /* Other styles here */
+ }
+
+ /*politics*/
+
+ .icon-politics-black
+ {
+    background-image: url('icons/politics-black.svg');
+	background-position: center;
+	background-size: cover;
+
+    height: 18px;
+    width: 22px;    /* Other styles here */
+ }
+
+ .icon-politics-blue
+ {
+    background-image: url('icons/politics-blue.svg');
+	background-position: center;
+	background-size: cover;
+
+    height: 18px;
+    width: 22px;    /* Other styles here */
+ }
+
+ .icon-politics-grey
+ {
+    background-image: url('icons/politics-grey.svg');
+	background-position: center;
+	background-size: cover;
+
+    height: 18px;
+    width: 22px;    /* Other styles here */
+ }
+
+ .icon-politics-big-blue
+ {
+    background-image: url('icons/politics-big-blue.svg');
+	background-position: center;
+	background-size: cover;
+
+    height: 51px;
+    width: 44px;    /* Other styles here */
+ }
+
+ .icon-politics-big-purple
+ {
+    background-image: url('icons/politics-big-purple.svg');
+	background-position: center;
+	background-size: cover;
+
+    height: 51px;
+    width: 44px;    /* Other styles here */
+ }
+
+/*international*/
+
+
+.icon-international-black
+{
+   background-image: url('icons/international-black.svg');
+   background-position: center;
+   background-size: cover;
+
+   height: 18px;
+   width: 22px;    /* Other styles here */
+}
+
+.icon-international-blue
+{
+   background-image: url('icons/international-blue.svg');
+   background-position: center;
+   background-size: cover;
+
+   height: 18px;
+   width: 22px;    /* Other styles here */
+}
+
+.icon-international-grey
+{
+   background-image: url('icons/international-grey.svg');
+   background-position: center;
+   background-size: cover;
+
+   height: 18px;
+   width: 22px;    /* Other styles here */
+}
+
+.icon-international-big-blue
+{
+   background-image: url('icons/international-big-blue.svg');
+   background-position: center;
+   background-size: cover;
+
+   height: 51px;
+   width: 44px;    /* Other styles here */
+}
+
+.icon-international-big-purple
+{
+   background-image: url('icons/international-big-purple.svg');
+   background-position: center;
+   background-size: cover;
+
+   height: 51px;
+   width: 44px;    /* Other styles here */
+}
+
+/*social*/
+
+
+.icon-social-black
+{
+   background-image: url('icons/social-black.svg');
+   background-position: center;
+   background-size: cover;
+
+   height: 18px;
+   width: 22px;    /* Other styles here */
+}
+
+.icon-social-blue
+{
+   background-image: url('icons/social-blue.svg');
+   background-position: center;
+   background-size: cover;
+
+   height: 18px;
+   width: 22px;    /* Other styles here */
+}
+
+.icon-social-grey
+{
+   background-image: url('icons/social-grey.svg');
+   background-position: center;
+   background-size: cover;
+
+   height: 18px;
+   width: 22px;    /* Other styles here */
+}
+
+.icon-social-big-blue
+{
+   background-image: url('icons/social-big-blue.svg');
+   background-position: center;
+   background-size: cover;
+
+   height: 51px;
+   width: 44px;    /* Other styles here */
+}
+
+.icon-social-big-purple
+{
+   background-image: url('icons/social-big-purple.svg');
+   background-position: center;
+   background-size: cover;
+
+   height: 51px;
+   width: 44px;    /* Other styles here */
+}
+
+/*culture*/
+
+
+.icon-culture-black
+{
+   background-image: url('icons/culture-black.svg');
+   background-position: center;
+   background-size: cover;
+
+   height: 18px;
+   width: 22px;    /* Other styles here */
+}
+
+.icon-culture-blue
+{
+   background-image: url('icons/culture-blue.svg');
+   background-position: center;
+   background-size: cover;
+
+   height: 18px;
+   width: 22px;    /* Other styles here */
+}
+
+.icon-culture-grey
+{
+   background-image: url('icons/culture-grey.svg');
+   background-position: center;
+   background-size: cover;
+
+   height: 18px;
+   width: 22px;    /* Other styles here */
+}
+
+.icon-culture-big-blue
+{
+   background-image: url('icons/culture-big-blue.svg');
+   background-position: center;
+   background-size: cover;
+
+   height: 51px;
+   width: 44px;    /* Other styles here */
+}
+
+.icon-culture-big-purple
+{
+   background-image: url('icons/culture-big-purple.svg');
+   background-position: center;
+   background-size: cover;
+
+   height: 51px;
+   width: 44px;    /* Other styles here */
+}
+
+/*7*/
+
+
+.icon-7-black
+{
+   background-image: url('icons/7-black.svg');
+   background-position: center;
+   background-size: cover;
+
+   height: 18px;
+   width: 22px;    /* Other styles here */
+}
+
+.icon-7-blue
+{
+   background-image: url('icons/7-blue.svg');
+   background-position: center;
+   background-size: cover;
+
+   height: 18px;
+   width: 22px;    /* Other styles here */
+}
+
+.icon-7-grey
+{
+   background-image: url('icons/7-grey.svg');
+   background-position: center;
+   background-size: cover;
+
+   height: 18px;
+   width: 22px;    /* Other styles here */
+}
+
+.icon-7-big-blue
+{
+   background-image: url('icons/7-big-blue.svg');
+   background-position: center;
+   background-size: cover;
+
+   height: 51px;
+   width: 44px;    /* Other styles here */
+}
+
+.icon-7-big-purple
+{
+   background-image: url('icons/7-big-purple.svg');
+   background-position: center;
+   background-size: cover;
+
+   height: 51px;
+   width: 44px;    /* Other styles here */
+}
