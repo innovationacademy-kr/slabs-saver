@@ -19,7 +19,8 @@
         <button class="btn btn-primary"type="submit">이동</button>
     </form>
   </div>
-  <form action="/author/desk-process" method="post">
+  <form
+    >
     <table class="table" name="table">
       <thead class="table-header">
         <tr class="table-haeder__row">
@@ -30,15 +31,13 @@
           <th class="table-header__cell">입력일자</th>
           <th class="table-header__cell">게재일자</th>
           <th class="table-header__cell">상태</th>
-          <th class="table-header__cell">출고</th>
-          <th class="table-header__cell">게재</th>
           <th class="table-header__cell">am7</th>
           <th class="table-header__cell">pm7</th>
         </tr>
       </thead>
       <tbody class="table-body">
         <% articles.map((article)=> { %>
-        <tr class="table-body__row" name="cols">
+        <tr class="table-body__row" name="cols" data-id="<%= article.id %>">
           <td class="table-body__cell"><%= article.id %></td>
           <td class="table-body__cell">
             <a href="/author/articles/<%= article.id %>/preview" target="_blank"> <%= article.headline %> </a>
@@ -50,45 +49,19 @@
             <% if (article.status < 4) { %>
             미승인
             <% } else { %>
-              <%= article.publishedAt %> 
+              <%= article.publishedAt %>
             <% } %>
           </td>
+
           <%# TODO: status는 js파일에서 만들고 여기에 넣자. %> <%# %>
           <td class="table-body__cell">
-            <% if (article.status === 1) { %>
-            임시저장
-            <% } else if (article.status === 2) { %>
-            작성완료
-            <% } else if (article.status === 3) { %>
-            출고
-            <% } else if (article.status === 4) { %> 
-            게재
-            <% } %>
+            <select name="" class="statusSelector" data-id="<%= article.id %>">
+              <option value="<%=2%>">작성완료</option>
+              <option value="<%=3%>">출고</option>
+              <option value="<%=4%>">게재</option>
+            </select>
           </td>
-          <%# NOTE: 출고-> article.status === 2 인 것만 수정할 수 있다.%>
-          <td class="table-body__cell">
-            <label for="released"> </label>
-            <input id="released" type="checkbox" <%= article.status > 2 ? "checked" : "" %>
-            <% if (article.status === 1 || article.status === 4) { %>
-            disabled
-            <% } %>
-            />
-            <% if (article.status > 1) { %>
-            <input class="hidden" type="hidden" name="<%= article.id %>" value=<%= article.status > 2 ? "1" : "0" %> />
-            <% } %>
-          </td>
-          <%# NOTE: 게재 %>
-          <td class="table-body__cell">
-            <label for="confirmed"> </label>
-            <input id="confirmed" type="checkbox" <%= article.status === 4 ? "checked" : "" %>
-            <% if (article.status < 3) { %>
-              disabled
-            <% } %>
-            />
-            <% if (article.status === 3 || article.status === 4 ) { %>
-            <input class="hidden" type="hidden" name="<%= article.id %>" value=<%= article.status === 4 ? "1" : "0" %> />
-            <% } %>
-          </td>
+
 
 
           <%# NOTE: 출고가 되어야지만 활성화가 된다. 즉 status === 인 경우에만 활성화됨%>
@@ -115,6 +88,7 @@
             <% } %>
           </td>
           <% }) %>
+
         </tr>
       </tbody>
     </table>
@@ -123,7 +97,14 @@
     <% } %>
   </form>
 </section>
-<script src="/javascripts/author/index.js"></script>
+
 
 <%- contentFor('footer') %>
 <%- include('../../partials/footer.ejs') %>
+<script>
+  const originArticlesData = JSON.parse('<%-articlesData%>')
+  let articlesData = JSON.parse('<%-articlesData%>')
+</script>
+
+<script defer src="/javascripts/author/index.js"></script>
+<script defer src="/vendors/axios/axios.min.js"></script>

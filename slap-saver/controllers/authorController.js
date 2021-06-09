@@ -1,10 +1,13 @@
 const alert = require('alert');
+const { Author, Article, Invitation } = require('../models');
+
+const { pick } = require('../lib/util');
+
 const getCurrentUser = require('../lib/getCurrentUser');
 const isEmptyObject = require('../lib/isEmptyObject');
+const STATUS = require('../lib/constants/articleStatus');
 const sendMail = require('../lib/sendMail');
 const converter = require('../lib/converter');
-const { Author, Article, Invitation } = require('../models');
-const STATUS = require('../lib/constants/articleStatus');
 const { parseParagraps } = require('../lib/parse')
 
 const INVITATION = require('../lib/constants/invitationState');
@@ -21,19 +24,24 @@ const index = async (req, res, next) => {
     where: { category },
     include: { model: Author, attributes: ['id', 'name', 'code'] },
   });
-  if (currentUser.position === POSITION.REPOTER) {
-    res.render('author/desking/index', { title: 'home', articles, currentUser, admin: false });
-  } else if (currentUser.position === POSITION.DESK) {
-    currentUser.code = String(currentUser.code)[0];
-    currentUser.category = converter.category(+currentUser.code[0]);
-    res.render('author/desking/desk', { title: 'home', articles, currentUser, admin: false });
-  } else if (currentUser.position === POSITION.CHIEF_EDITOR) {
-    res.render('author/desking/chiefEditor', {
-      title: 'home',
-      articles,
-      currentUser,
-      admin: false,
-    });
+  if ([POSITION.REPOTER, POSITION.DESK, POSITION.CHIEF_EDITOR].includes(currentUser.position)) {
+    let ejsfile = '';
+    let variable;
+    const articlesData = JSON.stringify(articles.map((item) => pick(item, ['id', 'pm7', 'am7', 'status'])));
+
+    if (currentUser.position === POSITION.REPOTER) {
+      ejsfile = 'author/desking/index';
+      variable = { title: 'home', articles, currentUser, admin: false, articlesData };
+    } else if (currentUser.position === POSITION.DESK) {
+      currentUser.code = String(currentUser.code)[0];
+      currentUser.category = converter.category(+currentUser.code[0]);
+      ejsfile = 'author/desking/desk';
+      variable = { title: 'home', articles, currentUser, admin: false, articlesData };
+    } else if (currentUser.position === POSITION.CHIEF_EDITOR) {
+      ejsfile = 'author/desking/chiefEditor';
+      variable = { title: 'home', articles, currentUser, admin: false,articlesData };
+    }
+    res.render(ejsfile, variable);
   } else if (currentUser.position === POSITION.ADMIN) {
     res.redirect('/author/_admin');
   }
