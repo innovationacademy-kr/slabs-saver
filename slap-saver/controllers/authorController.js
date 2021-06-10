@@ -73,14 +73,6 @@ const deskProcess = async (req, res, next) => {
     // TODO: 게재 일자도 기사 모델의 칼럼에 추가하자
     // TODO: 편집장이 출고가 안된걸 게재하려고 하면 beforeUpdate 훅에서 에러 발생하게 하자
     // TODO: beforeUpdate 에서 게재가 되었다면 am7, pm7은 off하자
-    // console.log('----------------------여기-----------');
-    // console.log(articles);
-    // console.log(articles[0].id);
-    // console.log('---------------------------------');
-    // console.log(articles);
-    // console.log(articles.length);
-    console.log('---------------------------------');
-    console.log(articles);
     const requests = articles.map((article) => {
       const request = new Promise((resolve, reject) => {
         try {
@@ -96,23 +88,14 @@ const deskProcess = async (req, res, next) => {
           reject(error);
         }
       })
-      
       return request;
     })
-    console.log({requests});
-    console.log('---------------------------------');
     await Promise.all(requests)
       .then((result) => {
-        console.log('일로오는가?');
         console.log(result);
-        console.log('끝');
-        // res.status(300).json({result: '수정 완료'});
       })
       .catch((err) => {
-        console.log('엘ㄹ');
         console.log(err);
-        console.log('끝');
-        // res.status(400).send('실패');
       })
   }
   res.status(200).json({result: '수정 완료'});
