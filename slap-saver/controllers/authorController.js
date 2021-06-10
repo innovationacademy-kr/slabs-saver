@@ -18,7 +18,7 @@ const ARTICLE = require('../lib/constants/articleStatus');
 const index = async (req, res, next) => {
   const currentUser = await getCurrentUser(req.user?.id);
   if (!currentUser) res.redirect('/author/login');
-
+  console.log('req.query.category', req.query);
   const category = isEmptyObject(req.query) || req.query.category === '0' ? CATEGORY.ALL : +req.query.category;
   const articles = await Article.findAll({
     where: { category },
@@ -39,7 +39,7 @@ const index = async (req, res, next) => {
       variable = { title: 'home', articles, currentUser, admin: false, articlesData };
     } else if (currentUser.position === POSITION.CHIEF_EDITOR) {
       ejsfile = 'author/desking/chiefEditor';
-      variable = { title: 'home', articles, currentUser, admin: false,articlesData };
+      variable = { title: 'home', articles, currentUser, admin: false, articlesData };
     }
     res.render(ejsfile, variable);
   } else if (currentUser.position === POSITION.ADMIN) {
@@ -48,71 +48,74 @@ const index = async (req, res, next) => {
 };
 
 const deskProcess = async (req, res, next) => {
-  const articles = JSON.parse(JSON.stringify(req.body));
+  const articles = req.body.articles;
   // TODO: 로딩 페이지 띄우기
   // TODO: 데스크인 경우와 편집장인 경우 나누기
   // TODO: 데스크가 출고를 off 하고 am7, pm7을 ON 하고 보내면 beforeUpdate 훅에서 에러 발생하게 만들자
   const currentUser = await getCurrentUser(req.user.id);
   if (currentUser.position === POSITION.DESK) {
-    await Promise.all(
-      Object.entries(articles).map(async (data) => {
-        const article = await Article.findOne({ where: { id: +data[0] } });
-        if (article.status < ARTICLE.CONFIRMED) {
-          if (!Array.isArray(data[1])) {
-            article.status = +data[1] === 1 ? 3 : 2;
-          } else {
-            article.status = +data[1][0] === 1 ? 3 : 2;
-            article.am7 = +data[1][1];
-            article.pm7 = +data[1][2];
-          }
-          await article.save();
-        }
-      }),
-    );
+    // await Promise.all(
+    //   Object.entries(articles).map(async (data) => {
+    //     const article = await Article.findOne({ where: { id: +data[0] } });
+    //     if (article.status < ARTICLE.CONFIRMED) {
+    //       if (!Array.isArray(data[1])) {
+    //         article.status = +data[1] === 1 ? 3 : 2;
+    //       } else {
+    //         article.status = +data[1][0] === 1 ? 3 : 2;
+    //         article.am7 = +data[1][1];
+    //         article.pm7 = +data[1][2];
+    //       }
+    //       await article.save();
+    //     }
+    //   }),
+    // );
   } else if (currentUser.position > POSITION.DESK) {
     // TODO: 게재 일자도 기사 모델의 칼럼에 추가하자
     // TODO: 편집장이 출고가 안된걸 게재하려고 하면 beforeUpdate 훅에서 에러 발생하게 하자
     // TODO: beforeUpdate 에서 게재가 되었다면 am7, pm7은 off하자
-    await Promise.all(
-      Object.entries(articles).map(async (article) => {
-        if (!Array.isArray(article[1])) {
-          await Article.update(
-            { status: +article[1] === 1 ? ARTICLE.RELEASED : ARTICLE.COMPLETED },
-            { where: { id: +article[0] } },
-          );
-        } else {
-          if (article[1].length === 3) {
-            const updateContent = {
-              status: +article[1][0] === 1 ? ARTICLE.CONFIRMED : ARTICLE.RELEASED,
-              am7: +article[1][2],
-              pm7: +article[1][3],
-            };
-            await Article.update(updateContent, {
-              where: { id: +article[0] },
-              individualHooks: true,
-            });
-          } else {
-            let status;
-            if (+article[1][1] === 1) {
-              status = ARTICLE.CONFIRMED;
-            } else {
-              status = +article[1][0] === 1 ? ARTICLE.RELEASED : ARTICLE.COMPLETED;
-            }
-            const updateContent = {
-              status,
-              am7: +article[1][2],
-              pm7: +article[1][3],
-            };
-            await Article.update(updateContent, {
-              where: { id: +article[0] },
-              individualHooks: true,
-            });
-          }
+    // console.log('----------------------여기-----------');
+    // console.log(articles);
+    // console.log(articles[0].id);
+    // console.log('---------------------------------');
+    // console.log(articles);
+    // console.log(articles.length);
+    console.log('---------------------------------');
+    console.log(articles);
+    const requests = articles.map((article) => {
+      const request = new Promise((resolve, reject) => {
+        try {
+          console.log(article, '를 수정함');
+          Article.update({
+            status: article.status
+          }, {
+            where: { id: article.id }
+          }).then(res => {
+            resolve(res);
+          });
+        } catch (error) {
+          reject(error);
         }
-      }),
-    );
+      })
+      
+      return request;
+    })
+    console.log({requests});
+    console.log('---------------------------------');
+    await Promise.all(requests)
+      .then((result) => {
+        console.log('일로오는가?');
+        console.log(result);
+        console.log('끝');
+        // res.status(300).json({result: '수정 완료'});
+      })
+      .catch((err) => {
+        console.log('엘ㄹ');
+        console.log(err);
+        console.log('끝');
+        // res.status(400).send('실패');
+      })
   }
-  res.redirect('/author');
+  res.status(200).json({result: '수정 완료'});
 };
 
 const logout = async (req, res, next) => {

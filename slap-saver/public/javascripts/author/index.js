@@ -26,8 +26,10 @@ const requestApdate = (articles) => {
   axios.post('/author/desk-process', {articles})
     .then(res => {
       console.log(res);
+      alert('수정되었습니다')
     })
     .catch(err => {
+      alert('수정되었습니다')
       console.error(err);
     })
 }

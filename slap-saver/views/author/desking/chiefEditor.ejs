@@ -19,8 +19,6 @@
         <button class="btn btn-primary"type="submit">이동</button>
     </form>
   </div>
-  <form
-    >
     <table class="table" name="table">
       <thead class="table-header">
         <tr class="table-haeder__row">
@@ -56,9 +54,9 @@
           <%# TODO: status는 js파일에서 만들고 여기에 넣자. %> <%# %>
           <td class="table-body__cell">
             <select name="" class="statusSelector" data-id="<%= article.id %>">
-              <option value="<%=2%>">작성완료</option>
-              <option value="<%=3%>">출고</option>
-              <option value="<%=4%>">게재</option>
+              <option value="<%=2%>" <%= article.status === 2 ? "selected" : "" %> >작성완료</option>
+              <option value="<%=3%>" <%= article.status === 3 ? "selected" : "" %> >출고</option>
+              <option value="<%=4%>" <%= article.status === 4 ? "selected" : "" %> >게재</option>
             </select>
           </td>
 
@@ -93,9 +91,8 @@
       </tbody>
     </table>
     <% if (currentUser.position > 1) { %>
-    <button class="update-btn" type="submit">업데이트</button>
+    <button class="update-btn">업데이트</button>
     <% } %>
-  </form>
 </section>
 
 
