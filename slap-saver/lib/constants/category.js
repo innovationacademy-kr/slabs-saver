@@ -1,10 +1,18 @@
+const POLITIC = 2;
+const ECONOMY = 3;
+const TECHNOLOGY = 4;
+const ENVIRONMENT = 5;
+const SCIENCE = 6;
+const HEALTH = 7;
+const SPORTS = 8;
+
 module.exports = {
-  ALL: [1, 2, 3, 4, 5, 6, 7, 8],
-  POLITIC: 2,
-  ECONOMY: 3,
-  TECHNOLOGY: 4,
-  ENVIRONMENT: 5,
-  SCIENCE: 6,
-  HEALTH: 7,
-  SPORTS: 8,
+  ALL: [1, POLITIC, ECONOMY, TECHNOLOGY, ENVIRONMENT, SCIENCE, HEALTH, SPORTS],
+  POLITIC,
+  ECONOMY,
+  TECHNOLOGY,
+  ENVIRONMENT,
+  SCIENCE,
+  HEALTH,
+  SPORTS,
 };
