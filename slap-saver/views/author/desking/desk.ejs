@@ -1,3 +1,4 @@
+i
 <%- contentFor('navbar') %>
 <%- include('../../partials/navbar.ejs') %>
 
@@ -23,7 +24,6 @@
       <button type="submit">마이데스킹</button>
     </a>
   </div>
-  <form action="/author/desk-process" method="post">
     <table class="table" name="table">
       <thead class="table-header">
         <tr class="table-haeder__row">
@@ -34,7 +34,6 @@
           <th class="table-header__cell">입력일자</th>
           <th class="table-header__cell">게재일자</th>
           <th class="table-header__cell">상태</th>
-          <th class="table-header__cell">출고</th>
           <th class="table-header__cell">am7</th>
           <th class="table-header__cell">pm7</th>
         </tr>
@@ -54,55 +53,34 @@
             <% if (article.status < 4) { %>
             미승인
             <% } else { %>
-            <%= article.publishedAt %> 
+            <%= article.publishedAt %>
             <% } %>
           </td>
           <%# TODO: status는 js파일에서 만들고 여기에 넣자. %> <%# %>
           <td class="table-body__cell">
-            <% if (article.status === 1) { %>
-            임시저장
-            <% } else if (article.status === 2) { %>
-            작성완료
-            <% } else if (article.status === 3) { %>
-            출고
-            <% } else if (article.status === 4) { %> 
-            게재
-            <% } %>
-          </td>
-          <%# NOTE: 출고-> article.status === 2 인 것만 수정할 수 있다.%>
-          <td class="table-body__cell">
-            <label for="released"> </label>
-            <input id="released" type="checkbox" <%= article.status > 2 ? "checked" : "" %>
-            <% if (article.status === 1 || article.status === 4 || currentUser.category !== article.category) { %>
-            disabled
-            <% } %>
-            />
-            <% if (currentUser.category === article.category) { %>
-            <input class="hidden" type="hidden" name="<%= article.id %>" value=<%= article.status > 2 ? "1" : "0" %> />
-            <% } %>
+            <select name="" class="statusSelector"
+              <%= article.category !== currentUser.category ? 'disabled' : '' %>
+              data-id="<%= article.id %>">
+              <option value="<%=2%>" <%= article.status === 2 ? "selected" : "" %> >작성완료</option>
+              <option value="<%=3%>" <%= article.status === 3 ? "selected" : "" %> >출고</option>
+            </select>
           </td>
           <%# NOTE: 출고가 되어야지만 활성화가 된다. 즉 status === 인 경우에만 활성화됨%>
           <td class="table-body__cell">
             <label for="am7"></label>
             <input id="am7" type="checkbox" <%= article.am7 ? 'checked ' : '' %>
-            <% if (article.status !== 3 || currentUser.category !== article.category) { %>
+            <% if (article.status < 3 || currentUser.category !== article.category) { %>
               disabled
             <% } %>
             />
-            <% if (currentUser.category === article.category && article.status === 3) { %>
-            <input class="hidden" type="hidden" name="<%= article.id %>" value=<%= article.am7 ? '1' : '0' %> />
-            <% } %>
           </td>
           <td class="table-body__cell">
             <label for="pm7"></label>
             <input id="pm7" type="checkbox" <%= article.pm7 ? 'checked ' : '' %>
-            <% if (article.status !== 3 || currentUser.category !== article.category) { %>
+            <% if (article.status < 3 || currentUser.category !== article.category) { %>
               disabled
             <% } %>
             />
-            <% if (currentUser.category === article.category && article.status === 3) { %>
-            <input class="hidden" type="hidden" name="<%= article.id %>" value=<%= article.pm7 ? '1' : '0' %> />
-            <% } %>
           </td>
           <% }) %>
         </tr>
@@ -111,10 +89,15 @@
     <% if (currentUser.position > 1) { %>
     <button class="update-btn" type="submit">업데이트</button>
     <% } %>
-  </form>
 </section>
-<script src="/javascripts/author/index.js"></script>
 
 <%- contentFor('footer') %>
 <%- include('../../partials/footer.ejs') %>
-  
+
+<script>
+  const originArticlesData = JSON.parse('<%-articlesData%>')
+  let articlesData = JSON.parse('<%-articlesData%>')
+</script>
+
+<script defer src="/vendors/axios/axios.min.js"></script>
+<script defer src="/javascripts/author/index.js"></script>
