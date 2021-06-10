@@ -53,7 +53,9 @@
 
           <%# TODO: status는 js파일에서 만들고 여기에 넣자. %> <%# %>
           <td class="table-body__cell">
-            <select name="" class="statusSelector" data-id="<%= article.id %>">
+            <select name="" class="statusSelector"
+              data-id="<%= article.id %>"
+              >
               <option value="<%=2%>" <%= article.status === 2 ? "selected" : "" %> >작성완료</option>
               <option value="<%=3%>" <%= article.status === 3 ? "selected" : "" %> >출고</option>
               <option value="<%=4%>" <%= article.status === 4 ? "selected" : "" %> >게재</option>
@@ -103,5 +105,5 @@
   let articlesData = JSON.parse('<%-articlesData%>')
 </script>
 
-<script defer src="/javascripts/author/index.js"></script>
 <script defer src="/vendors/axios/axios.min.js"></script>
+<script defer src="/javascripts/author/index.js"></script>

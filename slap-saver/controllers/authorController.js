@@ -15,81 +15,46 @@ const CATEGORY = require('../lib/constants/category');
 const POSITION = require('../lib/constants/position');
 const ARTICLE = require('../lib/constants/articleStatus');
 
-const index = async (req, res, next) => {
-  const currentUser = await getCurrentUser(req.user?.id);
-  if (!currentUser) res.redirect('/author/login');
-  console.log('req.query.category', req.query);
-  const category = isEmptyObject(req.query) || req.query.category === '0' ? CATEGORY.ALL : +req.query.category;
-  const articles = await Article.findAll({
-    where: { category },
-    include: { model: Author, attributes: ['id', 'name', 'code'] },
-  });
-  if ([POSITION.REPOTER, POSITION.DESK, POSITION.CHIEF_EDITOR].includes(currentUser.position)) {
-    let ejsfile = '';
-    let variable;
-    const articlesData = JSON.stringify(articles.map((item) => pick(item, ['id', 'pm7', 'am7', 'status'])));
-
-    if (currentUser.position === POSITION.REPOTER) {
-      ejsfile = 'author/desking/index';
-      variable = { title: 'home', articles, currentUser, admin: false, articlesData };
-    } else if (currentUser.position === POSITION.DESK) {
-      currentUser.code = String(currentUser.code)[0];
-      currentUser.category = converter.category(+currentUser.code[0]);
-      ejsfile = 'author/desking/desk';
-      variable = { title: 'home', articles, currentUser, admin: false, articlesData };
-    } else if (currentUser.position === POSITION.CHIEF_EDITOR) {
-      ejsfile = 'author/desking/chiefEditor';
-      variable = { title: 'home', articles, currentUser, admin: false, articlesData };
-    }
-    res.render(ejsfile, variable);
-  } else if (currentUser.position === POSITION.ADMIN) {
-    res.redirect('/author/_admin');
-  }
-};
-
 const deskProcess = async (req, res, next) => {
-  const articles = req.body.articles;
   // TODO: 로딩 페이지 띄우기
   // TODO: 데스크인 경우와 편집장인 경우 나누기
   // TODO: 데스크가 출고를 off 하고 am7, pm7을 ON 하고 보내면 beforeUpdate 훅에서 에러 발생하게 만들자
+  const articles = req.body.articles;
   const currentUser = await getCurrentUser(req.user.id);
+
+  const getRequests = (arr) => arr.map((article) => {
+    const request = new Promise((resolve, reject) => {
+      try {
+        Article.update({
+          status: article.status,
+          am7: article.am7 ? 1 : 0,
+          pm7: article.pm7 ? 1 : 0.
+        }, {
+          where: { id: article.id }
+        }).then(res => {
+          resolve(res);
+        });
+      } catch (error) {
+        reject(error);
+      }
+    })
+    return request;
+  });
+
   if (currentUser.position === POSITION.DESK) {
-    // await Promise.all(
-    //   Object.entries(articles).map(async (data) => {
-    //     const article = await Article.findOne({ where: { id: +data[0] } });
-    //     if (article.status < ARTICLE.CONFIRMED) {
-    //       if (!Array.isArray(data[1])) {
-    //         article.status = +data[1] === 1 ? 3 : 2;
-    //       } else {
-    //         article.status = +data[1][0] === 1 ? 3 : 2;
-    //         article.am7 = +data[1][1];
-    //         article.pm7 = +data[1][2];
-    //       }
-    //       await article.save();
-    //     }
-    //   }),
-    // );
+    const requests = getRequests(articles);
+    await Promise.all(requests)
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   } else if (currentUser.position > POSITION.DESK) {
     // TODO: 게재 일자도 기사 모델의 칼럼에 추가하자
     // TODO: 편집장이 출고가 안된걸 게재하려고 하면 beforeUpdate 훅에서 에러 발생하게 하자
     // TODO: beforeUpdate 에서 게재가 되었다면 am7, pm7은 off하자
-    const requests = articles.map((article) => {
-      const request = new Promise((resolve, reject) => {
-        try {
-          console.log(article, '를 수정함');
-          Article.update({
-            status: article.status
-          }, {
-            where: { id: article.id }
-          }).then(res => {
-            resolve(res);
-          });
-        } catch (error) {
-          reject(error);
-        }
-      })
-      return request;
-    })
+    const requests = getRequests(articles);
     await Promise.all(requests)
       .then((result) => {
         console.log(result);
@@ -98,7 +63,7 @@ const deskProcess = async (req, res, next) => {
         console.log(err);
       })
   }
-  res.status(200).json({result: '수정 완료'});
+  res.status(200).json({ result: '수정 완료' });
 };
 
 const logout = async (req, res, next) => {
@@ -364,8 +329,43 @@ const previewPage = async (req, res, next) => {
   res.render('articles/article', { title: 'preview', article, admin: false });
 };
 
+const indexPage = async (req, res, next) => {
+  const currentUser = await getCurrentUser(req.user?.id);
+  if (!currentUser) res.redirect('/author/login');
+  const category = isEmptyObject(req.query) || req.query.category === '0' ? CATEGORY.ALL : +req.query.category;
+
+  // 접속한 사람에 따라 보여지는 기사들이 달라짐
+  const articles = await Article.findAll({
+    where: { category },
+    include: { model: Author, attributes: ['id', 'name', 'code'] },
+  });
+
+  // 기사, 데스크, 편집장인 경우 보여지는 부분이 있음
+  if ([POSITION.REPOTER, POSITION.DESK, POSITION.CHIEF_EDITOR].includes(currentUser.position)) {
+    let ejsfile = '';
+    let variable;
+    const articlesData = JSON.stringify(articles.map((item) => pick(item, ['id', 'pm7', 'am7', 'status'])));
+    const { position, code } = currentUser;
+
+    if (position === POSITION.REPOTER) {
+      ejsfile = 'author/desking/index';
+    } else if (position === POSITION.DESK) {
+      currentUser.code = code; // 기사의 코드 === 기사의 카테고리 === 수정가능한 권한을 가짐
+      currentUser.category = converter.category(code);
+      ejsfile = 'author/desking/desk';
+    } else if (position === POSITION.CHIEF_EDITOR) {
+      ejsfile = 'author/desking/chiefEditor';
+    }
+
+    variable = { title: 'home', articles, currentUser, admin: false, articlesData };
+    res.render(ejsfile, variable);
+  } else if (position === POSITION.ADMIN) {
+    res.redirect('/author/_admin');
+  }
+};
+
 module.exports = {
-  index,
+  index: indexPage,
   deskProcess,
   logout,
   signup,
