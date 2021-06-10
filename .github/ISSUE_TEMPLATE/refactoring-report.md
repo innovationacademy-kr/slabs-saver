@@ -1,7 +1,7 @@
 ---
-name: refactoring
+name: Refactoring
 about: Suggest an idea for this project
-title: "[refactoring]"
+title: "[Refactoring]"
 labels: enhancement
 assignees: ''
 ---
