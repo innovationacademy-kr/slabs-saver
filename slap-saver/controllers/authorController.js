@@ -180,30 +180,20 @@ const preSignupPage = async (req, res, next) => {
 };
 
 const preSignupRequest = async (req, res, next) => {
-  const { email, name } = req.body;
-  try {
-    await Invitation.create({ email, name, category: 0, position: 0 });
-    // res.json({
-    //   result: true,
-    //   message: '요청 성공'
-    // }).status(400);
-  } catch (error) {
-    if (error.errors) {
-      error.errors.forEach((e) => {
-        alert(e.message);
-      });
-    } else {
-      // res.json({
-      //   result: false,
-      //   message: '요청이 실패하였습니다.'
-      // }).status(400);
+  const email = req.body.email;
+  const name = req.body.name;
+  if (name === '' || email === '')
+    res.status(401).json({ result: '빈칸을 채워주세요' });
+  else {
+    try {
+      await Invitation.create({ email, name });
+      res.status(201).json({ result: '성공' });
+    } catch (error) {
+        console.log(error)
+        res.status(400).json({ result: '에러 발생' });
+      }
     }
-    // TODO: 프론트에서 리다렉트 추가 필요
-    return res.redirect('/author/pre-signup');
-  }
-  alert('성공적으로 저장되었습니다.');
-  return res.redirect('/author/login');
-};
+}
 
 const admin = async (req, res, next) => {
   const currentUser = await getCurrentUser(req.user?.id);
@@ -281,13 +271,10 @@ const inviteRequest = async (req, res, next) => {
       //   message: '이메일이 발송되었습니다.'
       // }).status(400);
     } catch (error) {
-      // res.json({
-      //   result: false,
-      //   message: '요청에 실패하였습니다.'
-      // }).status(400);
+      res.status(400).json({ result: '이메일 중복' });
     }
   }
-  // TODO: 프론트에서 리다리엑트 피룡
+  es.status(200).json({ result: '성공' });
   res.redirect('/author/_admin/invitation');
 };
 

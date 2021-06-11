@@ -21,7 +21,7 @@ const addEvent = () => {
 		payload.append('password', $('#password')[0].value);
 		payload.append('confirm', $('#confirm')[0].value);
 		payload.append('name', $('#name')[0].value);
-		payload.append('category', user.category);
+		payload.append('category', user.category || 0);
 		payload.append('code', $('#position')[0].value);
 		payload.append('position', $('#position')[0].value);
 		payload.append('contact', $('#contact')[0].value);
@@ -32,15 +32,15 @@ const addEvent = () => {
 				'Content-Type': 'multipart/form-data'
 			}
 		}).then((res) => {
-			if (res.body.result) {
+			if (res.data.result) {
 				alert('회원가입되었습니다.');
-				window.href = '/author/login';
+				window.location.href = '/author/login';
 			} else {
-				alert(res.body.message);
+				alert(res.data.message);
 			}
 		}).catch((err) => {
 			console.error(err);
-			alert(res.body.message || err.message);
+			alert(res.data.message || err.message);
 		});
 	})
 

@@ -10,6 +10,7 @@ module.exports = {
           name: 'chief',
           code: 1,
           position: 3,
+          category: 1,
           contact: '01012341234',
           password: '$2b$10$fO/O6fF5w1HDkXNab8AMBOYE/9ByW8/sjIeXpQONQgJxkegxdFDIq',
           photo: 'chief',

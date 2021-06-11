@@ -23,12 +23,12 @@ module.exports = {
       position: {
         type: Sequelize.INTEGER,
         defaultValue: 1,
-        allowNull: false,
+        allowNull: true,
       },
       category: {
         type: Sequelize.INTEGER,
         defaultValue: 1,
-        allowNull: false,
+        allowNull: true,
       },
       contact: {
         type: Sequelize.STRING,
