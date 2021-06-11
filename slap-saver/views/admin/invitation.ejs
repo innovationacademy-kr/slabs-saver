@@ -36,37 +36,38 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form method="post" action="/author/_admin/invitation">
+        <form >
           <div class="modal-email">
             <label for="email" class="col-sm-2 text-center">이메일</label>
-            <input type="email" autocapitalize="off" class="invite-email" name="email">
+            <input type="email" autocapitalize="off" class="invite-email" id="email">
           </div>
           <div class="modal-name">
             <label for="name" class="col-sm-2 text-center">이름</label>
-            <input class="invite-name" name="name">
+            <input class="invite-name" id="name">
           </div>
           <div class="modal-code">
-            <label for="code" class="col-sm-2 text-center">코드</label>    
-            <select name="code" id="code">
-              <option value="0" selected>역할을 설정해 주십시오</option>
+            <label for="code" class="col-sm-2 text-center">직급</label>    
+            <select name="position" id="position">
+              <option value="0" selected>직급을 설정해주세요</option>
               <option value="1">편집장</option>
-              <option value="2">데스크2</option>
-              <option value="3">데스크3</option>
-              <option value="4">데스크4</option>
-              <option value="5">데스크5</option>
-              <option value="6">데스크6</option>
-              <option value="7">데스크7</option>
-              <option value="8">데스크8</option>
-              <option value="201">일반기자2</option>
-              <option value="301">일반기자3</option>
-              <option value="401">일반기자4</option>
-              <option value="501">일반기자5</option>
-              <option value="601">일반기자6</option>
-              <option value="701">일반기자7</option>
-              <option value="801">일반기자8</option>
+              <option value="2">데스크</option>
+              <option value="3">일반기자</option>
             </select>
           </div>
-          <button class="btn btn-primary mt-3 text-center" name="invite">초대하기</button>
+          <div class="modal-code">
+            <label for="code" class="col-sm-2 text-center">분야</label>    
+            <select name="position" id="category">
+              <option value="1" selected>분야를 설정해주세요</option>
+              <option value="2">정책</option>
+              <option value="3">경제</option>
+              <option value="4">기술</option>
+              <option value="5">환경</option>
+              <option value="6">과학</option>
+              <option value="7">건강</option>
+              <option value="8">스포츠</option>
+            </select>
+          </div>
+          <button class="btn btn-primary mt-3 text-center" id="invite">초대하기</button>
         </form>
       </div>
     </div>
@@ -143,6 +144,29 @@
     </table>
   </div>
 </section>
+
+<script>
+  document.getElementById("invite").onclick = function onLoggin() {
+    const code = document.getElementById("code");
+    const name = document.getElementById('name')
+      axios({
+        method: "POST",
+        url: '/author/_admin/invitation',
+        data: {
+          "code": code.value,
+          "name": name.value
+        }
+      }).then((res) => {
+        alert('메일을 전송했습니다');
+        console.log(res);
+        location.href="/author/login";
+      }).catch(error => {
+        alert('이미 존재하는 이메일입니다');
+        console.log(error);
+      });
+  }
+</script>
+<script defer src="/vendors/axios/axios.min.js"></script>
 <script src="/javascripts/adminNavbar.js"></script>
 
 <%- contentFor('footer') %>

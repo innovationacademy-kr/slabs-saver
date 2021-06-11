@@ -169,22 +169,19 @@ const preSignup = async (req, res, next) => {
 };
 
 const preSignupRequest = async (req, res, next) => {
-  const { email, name } = req.body;
-  try {
-    await Invitation.create({ email, name });
-  } catch (error) {
-    if (error.errors) {
-      error.errors.forEach((e) => {
-        alert(e.message);
-      });
-    } else {
-      alert('알 수 없는 에러 발생');
+  const email = req.body.email;
+  const name = req.body.name;
+  if (name === '' || email === '')
+    res.status(401).json({ result: '빈칸을 채워주세요' });
+  else {
+    try {
+      await Invitation.create({ email, name });
+      res.status(201).json({ result: '성공' });
+    } catch (error) {
+        res.status(400).json({ result: '에러 발생' });
+      }
     }
-    return res.redirect('/author/pre-signup');
-  }
-  alert('성공적으로 저장되었습니다.');
-  return res.redirect('/author/login');
-};
+}
 
 const admin = async (req, res, next) => {
   const currentUser = await getCurrentUser(req.user?.id);
@@ -233,7 +230,7 @@ const decision = async (req, res, next) => {
 const inviteRequest = async (req, res, next) => {
   const { invite, email, name, code } = req.body;
   if (email === '' || name === '' || code === '') {
-    alert('빈 항목이 있어서는 안됩니다.');
+    res.status(401).json({ result: '빈칸을 채워주세요' });
   } else if (invite === '') {
     try {
       await Invitation.create({ email, name, code, state: INVITATION.APPROVAL });
@@ -241,9 +238,10 @@ const inviteRequest = async (req, res, next) => {
       const invitationId = candidate.id;
       sendMail(invitationId, email, code);
     } catch (error) {
-      alert('에러가 발생하였습니다!');
+      res.status(400).json({ result: '이메일 중복' });
     }
   }
+  es.status(200).json({ result: '성공' });
   res.redirect('/author/_admin/invitation');
 };
 
