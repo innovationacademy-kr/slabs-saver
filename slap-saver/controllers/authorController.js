@@ -21,7 +21,6 @@ const deskProcess = async (req, res, next) => {
   // TODO: 데스크가 출고를 off 하고 am7, pm7을 ON 하고 보내면 beforeUpdate 훅에서 에러 발생하게 만들자
   const articles = req.body.articles;
   const currentUser = await getCurrentUser(req.user.id);
-
   const getRequests = (arr) => arr.map((article) => {
     const request = new Promise((resolve, reject) => {
       try {
@@ -305,7 +304,6 @@ const editArticlePage = async (req, res, next) => {
   }
 };
 
-
 const myArticlePage = async (req, res, next) => {
   const currentUser = await getCurrentUser(req.user?.id);
   const author = await Author.findOne({ where: { id: req.user.id } });
@@ -339,14 +337,12 @@ const indexPage = async (req, res, next) => {
     where: { category },
     include: { model: Author, attributes: ['id', 'name', 'code'] },
   });
-
+  const { position, code } = currentUser;
   // 기사, 데스크, 편집장인 경우 보여지는 부분이 있음
   if ([POSITION.REPOTER, POSITION.DESK, POSITION.CHIEF_EDITOR].includes(currentUser.position)) {
     let ejsfile = '';
     let variable;
     const articlesData = JSON.stringify(articles.map((item) => pick(item, ['id', 'pm7', 'am7', 'status'])));
-    const { position, code } = currentUser;
-
     if (position === POSITION.REPOTER) {
       ejsfile = 'author/desking/index';
     } else if (position === POSITION.DESK) {
@@ -356,7 +352,6 @@ const indexPage = async (req, res, next) => {
     } else if (position === POSITION.CHIEF_EDITOR) {
       ejsfile = 'author/desking/chiefEditor';
     }
-
     variable = { title: 'home', articles, currentUser, admin: false, articlesData };
     res.render(ejsfile, variable);
   } else if (position === POSITION.ADMIN) {

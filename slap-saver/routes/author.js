@@ -51,7 +51,7 @@ module.exports = (passport) => {
       failureRedirect: '/author/login',
     }),
   );
-
+  
   router.get('/logout', authorCtrl.logout);
   router.get('/signup', alreadyLoggedIn, authorCtrl.signupPage);
   router.post('/signup', alreadyLoggedIn, upload.single('picture'), authorCtrl.signup);
