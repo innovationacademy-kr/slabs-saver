@@ -1,0 +1,66 @@
+/**
+ * 업데이트 클릭시 ajax 요청
+ */
+const requestApdate = (articles) => {
+	axios.post('/author/desk-process', { articles })
+		.then(res => {
+			console.log(res);
+			alert('수정되었습니다')
+		})
+		.catch(err => {
+			alert('수정되었습니다')
+			console.error(err);
+		})
+}
+
+const addEvent = () => {
+	$('form').on('submit', (e) => {
+		e.preventDefault();
+		const payload = new FormData();
+		payload.append('email', $('#email')[0].value);
+		payload.append('password', $('#password')[0].value);
+		payload.append('confirm', $('#confirm')[0].value);
+		payload.append('name', $('#name')[0].value);
+		payload.append('category', user.category);
+		payload.append('code', $('#position')[0].value);
+		payload.append('position', $('#position')[0].value);
+		payload.append('contact', $('#contact')[0].value);
+		// 이미지는 blob타입으로 formData에 저장되며, 해당 경우 세번째 파라미터에 파일이름을 지정해줘야한다.
+		payload.append('picture', $('#picture')[0].files[0], $('#picture')[0].files[0].name);
+		axios.post('/author/signup', payload, {
+			headers: {
+				'Content-Type': 'multipart/form-data'
+			}
+		}).then((res) => {
+			if (res.body.result) {
+				alert('회원가입되었습니다.');
+				window.href = '/author/login';
+			} else {
+				alert(res.body.message);
+			}
+		}).catch((err) => {
+			console.error(err);
+			alert(res.body.message || err.message);
+		});
+	})
+
+	/**
+	 * 회원가입 요청 클릭
+	 * - 유효성검사 후 ajax요청
+	 */
+	// const btn = $('.btn.signup');
+	// btn.on('click', function (e) {
+
+	// });
+
+	// const form = $('form');
+	// form.on('submit', function (e) {
+	// 	console.log(e);
+	// 	e.preventDefault()
+	// 	// form 정리
+	// 	// ajax 호출
+	// });
+
+}
+
+addEvent();

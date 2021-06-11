@@ -77,33 +77,31 @@ const logout = async (req, res, next) => {
 };
 
 const signup = async (req, res, next) => {
-  const { email, password, confirm, name, code, contact } = req.body;
+  const { email, password, confirm, name, code, contact, position, category } = req.body;
   const photo = req.file ? req.file.filename : null;
   if (password !== confirm) {
-    alert('비밀번호가 같지 않습니다.');
-    return res.redirect('/author/signup');
+    res.json({
+      result: false,
+      message: '재입력한 비밀번호가 일치하지 않습니다.',
+    })
+    .status(400);
   }
   // TODO: Author Service 객체 만들어서 추상화하기
   try {
-    let position = 1;
-    if (+code[0] === 1) {
-      position = POSITION.CHIEF_EDITOR;
-    } else if (code.length == 1 && +code[0] < 9) {
-      position = POSITION.DESK;
-    }
-    await Author.create({ email, password, name, code, position, contact, photo });
-    await Invitation.update({ state: 2 }, { where: { email } });
+    await Author.create({ email, password, name, code, position, contact, photo, category });
+    await Invitation.update({ state: INVITATION.COMPLET }, { where: { email } });
+    res.json({
+      result: true,
+      message: '',
+    })
+    .status(200);
   } catch (error) {
-    if (error.errors) {
-      error.errors.forEach((e) => {
-        alert(e.message);
-      });
-    } else {
-      alert('알 수 없는 에러 발생');
-    }
-    return res.redirect('/author/signup');
+    res.json({
+      result: false,
+      message: `오류가 발생하였습니다 (${error.message})`,
+    })
+    .status(400);
   }
-  return res.redirect('/author/login');
 };
 
 const newArticle = async (req, res, next) => {
@@ -129,7 +127,12 @@ const newArticle = async (req, res, next) => {
   } catch (error) {
     alert(error.errors ? error.errors[0].message : '생성실패');
   }
+  // res.json({
+  //   result: false,
+  //   message: `오류가 발생하였습니다 (${e.message})`
+  // })
   return res.redirect('/author/articles');
+
 };
 
 const editArticle = async (req, res, next) => {
@@ -157,29 +160,45 @@ const editArticle = async (req, res, next) => {
         individualHooks: true,
       },
     );
+    // res.json({
+    //   result: true,
+    //   message: '요청 성공'
+    // }).status(200);
   } catch (error) {
-    alert(error.errors ? error.errors[0].message : '생성실패');
+    // res.json({
+    //   result: false,
+    //   message: '요청이 실패하였습니다.'
+    // }).status(400);
+    // alert(error.errors ? error.errors[0].message : '생성실패');
   }
   return res.redirect('/author/articles');
 };
 // admin //
 
-const preSignup = async (req, res, next) => {
+const preSignupPage = async (req, res, next) => {
   res.render('author/preSignup', { title: 'signup request', admin: false });
 };
 
 const preSignupRequest = async (req, res, next) => {
   const { email, name } = req.body;
   try {
-    await Invitation.create({ email, name });
+    await Invitation.create({ email, name, category: 0, position: 0 });
+    // res.json({
+    //   result: true,
+    //   message: '요청 성공'
+    // }).status(400);
   } catch (error) {
     if (error.errors) {
       error.errors.forEach((e) => {
         alert(e.message);
       });
     } else {
-      alert('알 수 없는 에러 발생');
+      // res.json({
+      //   result: false,
+      //   message: '요청이 실패하였습니다.'
+      // }).status(400);
     }
+    // TODO: 프론트에서 리다렉트 추가 필요
     return res.redirect('/author/pre-signup');
   }
   alert('성공적으로 저장되었습니다.');
@@ -193,6 +212,7 @@ const admin = async (req, res, next) => {
 };
 
 const invite = async (req, res, next) => {
+  // TODO 페이징 필요
   const userList = await Invitation.findAll({});
   const currentUser = await getCurrentUser(req.user?.id);
   if (!currentUser) res.redirect('/author/login');
@@ -221,29 +241,53 @@ const decision = async (req, res, next) => {
     candidate.code = code;
     sendMail(invitationId, email, code);
     await candidate.save();
+    // res.json({
+    //   result: true,
+    //   message: ''
+    // }).status(200);
   } else if (declined === '') {
     // 가입거절
     await Invitation.update({ state: INVITATION.REFUSED }, { where: { email } });
+    // res.json({
+    //   result: true,
+    //   message: '가입이 거절되었습니다.'
+    // }).status(200);
   } else if (code === '0') {
-    alert('역할을 설정해 주십시오!');
+    // alert('역할을 설정해 주십시오!');
+    // res.json({
+    //   result: false,
+    //   message: '역할을 설정해 주세요.'
+    // }).status(400);
   }
+  //
   res.redirect('/author/_admin/invitation');
 };
 
 const inviteRequest = async (req, res, next) => {
   const { invite, email, name, code } = req.body;
   if (email === '' || name === '' || code === '') {
-    alert('빈 항목이 있어서는 안됩니다.');
+    res.json({
+      result: false,
+      message: '빈 항목이 있습니다.'
+    }).status(400);
   } else if (invite === '') {
     try {
       await Invitation.create({ email, name, code, state: INVITATION.APPROVAL });
       const candidate = await Invitation.findOne({ where: { email } });
       const invitationId = candidate.id;
       sendMail(invitationId, email, code);
+      // res.json({
+      //   result: true,
+      //   message: '이메일이 발송되었습니다.'
+      // }).status(400);
     } catch (error) {
-      alert('에러가 발생하였습니다!');
+      // res.json({
+      //   result: false,
+      //   message: '요청에 실패하였습니다.'
+      // }).status(400);
     }
   }
+  // TODO: 프론트에서 리다리엑트 피룡
   res.redirect('/author/_admin/invitation');
 };
 
@@ -261,9 +305,15 @@ const signupPage = async (req, res, next) => {
     alert('회원가입의 대상이 아닙니다!');
     return res.redirect('/author/pre-signup');
   }
-  const { email, name, code } = candidate;
-  const user = { email, name, code };
-  res.render('author/signup', { title: 'signup', user });
+  const { email, name, code, position, category } = candidate;
+  const user = { email, name, code, position, category };
+  const POSITION = {
+    1: '기자',
+    2: '데스크',
+    3: '편집장',
+    4: '관리자'
+  };
+  res.render('author/signup', { title: 'signup', layout: 'layout/adminLayout', user, userJson: JSON.stringify(user), POSITION });
 };
 
 const editMeetingPage = async (req, res, next) => {
@@ -366,7 +416,7 @@ module.exports = {
   signup,
   newArticle,
   editArticle,
-  preSignup,
+  preSignup: preSignupPage,
   preSignupRequest,
   admin,
   invite,

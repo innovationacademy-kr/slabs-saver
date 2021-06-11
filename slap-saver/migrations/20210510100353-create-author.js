@@ -25,6 +25,11 @@ module.exports = {
         defaultValue: 1,
         allowNull: false,
       },
+      category: {
+        type: Sequelize.INTEGER,
+        defaultValue: 1,
+        allowNull: false,
+      },
       contact: {
         type: Sequelize.STRING,
         allowNull: false,

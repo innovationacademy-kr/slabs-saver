@@ -15,7 +15,7 @@ body {
   top: 30%;
 }
 
-.signup {
+div.signup {
   position: absolute;
   width: 100%;
   top: 10%;

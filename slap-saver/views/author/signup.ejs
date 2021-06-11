@@ -5,20 +5,23 @@
       <div class="col-md-6 contents">
         <div class="row justify-content-center">
           <div class="col-md-12">
-            <div class="form-block">
+            <form class="needs-validation">
               <div class="mb-4">
                 <h3>Sign Up to <strong>slab-saver</strong></h3>
                 <p class="mb-4">회원가입 페이지입니다. 모든 칸을 채워주세요.</p>
               </div>
-              <form method="post" action="/author/signup" enctype="multipart/form-data">
                 <div class="mb-4">
                   <label for="email" class="form-label">이메일</label>
-                  <input type="email" class="form-control" value="<%= user.email %>" disabled />
+                  <input id="email" type="email" class="form-control" value="<%= user.email %>" disabled />
                   <input type="hidden" name="email" value=<%= user.email %> />
                 </div>
                 <div class="mb-4">
-                  <label for="password" class="form-label">비밀번호</label>
+                  <label for="password" class="form-label">
+                    비밀번호
+                    (6~15글자 이내로 작성해주세요.)
+                  </label>
                   <input
+                    id="password"
                     class="form-control"
                     type="password"
                     name="password"
@@ -28,39 +31,51 @@
                 <div class="mb-4">
                   <label for="confirm" class="form-label">비밀번호 확인</label>
                   <input
+                    id="confirm"
                     class="form-control"
                     type="password"
                     name="confirm"
                     placeholder="Confirm password"
+                    pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,15}$"
+                    required
                   />
                 </div>
                 <div class="mb-4">
                   <label for="name" class="form-label">이름</label>
                   <input
-                  type="text"
-                  class="form-control"
-                  value="<%= user.name %>"
-                  disabled
+                    id="name"
+                    type="text"
+                    class="form-control"
+                    value="<%= user.name %>"
+                    disabled
                 />
                 <input type="hidden" name="name" value=<%= user.name %> />
                 </div>
                 <div class="mb-4">
-                  <label for="code">코드</label>
+                  <label for="position">직급</label>
+                  <input type="text" value="<%= POSITION[user.position] %>" class="form-control"  disabled>
                   <input
-                  type="text"
-                  class="form-control"
-                  value="<%= user.code %> "
-                  disabled
+                    id="position"
+                    type="number"
+                    class="form-control visually-hidden"
+                    value="<%= user.position %>"
+                    disabled
                   />
-                  <input type="hidden" name="code" value=<%= user.code %> />
+                  <input type="hidden" name="position" value=<%= user.position %> />
                 </div>
                 <div class="mb-4">
-                  <label for="contact">연락처</label>
+                  <label for="contact">
+                    연락처
+                    (-없이 입력해주세.)
+                  </label>
                   <input
+                    id="contact"
                     class="form-control"
                     type="tel"
                     name="contact"
                     placeholder="01012347890"
+                    pattern="^\d{11}$"
+                    required
                   />
                 </div>
                 <div class="mb-4">
@@ -71,17 +86,22 @@
                     id="picture"
                     name="picture"
                     accept="image/gif, image/jpeg, image/png"
+                    required
                   />
                 </div>
-                <div class="d-grid gap-2">
-                  <button type="submit" class="btn btn-primary">회원가입</button>
-                  <a class="btn btn-info" href="/author/login"  style="color:white">로그인</a>
-                </div>
-              </form>
-            </div>
+              <button type="submit" class="btn btn-primary signup">회원가입</button>
+            </form>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<script>
+  const user = JSON.parse('<%-userJson%>')
+  console.log(user);
+</script>
+
+<%- contentFor('scriptTag') %>
+<script defer src="/javascripts/author/signup.js"></script>

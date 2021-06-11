@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title><%= (typeof title != "undefined" ? title : "") %></title>
+  <link href="/vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/stylesheets/author/common.css" rel="stylesheet">
+  <link rel="stylesheet" href="/stylesheets/author/index.css" />
+  <script defer src="/vendors/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <%- style %>
+
+</head>
+<body>
+  <%- defineContent('body') %>
+
+  <script defer src="/vendors/jquery/jquery.min.js"></script>
+  <script defer src="/vendors/axios/axios.min.js"></script>
+  <%- script %>
+  <%- defineContent('scriptTag') %>
+
+</body>
+</html>
