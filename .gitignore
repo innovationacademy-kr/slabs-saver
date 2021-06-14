@@ -114,3 +114,5 @@ slap-saver/sessions/
 
 
 .prettierignore
+
+*.pem
