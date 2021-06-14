@@ -22,7 +22,7 @@ if (currentCategory) {
 /**
  * 업데이트 클릭시 ajax 요청
  */
-const requestApdate = (articles) => {
+const requestUpdate = (articles) => {
   axios.post('/author/desk-process', {articles})
     .then(res => {
       console.log(res);
@@ -104,7 +104,7 @@ const addEvent = () => {
   const btn = $(".update-btn");
   btn.on('click', function() {
     const chageList = getChangedArticle(articlesData);
-    requestApdate(chageList);
+    requestUpdate(chageList);
   })
 }
 

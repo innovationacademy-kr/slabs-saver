@@ -38,12 +38,12 @@ const checkCode = async (req, res, next) => {
 };
 
 module.exports = (passport) => {
-  router.get('/', loggedIn, authorCtrl.index);
+  router.get('/', loggedIn, authorCtrl.page.index);
 
   /**
    * 기자관리
    */
-  router.get('/login', alreadyLoggedIn, authorCtrl.loginPage);
+  router.get('/login', alreadyLoggedIn, authorCtrl.page.login);
   router.post(
     '/login',
     passport.authenticate('local', {
@@ -51,41 +51,37 @@ module.exports = (passport) => {
       failureRedirect: '/author/login',
     }),
   );
-  
-  router.get('/logout', authorCtrl.logout);
-  router.get('/signup', alreadyLoggedIn, authorCtrl.signupPage);
-  router.post('/signup', alreadyLoggedIn, upload.single('picture'), authorCtrl.signup);
-  router.get('/edit-meeting', loggedIn, authorCtrl.editMeetingPage);
+
+  router.get('/logout', authorCtrl.request.logout);
+  router.get('/signup', alreadyLoggedIn, authorCtrl.page.signup);
+  router.post('/signup', alreadyLoggedIn, upload.single('picture'), authorCtrl.page.signup);
+  router.get('/edit-meeting', loggedIn, authorCtrl.page.editMeeting);
 
   /**
    * 기사 관리
    */
-  router.get('/articles/new', loggedIn, authorCtrl.newArticlePage);
+  router.get('/articles/new', loggedIn, authorCtrl.page.newArticle);
   // TODO: post 문제 없나 확인하기
-  router.post('/articles/new', articleUploader.single('picture'), authorCtrl.newArticle);
-  router.get('/articles/edit/:articleId', loggedIn, authorCtrl.editArticlePage);
-  router.post('/desk-process', loggedIn, authorCtrl.deskProcess);
+  router.post('/articles/new', articleUploader.single('picture'), authorCtrl.request.newArticle);
+  router.get('/articles/edit/:articleId', loggedIn, authorCtrl.page.editArticle);
+  router.post('/desk-process', loggedIn, authorCtrl.request.deskProcess);
 
   // TODO: post인 경우에는 어디서 유저 검사할지 생각하기
-  router.post(
-    '/articles/edit/:articleId',
-    articleUploader.single('picture'),
-    authorCtrl.editArticle,
-  );
-  router.get('/articles', loggedIn, authorCtrl.myArticlePage);
-  router.get('/articles/:articleId/preview', loggedIn, authorCtrl.previewPage);
+  router.post('/articles/edit/:articleId', articleUploader.single('picture'), authorCtrl.request.editArticle);
+  router.get('/articles', loggedIn, authorCtrl.page.myArticle);
+  router.get('/articles/:articleId/preview', loggedIn, authorCtrl.page.preview);
 
 
   /**
    * 기자관리
    */
 
-  router.get('/pre-signup', alreadyLoggedIn, authorCtrl.preSignup);
-  router.post('/pre-signup', authorCtrl.preSignupRequest);
-  router.get('/_admin', loggedIn, checkCode, authorCtrl.admin);
-  router.get('/_admin/invitation', loggedIn, checkCode, authorCtrl.invite);
-  router.post('/_admin/invitation', authorCtrl.inviteRequest);
-  router.post('/_admin/decision', authorCtrl.decision);
+  router.get('/pre-signup', alreadyLoggedIn, authorCtrl.page.preSignup);
+  router.post('/pre-signup', authorCtrl.request.preSignup);
+  router.get('/_admin', loggedIn, checkCode, authorCtrl.page.admin);
+  router.get('/_admin/invitation', loggedIn, checkCode, authorCtrl.page.invite);
+  router.post('/_admin/invitation', authorCtrl.request.invite);
+  router.post('/_admin/decision', authorCtrl.request.decision);
 
   return router;
 };
