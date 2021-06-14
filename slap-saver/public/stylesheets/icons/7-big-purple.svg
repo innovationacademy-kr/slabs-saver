@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="51" height="44" viewBox="0 0 51 44">
+    <g>
+        <g>
+            <path fill="#a3ace9" d="M426.359 372.189H412.53a4.2 4.2 0 0 0-3.223 1.478l-5.974 7.151a3.731 3.731 0 0 0-.379 4.3l6.415 11.055a4.153 4.153 0 0 0 3.6 2.019h12.944a4.152 4.152 0 0 0 3.6-2.019l6.416-11.055a3.732 3.732 0 0 0-.379-4.3l-5.973-7.151a4.2 4.2 0 0 0-3.218-1.478z" transform="translate(-304 -702) translate(2 163.174) translate(-92.445 166.637)"/>
+            <text fill="#fff" font-family="BioSans-SemiBold, Bio Sans" font-size="17px" font-weight="600" letter-spacing="-0.03em" transform="translate(-304 -702) translate(2 163.174) translate(322 559)">
+                <tspan x="0" y="0">7</tspan>
+            </text>
+        </g>
+        <path fill="none" d="M0 0H51V44H0z" transform="translate(-304 -702) translate(304 702)"/>
+    </g>
+</svg>
