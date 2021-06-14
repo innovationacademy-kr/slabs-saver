@@ -1,8 +1,8 @@
 ---
 name: Refactoring
-about: Suggest an idea for this project
+about: Refactor codes for this project
 title: "[Refactoring]"
-labels: enhancement
+labels: refactor
 assignees: ''
 ---
 ### 내용
