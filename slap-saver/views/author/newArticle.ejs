@@ -17,7 +17,7 @@
                 <div class="mb-4">
                   <label class="form-label" for="category">카테고리</label>
                   <select class="form-control" name="category" id="category" >
-                  <% const options = ['정치', '경제', '기술', '환경', '과학', '건강', '스포츠']; %>
+                  <% const options = ['정치', '경제', '사회', '국제', '문화']; %>
                   <% options.forEach((option, index) => { %>
                     <% if (+defaultCategory === index + 2) { %>
                       <option value="<%= index + 2 %>" selected><%= option %> </option>

@@ -18,18 +18,16 @@
                       <select class="form-control" name="category" id="category">
                         <option value=2 <%= article.category === 2 ? 'selected' : '' %> >정치</option>
                         <option value=3 <%= article.category === 3 ? 'selected' : '' %> >경제</option>
-                        <option value=4 <%= article.category === 4 ? 'selected' : '' %> >기술</option>
-                        <option value=5 <%= article.category === 5 ? 'selected' : '' %> >환경</option>
-                        <option value=6 <%= article.category === 6 ? 'selected' : '' %> >과학</option>
-                        <option value=7 <%= article.category === 7 ? 'selected' : '' %> >건강</option>
-                        <option value=8 <%= article.category === 8 ? 'selected' : '' %> >스포츠</option>
+                        <option value=4 <%= article.category === 4 ? 'selected' : '' %> >사회</option>
+                        <option value=5 <%= article.category === 5 ? 'selected' : '' %> >국제</option>
+                        <option value=6 <%= article.category === 6 ? 'selected' : '' %> >문화</option>
                       </select>
                   </div>
                   <div class="mb-4">
                     <div class="article__headline">
                         <label class="form-label" for="headline">헤드라인</label>
                         <input class="form-control" type="text" id="headline" name="headline" value='<%= article.headline %>' placeholder="뉴스의 헤드라인을 입력해주세요"
-                        maxlength="30" />
+                        maxlength="255" />
                     </div>
                   </div>
                   <div class="mb-4">
@@ -75,7 +73,7 @@
                     </div>
                   </div>
                   <div class="mb-4">
-                  </div>                    
+                  </div>
                   <div class="mb-4">
                   </div>
                   <div class="d-grid gap-2">
