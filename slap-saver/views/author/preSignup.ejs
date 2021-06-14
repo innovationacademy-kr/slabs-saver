@@ -1,38 +1,57 @@
 <%- contentFor('body') %>
-<div class="presignup">
-  <div class="container">
-    <div class="row justify-content-center" >
-      <div class="col-md-6 contents">
-        <div class="row justify-content-center">
-          <div class="col-md-12">
-            <div class="form-block">
-              <div class="mb-4">
-                <h3>Sign Up to <strong>slab-saver</strong></h3>
-                <p class="mb-4">회원가입을 위해서는 관리자의 승인을 받아야합니다. 사용하실 이메일과 이름을 적어주세요.</p>
-              </div>
-              <form method="post" action="pre-signup">
+  <div class="presignup">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-6 contents">
+          <div class="row justify-content-center">
+            <div class="col-md-12">
+              <div class="form-block">
+                <div class="mb-4">
+                  <h3>Sign Up to <strong>slab-saver</strong></h3>
+                  <p class="mb-4">회원가입을 위해서는 관리자의 승인을 받아야합니다. 사용하실 이메일과 이름을 적어주세요.</p>
+                </div>
                 <div class="mb-4">
                   <label for="email" class="form-label">이메일</label>
-                  <input type="email" name="email" class="form-control" placeholder="인증 메일을 받을 주소를 입력해주십시오" />
+                  <input type="email" id="email" class="form-control" placeholder="인증 메일을 받을 주소를 입력해주십시오" />
                 </div>
                 <div class="mb-4">
                   <label for="name" class="form-label">이름</label>
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="이름을 입력해주십시오"
-                    class="form-control"
-                  />
+                  <input type="text" id="name" placeholder="이름을 입력해주십시오" class="form-control" />
                 </div>
-                <button type="submit" class="btn btn-primary">회원가입 요청</button>
+                <button type="submit" class="btn btn-primary" id="button">회원가입 요청</button>
                 <a href="/author/login">
-                  <button type="button" class="btn btn-info"  style="color:white">로그인</button>
+                  <button type="button" class="btn btn-info" style="color:white">로그인</button>
                 </a>
-              </form>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+  <script>
+    document.getElementById("button").onclick = function onLoggin() {
+      const email = document.getElementById("email");
+      const name = document.getElementById('name')
+      if (name.value == '' || email.value == '')
+        alert('빈칸을 채워주세요');
+      else {
+        axios({
+          method: "POST",
+          url: '/author/pre-signup',
+          data: {
+            "email": email.value,
+            "name": name.value
+          }
+        }).then((res) => {
+          alert('메일을 전송했습니다');
+          console.log(res);
+          location.href="/author/login";
+        }).catch(error => {
+          alert('이미 존재하는 이메일입니다');
+          console.log(error);
+        });
+      }
+    }
+  </script>
+  <script defer src="/vendors/axios/axios.min.js"></script>

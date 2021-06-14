@@ -15,13 +15,12 @@ const CATEGORY = require('../lib/constants/category');
 const POSITION = require('../lib/constants/position');
 const ARTICLE = require('../lib/constants/articleStatus');
 
-const deskProcess = async (req, res, next) => {
+const deskProcessRequest = async (req, res, next) => {
   // TODO: 로딩 페이지 띄우기
   // TODO: 데스크인 경우와 편집장인 경우 나누기
   // TODO: 데스크가 출고를 off 하고 am7, pm7을 ON 하고 보내면 beforeUpdate 훅에서 에러 발생하게 만들자
   const articles = req.body.articles;
   const currentUser = await getCurrentUser(req.user.id);
-
   const getRequests = (arr) => arr.map((article) => {
     const request = new Promise((resolve, reject) => {
       try {
@@ -66,7 +65,7 @@ const deskProcess = async (req, res, next) => {
   res.status(200).json({ result: '수정 완료' });
 };
 
-const logout = async (req, res, next) => {
+const logoutRequest = async (req, res, next) => {
   if (req.user) {
     req.logout();
     req.session.save(() => {
@@ -77,37 +76,36 @@ const logout = async (req, res, next) => {
   }
 };
 
-const signup = async (req, res, next) => {
-  const { email, password, confirm, name, code, contact } = req.body;
+const signupRequest = async (req, res, next) => {
+  const { email, password, confirm, name, code, contact, position, category } = req.body;
   const photo = req.file ? req.file.filename : null;
   if (password !== confirm) {
-    alert('비밀번호가 같지 않습니다.');
-    return res.redirect('/author/signup');
+    res.json({
+      result: false,
+      message: '재입력한 비밀번호가 일치하지 않습니다.',
+    })
+    .status(400);
   }
   // TODO: Author Service 객체 만들어서 추상화하기
   try {
-    let position = 1;
-    if (+code[0] === 1) {
-      position = POSITION.CHIEF_EDITOR;
-    } else if (code.length == 1 && +code[0] < 9) {
-      position = POSITION.DESK;
-    }
-    await Author.create({ email, password, name, code, position, contact, photo });
-    await Invitation.update({ state: 2 }, { where: { email } });
+    await Author.create({ email, password, name, code, position, contact, photo, category });
+    await Invitation.update({ state: INVITATION.COMPLET }, { where: { email } });
+    res.json({
+      result: true,
+      message: '',
+    })
+    .status(200);
   } catch (error) {
-    if (error.errors) {
-      error.errors.forEach((e) => {
-        alert(e.message);
-      });
-    } else {
-      alert('알 수 없는 에러 발생');
-    }
-    return res.redirect('/author/signup');
+    res.json({
+      result: false,
+      message: `오류가 발생하였습니다 (${error.message})`,
+    })
+    .status(400);
   }
-  return res.redirect('/author/login');
 };
 
-const newArticle = async (req, res, next) => {
+// TODO: ajax로 변경
+const newArticleRequest = async (req, res, next) => {
   const paragraphs = parseParagraps(req.body);
   const {
     body,
@@ -134,6 +132,16 @@ const newArticle = async (req, res, next) => {
 };
 
 const editArticle = async (req, res, next) => {
+  // res.json({
+  //   result: false,
+  //   message: `오류가 발생하였습니다 (${e.message})`
+  // })
+  return res.redirect('/author/articles');
+
+};
+
+// TODO: ajax로 변경
+const editArticleRequest = async (req, res, next) => {
   const paragraphs = parseParagraps(req.body);
   const {
     file,
@@ -212,7 +220,7 @@ const invite = async (req, res, next) => {
 // state: 1 -> 가입 승인
 // state: 2 -> 가입 완료
 // state: 3 -> 가입 거절
-const decision = async (req, res, next) => {
+const decisionRequest = async (req, res, next) => {
   const { approved, declined, email, code } = req.body;
   if (approved === '' && code !== '0') {
     // 이메일 발송
@@ -222,30 +230,71 @@ const decision = async (req, res, next) => {
     candidate.code = code;
     sendMail(invitationId, email, code);
     await candidate.save();
+    // res.json({
+    //   result: true,
+    //   message: ''
+    // }).status(200);
   } else if (declined === '') {
     // 가입거절
     await Invitation.update({ state: INVITATION.REFUSED }, { where: { email } });
+    // res.json({
+    //   result: true,
+    //   message: '가입이 거절되었습니다.'
+    // }).status(200);
   } else if (code === '0') {
-    alert('역할을 설정해 주십시오!');
+    // alert('역할을 설정해 주십시오!');
+    // res.json({
+    //   result: false,
+    //   message: '역할을 설정해 주세요.'
+    // }).status(400);
   }
+  //
   res.redirect('/author/_admin/invitation');
 };
 
 const inviteRequest = async (req, res, next) => {
   const { invite, email, name, code } = req.body;
   if (email === '' || name === '' || code === '') {
-    alert('빈 항목이 있어서는 안됩니다.');
+    res.json({
+      result: false,
+      message: '빈 항목이 있습니다.'
+    }).status(400);
   } else if (invite === '') {
     try {
       await Invitation.create({ email, name, code, state: INVITATION.APPROVAL });
       const candidate = await Invitation.findOne({ where: { email } });
       const invitationId = candidate.id;
       sendMail(invitationId, email, code);
+      // res.json({
+      //   result: true,
+      //   message: '이메일이 발송되었습니다.'
+      // }).status(400);
     } catch (error) {
-      alert('에러가 발생하였습니다!');
+      requstatus(400).json({ result: '이메일 중복' });
     }
   }
+  es.status(200).json({ result: '성공' });
   res.redirect('/author/_admin/invitation');
+};
+
+const invitePage = async (req, res, next) => {
+  // TODO 페이징 필요
+  const userList = await Invitation.findAll({});
+  const currentUser = await getCurrentUser(req.user?.id);
+  if (!currentUser) res.redirect('/author/login');
+  const standByUsers = userList.map((user) => {
+    return {
+      ...user.dataValues,
+      intState: +user.state,
+      state: converter.inviteState(user.state),
+    };
+  });
+  res.render('admin/invitation', { title: 'invite', currentUser, standByUsers, admin: true });
+};
+
+
+const preSignupPage = async (req, res, next) => {
+  res.render('author/preSignup', { title: 'signup request', admin: false });
 };
 
 const loginPage = async (req, res, next) => {
@@ -262,9 +311,15 @@ const signupPage = async (req, res, next) => {
     alert('회원가입의 대상이 아닙니다!');
     return res.redirect('/author/pre-signup');
   }
-  const { email, name, code } = candidate;
-  const user = { email, name, code };
-  res.render('author/signup', { title: 'signup', user });
+  const { email, name, code, position, category } = candidate;
+  const user = { email, name, code, position, category };
+  const POSITION = {
+    1: '기자',
+    2: '데스크',
+    3: '편집장',
+    4: '관리자'
+  };
+  res.render('author/signup', { title: 'signup', layout: 'layout/adminLayout', user, userJson: JSON.stringify(user), POSITION });
 };
 
 const editMeetingPage = async (req, res, next) => {
@@ -305,7 +360,6 @@ const editArticlePage = async (req, res, next) => {
   }
 };
 
-
 const myArticlePage = async (req, res, next) => {
   const currentUser = await getCurrentUser(req.user?.id);
   const author = await Author.findOne({ where: { id: req.user.id } });
@@ -339,14 +393,12 @@ const indexPage = async (req, res, next) => {
     where: { category },
     include: { model: Author, attributes: ['id', 'name', 'code'] },
   });
-
+  const { position, code } = currentUser;
   // 기사, 데스크, 편집장인 경우 보여지는 부분이 있음
   if ([POSITION.REPOTER, POSITION.DESK, POSITION.CHIEF_EDITOR].includes(currentUser.position)) {
     let ejsfile = '';
     let variable;
     const articlesData = JSON.stringify(articles.map((item) => pick(item, ['id', 'pm7', 'am7', 'status'])));
-    const { position, code } = currentUser;
-
     if (position === POSITION.REPOTER) {
       ejsfile = 'author/desking/index';
     } else if (position === POSITION.DESK) {
@@ -356,7 +408,6 @@ const indexPage = async (req, res, next) => {
     } else if (position === POSITION.CHIEF_EDITOR) {
       ejsfile = 'author/desking/chiefEditor';
     }
-
     variable = { title: 'home', articles, currentUser, admin: false, articlesData };
     res.render(ejsfile, variable);
   } else if (position === POSITION.ADMIN) {
@@ -364,24 +415,35 @@ const indexPage = async (req, res, next) => {
   }
 };
 
+const adminPage = async (req, res, next) => {
+  const currentUser = await getCurrentUser(req.user?.id);
+  if (!currentUser) res.redirect('/author/login');
+  res.render('admin/index', { title: 'admin home', currentUser, admin: true });
+};
+
+
 module.exports = {
-  index: indexPage,
-  deskProcess,
-  logout,
-  signup,
-  newArticle,
-  editArticle,
-  preSignup,
-  preSignupRequest,
-  admin,
-  invite,
-  decision,
-  inviteRequest,
-  loginPage,
-  signupPage,
-  editMeetingPage,
-  newArticlePage,
-  editArticlePage,
-  myArticlePage,
-  previewPage
+  request: {
+    deskProcess: deskProcessRequest,
+    logout: logoutRequest,
+    signup: signupRequest,
+    newArticle: newArticleRequest,
+    editArticle: editArticleRequest,
+    preSignup: preSignupRequest,
+    invite: inviteRequest,
+    decision: decisionRequest,
+  },
+  page: {
+    index: indexPage,
+    preSignup: preSignupPage,
+    admin: adminPage,
+    invite: invitePage,
+    login: loginPage,
+    signup: signupPage,
+    editMeeting: editMeetingPage,
+    newArticle: newArticlePage,
+    editArticle: editArticlePage,
+    myArticle: myArticlePage,
+    preview: previewPage
+  },
 };
