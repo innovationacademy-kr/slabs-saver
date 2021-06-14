@@ -15,7 +15,7 @@ const CATEGORY = require('../lib/constants/category');
 const POSITION = require('../lib/constants/position');
 const ARTICLE = require('../lib/constants/articleStatus');
 
-const deskProcess = async (req, res, next) => {
+const deskProcessRequest = async (req, res, next) => {
   // TODO: 로딩 페이지 띄우기
   // TODO: 데스크인 경우와 편집장인 경우 나누기
   // TODO: 데스크가 출고를 off 하고 am7, pm7을 ON 하고 보내면 beforeUpdate 훅에서 에러 발생하게 만들자
@@ -65,7 +65,7 @@ const deskProcess = async (req, res, next) => {
   res.status(200).json({ result: '수정 완료' });
 };
 
-const logout = async (req, res, next) => {
+const logoutRequest = async (req, res, next) => {
   if (req.user) {
     req.logout();
     req.session.save(() => {
@@ -76,7 +76,7 @@ const logout = async (req, res, next) => {
   }
 };
 
-const signup = async (req, res, next) => {
+const signupRequest = async (req, res, next) => {
   const { email, password, confirm, name, code, contact, position, category } = req.body;
   const photo = req.file ? req.file.filename : null;
   if (password !== confirm) {
@@ -104,7 +104,8 @@ const signup = async (req, res, next) => {
   }
 };
 
-const newArticle = async (req, res, next) => {
+// TODO: ajax로 변경
+const newArticleRequest = async (req, res, next) => {
   const paragraphs = parseParagraps(req.body);
   const {
     body,
@@ -127,6 +128,10 @@ const newArticle = async (req, res, next) => {
   } catch (error) {
     alert(error.errors ? error.errors[0].message : '생성실패');
   }
+  return res.redirect('/author/articles');
+};
+
+const editArticle = async (req, res, next) => {
   // res.json({
   //   result: false,
   //   message: `오류가 발생하였습니다 (${e.message})`
@@ -135,7 +140,8 @@ const newArticle = async (req, res, next) => {
 
 };
 
-const editArticle = async (req, res, next) => {
+// TODO: ajax로 변경
+const editArticleRequest = async (req, res, next) => {
   const paragraphs = parseParagraps(req.body);
   const {
     file,
@@ -160,40 +166,34 @@ const editArticle = async (req, res, next) => {
         individualHooks: true,
       },
     );
-    // res.json({
-    //   result: true,
-    //   message: '요청 성공'
-    // }).status(200);
   } catch (error) {
-    // res.json({
-    //   result: false,
-    //   message: '요청이 실패하였습니다.'
-    // }).status(400);
-    // alert(error.errors ? error.errors[0].message : '생성실패');
+    alert(error.errors ? error.errors[0].message : '생성실패');
   }
   return res.redirect('/author/articles');
 };
 // admin //
 
-const preSignupPage = async (req, res, next) => {
+const preSignup = async (req, res, next) => {
   res.render('author/preSignup', { title: 'signup request', admin: false });
 };
 
 const preSignupRequest = async (req, res, next) => {
-  const email = req.body.email;
-  const name = req.body.name;
-  if (name === '' || email === '')
-    res.status(401).json({ result: '빈칸을 채워주세요' });
-  else {
-    try {
-      await Invitation.create({ email, name });
-      res.status(201).json({ result: '성공' });
-    } catch (error) {
-        console.log(error)
-        res.status(400).json({ result: '에러 발생' });
-      }
+  const { email, name } = req.body;
+  try {
+    await Invitation.create({ email, name });
+  } catch (error) {
+    if (error.errors) {
+      error.errors.forEach((e) => {
+        alert(e.message);
+      });
+    } else {
+      alert('알 수 없는 에러 발생');
     }
-}
+    return res.redirect('/author/pre-signup');
+  }
+  alert('성공적으로 저장되었습니다.');
+  return res.redirect('/author/login');
+};
 
 const admin = async (req, res, next) => {
   const currentUser = await getCurrentUser(req.user?.id);
@@ -202,7 +202,6 @@ const admin = async (req, res, next) => {
 };
 
 const invite = async (req, res, next) => {
-  // TODO 페이징 필요
   const userList = await Invitation.findAll({});
   const currentUser = await getCurrentUser(req.user?.id);
   if (!currentUser) res.redirect('/author/login');
@@ -221,7 +220,7 @@ const invite = async (req, res, next) => {
 // state: 1 -> 가입 승인
 // state: 2 -> 가입 완료
 // state: 3 -> 가입 거절
-const decision = async (req, res, next) => {
+const decisionRequest = async (req, res, next) => {
   const { approved, declined, email, code } = req.body;
   if (approved === '' && code !== '0') {
     // 이메일 발송
@@ -273,8 +272,29 @@ const inviteRequest = async (req, res, next) => {
       res.status(400).json({
         message: '이메일이 중복되었습니다.'
       });
+
     }
   }
+};
+
+const invitePage = async (req, res, next) => {
+  // TODO 페이징 필요
+  const userList = await Invitation.findAll({});
+  const currentUser = await getCurrentUser(req.user?.id);
+  if (!currentUser) res.redirect('/author/login');
+  const standByUsers = userList.map((user) => {
+    return {
+      ...user.dataValues,
+      intState: +user.state,
+      state: converter.inviteState(user.state),
+    };
+  });
+  res.render('admin/invitation', { title: 'invite', currentUser, standByUsers, admin: true });
+};
+
+
+const preSignupPage = async (req, res, next) => {
+  res.render('author/preSignup', { title: 'signup request', admin: false });
 };
 
 const loginPage = async (req, res, next) => {
@@ -395,24 +415,35 @@ const indexPage = async (req, res, next) => {
   }
 };
 
+const adminPage = async (req, res, next) => {
+  const currentUser = await getCurrentUser(req.user?.id);
+  if (!currentUser) res.redirect('/author/login');
+  res.render('admin/index', { title: 'admin home', currentUser, admin: true });
+};
+
+
 module.exports = {
-  index: indexPage,
-  deskProcess,
-  logout,
-  signup,
-  newArticle,
-  editArticle,
-  preSignup: preSignupPage,
-  preSignupRequest,
-  admin,
-  invite,
-  decision,
-  inviteRequest,
-  loginPage,
-  signupPage,
-  editMeetingPage,
-  newArticlePage,
-  editArticlePage,
-  myArticlePage,
-  previewPage
+  request: {
+    deskProcess: deskProcessRequest,
+    logout: logoutRequest,
+    signup: signupRequest,
+    newArticle: newArticleRequest,
+    editArticle: editArticleRequest,
+    preSignup: preSignupRequest,
+    invite: inviteRequest,
+    decision: decisionRequest,
+  },
+  page: {
+    index: indexPage,
+    preSignup: preSignupPage,
+    admin: adminPage,
+    invite: invitePage,
+    login: loginPage,
+    signup: signupPage,
+    editMeeting: editMeetingPage,
+    newArticle: newArticlePage,
+    editArticle: editArticlePage,
+    myArticle: myArticlePage,
+    preview: previewPage
+  },
 };

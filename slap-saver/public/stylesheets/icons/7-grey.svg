@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="21.999" height="18" viewBox="0 0 21.999 18">
+    <g>
+        <g>
+            <path fill="#c2c2c2" d="M417.918 372.189h-8.948a2.647 2.647 0 0 0-2.086 1.023l-3.865 4.951a2.728 2.728 0 0 0-.245 2.975l4.151 7.653a2.655 2.655 0 0 0 2.331 1.4h8.375a2.655 2.655 0 0 0 2.331-1.4l4.151-7.653a2.729 2.729 0 0 0-.245-2.975L420 373.212a2.648 2.648 0 0 0-2.082-1.023z" transform="translate(-315 -425) translate(315 425) translate(-402.445 -372.189)"/>
+        </g>
+        <text fill="#fff" font-family="BioSans-SemiBold, Bio Sans" font-size="14px" font-weight="600" letter-spacing="-0.03em" transform="translate(-315 -425) translate(322 439)">
+            <tspan x="0" y="0">7</tspan>
+        </text>
+    </g>
+</svg>

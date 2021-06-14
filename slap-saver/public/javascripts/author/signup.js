@@ -1,14 +1,14 @@
 /**
  * 업데이트 클릭시 ajax 요청
  */
-const requestApdate = (articles) => {
+const requestUpdate = (articles) => {
 	axios.post('/author/desk-process', { articles })
 		.then(res => {
 			console.log(res);
 			alert('수정되었습니다')
 		})
 		.catch(err => {
-			alert('수정되었습니다')
+			alert('수정에 실패하였습니다.')
 			console.error(err);
 		})
 }
@@ -43,24 +43,6 @@ const addEvent = () => {
 			alert(res.data.message || err.message);
 		});
 	})
-
-	/**
-	 * 회원가입 요청 클릭
-	 * - 유효성검사 후 ajax요청
-	 */
-	// const btn = $('.btn.signup');
-	// btn.on('click', function (e) {
-
-	// });
-
-	// const form = $('form');
-	// form.on('submit', function (e) {
-	// 	console.log(e);
-	// 	e.preventDefault()
-	// 	// form 정리
-	// 	// ajax 호출
-	// });
-
 }
 
 addEvent();

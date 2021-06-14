@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="그룹_896" width="21.999" height="18" viewBox="0 0 21.999 18">
+    <defs>
+        <style>
+            .cls-2{fill:#fff;stroke:#c2c2c2;stroke-linejoin:round;stroke-miterlimit:10;stroke-width:.7px}
+        </style>
+    </defs>
+    <g id="그룹_643">
+        <path id="패스_1024" fill="#c2c2c2" d="M417.918 372.189h-8.948a2.647 2.647 0 0 0-2.086 1.023l-3.865 4.951a2.728 2.728 0 0 0-.245 2.975l4.151 7.653a2.655 2.655 0 0 0 2.331 1.4h8.375a2.655 2.655 0 0 0 2.331-1.4l4.151-7.653a2.729 2.729 0 0 0-.245-2.975L420 373.212a2.648 2.648 0 0 0-2.082-1.023z" transform="translate(-402.445 -372.189)"/>
+    </g>
+    <g id="그룹_644" transform="translate(4.205 3.721)">
+        <g id="그룹_441" transform="translate(6.1 3.92)">
+            <path id="사각형_203" d="M3.881 0a3.881 3.881 0 0 1 3.881 3.881v1.16H0v-1.16A3.881 3.881 0 0 1 3.881 0z" class="cls-2"/>
+        </g>
+        <circle id="타원_242" cx="2.401" cy="2.401" r="2.401" class="cls-2" transform="translate(7.581)"/>
+        <g id="그룹_440" transform="translate(0 3.92)">
+            <path id="사각형_202" d="M3.881 0a3.881 3.881 0 0 1 3.881 3.881v1.16H0v-1.16A3.881 3.881 0 0 1 3.881 0z" class="cls-2"/>
+        </g>
+        <circle id="타원_241" cx="2.401" cy="2.401" r="2.401" class="cls-2" transform="translate(1.48)"/>
+    </g>
+</svg>
