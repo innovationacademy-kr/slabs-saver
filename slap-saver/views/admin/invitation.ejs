@@ -36,28 +36,29 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form >
+        <form  class="needs-validation">
           <div class="modal-email">
             <label for="email" class="col-sm-2 text-center">이메일</label>
-            <input type="email" autocapitalize="off" class="invite-email" id="email">
+            <input type="email" autocapitalize="off" class="invite-email" id="email" required>
           </div>
           <div class="modal-name">
             <label for="name" class="col-sm-2 text-center">이름</label>
-            <input class="invite-name" id="name">
+            <input class="invite-name" id="name"  required>
           </div>
           <div class="modal-code">
-            <label for="code" class="col-sm-2 text-center">직급</label>
-            <select name="position" id="position">
-              <option value="0" selected>직급을 설정해주세요</option>
-              <option value="1">편집장</option>
+            <label for="position" class="col-sm-2 text-center">직급</label>    
+            <select name="position" id="position" required>
+              <option value="1" selected>편집장</option>
+
               <option value="2">데스크</option>
               <option value="3">일반기자</option>
             </select>
           </div>
           <div class="modal-code">
-            <label for="code" class="col-sm-2 text-center">분야</label>
-            <select name="position" id="category">
-              <option value="1" selected>분야를 설정해주세요</option>
+            <label for="category" class="col-sm-2 text-center">분야</label>    
+            <select name="category" id="category" required disabled>
+              <option value="1" selected>전체</option>
+
               <option value="2">정책</option>
               <option value="3">경제</option>
               <option value="4">기술</option>
@@ -67,7 +68,7 @@
               <option value="8">스포츠</option>
             </select>
           </div>
-          <button class="btn btn-primary mt-3 text-center" id="invite">초대하기</button>
+          <button type="submit" class="btn btn-primary mt-3 text-center" id="invite">초대하기</button>
         </form>
       </div>
     </div>
@@ -146,24 +147,47 @@
 </section>
 
 <script>
-  document.getElementById("invite").onclick = function onLoggin() {
-    const code = document.getElementById("code");
-    const name = document.getElementById('name')
+
+  document.querySelector('#position').addEventListener('change', (e) => {
+    const { target: {value}} = e;
+    // const value = e.target.value;
+    const category =  document.querySelector('#category');
+    if (e.target.value === '1') {
+      //document.querySelector('#category option:first-child').disabled = false;
+      category.value = '1';
+      category.disabled = true;
+    } else {
+      document.querySelector('#category option:first-child').disabled = true;
+      category.value = '2';
+      category.disabled = false;
+    }
+  })
+
+  document.getElementById("invite").onclick = function onLoggin() { 
+    let email = document.getElementById("email");
+    let name = document.getElementById('name')
+    let position = document.getElementById("position");
+    let category = document.getElementById("category");
+    position = position.selectedIndex;
+    category = category.selectedIndex;
+    console.log("직급 "+position);
+    console.log("분야 "+category);
       axios({
         method: "POST",
         url: '/author/_admin/invitation',
         data: {
-          "code": code.value,
-          "name": name.value
+          "email": email.value,
+          "name": name.value,
+          "position": position.selectedIndex,
+          "category": category.selectedIndex
         }
       }).then((res) => {
         alert('메일을 전송했습니다');
         console.log(res);
-        location.href="/author/login";
+        // location.href="/author/login";
       }).catch(error => {
-        alert('이미 존재하는 이메일입니다');
-        console.log(error);
-      });
+        alert(error.response.data.message);
+      }); 
   }
 </script>
 <script defer src="/vendors/axios/axios.min.js"></script>
