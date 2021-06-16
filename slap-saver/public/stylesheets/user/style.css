@@ -1,0 +1,18 @@
+@import url('https///fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+
+/*초기화*/
+@import url("reset.css");
+
+/*common*/
+@import url("common.css");
+
+/*components*/
+@import url("components/topbar.css");
+@import url("components/footer.css");
+
+/*page*/
+@import url("./pages/index.css");
+
+
+
+

@@ -1,0 +1,39 @@
+<!--<%- contentFor('style') %>
+<link rel="stylesheet" href="/stylesheets/user/pages/index.css" />-->-->
+
+
+<%- contentFor('navbar') %>
+<%- include('./components/nav.ejs') %>
+
+<%- contentFor('body') %>
+<main class="main">
+    <a href=<%=`/articles/${todayArticle.id}` %> >
+      <div class="card text-dark bg-light mb-1" style="height: 5rem;">
+        <div class="card-header p-2">오늘의 뉴스</div>
+        <div class="card-body p-2">
+          <h5 class="card-title text-truncate">
+            <%= todayArticle.headline %>
+          </h5>
+        </div>
+      </div>
+    </a>
+    <div class="card text-dark bg-light mb-1" style="height: 5rem;">
+      <div class="card-header p-2">오늘의 한마디</div>
+      <div class="card-body p-2">
+        <h5 class="card-title text-truncate">
+          <%= todayWords %>
+        </h5>
+      </div>
+    </div>
+    <div class="row row-cols-1 g-4 article-list">
+      <% Articles.map((article)=> { %>
+        <% if (article.status===4) { %>
+          <%- include('partials/articleCard.ejs', { article }) %>
+            <% } %>
+              <% }) %>
+    </div>
+  </main>
+<%- contentFor('footer') %>
+<%- include('./components/foo.ejs') %>
+<%- contentFor('script') %>
+  <script src="/javascripts/infiniteScroll.js"></script>

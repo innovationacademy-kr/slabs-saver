@@ -29,7 +29,7 @@ module.exports = {
       }),
     );
     // NOTE: 오늘의 한마디를 저장한 후 가져와야 한다.
-    res.render('index', { title: 'slab-saver', todayArticle, todayWords, Articles });
+    res.render('user/index', { title: 'slab-saver', layout: 'layout/userLayout', todayArticle, todayWords, Articles });
   },
 
   moreArticles: async (req, res, next) => {

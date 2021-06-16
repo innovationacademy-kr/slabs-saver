@@ -3,7 +3,7 @@ var ADD_PAGE = 3;
 var DEFAULT_HEIGHT = $(window).height() + 10;
 var page = INITIAL_PAGE;
 var isUsed = false;
-var articleList = document.querySelector('.article-list');
+var articleList = document.querySelector('.article-list');//querySelector = css선택자로 요소 선택
 
 $(window).scroll(function () {
   if (
@@ -17,6 +17,7 @@ $(window).scroll(function () {
       success: function (articles) {
         JSON.parse(articles).map(function (article) {
           return articleList.insertAdjacentHTML('beforeend', makeTemplate(article));
+          // insertAdjacent=beforeend영역에 함수 실행해서 html태그성 생성
         });
         isUsed = !isUsed;
         page += ADD_PAGE;
@@ -29,6 +30,7 @@ $(window).scroll(function () {
 });
 
 function makeTemplate(article) {
+  //추가되는 카드들
   return `<a class="article-link" href="/articles/${article.id}" >
   <div class="col">
     <div class="card content">

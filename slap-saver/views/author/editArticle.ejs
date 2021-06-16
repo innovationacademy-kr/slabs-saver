@@ -60,7 +60,7 @@
                         <button  type="button" class="btn btn-primary paragraph-list--Btn">소단락 추가</button>
                       </div>
                       <div class="paragraph-list">
-                      <% if (paragraphs?.length > 0) { %>
+                      <% if (paragraphs && paragraphs.length > 0) { %>
                         <% paragraphs.forEach((p)=> { %>
                         <div class="paragraph-list__item">
                           <label class="form-label" for=paragraph-title ></label>
@@ -75,7 +75,7 @@
                     </div>
                   </div>
                   <div class="mb-4">
-                  </div>                    
+                  </div>
                   <div class="mb-4">
                   </div>
                   <div class="d-grid gap-2">
