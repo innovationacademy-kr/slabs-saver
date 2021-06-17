@@ -14,12 +14,10 @@
 	--ice-blue: #f1f4ff;
 	--ice-blue-two: #eef8ff;
   }
-
 .white
 {
-	background-color :#ffffff;
+   background-color :#ffffff;
 }
-
 .black
 {
 	background-color :#000000;
@@ -72,7 +70,7 @@
 
 .ice-blue-two
 {
-	background-color: eef8ff;
+	background-color: #eef8ff;
 }
 
 @font-face {
@@ -108,6 +106,7 @@
 	font-stretch: normal;
   }
 
+  /*타이틀*/
 .ft-title {
 	font-family: NotoSansCJKkr;
 	font-size: 21px;
@@ -119,7 +118,7 @@
 	text-align: left;
 	color: #434343;
   }
-
+  /*m_본문_강조*/
   .ft-main-bold {
 	font-family: NotoSansCJKkr;
 	font-size: 16px;
@@ -131,7 +130,7 @@
 	text-align: left;
 	color: #2b94e8;
   }
-
+  /*m_본문_강조_링크4*/
   .ft-main-bold-link {
 	font-family: NotoSansCJKkr;
 	font-size: 16px;
@@ -143,19 +142,19 @@
 	text-align: left;
 	color: #000000;
   }
-
+  /*m_본문3*/
  .ft-main{
 	font-family: NotoSansCJKkr;
 	font-size: 16px;
 	font-weight: normal;
 	font-stretch: normal;
 	font-style: normal;
-	line-height: 2;
-	letter-spacing: 0px;
+	line-height: 1.6;
+	letter-spacing: -0.3px;
 	text-align: left;
 	color: #434343;
  }
-
+ /*m_본문_링크2*/
   .ft-main-link {
 	font-family: NotoSansCJKkr;
 	font-size: 16px;
@@ -167,7 +166,7 @@
 	text-align: left;
 	color: #2b94e8;
   }
-
+  /*m_기자명/사진설명1*/
   .ft-detail {
 	font-family: NotoSansCJKkr;
 	font-size: 11px;
@@ -180,12 +179,6 @@
 	color: #a7a7a7;
   }
 
-.row{
-	height: 60px;
-	display: flex;
-	align-items:flex-start;
-	justify-content:space-around;
-}
 
 /*./icons*/*/
 
@@ -502,6 +495,27 @@
    height: 51px;
    width: 44px;    /* Other styles here */
 }
+
+/*logo*/
+
+.logo-type-small-blue{
+   background-image: url('../icons/typelogo-small-blue.svg');
+   background-position: center;
+   background-size: cover;
+
+   height: 20px;
+   width: 25px;
+}
+
+.logo-small-blue{
+   background-image: url('../icons/logo-small-blue.svg');
+   background-position: center;
+   background-size: cover;
+
+   height: 20px;
+   width: 28px;
+}
+
 
 /*footer ../icons*/
 

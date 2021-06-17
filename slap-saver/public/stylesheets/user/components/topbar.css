@@ -5,6 +5,9 @@ body{
 .topbar{
 	height: 50px;
 
+	z-index: 1;
+    background-color: white;
+
 	position: fixed;
 	top: 0px;
 	width: 100%;

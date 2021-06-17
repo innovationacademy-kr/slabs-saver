@@ -1,5 +1,4 @@
-<!--<%- contentFor('style') %>
-<link rel="stylesheet" href="/stylesheets/user/pages/index.css" />-->-->
+
 
 
 <%- contentFor('navbar') %>
@@ -7,28 +6,34 @@
 
 <%- contentFor('body') %>
 <main class="main">
+  <!--오늘의뉴스-->
     <a href=<%=`/articles/${todayArticle.id}` %> >
-      <div class="card text-dark bg-light mb-1" style="height: 5rem;">
-        <div class="card-header p-2">오늘의 뉴스</div>
-        <div class="card-body p-2">
-          <h5 class="card-title text-truncate">
-            <%= todayArticle.headline %>
-          </h5>
+      <div class="today-card ice-blue-two">
+        <div class="today-card__title">
+          <i class="today-card__title__icon logo-type-small-blue"></i>
+          <h3 class="today-card__title__text">오늘의 뉴스</h3>
         </div>
-      </div>
+        <p class="today-card__text ft-main">
+          <%= todayArticle.headline %>오늘 정리해야할 뉴스 오늘 정리해야할 뉴스
+        </p>
     </a>
-    <div class="card text-dark bg-light mb-1" style="height: 5rem;">
-      <div class="card-header p-2">오늘의 한마디</div>
-      <div class="card-body p-2">
-        <h5 class="card-title text-truncate">
-          <%= todayWords %>
-        </h5>
-      </div>
+
+    <div class="divide-white"></div>
+    <!--오늘의 한마디-->
+    <div class="today-card__title">
+      <i class="today-card__title__icon logo-small-blue"></i>
+      <h3 class="today-card__title__text">오늘의 한마디</h3>
     </div>
+    <p class="today-card__text ft-main">
+      <%= todayWords %>오늘의 한마디 오늘의 한마디 오늘의 한마디 오늘의 한마디 오늘의 한마디
+    </p>
+  </div>
+</div>
+</div>
     <div class="row row-cols-1 g-4 article-list">
       <% Articles.map((article)=> { %>
         <% if (article.status===4) { %>
-          <%- include('partials/articleCard.ejs', { article }) %>
+          <%- include('../partials/articleCard.ejs', { article }) %>
             <% } %>
               <% }) %>
     </div>

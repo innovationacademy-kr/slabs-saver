@@ -1,7 +1,7 @@
 *{
 	margin: 0px 0px;
 	padding: 0;
-
+    font-family: NotoSansCJKkr;
 	border: 0px;
 }
 
@@ -18,7 +18,7 @@ article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
-  margin: 0;
+    margin: 0;
 	padding: 0;
 	border: 0;
 	font-size: 100%;
@@ -26,6 +26,9 @@ time, mark, audio, video {
 	vertical-align: baseline;
 	vertical-align: -webkit-baseline-middle;
 	vertical-align: -moz-middle-with-baseline;
+    text-decoration:none;
+    color: inherit;
+
 }
 
 /* make sure to set some focus styles for accessibility */
