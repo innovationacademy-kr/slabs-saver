@@ -18,7 +18,7 @@ module.exports = {
     });
     const Articles = await Promise.all(
       ArticlesObj.map(async (article) => {
-        const updatedAt = moment(article.updatedAt).format('YYYY.MM.DD HH:mm:ss');
+        const updatedAt = moment(article.updatedAt).format('YYYY.MM.DD HH:mm');
         return {
           ...article.dataValues,
           authorImg: `/images/authorImages/${article.Author.photo}`,

@@ -14,7 +14,7 @@
           <h3 class="today-card__title__text">오늘의 뉴스</h3>
         </div>
         <p class="today-card__text ft-main">
-          <%= todayArticle.headline %>오늘 정리해야할 뉴스 오늘 정리해야할 뉴스
+          <%= todayArticle.headline %>
         </p>
     </a>
     <div class="divide-white"></div>
@@ -24,17 +24,21 @@
       <h3 class="today-card__title__text">오늘의 한마디</h3>
     </div>
     <p class="today-card__text ft-main">
-      <%= todayWords %>오늘의 한마디 오늘의 한마디 오늘의 한마디 오늘의 한마디 오늘의 한마디
+      <%= todayWords %>
     </p>
   </div>
 
-  <% Articles.map((article)=> { %>
-    <% if (article.status===4) { %>
-      <%- include('../partials/articleCard.ejs', { article }) %>
-        <% } %>
-          <% }) %>
+    <div class="article-list">
+
+      <% Articles.map((article)=> { %>
+        <% if (article.status===4) { %>
+          <%- include('../partials/articleCard.ejs', { article }) %>
+            <% } %>
+              <% }) %>
+    </div>
   </main>
 <%- contentFor('footer') %>
 <%- include('./components/foo.ejs') %>
-<%- contentFor('script') %>
-  <script src="/javascripts/infiniteScroll.js"></script>
+
+
+<script defer src="/javascripts/infiniteScroll.js"></script>

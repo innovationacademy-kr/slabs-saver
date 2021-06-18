@@ -1,3 +1,8 @@
+.article-page{
+	top: 50px;
+	position: relative;
+}
+
 .article{
 	box-sizing: border-box;
 	padding: 36px 17px 40px 17px;
@@ -35,8 +40,12 @@
 	margin-bottom: 20px;
 }
 
-.article__maintext{
-	margin-bottom: 40px;
+.article__brief-text{
+	margin-bottom: 20px;
+}
+
+.article__main-text{
+	margin-bottom: 20px;
 }
 
 .article__control{
