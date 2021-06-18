@@ -1,8 +1,7 @@
 var select = document.querySelector('.paragraph-select');
 var paragraphList = document.querySelector('.paragraph-list');
 var addParagraphBtn = document.querySelector('.paragraph-list--Btn');
-var form = document.querySelector('form');
-var briefing = document.querySelector('#briefing');
+// var briefing = document.querySelector('#briefing');
 
 function makeParagraph(title) {
   return (
@@ -14,18 +13,18 @@ function makeParagraph(title) {
     ' readonly="readonly" >' +
     '\n' +
     '<label class="form-label" for=paragraph-conetent ></label>' +
-    '<textarea class="form-control paragraph-item__content" id=paragraph-content name=paragraph-content  > </textarea>' +
+    '<textarea class="form-control paragraph-item__content" id="paragraph-content" name="paragraph-content"  > </textarea>' +
     '\n' +
     '<button type="button" class="btn btn-warning paragraph-item__deleteBtn">삭제</button>' +
     '</div>'
   );
 }
 
-briefing.addEventListener('keydown', function (e) {
-  if (e.keyCode === 13) {
-    e.stopPropagation();
-  }
-});
+// briefing.addEventListener('keydown', function (e) {
+//   if (e.keyCode === 13) {
+//     e.stopPropagation();
+//   }
+// });
 
 addParagraphBtn.addEventListener('click', function (e) {
   var title = select.options[select.selectedIndex].value;
@@ -60,6 +59,3 @@ paragraphList.addEventListener('focusout', function (e) {
   paragraphTitle.readOnly = true;
 });
 
-form.addEventListener('keydown', function (e) {
-  if (e.keyCode === 13) e.preventDefault();
-});

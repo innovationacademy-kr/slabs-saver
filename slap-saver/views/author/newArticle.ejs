@@ -13,10 +13,10 @@
                 <h3>기사 작성</h3>
                 <p class="mb-4">새로운 기사를 작성합니다.</p>
               </div>
-              <form method="post" class="article" action="/author/articles/new" enctype="multipart/form-data">
+              <form class="needs-validation">
                 <div class="mb-4">
                   <label class="form-label" for="category">카테고리</label>
-                  <select class="form-control" name="category" id="category" >
+                  <select required class="form-control" name="category" id="category" >
                   <% const options = ['정치', '경제', '사회', '국제', '문화']; %>
                   <% options.forEach((option, index) => { %>
                     <% if (+defaultCategory === index + 2) { %>
@@ -29,26 +29,26 @@
                 </div>
                 <div class="mb-4">
                   <div class="article__headline">
-                      <label class="form-label" for="headline">헤드라인</label>
-                      <input class="form-control" type="text" id="headline" name="headline" placeholder="뉴스의 헤드라인을 입력해주세요" maxlength="30" />
+                      <label required class="form-label" for="headline">헤드라인</label>
+                      <input class="form-control" type="text" id="headline" name="headline" placeholder="뉴스의 헤드라인을 입력해주세요" maxlength="255" />
                   </div>
                 </div>
                 <div class="mb-4">
                   <label class="form-label" for="picture">사진</label>
-                  <input class="form-control" type="file" id="picture" name="picture" accept="image/gif, image/jpeg, image/png" />
+                  <input required class="form-control" type="file" id="picture" name="picture" accept="image/gif, image/jpeg, image/png" />
                   <label class="form-label" for="imageDesc">사진 설명</label>
-                  <input class="form-control" type="text" id="imageDesc" name="imageDesc" placeholder="사진에 대한 설명을 적어주세요" />
+                  <input required class="form-control" type="text" id="imageDesc" name="imageDesc" placeholder="사진에 대한 설명을 적어주세요" />
                   <label class="form-label" for="imageFrom">사진 출처</label>
-                  <input class="form-control" type="text" id="imageFrom" name="imageFrom" placeholder="사진에 대한 출처를 적어주세요" />
+                  <input required class="form-control" type="text" id="imageFrom" name="imageFrom" placeholder="사진에 대한 출처를 적어주세요" />
                 </div>
                 <div class="mb-4">
                   <label class="form-label" for="breifing">100자 브리핑</label>
-                  <textarea class="form-control" id="briefing" name="briefing" placeholder="뉴스에 대한 브리핑을 작성해주세요" maxlength="150"> </textarea>
+                  <div id="editorjs"></div>
                 </div>
                 <div class="mb-4">
                   <div class="article__paragraphs">
                     <div class="article__paragraphs--select">
-                      <select name="paragraph-select" class="form-control paragraph-select">
+                      <select required name="paragraph-select" class="form-control paragraph-select">
                         <option value='포인트'>포인트</option>
                         <option value='향후예측'>향후예측</option>
                         <option value='논쟁점'>논쟁점</option>
@@ -65,13 +65,27 @@
                 </div>
               </form>
             </div>
+
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-<script type="module" src="/javascripts/addSection.js"></script>
+
+<style>
+  .ce-toolbox__button[data-tool="linkTool"] {
+    display: none;
+  }
+
+</style>
 
 <%- contentFor('footer') %>
 <%- include('../partials/footer.ejs') %>
+
+<script src="/vendors/editorjsNestedList/nested-list.js" defer></script>
+<script src="/vendors/editorjsImage/bundle.js" defer></script>
+<script src="/vendors/editorjsLink/bundle.js" defer></script>
+<script src="/vendors/editorjs/editor.js" defer></script>
+<script type="module" src="/javascripts/addSection.js"></script>
+<script type="module" src="/javascripts/author/newArticle.js"></script>
