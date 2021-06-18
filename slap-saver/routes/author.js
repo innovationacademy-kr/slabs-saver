@@ -81,7 +81,7 @@ module.exports = (passport) => {
   router.get('/_admin', loggedIn, checkCode, authorCtrl.page.admin);
   router.get('/_admin/invitation', loggedIn, checkCode, authorCtrl.page.invite);
   router.post('/_admin/invitation', authorCtrl.request.invite);
+  router.post('/_admin/inviteList', authorCtrl.request.inviteList);
   router.post('/_admin/decision', authorCtrl.request.decision);
-
   return router;
 };

@@ -221,39 +221,31 @@ const invite = async (req, res, next) => {
 // state: 2 -> 가입 완료
 // state: 3 -> 가입 거절
 const decisionRequest = async (req, res, next) => {
-  const { approved, declined, email, code } = req.body;
-  if (approved === '' && code !== '0') {
+  const { approved, declined, email, select_position, select_category } = req.body;
+  if (approved === 1) {
     // 이메일 발송
     const candidate = await Invitation.findOne({ where: { email } });
     const invitationId = candidate.id;
     candidate.state = INVITATION.APPROVAL;
-    candidate.code = code;
-    sendMail(invitationId, email, code);
+    candidate.position = select_position;
+    candidate.category = select_category;
+    sendMail(invitationId, email);
     await candidate.save();
-    // res.json({
-    //   result: true,
-    //   message: ''
-    // }).status(200);
-  } else if (declined === '') {
+    res.status(200).json({
+      result: true,
+      message: '가입을 수락했습니다'
+    });
+  } else if (declined === 1) {
     // 가입거절
     await Invitation.update({ state: INVITATION.REFUSED }, { where: { email } });
-    // res.json({
-    //   result: true,
-    //   message: '가입이 거절되었습니다.'
-    // }).status(200);
-  } else if (code === '0') {
-    // alert('역할을 설정해 주십시오!');
-    // res.json({
-    //   result: false,
-    //   message: '역할을 설정해 주세요.'
-    // }).status(400);
+    res.status(200).json({
+      result: true,
+      message: '가입을 거절되었습니다.'
+    });
   }
-  //
-  res.redirect('/author/_admin/invitation');
 };
 
 const inviteRequest = async (req, res, next) => {
-  console.log('----------------------------')
   const {email, name, category, position} = req.body;
   if (email === '' || name === '' || category === 0|| position === 0) {
     res.status(400).json({
@@ -272,26 +264,22 @@ const inviteRequest = async (req, res, next) => {
       res.status(400).json({
         message: '이메일이 중복되었습니다.'
       });
-
     }
   }
 };
+
+const inviteListRequest = async(req, res, next)=> {
+  const userList = await Invitation.findAll({});
+  res.json(userList);
+}
 
 const invitePage = async (req, res, next) => {
   // TODO 페이징 필요
   const userList = await Invitation.findAll({});
   const currentUser = await getCurrentUser(req.user?.id);
   if (!currentUser) res.redirect('/author/login');
-  const standByUsers = userList.map((user) => {
-    return {
-      ...user.dataValues,
-      intState: +user.state,
-      state: converter.inviteState(user.state),
-    };
-  });
-  res.render('admin/invitation', { title: 'invite', currentUser, standByUsers, admin: true });
+  res.render('admin/invitation');
 };
-
 
 const preSignupPage = async (req, res, next) => {
   res.render('author/preSignup', { title: 'signup request', admin: false });
@@ -431,6 +419,7 @@ module.exports = {
     editArticle: editArticleRequest,
     preSignup: preSignupRequest,
     invite: inviteRequest,
+    inviteList: inviteListRequest,
     decision: decisionRequest,
   },
   page: {
