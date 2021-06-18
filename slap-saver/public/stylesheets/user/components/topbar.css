@@ -72,12 +72,23 @@
 	background-position: center;
 	background-size: cover;
 }
-/*@media (max-width: 321px) {
-	.topbar__search {
-		width: 100px;
 
-	}
-	.main-topbar__search > input{
-		width: 60px;
-	}
-}*/
+/*back*/
+
+.topbar__back{
+	background-image: url(../../icons/back.svg);
+	background-position: center;
+	background-size: cover;
+
+	width: 12px;
+	height: 19px;
+	margin-left: 17px;
+
+}
+
+.topbar__right-empty{
+
+	width: 12px;
+	height: 19px;
+	margin-right: 17px;
+}
