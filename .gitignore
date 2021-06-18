@@ -117,3 +117,5 @@ slap-saver/sessions/
 .prettierignore
 
 *.pem
+
+awsconfig.json

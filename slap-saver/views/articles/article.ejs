@@ -20,7 +20,7 @@
             </svg>
           </button>
         </a>
-      </sapn>  
+      </sapn>
       <a href="/" class="navbar-brand mb-0">
         <h3 class="m-0">
           SAVER
@@ -74,9 +74,9 @@
             <section class="detail">
               <article class="detail__article">
                 <article class="detail-sections" style="display: none;">
-                  <% article.paragraphs['paragraphs'] && article.paragraphs['paragraphs'].forEach(element => { %>
-                    <h3><%= element[0] %> </h3>
-                    <p><%= element[1] %> </p>
+                  <% article.paragraphs && article.paragraphs.forEach(element => { %>
+                    <h3><%= element.title %> </h3>
+                    <p><%= element.content %> </p>
                   <% }) %>
                 </article>
               </article>
