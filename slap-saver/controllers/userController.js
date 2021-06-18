@@ -24,7 +24,7 @@ module.exports = {
           authorImg: `/images/authorImages/${article.Author.photo}`,
           image: `/images/articleImages/${article.image}`,
           updatedAt,
-          category: converter.category(article.getDataValue('category')),
+          category: converter.categoryEng(article.getDataValue('category')).toLocaleLowerCase(),
         };
       }),
     );
