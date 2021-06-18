@@ -161,28 +161,28 @@ const decisionRequest = async (req, res, next) => {
 };
 
 const inviteRequest = async (req, res, next) => {
-  const { invite, email, name, code } = req.body;
-  if (email === '' || name === '' || code === '') {
-    res.json({
-      result: false,
+  console.log('----------------------------')
+  const {email, name, category, position} = req.body;
+  if (email === '' || name === '' || category === 0|| position === 0) {
+    res.status(400).json({
       message: '빈 항목이 있습니다.'
-    }).status(400);
-  } else if (invite === '') {
+    });
+  } else {
     try {
-      await Invitation.create({ email, name, code, state: INVITATION.APPROVAL });
+      await Invitation.create({ email, name, category, position, state: INVITATION.APPROVAL });
       const candidate = await Invitation.findOne({ where: { email } });
       const invitationId = candidate.id;
-      sendMail(invitationId, email, code);
-      // res.json({
-      //   result: true,
-      //   message: '이메일이 발송되었습니다.'
-      // }).status(400);
+      sendMail(invitationId, email);
+      res.json({
+        message: '이메일이 발송되었습니다.'
+      }).status(200);
     } catch (error) {
-      requstatus(400).json({ result: '이메일 중복' });
+      res.status(400).json({
+        message: '이메일이 중복되었습니다.'
+      });
+
     }
   }
-  es.status(200).json({ result: '성공' });
-  res.redirect('/author/_admin/invitation');
 };
 
 const invitePage = async (req, res, next) => {

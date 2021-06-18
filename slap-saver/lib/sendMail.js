@@ -1,7 +1,6 @@
 const nodemailer = require('nodemailer');
 
-module.exports = (invitationId, email, code) => {
-  if (code != '0') {
+module.exports = (invitationId, email) => {
     const myEmail = {
       service: 'gmail',
       auth: {
@@ -28,5 +27,4 @@ module.exports = (invitationId, email, code) => {
       html: `<h1>SAVER</h1><a href="">http://saver.42seoul.io/author/signup?id=${invitationId}</a>`,
     };
     send(content);
-  }
 };
