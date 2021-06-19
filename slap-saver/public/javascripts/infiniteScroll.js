@@ -29,7 +29,7 @@ $(window).scroll(function () {
 });
 
 function makeTemplate(article) {
-  return `<a class="article-link" href="/articles/${article.id}" >
+  return `<a class="article-link" href="/articles/detail/${article.id}" >
   <div class="col">
     <div class="card content">
       <div class="content-header p-2">
