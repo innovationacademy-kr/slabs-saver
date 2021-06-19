@@ -49,7 +49,6 @@
             <label for="position" class="col-sm-2 text-center">직급</label>    
             <select name="position" id="position" required>
               <option value="1" selected>편집장</option>
-
               <option value="2">데스크</option>
               <option value="3">일반기자</option>
             </select>
@@ -58,7 +57,6 @@
             <label for="category" class="col-sm-2 text-center">분야</label>    
             <select name="category" id="category" required disabled>
               <option value="1" selected>전체</option>
-
               <option value="2">정책</option>
               <option value="3">경제</option>
               <option value="4">사회</option>
@@ -82,114 +80,25 @@
           <th scope="col">이메일</th>
           <th scope="col">이름</th>
           <th scope="col">진행 상황</th>
-          <th scope="col">역할</th>
-          <th scope="col"></th>
+          <th scope="col">직급</th>
+          <th scope="col">분야</th>
           <th scope="col"></th>
         </tr>
       </thead>
       <tbody class="standby-user-body">
-        <% standByUsers.map((standByUser)=> { %>
-        <form method="post" action="/author/_admin/decision">
-          <tr scope="row">
-            <td><%= standByUser.id %></td>
-            <td><%= standByUser.email %></td>
-            <td><%= standByUser.name %></td>
-            <td>
-              <% if (standByUser.intState > 2) { %>
-                <div>
-                  <progress class="declined" value=<%= standByUser.intState %> max="2"></progress>
-                </div>
-              <% } else { %>
-                <div>
-                  <progress value=<%= standByUser.intState %> max="2"></progress>
-                </div>
-              <% } %>
-              <%= standByUser.state %>
-            </td>
-            <% if (standByUser.intState == 0) { %>
-            <td>
-              <select name="code" id="code">
-                <option value="0" selected>역할을 설정해 주십시오</option>
-                <option value="1">편집장</option>
-                <option value="2">데스크2</option>
-                <option value="3">데스크3</option>
-                <option value="4">데스크4</option>
-                <option value="5">데스크5</option>
-                <option value="6">데스크6</option>
-                <option value="7">데스크7</option>
-                <option value="8">데스크8</option>
-                <option value="201">일반기자2</option>
-                <option value="301">일반기자3</option>
-                <option value="401">일반기자4</option>
-                <option value="501">일반기자5</option>
-                <option value="601">일반기자6</option>
-                <option value="701">일반기자7</option>
-                <option value="801">일반기자8</option>
-              </select>
-            <td>
-              <button class="btn btn-success" name="approved">승인</button>
-            </td>
-            <td>
-              <button class="btn btn-danger" name="declined">거절</button>
-            </td>
-            </td>
-            <% } %>
-            <input type="hidden" value=<%= standByUser.email %> name="email">
-            <input type="hidden" value=<%= standByUser.name %> name="name">
-          </tr>
-        </form>
-        <% }) %>
+ 
       </tbody>
     </table>
   </div>
 </section>
 
-<script>
 
-  document.querySelector('#position').addEventListener('change', (e) => {
-    const { target: {value}} = e;
-    // const value = e.target.value;
-    const category =  document.querySelector('#category');
-    if (e.target.value === '1') {
-      //document.querySelector('#category option:first-child').disabled = false;
-      category.value = '1';
-      category.disabled = true;
-    } else {
-      document.querySelector('#category option:first-child').disabled = true;
-      category.value = '2';
-      category.disabled = false;
-    }
-  })
-
-  document.getElementById("invite").onclick = function onLoggin() { 
-    let email = document.getElementById("email");
-    let name = document.getElementById('name')
-    let position = document.getElementById("position");
-    let category = document.getElementById("category");
-    position = position.selectedIndex;
-    category = category.selectedIndex;
-    console.log("직급 "+position);
-    console.log("분야 "+category);
-      axios({
-        method: "POST",
-        url: '/author/_admin/invitation',
-        data: {
-          "email": email.value,
-          "name": name.value,
-          "position": position.selectedIndex,
-          "category": category.selectedIndex
-        }
-      }).then((res) => {
-        alert('메일을 전송했습니다');
-        console.log(res);
-        // location.href="/author/login";
-      }).catch(error => {
-        alert(error.response.data.message);
-      }); 
-  }
-</script>
 <script defer src="/vendors/axios/axios.min.js"></script>
 <script src="/javascripts/adminNavbar.js"></script>
+
+<script defer src="/javascripts/invitation/index.js"></script>
+<script defer src="/javascripts/invitation/invite.js"></script>
+
 
 <%- contentFor('footer') %>
 <%- include('../partials/footer.ejs') %>
