@@ -14,12 +14,10 @@
 	--ice-blue: #f1f4ff;
 	--ice-blue-two: #eef8ff;
   }
-
 .white
 {
-	background-color :#ffffff;
+   background-color :#ffffff;
 }
-
 .black
 {
 	background-color :#000000;
@@ -55,12 +53,12 @@
 	background-color :#a3ace9;
 }
 
-.white-Two
+.white-two
 {
 	background-color :#f5f5f5;
 }
 
-.white-Three
+.white-three
 {
 	background-color :#ececec;
 }
@@ -70,9 +68,9 @@
 	background-color :#f1f4ff;
 }
 
-.ice-blue-Two
+.ice-blue-two
 {
-	background-color: eef8ff;
+	background-color: #eef8ff;
 }
 
 @font-face {
@@ -108,6 +106,7 @@
 	font-stretch: normal;
   }
 
+  /*타이틀*/
 .ft-title {
 	font-family: NotoSansCJKkr;
 	font-size: 21px;
@@ -119,7 +118,7 @@
 	text-align: left;
 	color: #434343;
   }
-
+  /*m_본문_강조*/
   .ft-main-bold {
 	font-family: NotoSansCJKkr;
 	font-size: 16px;
@@ -131,7 +130,7 @@
 	text-align: left;
 	color: #2b94e8;
   }
-
+  /*m_본문_강조_링크4*/
   .ft-main-bold-link {
 	font-family: NotoSansCJKkr;
 	font-size: 16px;
@@ -143,19 +142,19 @@
 	text-align: left;
 	color: #000000;
   }
-
+  /*m_본문3*/
  .ft-main{
 	font-family: NotoSansCJKkr;
 	font-size: 16px;
 	font-weight: normal;
 	font-stretch: normal;
 	font-style: normal;
-	line-height: 2;
-	letter-spacing: 0px;
+	line-height: 1.6;
+	letter-spacing: -0.3px;
 	text-align: left;
 	color: #434343;
  }
-
+ /*m_본문_링크2*/
   .ft-main-link {
 	font-family: NotoSansCJKkr;
 	font-size: 16px;
@@ -167,26 +166,25 @@
 	text-align: left;
 	color: #2b94e8;
   }
-
+  /*m_기자명/사진설명1*/
   .ft-detail {
 	font-family: NotoSansCJKkr;
 	font-size: 11px;
 	font-weight: 500;
 	font-stretch: normal;
 	font-style: normal;
-	line-height: 2;
+	line-height: 1.5;
 	letter-spacing: 0px;
 	text-align: left;
 	color: #a7a7a7;
   }
 
-/*icons*/
 
-/*economy*/
+/*./icons*/*/
 
  .icon-economy-black
  {
-    background-image: url('icons/Economy-black.svg');
+    background-image: url('../icons/Economy-black.svg');
 	background-position: center;
 	background-size: cover;
 
@@ -196,7 +194,7 @@
 
  .icon-economy-blue
  {
-    background-image: url('icons/Economy-blue.svg');
+    background-image: url('../icons/Economy-blue.svg');
 	background-position: center;
 	background-size: cover;
 
@@ -206,7 +204,7 @@
 
  .icon-economy-grey
  {
-    background-image: url('icons/Economy-grey.svg');
+    background-image: url('../icons/Economy-grey.svg');
 	background-position: center;
 	background-size: cover;
 
@@ -216,7 +214,7 @@
 
  .icon-economy-big-blue
  {
-    background-image: url('icons/economy-big-blue.svg');
+    background-image: url('../icons/economy-big-blue.svg');
 	background-position: center;
 	background-size: cover;
 
@@ -226,7 +224,7 @@
 
  .icon-economy-big-purple
  {
-    background-image: url('icons/economy-big-purple.svg');
+    background-image: url('../icons/economy-big-purple.svg');
 	background-position: center;
 	background-size: cover;
 
@@ -238,7 +236,7 @@
 
  .icon-politics-black
  {
-    background-image: url('icons/politics-black.svg');
+    background-image: url('../icons/politics-black.svg');
 	background-position: center;
 	background-size: cover;
 
@@ -248,7 +246,7 @@
 
  .icon-politics-blue
  {
-    background-image: url('icons/politics-blue.svg');
+    background-image: url('../icons/politics-blue.svg');
 	background-position: center;
 	background-size: cover;
 
@@ -258,7 +256,7 @@
 
  .icon-politics-grey
  {
-    background-image: url('icons/politics-grey.svg');
+    background-image: url('../icons/politics-grey.svg');
 	background-position: center;
 	background-size: cover;
 
@@ -268,7 +266,7 @@
 
  .icon-politics-big-blue
  {
-    background-image: url('icons/politics-big-blue.svg');
+    background-image: url('../icons/politics-big-blue.svg');
 	background-position: center;
 	background-size: cover;
 
@@ -278,7 +276,7 @@
 
  .icon-politics-big-purple
  {
-    background-image: url('icons/politics-big-purple.svg');
+    background-image: url('../icons/politics-big-purple.svg');
 	background-position: center;
 	background-size: cover;
 
@@ -291,7 +289,7 @@
 
 .icon-international-black
 {
-   background-image: url('icons/international-black.svg');
+   background-image: url('../icons/international-black.svg');
    background-position: center;
    background-size: cover;
 
@@ -301,7 +299,7 @@
 
 .icon-international-blue
 {
-   background-image: url('icons/international-blue.svg');
+   background-image: url('../icons/international-blue.svg');
    background-position: center;
    background-size: cover;
 
@@ -311,7 +309,7 @@
 
 .icon-international-grey
 {
-   background-image: url('icons/international-grey.svg');
+   background-image: url('../icons/international-grey.svg');
    background-position: center;
    background-size: cover;
 
@@ -321,7 +319,7 @@
 
 .icon-international-big-blue
 {
-   background-image: url('icons/international-big-blue.svg');
+   background-image: url('../icons/international-big-blue.svg');
    background-position: center;
    background-size: cover;
 
@@ -331,7 +329,7 @@
 
 .icon-international-big-purple
 {
-   background-image: url('icons/international-big-purple.svg');
+   background-image: url('../icons/international-big-purple.svg');
    background-position: center;
    background-size: cover;
 
@@ -344,7 +342,7 @@
 
 .icon-social-black
 {
-   background-image: url('icons/social-black.svg');
+   background-image: url('../icons/social-black.svg');
    background-position: center;
    background-size: cover;
 
@@ -354,7 +352,7 @@
 
 .icon-social-blue
 {
-   background-image: url('icons/social-blue.svg');
+   background-image: url('../icons/social-blue.svg');
    background-position: center;
    background-size: cover;
 
@@ -364,7 +362,7 @@
 
 .icon-social-grey
 {
-   background-image: url('icons/social-grey.svg');
+   background-image: url('../icons/social-grey.svg');
    background-position: center;
    background-size: cover;
 
@@ -374,7 +372,7 @@
 
 .icon-social-big-blue
 {
-   background-image: url('icons/social-big-blue.svg');
+   background-image: url('../icons/social-big-blue.svg');
    background-position: center;
    background-size: cover;
 
@@ -384,7 +382,7 @@
 
 .icon-social-big-purple
 {
-   background-image: url('icons/social-big-purple.svg');
+   background-image: url('../icons/social-big-purple.svg');
    background-position: center;
    background-size: cover;
 
@@ -397,7 +395,7 @@
 
 .icon-culture-black
 {
-   background-image: url('icons/culture-black.svg');
+   background-image: url('../icons/culture-black.svg');
    background-position: center;
    background-size: cover;
 
@@ -407,7 +405,7 @@
 
 .icon-culture-blue
 {
-   background-image: url('icons/culture-blue.svg');
+   background-image: url('../icons/culture-blue.svg');
    background-position: center;
    background-size: cover;
 
@@ -417,7 +415,7 @@
 
 .icon-culture-grey
 {
-   background-image: url('icons/culture-grey.svg');
+   background-image: url('../icons/culture-grey.svg');
    background-position: center;
    background-size: cover;
 
@@ -427,7 +425,7 @@
 
 .icon-culture-big-blue
 {
-   background-image: url('icons/culture-big-blue.svg');
+   background-image: url('../icons/culture-big-blue.svg');
    background-position: center;
    background-size: cover;
 
@@ -437,7 +435,7 @@
 
 .icon-culture-big-purple
 {
-   background-image: url('icons/culture-big-purple.svg');
+   background-image: url('../icons/culture-big-purple.svg');
    background-position: center;
    background-size: cover;
 
@@ -450,7 +448,7 @@
 
 .icon-7-black
 {
-   background-image: url('icons/7-black.svg');
+   background-image: url('../icons/7-black.svg');
    background-position: center;
    background-size: cover;
 
@@ -460,7 +458,7 @@
 
 .icon-7-blue
 {
-   background-image: url('icons/7-blue.svg');
+   background-image: url('../icons/7-blue.svg');
    background-position: center;
    background-size: cover;
 
@@ -470,7 +468,7 @@
 
 .icon-7-grey
 {
-   background-image: url('icons/7-grey.svg');
+   background-image: url('../icons/7-grey.svg');
    background-position: center;
    background-size: cover;
 
@@ -480,7 +478,7 @@
 
 .icon-7-big-blue
 {
-   background-image: url('icons/7-big-blue.svg');
+   background-image: url('../icons/7-big-blue.svg');
    background-position: center;
    background-size: cover;
 
@@ -490,10 +488,115 @@
 
 .icon-7-big-purple
 {
-   background-image: url('icons/7-big-purple.svg');
+   background-image: url('../icons/7-big-purple.svg');
    background-position: center;
    background-size: cover;
 
    height: 51px;
    width: 44px;    /* Other styles here */
+}
+
+/*logo*/
+
+.logo-type-small-blue{
+   background-image: url('../icons/typelogo-small-blue.svg');
+   background-position: center;
+   background-size: cover;
+
+   height: 20px;
+   width: 25px;
+}
+
+.logo-small-blue{
+   background-image: url('../icons/logo-small-blue.svg');
+   background-position: center;
+   background-size: cover;
+
+   height: 20px;
+   width: 28px;
+}
+
+
+/*footer ../icons*/
+
+
+.home-active{
+	background-image: url("../icons/home-active.svg");
+   background-position: center;
+   background-size: cover;
+
+   height: 32px;
+   width: 94px;
+}
+
+.home-inactive{
+	background-image: url("../icons/home-inactive.svg");
+   background-position: center;
+   background-size: cover;
+
+   height: 32px;
+   width: 94px;
+}
+
+
+.menu-active{
+	background-image: url("../icons/menu-active.svg");
+   background-position: center;
+   background-size: cover;
+
+   height: 32px;
+   width: 94px;
+}
+
+.menu-inactive{
+	background-image: url("../icons/menu-inactive.svg");
+   background-position: center;
+   background-size: cover;
+
+   height: 32px;
+   width: 94px;
+}
+.alarm-active{
+	background-image: url("../icons/alarm-active.svg");
+   background-position: center;
+   background-size: cover;
+
+   height: 32px;
+   width: 94px;
+}
+
+.alarm-inactive{
+	background-image: url("../icons/alarm-inactive.svg");
+   background-position: center;
+   background-size: cover;
+
+   height: 32px;
+   width: 94px;
+}
+
+.alarm-alarm{
+	background-image: url("../icons/alarm-alarm.svg");
+   background-position: center;
+   background-size: cover;
+
+   height: 32px;
+   width: 94px;
+}
+
+.bookmark-active{
+	background-image: url("../icons/bookmark-active.svg");
+   background-position: center;
+   background-size: cover;
+
+   height: 32px;
+   width: 94px;
+}
+
+.bookmark-inactive{
+	background-image: url("../icons/bookmark-inactive.svg");
+   background-position: center;
+   background-size: cover;
+
+   height: 32px;
+   width: 94px;
 }
