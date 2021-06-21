@@ -90,7 +90,7 @@ const signupRequest = async (req, res, next) => {
   // TODO: Author Service 객체 만들어서 추상화하기
   try {
     await Author.create({ email, password, name, code, position, contact, photo, category });
-    await Invitation.update({ state: INVITATION.COMPLET }, { where: { email } });
+    await Invitation.update({ state: INVITATION.COMPLETE }, { where: { email } });
     res.json({
       result: true,
       message: '',
@@ -283,9 +283,6 @@ const adminPage = async (req, res, next) => {
   if (!currentUser) res.redirect('/author/login');
   res.render('admin/index', { title: 'admin home', currentUser, admin: true });
 };
-
-
-
 
 // TODO: ajax로 변경
 const newArticleRequest = async (req, res, next) => {
