@@ -1,6 +1,7 @@
 const moment = require('moment');
 const { Article, Author } = require('../models');
 const STATUS = require('../lib/constants/articleStatus');
+const converter = require('../lib/converter');
 
 const detailPage = async (req, res, next) => {
   // NOTE: DB에서 articleId를 이용해서 기사를 빼온다

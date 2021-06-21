@@ -24,7 +24,7 @@ module.exports = {
       authors.map(async (author) => {
         await author.createArticle({
           headline: 'politic article',
-          category: CATEGORY.POLITIC,
+          category: CATEGORY.POLITICS,
           image: 'fb15fbc7348eea8bfe0849096a31354f',
           imageDesc: 'The Wuhan Institute of Virology.',
           imageFrom:
@@ -38,8 +38,8 @@ module.exports = {
     await Promise.all(
       authors.map(async (author) => {
         await author.createArticle({
-          headline: 'sports article',
-          category: CATEGORY.SPORTS,
+          headline: 'social article',
+          category: CATEGORY.SOCIAL,
           image: 'fb15fbc7348eea8bfe0849096a31354f',
           imageDesc: 'this is image description',
           imageFrom: 'image source',

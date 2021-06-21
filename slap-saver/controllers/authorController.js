@@ -184,7 +184,7 @@ const inviteListRequest = async(req, res, next)=> {
 const invitePage = async (req, res, next) => {
   // TODO 페이징 필요
   const userList = await Invitation.findAll({});
-  const currentUser = await getCurrentUser(req.user?.id);
+  const currentUser = await getCurrentUser(req.user ? req.user.id : null);
   if (!currentUser) res.redirect('/author/login');
   res.render('admin/invitation');
 };
@@ -219,13 +219,12 @@ const signupPage = async (req, res, next) => {
 };
 
 const editMeetingPage = async (req, res, next) => {
-  const currentUser = await getCurrentUser(req.user?.id);
+  const currentUser = await getCurrentUser(req.user ? req.user.id : null);
   res.render('author/editMeeting', { title: 'edit-meeting', currentUser, admin: false });
 };
 
-
 const myArticlePage = async (req, res, next) => {
-  const currentUser = await getCurrentUser(req.user?.id);
+  const currentUser = await getCurrentUser(req.user ? req.user.id : null);
   const author = await Author.findOne({ where: { id: req.user.id } });
   const articles = await author.getArticles();
   return res.render('author/articles', {
@@ -248,7 +247,7 @@ const previewPage = async (req, res, next) => {
 };
 
 const indexPage = async (req, res, next) => {
-  const currentUser = await getCurrentUser(req.user?.id);
+  const currentUser = await getCurrentUser(req.user ? req.user.id : null);
   if (!currentUser) res.redirect('/author/login');
   const category = isEmptyObject(req.query) || req.query.category === '0' ? CATEGORY.ALL : +req.query.category;
 
@@ -280,7 +279,7 @@ const indexPage = async (req, res, next) => {
 };
 
 const adminPage = async (req, res, next) => {
-  const currentUser = await getCurrentUser(req.user?.id);
+  const currentUser = await getCurrentUser(req.user ? req.user.id : null);
   if (!currentUser) res.redirect('/author/login');
   res.render('admin/index', { title: 'admin home', currentUser, admin: true });
 };

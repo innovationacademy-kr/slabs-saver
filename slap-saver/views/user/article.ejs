@@ -1,4 +1,9 @@
-<div class="article">
+<%- contentFor('navbar') %>
+<%- include('./components/nav-back.ejs') %>
+
+<%- contentFor('body') %>
+<div class="article-page">
+  <div class="article">
   <div class="article__top">
     <div class=<%=`icon-${article.category}-black` %>></div>
     <p class="article__top__text ft-detail">
@@ -15,15 +20,18 @@
   <p class="article__brief-text ft-main">
     <%= article.briefing%>
   </p>
-  <!--TODO:라이브러리로 받은 본문 추가??-->
+  <p class="article__main-text ft-main">
+    <!--TODO:라이브러리로 받은 본문 추가??-->
+    본문입니다. 안녕
+  </p>
   <div class="article__control">
-    <a href=<%=`/articles/detail/${article.id}` %> class="article__control__more-button">
-      <div class="article__control__more-button__img"></div>
-    </a>
+    <div></div>
     <div class="article__control__right-buttons">
       <!--TODO:공유,북마크 기능 herf 추가-->
       <button class="article__control__right-buttons__share-button"></button>
       <button class="article__control__right-buttons__bookmark-button"></button>
     </div>
   </div>
+  </div>
 </div>
+

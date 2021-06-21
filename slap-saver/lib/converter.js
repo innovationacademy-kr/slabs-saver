@@ -1,12 +1,19 @@
 const category = {
   전체: 0,
+  경제: 1,
   정치: 2,
-  경제: 3,
-  기술: 4,
-  환경: 5,
-  과학: 6,
-  건강: 7,
-  스포츠: 8,
+  국제: 3,
+  사회: 4,
+  문화: 5,
+};
+
+const categoryEng = {
+  ALL: 0,
+  ECONOMY: 1,
+  POLITICS: 2,
+  INTERNATIONAL: 3,
+  SOCIAL: 4,
+  CULTURE: 5,
 };
 
 const inviteState = {
@@ -26,6 +33,9 @@ const position = {
 module.exports = {
   category: (value) => {
     return Object.keys(category).find((key) => category[key] === value);
+  },
+  categoryEng: (value) => {
+    return Object.keys(categoryEng).find((key) => categoryEng[key] === value);
   },
   inviteState: (value) => {
     return Object.keys(inviteState).find((key) => inviteState[key] === value);

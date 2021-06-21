@@ -18,18 +18,18 @@ module.exports = {
     });
     const Articles = await Promise.all(
       ArticlesObj.map(async (article) => {
-        const updatedAt = moment(article.updatedAt).format('YYYY.MM.DD HH:mm:ss');
+        const updatedAt = moment(article.updatedAt).format('YYYY.MM.DD HH:mm');
         return {
           ...article.dataValues,
           authorImg: `/images/authorImages/${article.Author.photo}`,
           image: `/images/articleImages/${article.image}`,
           updatedAt,
-          category: converter.category(article.getDataValue('category')),
+          category: converter.categoryEng(article.getDataValue('category')).toLocaleLowerCase(),
         };
       }),
     );
     // NOTE: 오늘의 한마디를 저장한 후 가져와야 한다.
-    res.render('index', { title: 'slab-saver', todayArticle, todayWords, Articles });
+    res.render('user/index', { title: 'slab-saver', layout: 'layout/userLayout', todayArticle, todayWords, Articles });
   },
 
   moreArticles: async (req, res, next) => {

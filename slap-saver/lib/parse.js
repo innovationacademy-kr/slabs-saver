@@ -14,6 +14,6 @@ const parseParagraps = (body) => {
 	return paragraphs;
 };
 
-exports = {
+module.exports = {
 	parseParagraps
 }
