@@ -19,18 +19,35 @@ function inviteList() {
         <td> ${res.data[i].email} </td>
         <td> ${res.data[i].name}</td>
          `
-            if (res.data[i].state > 2) {//회원가입의 단계를 뜻함 1 2 3 4
+            if (res.data[i].state == 3) {//회원가입의 단계를 뜻함 0 1 2 3
                 txt += `<td>
                 <div>
                 <progress class="declined" value=${res.data[i].state} max="2"></progress>
               </div>
-              </td>
-        `
-            } else {
+              가입 거절
+              </td>`
+            } else if (res.data[i].state == 0) {
                 txt += `<td>
                     <div>
-                        <progress value=${res.data[i].state}   max="2"></progress>
+                        <progress value=${res.data[i].state}  max="2"></progress>
                     </div>
+                    가입 대기
+                </td>`
+            }
+            else if (res.data[i].state == 1) {
+                txt += `<td>
+                    <div>
+                        <progress value=${res.data[i].state}  max="2"></progress>
+                    </div>
+                    가입 승인
+                </td>`
+            }
+            else if (res.data[i].state == 2) {
+                txt += `<td>
+                    <div>
+                        <progress value=${res.data[i].state}  max="2"></progress>
+                    </div>
+                    가입 완료
                 </td>`
             }
             if (res.data[i].state == 0) { //결정이 되지 않은 사람들만 포지션, 카테고리 수락 거절 버튼을 그려줌
