@@ -28,7 +28,7 @@
               <img
                 height="25px"
                 width="25px"
-                src="/images/authorImages/<%= currentUser.photo %>"
+                src="<%= process.env.S3 %>/<%= currentUser.photo %>"
                 alt="user-image">  <%= currentUser.name %>
             </a>
           </li>
@@ -63,7 +63,7 @@
             <img
               height="25px"
               width="25px"
-              src="/images/authorImages/<%= currentUser.photo %>"
+              src="<%= process.env.S3 %>/<%= currentUser.photo %>"
               alt="user-image">  <%= currentUser.name %>
           </a>
         </li>

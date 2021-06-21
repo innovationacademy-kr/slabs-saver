@@ -29,3 +29,8 @@ div.signup {
   height: 100%;
   padding: 5px;
 }
+
+#editorjs {
+  background-color: #fff;
+  border: 1px solid #ddd;
+}

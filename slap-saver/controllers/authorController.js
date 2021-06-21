@@ -2,6 +2,7 @@ const alert = require('alert');
 const { Author, Article, Invitation } = require('../models');
 
 const { pick } = require('../lib/util');
+const multer = require('multer');
 
 const getCurrentUser = require('../lib/getCurrentUser');
 const isEmptyObject = require('../lib/isEmptyObject');
@@ -78,13 +79,13 @@ const logoutRequest = async (req, res, next) => {
 
 const signupRequest = async (req, res, next) => {
   const { email, password, confirm, name, code, contact, position, category } = req.body;
-  const photo = req.file ? req.file.filename : null;
+  const photo = req.file ? req.file.key : null;
   if (password !== confirm) {
     res.json({
       result: false,
       message: '재입력한 비밀번호가 일치하지 않습니다.',
     })
-    .status(400);
+      .status(400);
   }
   // TODO: Author Service 객체 만들어서 추상화하기
   try {
@@ -94,87 +95,14 @@ const signupRequest = async (req, res, next) => {
       result: true,
       message: '',
     })
-    .status(200);
+      .status(200);
   } catch (error) {
     res.json({
       result: false,
       message: `오류가 발생하였습니다 (${error.message})`,
     })
-    .status(400);
+      .status(400);
   }
-};
-
-// TODO: ajax로 변경
-const newArticleRequest = async (req, res, next) => {
-  const paragraphs = parseParagraps(req.body);
-  const {
-    body,
-    user: { id },
-    file
-  } = req;
-  const { headline, category, imageDesc, imageFrom, briefing } = body;
-  try {
-    const author = await Author.findOne({ where: { id } });
-    await author.createArticle({
-      headline,
-      category,
-      imageDesc,
-      imageFrom,
-      briefing,
-      image: file ? file.filename : null,
-      status: body.saveBtn === '' ? STATUS.DRAFTS : STATUS.COMPLETED,
-      paragraphs: JSON.stringify(paragraphs),
-    });
-  } catch (error) {
-    alert(error.errors ? error.errors[0].message : '생성실패');
-  }
-  return res.redirect('/author/articles');
-};
-
-const editArticle = async (req, res, next) => {
-  // res.json({
-  //   result: false,
-  //   message: `오류가 발생하였습니다 (${e.message})`
-  // })
-  return res.redirect('/author/articles');
-
-};
-
-// TODO: ajax로 변경
-const editArticleRequest = async (req, res, next) => {
-  const paragraphs = parseParagraps(req.body);
-  const {
-    file,
-    body,
-    params: { articleId },
-  } = req;
-  const { headline, category, imageDesc, imageFrom, briefing } = body;
-  try {
-    await Article.update(
-      {
-        headline,
-        category,
-        imageDesc,
-        imageFrom,
-        briefing,
-        image: file && file.filename ? file.filename : '',
-        paragraphs: JSON.stringify(paragraphs),
-        status: body.saveBtn === '' ? STATUS.DRAFTS : STATUS.COMPLETED,
-      },
-      {
-        where: { id: articleId },
-        individualHooks: true,
-      },
-    );
-  } catch (error) {
-    alert(error.errors ? error.errors[0].message : '생성실패');
-  }
-  return res.redirect('/author/articles');
-};
-// admin //
-
-const preSignup = async (req, res, next) => {
-  res.render('author/preSignup', { title: 'signup request', admin: false });
 };
 
 const preSignupRequest = async (req, res, next) => {
@@ -195,65 +123,37 @@ const preSignupRequest = async (req, res, next) => {
   return res.redirect('/author/login');
 };
 
-const admin = async (req, res, next) => {
-  const currentUser = await getCurrentUser(req.user ? req.user.id : null);
-  if (!currentUser) res.redirect('/author/login');
-  res.render('admin/index', { title: 'admin home', currentUser, admin: true });
-};
-
-const invite = async (req, res, next) => {
-  const userList = await Invitation.findAll({});
-  const currentUser = await getCurrentUser(req.user ? req.user.id : null);
-  if (!currentUser) res.redirect('/author/login');
-  const standByUsers = userList.map((user) => {
-    return {
-      ...user.dataValues,
-      intState: +user.state,
-      state: converter.inviteState(user.state),
-    };
-  });
-  res.render('admin/invitation', { title: 'invite', currentUser, standByUsers, admin: true });
-};
-
 // NOTE: state
 // state: 0 -> 가입 대기
 // state: 1 -> 가입 승인
 // state: 2 -> 가입 완료
 // state: 3 -> 가입 거절
 const decisionRequest = async (req, res, next) => {
-  const { approved, declined, email, code } = req.body;
-  if (approved === '' && code !== '0') {
+  const { approved, declined, email, select_position, select_category } = req.body;
+  if (approved === 1) {
     // 이메일 발송
     const candidate = await Invitation.findOne({ where: { email } });
     const invitationId = candidate.id;
     candidate.state = INVITATION.APPROVAL;
-    candidate.code = code;
-    sendMail(invitationId, email, code);
+    candidate.position = select_position;
+    candidate.category = select_category;
+    sendMail(invitationId, email);
     await candidate.save();
-    // res.json({
-    //   result: true,
-    //   message: ''
-    // }).status(200);
-  } else if (declined === '') {
+    res.status(200).json({
+      result: true,
+      message: '가입을 수락했습니다'
+    });
+  } else if (declined === 1) {
     // 가입거절
     await Invitation.update({ state: INVITATION.REFUSED }, { where: { email } });
-    // res.json({
-    //   result: true,
-    //   message: '가입이 거절되었습니다.'
-    // }).status(200);
-  } else if (code === '0') {
-    // alert('역할을 설정해 주십시오!');
-    // res.json({
-    //   result: false,
-    //   message: '역할을 설정해 주세요.'
-    // }).status(400);
+    res.status(200).json({
+      result: true,
+      message: '가입을 거절되었습니다.'
+    });
   }
-  //
-  res.redirect('/author/_admin/invitation');
 };
 
 const inviteRequest = async (req, res, next) => {
-  console.log('----------------------------')
   const {email, name, category, position} = req.body;
   if (email === '' || name === '' || category === 0|| position === 0) {
     res.status(400).json({
@@ -272,26 +172,22 @@ const inviteRequest = async (req, res, next) => {
       res.status(400).json({
         message: '이메일이 중복되었습니다.'
       });
-
     }
   }
 };
+
+const inviteListRequest = async(req, res, next)=> {
+  const userList = await Invitation.findAll({});
+  res.json(userList);
+}
 
 const invitePage = async (req, res, next) => {
   // TODO 페이징 필요
   const userList = await Invitation.findAll({});
   const currentUser = await getCurrentUser(req.user ? req.user.id : null);
   if (!currentUser) res.redirect('/author/login');
-  const standByUsers = userList.map((user) => {
-    return {
-      ...user.dataValues,
-      intState: +user.state,
-      state: converter.inviteState(user.state),
-    };
-  });
-  res.render('admin/invitation', { title: 'invite', currentUser, standByUsers, admin: true });
+  res.render('admin/invitation');
 };
-
 
 const preSignupPage = async (req, res, next) => {
   res.render('author/preSignup', { title: 'signup request', admin: false });
@@ -325,39 +221,6 @@ const signupPage = async (req, res, next) => {
 const editMeetingPage = async (req, res, next) => {
   const currentUser = await getCurrentUser(req.user ? req.user.id : null);
   res.render('author/editMeeting', { title: 'edit-meeting', currentUser, admin: false });
-};
-
-const newArticlePage = async (req, res, next) => {
-  const currentUser = await getCurrentUser(req.user ? req.user.id : null);
-  if (!currentUser) return res.redirect('/author/login');
-  let defaultCategory = String(currentUser.code)[0];
-  if (defaultCategory === '1') {
-    defaultCategory = '2';
-  }
-  res.render('author/newArticle', {
-    title: 'new article',
-    defaultCategory,
-    currentUser,
-    admin: false,
-  });
-};
-
-const editArticlePage = async (req, res, next) => {
-  const currentUser = await getCurrentUser(req.user ? req.user.id : null);
-  try {
-    const article = await Article.findOne({ where: { id: req.params.articleId } });
-    article.image = `/images/articleImages/${article.image}`;
-    const paragraphs = JSON.parse(article.paragraphs).paragraphs;
-    return res.render('author/editArticle', {
-      article,
-      paragraphs,
-      currentUser,
-      admin: false,
-      title: 'edit article',
-    });
-  } catch (error) {
-    console.error(error);
-  }
 };
 
 const myArticlePage = async (req, res, next) => {
@@ -422,27 +285,143 @@ const adminPage = async (req, res, next) => {
 };
 
 
+
+
+// TODO: ajax로 변경
+const newArticleRequest = async (req, res, next) => {
+  const {
+    body,
+    user: { id },
+    file
+  } = req;
+  const { headline, category, imageDesc, imageFrom, briefing, status, paragraphs } = body;
+  console.log({ headline, category, imageDesc, imageFrom, briefing, status, paragraphs });
+  try {
+    console.log({file})
+    const author = await Author.findOne({ where: { id } });
+    await author.createArticle({
+      headline,
+      category,
+      imageDesc,
+      imageFrom,
+      briefing,
+      image: file ? file.key : null,
+      status,
+      paragraphs,
+    });
+    res.status(200).json({
+      result: true,
+    })
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      result: true,
+      message: '생성실패'
+    })
+  }
+};
+
+
+// TODO: ajax로 변경
+const editArticleRequest = async (req, res, next) => {
+  const {
+    file,
+    body,
+    params: { articleId },
+  } = req;
+  const { headline, category, imageDesc, imageFrom, briefing, status, paragraphs } = body;
+  console.log({ headline, category, imageDesc, imageFrom, briefing, status, paragraphs });
+  try {
+    console.log({ file })
+    await Article.update(
+      {
+        headline,
+        category,
+        imageDesc,
+        imageFrom,
+        briefing,
+        image: file ? file.key : undefined, // 이미지를 바꾸는게 아닌이상 해당 컬럼을 업데이트할 필요 없음
+        status,
+        paragraphs,
+      },
+      {
+        where: { id: articleId },
+        individualHooks: true,
+      },
+    );
+    res.status(200).json({
+      result: true,
+    })
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      result: true,
+      message: '수정실패'
+    })
+  }
+};
+
+
+
+const newArticlePage = async (req, res, next) => {
+  const currentUser = await getCurrentUser(req.user?.id);
+  if (!currentUser) return res.redirect('/author/login');
+  let defaultCategory = String(currentUser.code)[0];
+  if (defaultCategory === '1') {
+    defaultCategory = '2';
+  }
+  res.render('author/newArticle', {
+    title: 'new article',
+    defaultCategory,
+    currentUser,
+    admin: false,
+    layout: 'layout/adminLayout'
+  });
+};
+
+const editArticlePage = async (req, res, next) => {
+  const currentUser = await getCurrentUser(req.user?.id);
+  try {
+    let article = await Article.findOne({ where: { id: req.params.articleId } });
+    article.image = `${process.env.S3}/${article.image}`;
+    article.briefing = article.briefing;
+    console.log(article.briefing);
+    return res.render('author/editArticle', {
+      article,
+      currentUser,
+      paragraphs: JSON.parse(article.paragraphs),
+      admin: false,
+      title: 'edit article',
+      layout: 'layout/adminLayout'
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+
 module.exports = {
   request: {
+    newArticle: newArticleRequest,
+    editArticle: editArticleRequest,
     deskProcess: deskProcessRequest,
     logout: logoutRequest,
     signup: signupRequest,
-    newArticle: newArticleRequest,
-    editArticle: editArticleRequest,
     preSignup: preSignupRequest,
     invite: inviteRequest,
+    inviteList: inviteListRequest,
     decision: decisionRequest,
   },
   page: {
     index: indexPage,
+    newArticle: newArticlePage,
+    editArticle: editArticlePage,
     preSignup: preSignupPage,
     admin: adminPage,
     invite: invitePage,
     login: loginPage,
     signup: signupPage,
     editMeeting: editMeetingPage,
-    newArticle: newArticlePage,
-    editArticle: editArticlePage,
     myArticle: myArticlePage,
     preview: previewPage
   },
