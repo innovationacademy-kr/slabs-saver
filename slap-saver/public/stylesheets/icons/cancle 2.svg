@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="66" height="66" viewBox="0 0 66 66">
+    <defs>
+        <style>
+            .cls-1{fill:none;stroke:#000;stroke-width:2.4px}
+        </style>
+    </defs>
+    <g id="그룹_842" transform="translate(-310)">
+        <g id="그룹_560" transform="translate(335.399 25.483)">
+            <path id="선_44" d="M0 0L15.602 15.602" class="cls-1"/>
+            <path id="선_45" d="M15.602 0L0 15.602" class="cls-1"/>
+        </g>
+        <path id="사각형_260" fill="none" d="M0 0H66V66H0z" transform="translate(310)"/>
+    </g>
+</svg>

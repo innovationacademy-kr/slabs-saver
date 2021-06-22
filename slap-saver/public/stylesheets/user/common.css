@@ -1,80 +1,68 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
 
 :root {
-	--white: #ffffff;
-	--black: #000000;
-	--dark-sky-blue: #2b94e8;
-	--greyish-brown: #434343;
-	--pinkish-grey: #c2c2c2;
-	--greyish: #a7a7a7;
-	--sky-blue: #70b9f9;
-	--perrywinkle: #a3ace9;
-	--white-two: #f5f5f5;
-	--white-three: #ececec;
-	--ice-blue: #f1f4ff;
-	--ice-blue-two: #eef8ff;
-  }
-.white
-{
-   background-color :#ffffff;
+  --white: #ffffff;
+  --black: #000000;
+  --dark-sky-blue: #2b94e8;
+  --greyish-brown: #434343;
+  --pinkish-grey: #c2c2c2;
+  --greyish: #a7a7a7;
+  --sky-blue: #70b9f9;
+  --perrywinkle: #a3ace9;
+  --white-two: #f5f5f5;
+  --white-three: #ececec;
+  --ice-blue: #f1f4ff;
+  --ice-blue-two: #eef8ff;
 }
-.black
-{
-	background-color :#000000;
+.white {
+  background-color: #ffffff;
+}
+.black {
+  background-color: #000000;
 }
 
-.dark-sky-blue
-{
-	background-color :#2b94e8;
+.dark-sky-blue {
+  background-color: #2b94e8;
 }
 
-.greyish-brown
-{
-	background-color :#434343;
+.greyish-brown {
+  background-color: #434343;
 }
 
-.pinkish-grey
-{
-	background-color :#c2c2c2;
+.pinkish-grey {
+  background-color: #c2c2c2;
 }
 
-.greyish
-{
-	background-color :#a7a7a7;
+.greyish {
+  background-color: #a7a7a7;
 }
 
-.sky-blue
-{
-	background-color :#70b9f9;
+.sky-blue {
+  background-color: #70b9f9;
 }
 
-.perrywinkle
-{
-	background-color :#a3ace9;
+.perrywinkle {
+  background-color: #a3ace9;
 }
 
-.white-two
-{
-	background-color :#f5f5f5;
+.white-two {
+  background-color: #f5f5f5;
 }
 
-.white-three
-{
-	background-color :#ececec;
+.white-three {
+  background-color: #ececec;
 }
 
-.ice-blue
-{
-	background-color :#f1f4ff;
+.ice-blue {
+  background-color: #f1f4ff;
 }
 
-.ice-blue-two
-{
-	background-color: #eef8ff;
+.ice-blue-two {
+  background-color: #eef8ff;
 }
 
 /* @font-face {
-	font-family: NotoSansCJKkr;
+	font-family: 'Noto Sans KR', sans-serif;
 	src: local(NotoSansCJKkr-Regular),
 	  url(/path/to/NotoSansCJKkr-Regular.woff2) format("woff2"),
 	  url(/path/to/NotoSansCJKkr-Regular.woff) format("woff"),
@@ -85,7 +73,7 @@
   }
 
   @font-face {
-	font-family: NotoSansCJKkr;
+	font-family: 'Noto Sans KR', sans-serif;
 	src: local(NotoSansCJKkr-Medium),
 	  url(/path/to/NotoSansCJKkr-Medium.woff2) format("woff2"),
 	  url(/path/to/NotoSansCJKkr-Medium.woff) format("woff"),
@@ -96,7 +84,7 @@
   }
 
   @font-face {
-	font-family: NotoSansCJKkr;
+	font-family: 'Noto Sans KR', sans-serif;
 	src: local(NotoSansCJKkr-Bold),
 	  url(/path/to/NotoSansCJKkr-Bold.woff2) format("woff2"),
 	  url(/path/to/NotoSansCJKkr-Bold.woff) format("woff"),
@@ -106,505 +94,467 @@
 	font-stretch: normal;
   } */
 
-  /*타이틀*/
+/*타이틀*/
 .ft-title {
-	font-family: NotoSansCJKkr;
-	font-size: 21px;
-	font-weight: bold;
-	font-stretch: normal;
-	font-style: normal;
-	line-height: 1.5;
-	letter-spacing: -0.6px;
-	text-align: left;
-	color: #434343;
-  }
-  /*m_본문_강조*/
-  .ft-main-bold {
-	font-family: NotoSansCJKkr;
-	font-size: 16px;
-	font-weight: 500;
-	font-stretch: normal;
-	font-style: normal;
-	line-height: 1.6;
-	letter-spacing: -0.3px;
-	text-align: left;
-	color: #2b94e8;
-  }
-  /*m_본문_강조_링크4*/
-  .ft-main-bold-link {
-	font-family: NotoSansCJKkr;
-	font-size: 16px;
-	font-weight: 500;
-	font-stretch: normal;
-	font-style: normal;
-	line-height: 1.6;
-	letter-spacing: -0.3px;
-	text-align: left;
-	color: #000000;
-  }
-  /*m_본문3*/
- .ft-main{
-	font-family: NotoSansCJKkr;
-	font-size: 16px;
-	font-weight: normal;
-	font-stretch: normal;
-	font-style: normal;
-	line-height: 1.6;
-	letter-spacing: -0.3px;
-	text-align: left;
-	color: #434343;
- }
- /*m_본문_링크2*/
-  .ft-main-link {
-	font-family: NotoSansCJKkr;
-	font-size: 16px;
-	font-weight: normal;
-	font-stretch: normal;
-	font-style: normal;
-	line-height: 2;
-	letter-spacing: 0px;
-	text-align: left;
-	color: #2b94e8;
-  }
-  /*m_기자명/사진설명1*/
-  .ft-detail {
-	font-family: NotoSansCJKkr;
-	font-size: 11px;
-	font-weight: 500;
-	font-stretch: normal;
-	font-style: normal;
-	line-height: 1.5;
-	letter-spacing: 0px;
-	text-align: left;
-	color: #a7a7a7;
-  }
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 21px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.5;
+  letter-spacing: -0.6px;
+  text-align: left;
+  color: #434343;
+}
+/*m_본문_강조*/
+.ft-main-bold {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.6;
+  letter-spacing: -0.3px;
+  text-align: left;
+  color: #2b94e8;
+}
+/*m_본문_강조_링크4*/
+.ft-main-bold-link {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.6;
+  letter-spacing: -0.3px;
+  text-align: left;
+  color: #000000;
+}
+/*m_본문3*/
+.ft-main {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 16px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.6;
+  letter-spacing: -0.3px;
+  text-align: left;
+  color: #434343;
+}
+/*m_본문_링크2*/
+.ft-main-link {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 16px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 2;
+  letter-spacing: 0px;
+  text-align: left;
+  color: #2b94e8;
+}
+/*m_기자명/사진설명1*/
+.ft-detail {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.5;
+  letter-spacing: 0px;
+  text-align: left;
+  color: #a7a7a7;
+}
 
+/*./icons*/
 
-/*./icons*/*/
+.icon-economy-black {
+  background-image: url('../icons/Economy-black.svg');
+  background-position: center;
+  background-size: cover;
 
- .icon-economy-black
- {
-    background-image: url('../icons/Economy-black.svg');
-	background-position: center;
-	background-size: cover;
+  height: 18px;
+  width: 22px; /* Other styles here */
+}
 
-    height: 18px;
-    width: 22px;    /* Other styles here */
- }
+.icon-economy-blue {
+  background-image: url('../icons/Economy-blue.svg');
+  background-position: center;
+  background-size: cover;
 
- .icon-economy-blue
- {
-    background-image: url('../icons/Economy-blue.svg');
-	background-position: center;
-	background-size: cover;
+  height: 18px;
+  width: 22px; /* Other styles here */
+}
 
-    height: 18px;
-    width: 22px;    /* Other styles here */
- }
+.icon-economy-grey {
+  background-image: url('../icons/Economy-grey.svg');
+  background-position: center;
+  background-size: cover;
 
- .icon-economy-grey
- {
-    background-image: url('../icons/Economy-grey.svg');
-	background-position: center;
-	background-size: cover;
+  height: 18px;
+  width: 22px; /* Other styles here */
+}
 
-    height: 18px;
-    width: 22px;    /* Other styles here */
- }
+.icon-economy-big-blue {
+  background-image: url('../icons/economy-big-blue.svg');
+  background-position: center;
+  background-size: cover;
 
- .icon-economy-big-blue
- {
-    background-image: url('../icons/economy-big-blue.svg');
-	background-position: center;
-	background-size: cover;
+  height: 51px;
+  width: 44px; /* Other styles here */
+}
 
-    height: 51px;
-    width: 44px;    /* Other styles here */
- }
+.icon-economy-big-purple {
+  background-image: url('../icons/economy-big-purple.svg');
+  background-position: center;
+  background-size: cover;
 
- .icon-economy-big-purple
- {
-    background-image: url('../icons/economy-big-purple.svg');
-	background-position: center;
-	background-size: cover;
+  height: 51px;
+  width: 44px; /* Other styles here */
+}
 
-    height: 51px;
-    width: 44px;    /* Other styles here */
- }
+/*politics*/
 
- /*politics*/
+.icon-politics-black {
+  background-image: url('../icons/politics-black.svg');
+  background-position: center;
+  background-size: cover;
 
- .icon-politics-black
- {
-    background-image: url('../icons/politics-black.svg');
-	background-position: center;
-	background-size: cover;
+  height: 18px;
+  width: 22px; /* Other styles here */
+}
 
-    height: 18px;
-    width: 22px;    /* Other styles here */
- }
+.icon-politics-blue {
+  background-image: url('../icons/politics-blue.svg');
+  background-position: center;
+  background-size: cover;
 
- .icon-politics-blue
- {
-    background-image: url('../icons/politics-blue.svg');
-	background-position: center;
-	background-size: cover;
+  height: 18px;
+  width: 22px; /* Other styles here */
+}
 
-    height: 18px;
-    width: 22px;    /* Other styles here */
- }
+.icon-politics-grey {
+  background-image: url('../icons/politics-grey.svg');
+  background-position: center;
+  background-size: cover;
 
- .icon-politics-grey
- {
-    background-image: url('../icons/politics-grey.svg');
-	background-position: center;
-	background-size: cover;
+  height: 18px;
+  width: 22px; /* Other styles here */
+}
 
-    height: 18px;
-    width: 22px;    /* Other styles here */
- }
+.icon-politics-big-blue {
+  background-image: url('../icons/politics-big-blue.svg');
+  background-position: center;
+  background-size: cover;
 
- .icon-politics-big-blue
- {
-    background-image: url('../icons/politics-big-blue.svg');
-	background-position: center;
-	background-size: cover;
+  height: 51px;
+  width: 44px; /* Other styles here */
+}
 
-    height: 51px;
-    width: 44px;    /* Other styles here */
- }
+.icon-politics-big-purple {
+  background-image: url('../icons/politics-big-purple.svg');
+  background-position: center;
+  background-size: cover;
 
- .icon-politics-big-purple
- {
-    background-image: url('../icons/politics-big-purple.svg');
-	background-position: center;
-	background-size: cover;
-
-    height: 51px;
-    width: 44px;    /* Other styles here */
- }
+  height: 51px;
+  width: 44px; /* Other styles here */
+}
 
 /*international*/
 
+.icon-international-black {
+  background-image: url('../icons/international-black.svg');
+  background-position: center;
+  background-size: cover;
 
-.icon-international-black
-{
-   background-image: url('../icons/international-black.svg');
-   background-position: center;
-   background-size: cover;
-
-   height: 18px;
-   width: 22px;    /* Other styles here */
+  height: 18px;
+  width: 22px; /* Other styles here */
 }
 
-.icon-international-blue
-{
-   background-image: url('../icons/international-blue.svg');
-   background-position: center;
-   background-size: cover;
+.icon-international-blue {
+  background-image: url('../icons/international-blue.svg');
+  background-position: center;
+  background-size: cover;
 
-   height: 18px;
-   width: 22px;    /* Other styles here */
+  height: 18px;
+  width: 22px; /* Other styles here */
 }
 
-.icon-international-grey
-{
-   background-image: url('../icons/international-grey.svg');
-   background-position: center;
-   background-size: cover;
+.icon-international-grey {
+  background-image: url('../icons/international-grey.svg');
+  background-position: center;
+  background-size: cover;
 
-   height: 18px;
-   width: 22px;    /* Other styles here */
+  height: 18px;
+  width: 22px; /* Other styles here */
 }
 
-.icon-international-big-blue
-{
-   background-image: url('../icons/international-big-blue.svg');
-   background-position: center;
-   background-size: cover;
+.icon-international-big-blue {
+  background-image: url('../icons/international-big-blue.svg');
+  background-position: center;
+  background-size: cover;
 
-   height: 51px;
-   width: 44px;    /* Other styles here */
+  height: 51px;
+  width: 44px; /* Other styles here */
 }
 
-.icon-international-big-purple
-{
-   background-image: url('../icons/international-big-purple.svg');
-   background-position: center;
-   background-size: cover;
+.icon-international-big-purple {
+  background-image: url('../icons/international-big-purple.svg');
+  background-position: center;
+  background-size: cover;
 
-   height: 51px;
-   width: 44px;    /* Other styles here */
+  height: 51px;
+  width: 44px; /* Other styles here */
 }
 
 /*social*/
 
+.icon-social-black {
+  background-image: url('../icons/social-black.svg');
+  background-position: center;
+  background-size: cover;
 
-.icon-social-black
-{
-   background-image: url('../icons/social-black.svg');
-   background-position: center;
-   background-size: cover;
-
-   height: 18px;
-   width: 22px;    /* Other styles here */
+  height: 18px;
+  width: 22px; /* Other styles here */
 }
 
-.icon-social-blue
-{
-   background-image: url('../icons/social-blue.svg');
-   background-position: center;
-   background-size: cover;
+.icon-social-blue {
+  background-image: url('../icons/social-blue.svg');
+  background-position: center;
+  background-size: cover;
 
-   height: 18px;
-   width: 22px;    /* Other styles here */
+  height: 18px;
+  width: 22px; /* Other styles here */
 }
 
-.icon-social-grey
-{
-   background-image: url('../icons/social-grey.svg');
-   background-position: center;
-   background-size: cover;
+.icon-social-grey {
+  background-image: url('../icons/social-grey.svg');
+  background-position: center;
+  background-size: cover;
 
-   height: 18px;
-   width: 22px;    /* Other styles here */
+  height: 18px;
+  width: 22px; /* Other styles here */
 }
 
-.icon-social-big-blue
-{
-   background-image: url('../icons/social-big-blue.svg');
-   background-position: center;
-   background-size: cover;
+.icon-social-big-blue {
+  background-image: url('../icons/social-big-blue.svg');
+  background-position: center;
+  background-size: cover;
 
-   height: 51px;
-   width: 44px;    /* Other styles here */
+  height: 51px;
+  width: 44px; /* Other styles here */
 }
 
-.icon-social-big-purple
-{
-   background-image: url('../icons/social-big-purple.svg');
-   background-position: center;
-   background-size: cover;
+.icon-social-big-purple {
+  background-image: url('../icons/social-big-purple.svg');
+  background-position: center;
+  background-size: cover;
 
-   height: 51px;
-   width: 44px;    /* Other styles here */
+  height: 51px;
+  width: 44px; /* Other styles here */
 }
 
 /*culture*/
 
+.icon-culture-black {
+  background-image: url('../icons/culture-black.svg');
+  background-position: center;
+  background-size: cover;
 
-.icon-culture-black
-{
-   background-image: url('../icons/culture-black.svg');
-   background-position: center;
-   background-size: cover;
-
-   height: 18px;
-   width: 22px;    /* Other styles here */
+  height: 18px;
+  width: 22px; /* Other styles here */
 }
 
-.icon-culture-blue
-{
-   background-image: url('../icons/culture-blue.svg');
-   background-position: center;
-   background-size: cover;
+.icon-culture-blue {
+  background-image: url('../icons/culture-blue.svg');
+  background-position: center;
+  background-size: cover;
 
-   height: 18px;
-   width: 22px;    /* Other styles here */
+  height: 18px;
+  width: 22px; /* Other styles here */
 }
 
-.icon-culture-grey
-{
-   background-image: url('../icons/culture-grey.svg');
-   background-position: center;
-   background-size: cover;
+.icon-culture-grey {
+  background-image: url('../icons/culture-grey.svg');
+  background-position: center;
+  background-size: cover;
 
-   height: 18px;
-   width: 22px;    /* Other styles here */
+  height: 18px;
+  width: 22px; /* Other styles here */
 }
 
-.icon-culture-big-blue
-{
-   background-image: url('../icons/culture-big-blue.svg');
-   background-position: center;
-   background-size: cover;
+.icon-culture-big-blue {
+  background-image: url('../icons/culture-big-blue.svg');
+  background-position: center;
+  background-size: cover;
 
-   height: 51px;
-   width: 44px;    /* Other styles here */
+  height: 51px;
+  width: 44px; /* Other styles here */
 }
 
-.icon-culture-big-purple
-{
-   background-image: url('../icons/culture-big-purple.svg');
-   background-position: center;
-   background-size: cover;
+.icon-culture-big-purple {
+  background-image: url('../icons/culture-big-purple.svg');
+  background-position: center;
+  background-size: cover;
 
-   height: 51px;
-   width: 44px;    /* Other styles here */
+  height: 51px;
+  width: 44px; /* Other styles here */
 }
 
 /*7*/
 
+.icon-7-black {
+  background-image: url('../icons/7-black.svg');
+  background-position: center;
+  background-size: cover;
 
-.icon-7-black
-{
-   background-image: url('../icons/7-black.svg');
-   background-position: center;
-   background-size: cover;
-
-   height: 18px;
-   width: 22px;    /* Other styles here */
+  height: 18px;
+  width: 22px; /* Other styles here */
 }
 
-.icon-7-blue
-{
-   background-image: url('../icons/7-blue.svg');
-   background-position: center;
-   background-size: cover;
+.icon-7-blue {
+  background-image: url('../icons/7-blue.svg');
+  background-position: center;
+  background-size: cover;
 
-   height: 18px;
-   width: 22px;    /* Other styles here */
+  height: 18px;
+  width: 22px; /* Other styles here */
 }
 
-.icon-7-grey
-{
-   background-image: url('../icons/7-grey.svg');
-   background-position: center;
-   background-size: cover;
+.icon-7-grey {
+  background-image: url('../icons/7-grey.svg');
+  background-position: center;
+  background-size: cover;
 
-   height: 18px;
-   width: 22px;    /* Other styles here */
+  height: 18px;
+  width: 22px; /* Other styles here */
 }
 
-.icon-7-big-blue
-{
-   background-image: url('../icons/7-big-blue.svg');
-   background-position: center;
-   background-size: cover;
+.icon-7-big-blue {
+  background-image: url('../icons/7-big-blue.svg');
+  background-position: center;
+  background-size: cover;
 
-   height: 51px;
-   width: 44px;    /* Other styles here */
+  height: 51px;
+  width: 44px; /* Other styles here */
 }
 
-.icon-7-big-purple
-{
-   background-image: url('../icons/7-big-purple.svg');
-   background-position: center;
-   background-size: cover;
+.icon-7-big-purple {
+  background-image: url('../icons/7-big-purple.svg');
+  background-position: center;
+  background-size: cover;
 
-   height: 51px;
-   width: 44px;    /* Other styles here */
+  height: 51px;
+  width: 44px; /* Other styles here */
 }
 
 /*logo*/
 
-.logo-type-small-blue{
-   background-image: url('../icons/typelogo-small-blue.svg');
-   background-position: center;
-   background-size: cover;
+.logo-type-small-blue {
+  background-image: url('../icons/typelogo-small-blue.svg');
+  background-position: center;
+  background-size: cover;
 
-   height: 20px;
-   width: 25px;
+  height: 20px;
+  width: 25px;
 }
 
-.logo-small-blue{
-   background-image: url('../icons/logo-small-blue.svg');
-   background-position: center;
-   background-size: cover;
+.logo-small-blue {
+  background-image: url('../icons/logo-small-blue.svg');
+  background-position: center;
+  background-size: cover;
 
-   height: 20px;
-   width: 28px;
+  height: 20px;
+  width: 28px;
 }
-
 
 /*footer ../icons*/
 
+.home-active {
+  background-image: url('../icons/home-active.svg');
+  background-position: center;
+  background-size: cover;
 
-.home-active{
-	background-image: url("../icons/home-active.svg");
-   background-position: center;
-   background-size: cover;
-
-   height: 32px;
-   width: 94px;
+  height: 32px;
+  width: 94px;
 }
 
-.home-inactive{
-	background-image: url("../icons/home-inactive.svg");
-   background-position: center;
-   background-size: cover;
+.home-inactive {
+  background-image: url('../icons/home-inactive.svg');
+  background-position: center;
+  background-size: cover;
 
-   height: 32px;
-   width: 94px;
+  height: 32px;
+  width: 94px;
 }
 
+.menu-active {
+  background-image: url('../icons/menu-active.svg');
+  background-position: center;
+  background-size: cover;
 
-.menu-active{
-	background-image: url("../icons/menu-active.svg");
-   background-position: center;
-   background-size: cover;
-
-   height: 32px;
-   width: 94px;
+  height: 32px;
+  width: 94px;
 }
 
-.menu-inactive{
-	background-image: url("../icons/menu-inactive.svg");
-   background-position: center;
-   background-size: cover;
+.menu-inactive {
+  background-image: url('../icons/menu-inactive.svg');
+  background-position: center;
+  background-size: cover;
 
-   height: 32px;
-   width: 94px;
+  height: 32px;
+  width: 94px;
 }
-.alarm-active{
-	background-image: url("../icons/alarm-active.svg");
-   background-position: center;
-   background-size: cover;
+.alarm-active {
+  background-image: url('../icons/alarm-active.svg');
+  background-position: center;
+  background-size: cover;
 
-   height: 32px;
-   width: 94px;
-}
-
-.alarm-inactive{
-	background-image: url("../icons/alarm-inactive.svg");
-   background-position: center;
-   background-size: cover;
-
-   height: 32px;
-   width: 94px;
+  height: 32px;
+  width: 94px;
 }
 
-.alarm-alarm{
-	background-image: url("../icons/alarm-alarm.svg");
-   background-position: center;
-   background-size: cover;
+.alarm-inactive {
+  background-image: url('../icons/alarm-inactive.svg');
+  background-position: center;
+  background-size: cover;
 
-   height: 32px;
-   width: 94px;
+  height: 32px;
+  width: 94px;
 }
 
-.bookmark-active{
-	background-image: url("../icons/bookmark-active.svg");
-   background-position: center;
-   background-size: cover;
+.alarm-alarm {
+  background-image: url('../icons/alarm-alarm.svg');
+  background-position: center;
+  background-size: cover;
 
-   height: 32px;
-   width: 94px;
+  height: 32px;
+  width: 94px;
 }
 
-.bookmark-inactive{
-	background-image: url("../icons/bookmark-inactive.svg");
-   background-position: center;
-   background-size: cover;
+.bookmark-active {
+  background-image: url('../icons/bookmark-active.svg');
+  background-position: center;
+  background-size: cover;
 
-   height: 32px;
-   width: 94px;
+  height: 32px;
+  width: 94px;
+}
+
+.bookmark-inactive {
+  background-image: url('../icons/bookmark-inactive.svg');
+  background-position: center;
+  background-size: cover;
+
+  height: 32px;
+  width: 94px;
 }
 
 /* Editorjs 설정 */
-div[data-placeholder="Caption"] {
-   display: none !important;
+div[data-placeholder='Caption'] {
+  display: none !important;
 }
 .codex-editor__redactor {
-   padding-bottom: 0px !important;
+  padding-bottom: 0px !important;
 }
