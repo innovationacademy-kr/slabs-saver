@@ -43,7 +43,7 @@
 }
 
 .login__form__input::placeholder {
-  font-family: NotoSansCJKkr;
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 15px;
   line-height: 1.6;
   color: #c2c2c2;
@@ -58,13 +58,13 @@
   height: 47px;
   width: calc(100% - 34px);
 
-  font-family: NotoSansCJKkr;
+  font-family: 'Noto Sans KR', sans-serif;
   font-weight: bold;
   font-size: 15px;
 }
 
 .login__link {
-  font-family: NotoSansCJKkr;
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 14px;
   color: #a7a7a7;
 
