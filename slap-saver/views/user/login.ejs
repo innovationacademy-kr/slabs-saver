@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>login</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/stylesheets/user/style.css" />
+</head>
+
+<body class="login white-three">
+  <a class="login__cancle" href="javascript:history.back()"></a>
+  <div class="login__logo"></div>
+  <form class="login__form" method="post" action="/author/login">
+    <input class="login__form__input" type="email" name="email" placeholder="이메일" />
+    <input class="login__form__input" type="password" name="password" placeholder="비밀번호" />
+    <button class="login__form__button" type="submit">로그인</button>
+  </form>
+
+  <div class="login__link">
+    <a class="login__link__id" href="/user/signup">이메일 찾기</a>
+    <a class="login__link__pw" href="/user/signup">비밀번호 찾기</a>
+    <a class="login__link__signup" href="/user/signup">회원가입</a>
+  </div>
+</body>
+
+</html>

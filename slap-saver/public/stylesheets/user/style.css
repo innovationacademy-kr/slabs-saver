@@ -10,8 +10,10 @@
 @import url("components/topbar.css");
 @import url("components/footer.css");
 @import url("components/articleCard.css");
+
 /*page*/
 @import url("./pages/index.css");
+@import url("./pages/login.css");
 
 
 
