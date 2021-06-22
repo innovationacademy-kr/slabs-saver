@@ -1,7 +1,7 @@
 const converter = require('../lib/converter');
 
 describe('convert category test', () => {
-  const categoryNum = [1, 2, 3, 4, 5, 6, 7];
+  const categoryNum = [1, 2, 3, 4, 5];
   const category = ['경제', '정치', '국제', '사회', '문화'];
 
   category.forEach((value, index) => {

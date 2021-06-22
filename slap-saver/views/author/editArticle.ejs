@@ -12,15 +12,14 @@
                 <div class="mb-4">
                   <h3>기사 수정</h3>
                 </div>
-                <!-- <form method="post" class="edit-article" action=<%= article.id %> enctype="multipart/form-data"> -->
                   <div class="mb-4">
                       <label class="form-label" for="category">카테고리</label>
                       <select class="form-control" name="category" id="category">
-                        <option value=2 <%= article.category === 2 ? 'selected' : '' %> >정치</option>
-                        <option value=3 <%= article.category === 3 ? 'selected' : '' %> >경제</option>
-                        <option value=4 <%= article.category === 4 ? 'selected' : '' %> >사회</option>
-                        <option value=5 <%= article.category === 5 ? 'selected' : '' %> >국제</option>
-                        <option value=6 <%= article.category === 6 ? 'selected' : '' %> >문화</option>
+                        <% Object.keys(category).filter(key => key !== '전체').forEach((key) => { %>
+                          <option value="<%=category[key]%>" <%= article.category === key ? 'selected' : '' %> >
+                            <%=key%>
+                          </option>
+                        <% }) %>
                       </select>
                   </div>
                   <div class="mb-4">
@@ -80,7 +79,6 @@
                     <button class="article--save btn btn-primary" name="saveBtn" type="submit">저장</button>
                     <button class="article--complete btn btn-info" name="completeBtn" type="submit">완료</button>
                   </div>
-                <!-- </form> -->
               </div>
             </div>
           </div>

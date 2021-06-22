@@ -1,4 +1,4 @@
-@import url('https///fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
 
 :root {
 	--white: #ffffff;
@@ -73,7 +73,7 @@
 	background-color: #eef8ff;
 }
 
-@font-face {
+/* @font-face {
 	font-family: NotoSansCJKkr;
 	src: local(NotoSansCJKkr-Regular),
 	  url(/path/to/NotoSansCJKkr-Regular.woff2) format("woff2"),
@@ -104,7 +104,7 @@
 	font-weight: bold;
 	font-style: normal;
 	font-stretch: normal;
-  }
+  } */
 
   /*타이틀*/
 .ft-title {
@@ -599,4 +599,12 @@
 
    height: 32px;
    width: 94px;
+}
+
+/* Editorjs 설정 */
+div[data-placeholder="Caption"] {
+   display: none !important;
+}
+.codex-editor__redactor {
+   padding-bottom: 0px !important;
 }

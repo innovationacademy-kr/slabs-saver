@@ -78,9 +78,6 @@ class ArticlePage {
 		this.editor = new EditorJS({
 			holder: 'editorjs',
 			data: editorContent,
-			config: {
-				'readOnly': true,
-			},
 			tools: {
 				linkTool: {
 					class: LinkTool, // ejs파일에서 불러옴
@@ -103,7 +100,6 @@ class ArticlePage {
 				}
 			},
 		});
-		// if (this.editor.configuration.readOnly) { this.editor.readOnly.toggle()}
 	}
 }
 
