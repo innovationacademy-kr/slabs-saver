@@ -9,12 +9,35 @@ module.exports = {
     await Promise.all(
       authors.map(async (author) => {
         await author.createArticle({
-          headline: 'economy article',
+          headline: '삼성 이건희 회장 유산 기부와 함께 생각해 볼 것들',
           category: CATEGORY.ECONOMY,
-          image: 'fb15fbc7348eea8bfe0849096a31354f',
+          image: 'article/6c815680098e50302d250552888b41cc',
           imageDesc: 'this is image description',
           imageFrom: 'image source',
-          briefing: `{"time":1623994461706,"blocks":[{"id":"HBC-KsjLLR","type":"paragraph","data":{"text":"브리핑"}},{"id":"6vHIwtQ9pd","type":"paragraph","data":{"text":"1"}},{"id":"PwNJFtEhQc","type":"paragraph","data":{"text":"2"}},{"id":"ztq1wOr3ks","type":"image","data":{"file":{"url":"https://swlabs-saver.s3.ap-northeast-2.amazonaws.com/1623994459433.png","name":"1623994459433.png","size":324},"caption":"","withBorder":false,"stretched":false,"withBackground":false}}],"version":"2.22.0"}`,
+          briefing: JSON.stringify({
+            "time":1623994461706,
+            "blocks":
+              [{"id":"HBC-KsjLLR","type":"paragraph","data":{"text":"브리핑"}},
+              {"id":"6vHIwtQ9pd","type":"paragraph","data":{"text":"1"}},
+              {"id":"PwNJFtEhQc","type":"paragraph","data":{"text":"2"}},
+              {"id":"ztq1wOr3ks","type":"image",
+                "data":
+                  {
+                    "file":
+                      {
+                        "url":"https://swlabs-saver.s3.ap-northeast-2.amazonaws.com/article/fded3c3db7c58c5e175460b953cffa84",
+                        "name":"fded3c3db7c58c5e175460b953cffa84",
+                        "size":324
+                      },
+                      "caption":"",
+                      "withBorder":false,
+                      "stretched":false,
+                      "withBackground":false
+                    }
+                  }
+                ],
+                "version":"2.22.0"
+              }),
           status: getRandomInt(1, 4),
           paragraphs: JSON.stringify({ paragraphs: [] }),
         });
@@ -23,13 +46,36 @@ module.exports = {
     await Promise.all(
       authors.map(async (author) => {
         await author.createArticle({
-          headline: 'politic article',
+          headline: '6월 1일부터 시행되는 부동산 관련 제도',
           category: CATEGORY.POLITICS,
-          image: 'fb15fbc7348eea8bfe0849096a31354f',
+          image: 'article/fded3c3db7c58c5e175460b953cffa84',
           imageDesc: 'The Wuhan Institute of Virology.',
           imageFrom:
             'Photo: Hector Retamal/AFP via Getty Images The COVID lab-leak theory goes mainstream',
-          briefing: `{"time":1623994461706,"blocks":[{"id":"HBC-KsjLLR","type":"paragraph","data":{"text":"브리핑"}},{"id":"6vHIwtQ9pd","type":"paragraph","data":{"text":"1"}},{"id":"PwNJFtEhQc","type":"paragraph","data":{"text":"2"}},{"id":"ztq1wOr3ks","type":"image","data":{"file":{"url":"https://swlabs-saver.s3.ap-northeast-2.amazonaws.com/1623994459433.png","name":"1623994459433.png","size":324},"caption":"","withBorder":false,"stretched":false,"withBackground":false}}],"version":"2.22.0"}`,
+          briefing: JSON.stringify({
+            "time":1623994461706,
+            "blocks":
+              [{"id":"HBC-KsjLLR","type":"paragraph","data":{"text":"브리핑"}},
+              {"id":"6vHIwtQ9pd","type":"paragraph","data":{"text":"1"}},
+              {"id":"PwNJFtEhQc","type":"paragraph","data":{"text":"2"}},
+              {"id":"ztq1wOr3ks","type":"image",
+                "data":
+                  {
+                    "file":
+                      {
+                        "url":"https://swlabs-saver.s3.ap-northeast-2.amazonaws.com/article/fded3c3db7c58c5e175460b953cffa84",
+                        "name":"fded3c3db7c58c5e175460b953cffa84",
+                        "size":324
+                      },
+                      "caption":"",
+                      "withBorder":false,
+                      "stretched":false,
+                      "withBackground":false
+                    }
+                  }
+                ],
+                "version":"2.22.0"
+              }),
           status: getRandomInt(1, 4),
           paragraphs: JSON.stringify({ paragraphs: [] }),
         });
@@ -40,10 +86,33 @@ module.exports = {
         await author.createArticle({
           headline: 'social article',
           category: CATEGORY.SOCIAL,
-          image: 'fb15fbc7348eea8bfe0849096a31354f',
+          image: 'article/1624002044422.jpg',
           imageDesc: 'this is image description',
           imageFrom: 'image source',
-          briefing: `{"time":1623994461706,"blocks":[{"id":"HBC-KsjLLR","type":"paragraph","data":{"text":"브리핑"}},{"id":"6vHIwtQ9pd","type":"paragraph","data":{"text":"1"}},{"id":"PwNJFtEhQc","type":"paragraph","data":{"text":"2"}},{"id":"ztq1wOr3ks","type":"image","data":{"file":{"url":"https://swlabs-saver.s3.ap-northeast-2.amazonaws.com/1623994459433.png","name":"1623994459433.png","size":324},"caption":"","withBorder":false,"stretched":false,"withBackground":false}}],"version":"2.22.0"}`,
+          briefing: JSON.stringify({
+            "time":1623994461706,
+            "blocks":
+              [{"id":"HBC-KsjLLR","type":"paragraph","data":{"text":"브리핑"}},
+              {"id":"6vHIwtQ9pd","type":"paragraph","data":{"text":"1"}},
+              {"id":"PwNJFtEhQc","type":"paragraph","data":{"text":"2"}},
+              {"id":"ztq1wOr3ks","type":"image",
+                "data":
+                  {
+                    "file":
+                      {
+                        "url":"https://swlabs-saver.s3.ap-northeast-2.amazonaws.com/article/fded3c3db7c58c5e175460b953cffa84",
+                        "name":"fded3c3db7c58c5e175460b953cffa84",
+                        "size":324
+                      },
+                      "caption":"",
+                      "withBorder":false,
+                      "stretched":false,
+                      "withBackground":false
+                    }
+                  }
+                ],
+                "version":"2.22.0"
+              }),
           status: getRandomInt(1, 4),
           paragraphs: JSON.stringify({ paragraphs: [] }),
         });

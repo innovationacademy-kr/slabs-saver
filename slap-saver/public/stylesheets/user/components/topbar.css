@@ -2,7 +2,7 @@
 .topbar{
 	height: 50px;
 
-	z-index: 1;
+	z-index: 100;
     background-color: white;
 
 	position: fixed;

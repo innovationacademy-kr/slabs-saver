@@ -1,19 +1,27 @@
+const {
+  POLITICS,
+  ECONOMY,
+  SOCIAL,
+  INTERNATIONAL,
+  CULTURE
+} = require('./constants/category');
+
 const category = {
   전체: 0,
-  경제: 1,
-  정치: 2,
-  국제: 3,
-  사회: 4,
-  문화: 5,
+  경제: ECONOMY,
+  정치: POLITICS,
+  국제: INTERNATIONAL,
+  사회: SOCIAL,
+  문화: CULTURE,
 };
 
 const categoryEng = {
   ALL: 0,
-  ECONOMY: 1,
-  POLITICS: 2,
-  INTERNATIONAL: 3,
-  SOCIAL: 4,
-  CULTURE: 5,
+  ECONOMY,
+  POLITICS,
+  INTERNATIONAL,
+  SOCIAL,
+  CULTURE,
 };
 
 const inviteState = {
@@ -43,4 +51,10 @@ module.exports = {
   position: (value) => {
     return Object.keys(position).find((key) => position[key] === value);
   },
+  constants: {
+    category,
+    categoryEng,
+    inviteState,
+    position
+  }
 };

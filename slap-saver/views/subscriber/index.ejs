@@ -28,17 +28,28 @@
     </p>
   </div>
 
-    <div class="article-list">
 
-      <% Articles.map((article)=> { %>
-        <% if (article.status===4) { %>
-          <%- include('../partials/articleCard.ejs', { article }) %>
-            <% } %>
-              <% }) %>
-    </div>
-  </main>
-<%- contentFor('footer') %>
-<%- include('./components/foo.ejs') %>
+  <div class="article-list">
 
+    <% Articles.map((article)=> { %>
+      <% if (article.status===4) { %>
+        <%- include('../partials/articleCard.ejs', { article }) %>
+        <% } %>
+        <% }) %>
+      </div>
+    </main>
+    <%- contentFor('footer') %>
+    <%- include('./components/foo.ejs') %>
 
+    <script>
+      var articles = JSON.parse('<%-briefings%>')
+      console.log(articles);
+
+    </script>
+<script src="/vendors/editorjs/editor.js" defer></script>
+<script src="/vendors/editorjsNestedList/nested-list.js" defer></script>
+<script src="/vendors/editorjsImage/bundle.js" defer></script>
+<script src="/vendors/editorjsLink/bundle.js" defer></script>
+<script src="/vendors/editorjs/editor.js" defer></script>
+<script defer type="module" src="/javascripts/user/index.js"></script>
 <script defer src="/javascripts/infiniteScroll.js"></script>
