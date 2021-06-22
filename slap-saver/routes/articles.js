@@ -1,10 +1,6 @@
 const express = require('express');
-const multer = require('multer');
-
-
 const articleCtrl = require('../controllers/articleController');
 const router = express.Router();
-const { loggedIn } = require('../middlewares/loggedIn');
 
 const { s3ImageUpload } = require('../lib/aws/s3Uploader');
 

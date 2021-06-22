@@ -28,8 +28,6 @@
 }
 .article__img{
 	width: 100vw;
-	height: 210px;
-
 	background-color: grey;
 	margin-left: -17px;
 	margin-bottom: 7px;
@@ -42,6 +40,10 @@
 
 .article__brief-text{
 	margin-bottom: 20px;
+}
+.article-list .article__brief-text {
+	overflow: hidden;
+	max-height: 80px;
 }
 
 .article__main-text{

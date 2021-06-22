@@ -17,14 +17,11 @@
                 <div class="mb-4">
                   <label class="form-label" for="category">카테고리</label>
                   <select required class="form-control" name="category" id="category" >
-                  <% const options = ['정치', '경제', '사회', '국제', '문화']; %>
-                  <% options.forEach((option, index) => { %>
-                    <% if (+defaultCategory === index + 2) { %>
-                      <option value="<%= index + 2 %>" selected><%= option %> </option>
-                    <% } else { %>
-                      <option value="<%= index + 2 %>"><%= option %> </option>
-                    <% } %>
-                  <% }) %>
+                    <% Object.keys(category).filter(key => key !== '전체').forEach((key) => { %>
+                      <option value="<%=category[key]%>" >
+                        <%=key%>
+                      </option>
+                    <% }) %>
                   </select>
                 </div>
                 <div class="mb-4">

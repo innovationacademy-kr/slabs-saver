@@ -8,13 +8,12 @@
   <p class="article__title ft-title">
     <%= article.headline %>
   </p>
-  <img class="article__img" src=<%=article.authorImg %>>
+  <img class="article__img" src=<%=article.image %>>
   <p class="article__imgtext ft-detail">
     <%= article.imageDesc %> <%= article.imageFrom %>
   </p>
-  <p class="article__brief-text ft-main">
-    <%= article.briefing%>
-  </p>
+  <div id="editorjs_<%- article.id %>" class="article__brief-text ft-main">
+  </div>
   <!--TODO:라이브러리로 받은 본문 추가??-->
   <div class="article__control">
     <a href=<%=`/articles/detail/${article.id}` %> class="article__control__more-button">

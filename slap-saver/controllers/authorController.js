@@ -2,19 +2,16 @@ const alert = require('alert');
 const { Author, Article, Invitation } = require('../models');
 
 const { pick } = require('../lib/util');
-const multer = require('multer');
 
 const getCurrentUser = require('../lib/getCurrentUser');
 const isEmptyObject = require('../lib/isEmptyObject');
-const STATUS = require('../lib/constants/articleStatus');
 const sendMail = require('../lib/sendMail');
 const converter = require('../lib/converter');
-const { parseParagraps } = require('../lib/parse')
 
 const INVITATION = require('../lib/constants/invitationState');
 const CATEGORY = require('../lib/constants/category');
 const POSITION = require('../lib/constants/position');
-const ARTICLE = require('../lib/constants/articleStatus');
+const { constants } = require('../lib/converter');
 
 const deskProcessRequest = async (req, res, next) => {
   // TODO: 로딩 페이지 띄우기
@@ -271,7 +268,7 @@ const indexPage = async (req, res, next) => {
     } else if (position === POSITION.CHIEF_EDITOR) {
       ejsfile = 'author/desking/chiefEditor';
     }
-    variable = { title: 'home', articles, currentUser, admin: false, articlesData };
+    variable = { title: 'home', articles, currentUser, admin: false, articlesData, category: constants.category };
     res.render(ejsfile, variable);
   } else if (position === POSITION.ADMIN) {
     res.redirect('/author/_admin');
@@ -318,8 +315,6 @@ const newArticleRequest = async (req, res, next) => {
   }
 };
 
-
-// TODO: ajax로 변경
 const editArticleRequest = async (req, res, next) => {
   const {
     file,
@@ -371,6 +366,7 @@ const newArticlePage = async (req, res, next) => {
     title: 'new article',
     defaultCategory,
     currentUser,
+    category: constants.category,
     admin: false,
     layout: 'layout/adminLayout'
   });
@@ -388,6 +384,7 @@ const editArticlePage = async (req, res, next) => {
       currentUser,
       paragraphs: JSON.parse(article.paragraphs),
       admin: false,
+      category: constants.category,
       title: 'edit article',
       layout: 'layout/adminLayout'
     });

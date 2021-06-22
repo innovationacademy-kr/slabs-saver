@@ -15,8 +15,10 @@ $(window).scroll(function () {
       url: `/moreArticles?page=${page}`,
       type: 'get',
       success: function (articles) {
-        JSON.parse(articles).map(function (article) {
-          return articleList.insertAdjacentHTML('beforeend', makeTemplate(article));
+        articles = JSON.parse(articles);
+        articles.map(function (article) {
+          articleList.insertAdjacentHTML('beforeend', makeTemplate(article));
+          initEditor(article.id, article.briefing)
         });
         isUsed = !isUsed;
         page += ADD_PAGE;
@@ -40,12 +42,11 @@ function makeTemplate(article) {
   <p class="article__title ft-title">
     ${article.headline}
   </p>
-  <img class="article__img" src=${article.authorImg}>
+  <img class="article__img" src=${article.image}>
   <p class="article__imgtext ft-detail">
     ${article.imageDesc}(${article.imageFrom})
   </p>
-  <p class="article__maintext ft-main">
-    ${article.briefing}
+  <p id="editorjs_${article.id}" class="article__maintext ft-main">
   </p>
   <div class="article__control">
     <a href=/articles/${article.id} class="article__control__more-button">
@@ -58,4 +59,34 @@ function makeTemplate(article) {
   </div>
 </div>
 `;
+}
+
+
+function initEditor(id, briefing) {
+  const editor = new EditorJS({
+    holder: `editorjs_${id}`,
+    data: briefing,
+    readOnly: true,
+    tools: {
+      linkTool: {
+        class: LinkTool, // ejs파일에서 불러옴
+        config: {
+          endpoint: '', // 크롤링해오는 기능은 사용하지 않음 (newArticle.ejs에서 css로 버튼 가림)
+        }
+      },
+      list: {
+        class: NestedList,
+        inlineToolbar: true,
+      },
+      image: {
+        class: ImageTool,
+        config: {
+          endpoints: {
+            byFile: '/articles/upload/image', // Your backend file uploader endpoint
+            byUrl: '/articles/fetch/image', // Your endpoint that provides uploading by Url
+          }
+        }
+      }
+    },
+  });
 }

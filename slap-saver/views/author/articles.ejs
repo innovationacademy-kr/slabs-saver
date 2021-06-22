@@ -23,7 +23,7 @@
             <% if (article.status < 3) { %>
               <a href=<%= `/author/articles/edit/${article.id}` %> > <%= article.headline %> </a>
             <% } else { %>
-                <%= article.headline %> 
+                <%= article.headline %>
             <% } %>
           </td>
           <td class="table-body__cell"><%= article.updatedAt %></td>
@@ -38,7 +38,7 @@
             출고
           <% } else { %>
             게재
-          <% } %>  
+          <% } %>
           </td>
         </tr>
         <% }) %>
@@ -47,5 +47,5 @@
   </section>
   <%- contentFor('footer') %>
   <%- include('../partials/footer.ejs') %>
-  
+
 

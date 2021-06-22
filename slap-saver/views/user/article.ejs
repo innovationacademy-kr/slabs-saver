@@ -13,12 +13,11 @@
   <p class="article__title ft-title">
     <%= article.headline %>
   </p>
-  <img class="article__img" src=<%=article.authorImg %>>
+  <img class="article__img" src=<%=article.image %>>
   <p class="article__imgtext ft-detail">
     <%= article.imageDesc %> <%= article.imageFrom %>
   </p>
-  <p class="article__brief-text ft-main">
-    <%= article.briefing%>
+  <p id="editorjs" class="article__brief-text ft-main">
   </p>
   <p class="article__main-text ft-main">
     <!--TODO:라이브러리로 받은 본문 추가??-->
@@ -32,6 +31,13 @@
       <button class="article__control__right-buttons__bookmark-button"></button>
     </div>
   </div>
-  </div>
 </div>
-
+</div>
+<script src="/vendors/editorjs/editor.js" defer></script>
+<script src="/vendors/editorjsNestedList/nested-list.js" defer></script>
+<script src="/vendors/editorjsImage/bundle.js" defer></script>
+<script src="/vendors/editorjsLink/bundle.js" defer></script>
+<script type="module" src="/javascripts/user/article.js"></script>
+<script>
+  var briefing = JSON.parse('<%-article.briefing%>');
+</script>
