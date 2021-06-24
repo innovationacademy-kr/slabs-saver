@@ -22,10 +22,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // TODO: 유저 작업을 할 때는 새로운 passport 를 만들어서 작업할 것
 const authorPassport = require('./lib/authorPassport')(app);
-const subscriberPassport = require('./lib/subscriberPassport')(app);
 const indexRouter = require('./routes/index');
 const authorRouter = require('./routes/author')(authorPassport);
-const subscriberRouter = require('./routes/subscriber')(subscriberPassport);
+const subscriberRouter = require('./routes/subscriber');
 const articlesRouter = require('./routes/articles');
 
 const layout = require('express-ejs-layouts');

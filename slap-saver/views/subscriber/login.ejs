@@ -1,0 +1,49 @@
+<div class="row">
+    <div class="col-md-4 col-md-offset-4">
+        <div class="login-panel panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">로그인</h3>
+            </div>
+            <div class="panel-body">
+                <fieldset>
+                    <div class="form-group">
+                        <input class="form-control" placeholder="ID" id="email" type="text" autofocus="" required="">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" placeholder="Password" id="password" type="password" value=""
+                            required="">
+                    </div>
+                    <!-- Change this to a button or input when using this as a form -->
+                    <button id="login" type="submit" class="btn btn-lg btn-success btn-block" value="로그인">
+                </fieldset>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    document.getElementById("login").onclick = function login() {
+        let email = document.getElementById("email");
+        let password = document.getElementById('password');
+        if (email.value == '' || password.value) {
+            alert('빈칸을 채워주세요');
+        }
+        else {
+            axios({
+                method: "POST",
+                url: '/subscriber/login',
+                data: {
+                    "email": email.value,
+                    "password": password.value,
+                }
+            }).then((res) => {
+                sessionStorage.setItem('jwtToken', res.data.token);
+                alert('로그인');
+            }).catch(error => {
+                alert(error.response.data.message);
+                alert('에러 발생');
+            });
+        }
+    }
+</script>
+<script defer src="/vendors/axios/axios.min.js"></script>
