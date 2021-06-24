@@ -183,7 +183,7 @@ const invitePage = async (req, res, next) => {
   const userList = await Invitation.findAll({});
   const currentUser = await getCurrentUser(req.user ? req.user.id : null);
   if (!currentUser) res.redirect('/author/login');
-  res.render('admin/invitation');
+  res.render('admin/invitation' , {category: constants.category ,position: constants.position, categoryJSON: JSON.stringify(constants.category), positionJSON: JSON.stringify(constants.position)});
 };
 
 const preSignupPage = async (req, res, next) => {
@@ -206,12 +206,7 @@ const signupPage = async (req, res, next) => {
   }
   const { email, name, code, position, category } = candidate;
   const user = { email, name, code, position, category };
-  const POSITION = {
-    1: '기자',
-    2: '데스크',
-    3: '편집장',
-    4: '관리자'
-  };
+  const POSITION = constants.positionKey;
   res.render('author/signup', { title: 'signup', layout: 'layout/adminLayout', user, userJson: JSON.stringify(user), POSITION });
 };
 
@@ -243,6 +238,7 @@ const previewPage = async (req, res, next) => {
   res.render('articles/article', { title: 'preview', article, admin: false });
 };
 
+//접속한 사람 구분//
 const indexPage = async (req, res, next) => {
   const currentUser = await getCurrentUser(req.user ? req.user.id : null);
   if (!currentUser) res.redirect('/author/login');
@@ -268,7 +264,7 @@ const indexPage = async (req, res, next) => {
     } else if (position === POSITION.CHIEF_EDITOR) {
       ejsfile = 'author/desking/chiefEditor';
     }
-    variable = { title: 'home', articles, currentUser, admin: false, articlesData, category: constants.category };
+    variable = { title: 'home', articles, currentUser, admin: false, articlesData, category: constants.category , position: constants.position };
     res.render(ejsfile, variable);
   } else if (position === POSITION.ADMIN) {
     res.redirect('/author/_admin');

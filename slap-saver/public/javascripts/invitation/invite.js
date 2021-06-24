@@ -2,13 +2,12 @@ document.querySelector('#position').addEventListener('change', (e) => {
     const { target: { value } } = e;
     // const value = e.target.value;
     const category = document.querySelector('#category');
-    if (e.target.value === '1') {
-        //document.querySelector('#category option:first-child').disabled = false;
-        category.value = '1';
+    if (e.target.value === position_options['편집장'].toString() || e.target.value === position_options['관리자'].toString()) {
+        category.value = category_options['전체'].toString();
         category.disabled = true;
     } else {
         document.querySelector('#category option:first-child').disabled = true;
-        category.value = '2';
+        category.value = category_options['경제'].toString();
         category.disabled = false;
     }
 })

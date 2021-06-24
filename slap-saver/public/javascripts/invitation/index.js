@@ -51,21 +51,20 @@ function inviteList() {
                 </td>`
             }
             if (res.data[i].state == 0) { //결정이 되지 않은 사람들만 포지션, 카테고리 수락 거절 버튼을 그려줌
+                const position = Object.entries(position_options).map(([key, value]) => {
+                    return `<option value="${value}" ${value === 1 ? 'selected' : ''}>${key}</option>`
+                }).join('')
+                const category = Object.entries(category_options).map(([key, value]) => {
+                    return `<option value="${value}" ${value === 1 ? 'selected' : ''} ${value === 0 ? 'disabled' : ''}>${key}</option>`
+                }).join('')
                 txt += `<td>
             <select name="select_position" id="select_position">
-              <option value="1" selected>편집장</option>
-              <option value="2">데스크</option>
-              <option value="3">일반기자</option>
+              ${position}
             </select>
           </td>
             <td>
-              <select name="select_category" id="select_category" required disabled>
-                <option value="1" selected>전체</option>
-                <option value="2">정책</option>
-                <option value="3">경제</option>
-                <option value="4">사회</option>
-                <option value="5">국제</option>
-                <option value="6">문화</option>
+              <select name="select_category" id="select_category" required >
+              ${category}
               </select>
             </td>
           <td>
@@ -79,7 +78,7 @@ function inviteList() {
             list.innerHTML += txt;
         }
         //돔 객체에서 지정한 id들을 가져와 배열로 만듬
-        selects = Array.from(document.querySelectorAll('#select_position')); 
+        selects = Array.from(document.querySelectorAll('#select_position'));
         categories = Array.from(document.querySelectorAll('#select_category'));
         categories_first_childs = Array.from(document.querySelectorAll('#select_category option:first-child'));
         approved_list = Array.from(document.querySelectorAll('#approved'));
@@ -97,17 +96,17 @@ function EventListener() {
             const { target: { value } } = e;
             const category = categories[index];
             const first_child = categories_first_childs[index];
-            if (e.target.value === '1') {
-                category.value = '1';
-                category.disabled = true;
+            if (e.target.value === `${position_options['편집장']}` || e.target.value === `${position_options['관리자']}`) {
+        category.value = category_options['전체'].toString();
+        category.disabled = true;
             } else {
-                first_child.disabled = true;
-                category.value = '2';
-                category.disabled = false;
+        document.querySelector('#category option:first-child').disabled = true;
+        category.value = category_options['경제'].toString();
+        category.disabled = false;
             }
         })
     })
-    approved_list.map((el, index) => {  //수락버튼 이벤트 
+    approved_list.map((el, index) => {  //수락버튼 이벤트
         el.addEventListener('click', (e) => {
             axios({
                 method: "POST",
