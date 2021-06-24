@@ -3,7 +3,7 @@ const DESK = 2;
 const CHIEF_EDITOR = 3;
 const ADMIN = 4;
 const INTERN = 5;
-const WRITTER = 6;
+const EXTERNAL_WRITER = 6;
 
 module.exports = {
 	REPOTER,
@@ -11,5 +11,5 @@ module.exports = {
 	CHIEF_EDITOR,
 	ADMIN,
 	INTERN,
-	WRITTER
+	EXTERNAL_WRITER
 }

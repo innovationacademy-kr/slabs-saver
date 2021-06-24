@@ -31,7 +31,7 @@ const position = {
   편집장: POSITIONS.CHIEF_EDITOR,
 	관리자: POSITIONS.ADMIN,
 	인턴:POSITIONS.INTERN,
-	외부필진:POSITIONS.WRITTER
+	외부필진:POSITIONS.EXTERNAL_WRITER
 }
 const positionKey = {
   [POSITIONS.REPOTER]: '기자',
@@ -39,7 +39,7 @@ const positionKey = {
   [POSITIONS.CHIEF_EDITOR] : '편집장',
   [POSITIONS.ADMIN] : '관리자',
   [POSITIONS.INTERN] : '인턴',
-  [POSITIONS.WRITTER] : '외부필진'
+  [POSITIONS.EXTERNAL_WRITER] : '외부필진'
 }
 const inviteState = {
   '가입 대기': 0,
