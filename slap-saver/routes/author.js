@@ -35,7 +35,7 @@ module.exports = (passport) => {
   router.get('/', loggedIn, authorCtrl.page.index);
 
   /**
-   * 기자관리
+   * author 로그인
    */
   router.get('/login', alreadyLoggedIn, authorCtrl.page.login);
   router.post(
@@ -45,29 +45,27 @@ module.exports = (passport) => {
       failureRedirect: '/author/login',
     }),
   );
-
   router.get('/logout', authorCtrl.request.logout);
   router.get('/signup', alreadyLoggedIn, authorCtrl.page.signup);
   router.post('/signup', alreadyLoggedIn, s3ImageUpload({ folder: 'author' }).single('picture'), authorCtrl.request.signup);
   router.get('/edit-meeting', loggedIn, authorCtrl.page.editMeeting);
+  router.get('/mypage', loggedIn, authorCtrl.page.mypage);
 
   /**
    * 기사 관리
    */
   router.get('/articles/new', loggedIn, authorCtrl.page.newArticle);
-  router.post('/createArticle', s3ImageUpload({ folder: 'article' }).single('picture'), authorCtrl.request.newArticle);
-  router.get('/articles/edit/:articleId', loggedIn, authorCtrl.page.editArticle);
-  router.post('/desk-process', loggedIn, authorCtrl.request.deskProcess);
-
-  router.post('/articles/edit/:articleId', s3ImageUpload({ folder: 'article' }).single('picture'), authorCtrl.request.editArticle);
   router.get('/articles', loggedIn, authorCtrl.page.myArticle);
   router.get('/articles/:articleId/preview', loggedIn, authorCtrl.page.preview);
+  router.get('/articles/edit/:articleId', loggedIn, authorCtrl.page.editArticle);
+  router.post('/articles/edit/:articleId', s3ImageUpload({ folder: 'article' }).single('picture'), authorCtrl.request.editArticle);
+  router.post('/createArticle', s3ImageUpload({ folder: 'article' }).single('picture'), authorCtrl.request.newArticle);
+  router.post('/desk-process', loggedIn, authorCtrl.request.deskProcess);
 
 
   /**
-   * 기자관리
+   * 기자 관리
    */
-
   router.get('/pre-signup', alreadyLoggedIn, authorCtrl.page.preSignup);
   router.post('/pre-signup', authorCtrl.request.preSignup);
   router.get('/_admin', loggedIn, checkCode, authorCtrl.page.admin);
@@ -75,5 +73,8 @@ module.exports = (passport) => {
   router.post('/_admin/invitation', authorCtrl.request.invite);
   router.post('/_admin/inviteList', authorCtrl.request.inviteList);
   router.post('/_admin/decision', authorCtrl.request.decision);
+
+  router.get('/today', loggedIn, authorCtrl.page.today);
+
   return router;
 };
