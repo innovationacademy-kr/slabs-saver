@@ -151,8 +151,8 @@ const decisionRequest = async (req, res, next) => {
 };
 
 const inviteRequest = async (req, res, next) => {
-  const {email, name, category, position} = req.body;
-  if (email === '' || name === '' || category === 0|| position === 0) {
+  const { email, name, category, position } = req.body;
+  if (email === '' || name === '' || category === 0 || position === 0) {
     res.status(400).json({
       message: '빈 항목이 있습니다.'
     });
@@ -173,7 +173,7 @@ const inviteRequest = async (req, res, next) => {
   }
 };
 
-const inviteListRequest = async(req, res, next)=> {
+const inviteListRequest = async (req, res, next) => {
   const userList = await Invitation.findAll({});
   res.json(userList);
 }
@@ -291,7 +291,7 @@ const newArticleRequest = async (req, res, next) => {
   const { headline, category, imageDesc, imageFrom, briefing, status, paragraphs } = body;
   console.log({ headline, category, imageDesc, imageFrom, briefing, status, paragraphs });
   try {
-    console.log({file})
+    console.log({ file })
     const author = await Author.findOne({ where: { id } });
     await author.createArticle({
       headline,
@@ -393,6 +393,39 @@ const editArticlePage = async (req, res, next) => {
   }
 };
 
+const myPage = async (req, res, next) => {
+  const { user } = req;
+  const currentUser = await getCurrentUser(req.user.id);
+  const { position } = currentUser;
+  const viewOption = {
+    btn_write: [POSITION.REPOTER, POSITION.DESK].indexOf(position) !== -1,
+    btn_today: [POSITION.EXTERNAL_WRITER].indexOf(position) !== -1,
+    btn_desking: [POSITION.DESK, POSITION.CHIEF_EDITOR].indexOf(position) !== -1,
+    table_myarticle: [POSITION.REPOTER, POSITION.EXTERNAL_WRITER].indexOf(position) !== -1,
+    table_editing: [POSITION.REPOTER, POSITION.DESK, POSITION.CHIEF_EDITOR].indexOf(position) !== -1,
+    table_memo: [POSITION.REPOTER, POSITION.DESK, POSITION.CHIEF_EDITOR].indexOf(position) !== -1,
+  };
+  res.render('author/mypage/mypage', {
+    layout: 'layout/adminLayout',
+    admin: false,
+    POSITION,
+    currentUser,
+    viewOption,
+    title: 'mypage',
+    user
+  });
+}
+
+
+const todayPage = async (req, res, next) => {
+  const currentUser = await getCurrentUser(req.user.id);
+  res.render('author/today/today', {
+    layout: 'layout/adminLayout',
+    admin: false,
+    currentUser,
+    title: 'today',
+  })
+}
 
 module.exports = {
   request: {
@@ -417,6 +450,8 @@ module.exports = {
     signup: signupPage,
     editMeeting: editMeetingPage,
     myArticle: myArticlePage,
-    preview: previewPage
+    preview: previewPage,
+    mypage: myPage,
+    today: todayPage
   },
 };
