@@ -80,7 +80,6 @@ module.exports = (sequelize, DataTypes) => {
       modelName: 'Author',
     },
   );
-
   Author.addHook('beforeCreate', async (author, options) => {
     const salt = await bcrypt.genSaltSync(+process.env.SALT_ROUNDS);
     return bcrypt.hash(author.password, salt).then((hash) => {

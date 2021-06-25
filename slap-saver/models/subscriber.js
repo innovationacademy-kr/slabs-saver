@@ -1,6 +1,7 @@
 'use strict';
 require('dotenv').config();
 const { Model } = require('sequelize');
+const bcrypt = require('bcrypt');
 module.exports = (sequelize, DataTypes) => {
   class Subscriber extends Model {
     /**
@@ -33,10 +34,21 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         is: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,15}$/i,
       },
+    },
+    deletedAt: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
     }
   }, {
     sequelize,
     modelName: 'Subscriber',
+  });
+  Subscriber.addHook('beforeCreate', async (subscriber, options) => {
+    const salt = await bcrypt.genSaltSync(+process.env.SALT_ROUNDS);
+    return bcrypt.hash(subscriber.password, salt).then((hash) => {
+      subscriber.password = hash;
+      subscriber.salt = salt;
+    });
   });
   return Subscriber;
 };

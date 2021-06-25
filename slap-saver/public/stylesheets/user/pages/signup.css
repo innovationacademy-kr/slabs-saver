@@ -1,10 +1,10 @@
-.login {
+.signup {
       height: 100%;
     padding-top: 110px;
     box-sizing: border-box;
 }
 
-.login__cancle {
+.signup__cancle {
   background-image: url(../../icons/cancle.svg);
   background-position: center;
   background-size: cover;
@@ -17,7 +17,7 @@
   top: 0;
 }
 
-.login__logo {
+.signup__logo {
   background-size: cover;
   background-position: center;
   background-image: url(../../icons/login__logo.svg);
@@ -27,7 +27,7 @@
   margin: 0 auto;
 }
 
-.login__form {
+.signup__form {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -36,7 +36,7 @@
   margin-top: 77px;
 }
 
-.login__form__input {
+.signup__form__input {
   height: 51px;
   width: calc(100% - 34px);
 
@@ -46,14 +46,14 @@
   border-radius: 6px;
 }
 
-.login__form__input::placeholder {
+.signup__form__input::placeholder {
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 15px;
   line-height: 1.6;
   color: #c2c2c2;
 }
 
-.login__form__button {
+.signup__form__button {
   border: solid black 1px;
   border-radius: 6px;
 
@@ -67,7 +67,7 @@
   font-size: 15px;
 }
 
-.login__link {
+.signup__link {
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 14px;
   color: #a7a7a7;
@@ -78,7 +78,7 @@
   margin-top: 27px;
 }
 
-.login__link__pw {
+.signup__link__pw {
   margin: auto 12px auto 12px;
   padding: 0 12px 0px 12px;
   border: solid #a7a7a7 1px;
