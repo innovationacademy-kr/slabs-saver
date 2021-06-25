@@ -38,7 +38,7 @@ app.use('/', indexRouter);
 app.use('/author', authorRouter);
 app.use('/articles', articlesRouter);
 app.use('/vendors',  vendorsRouter);
-app.use('/subscriber',  subscriberRouter);
+// app.use('/subscriber',  subscriberRouter);
 
 
 // catch 404 and forward to error handler
