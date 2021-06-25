@@ -49,7 +49,7 @@ function makeTemplate(article) {
   <p id="editorjs_${article.id}" class="article__maintext ft-main">
   </p>
   <div class="article__control">
-    <a href=/articles/${article.id} class="article__control__more-button">
+    <a href=/articles/detail/${article.id} class="article__control__more-button">
       <div class="article__control__more-button__img"></div>
     </a>
     <div class="article__control__right-buttons">
