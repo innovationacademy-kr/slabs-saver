@@ -1,6 +1,6 @@
 # slaps-saver
-Innovation Academy Software Labs CMS Open Source Project
-
+* Innovation Academy Software Labs CMS Open Source Project
+* https://saver.42seoul.io
 ## Wiki
 https://github.com/innovationacademy-kr/slaps-saver/wiki
 

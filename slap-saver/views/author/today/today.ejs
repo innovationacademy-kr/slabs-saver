@@ -1,0 +1,34 @@
+<%- contentFor('navbar') %>
+<%- include('../../partials/navbar.ejs') %>
+
+<%- contentFor('body') %>
+<section class="today container">
+	<div class="row align-items-start">
+		<div class="col align-self-center">
+			<h6 class="display-6 text-start">
+				오늘의  한마디
+			</h6>
+			<div class="form-floating">
+				<textarea class="form-control" placeholder="Leave a comment here" id="comment"></textarea>
+				<label for="comment">내용을 입력해주세요 (50자 이내)</label>
+			</div>
+			<p class="result mb-4 mt-4">
+				내용이 비어있습니다.
+			</p>
+		</div>
+	</div>
+	<div class="row mb-5">
+		<div class="col  align-self-end">
+			<button id="save" class="btn btn-primary">저장</button>
+			<button id="edit" class="btn btn-primary">수정</button>
+			<button id="complete" class="btn btn-primary">완료</button>
+		</div>
+	</div>
+</section>
+
+
+<%- contentFor('footer') %>
+<%- include('../../partials/footer.ejs') %>
+
+<script defer src="/vendors/axios/axios.min.js"></script>
+<script defer src="/javascripts/author/today.js"></script>

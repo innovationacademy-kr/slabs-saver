@@ -1,8 +1,8 @@
 const converter = require('../lib/converter');
 
 describe('convert category test', () => {
-  const categoryNum = [2, 3, 4, 5, 6, 7, 8];
-  const category = ['정치', '경제', '기술', '환경', '과학', '건강', '스포츠'];
+  const categoryNum = [1, 2, 3, 4, 5];
+  const category = ['경제', '정치', '국제', '사회', '문화'];
 
   category.forEach((value, index) => {
     test(`category ${categoryNum[index]} toBe ${value}`, () => {

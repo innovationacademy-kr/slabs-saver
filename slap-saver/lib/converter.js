@@ -1,14 +1,46 @@
+const {
+  POLITICS,
+  ECONOMY,
+  SOCIAL,
+  INTERNATIONAL,
+  CULTURE
+} = require('./constants/category');
+const POSITIONS = require('./constants/position');
+
 const category = {
   전체: 0,
-  정치: 2,
-  경제: 3,
-  기술: 4,
-  환경: 5,
-  과학: 6,
-  건강: 7,
-  스포츠: 8,
+  경제: ECONOMY,
+  정치: POLITICS,
+  국제: INTERNATIONAL,
+  사회: SOCIAL,
+  문화: CULTURE,
 };
 
+const categoryEng = {
+  ALL: 0,
+  ECONOMY,
+  POLITICS,
+  INTERNATIONAL,
+  SOCIAL,
+  CULTURE,
+};
+
+const position = {
+  기자: POSITIONS.REPOTER,
+	데스크: POSITIONS.DESK,
+  편집장: POSITIONS.CHIEF_EDITOR,
+	관리자: POSITIONS.ADMIN,
+	인턴:POSITIONS.INTERN,
+	외부필진:POSITIONS.EXTERNAL_WRITER
+}
+const positionKey = {
+  [POSITIONS.REPOTER]: '기자',
+  [POSITIONS.DESK] : '데스크',
+  [POSITIONS.CHIEF_EDITOR] : '편집장',
+  [POSITIONS.ADMIN] : '관리자',
+  [POSITIONS.INTERN] : '인턴',
+  [POSITIONS.EXTERNAL_WRITER] : '외부필진'
+}
 const inviteState = {
   '가입 대기': 0,
   '가입 승인': 1,
@@ -20,7 +52,22 @@ module.exports = {
   category: (value) => {
     return Object.keys(category).find((key) => category[key] === value);
   },
+  categoryEng: (value) => {
+    return Object.keys(categoryEng).find((key) => categoryEng[key] === value);
+  },
   inviteState: (value) => {
     return Object.keys(inviteState).find((key) => inviteState[key] === value);
   },
+  position: (value) => {
+    return Object.enties(position).find(([key, v]) => {
+      return v === value
+    })[0];
+  },
+  constants: {
+    category,
+    categoryEng,
+    inviteState,
+    position,
+    positionKey
+  }
 };

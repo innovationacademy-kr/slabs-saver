@@ -24,6 +24,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 const authorPassport = require('./lib/authorPassport')(app);
 const indexRouter = require('./routes/index');
 const authorRouter = require('./routes/author')(authorPassport);
+const subscriberRouter = require('./routes/subscriber');
 const articlesRouter = require('./routes/articles');
 
 const layout = require('express-ejs-layouts');
@@ -37,6 +38,8 @@ app.use('/', indexRouter);
 app.use('/author', authorRouter);
 app.use('/articles', articlesRouter);
 app.use('/vendors',  vendorsRouter);
+// app.use('/subscriber',  subscriberRouter);
+
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

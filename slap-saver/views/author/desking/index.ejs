@@ -9,14 +9,11 @@
     <form method="get" action="/author" enctype="multipart/form-data">
       <label for="category">카테고리</label>
       <select name="category" id="category">
-        <option value="0">전체</option>
-        <option value="2">정치</option>
-        <option value="3">경제</option>
-        <option value="4">기술</option>
-        <option value="5">환경</option>
-        <option value="6">과학</option>
-        <option value="7">건강</option>
-        <option value="8">스포츠</option>
+        <% Object.keys(category).forEach((key) => { %>
+          <option value="<%=category[key]%>" >
+            <%=key%>
+          </option>
+        <% }) %>
       </select>
       <button type="submit">이동</button>
     </form>

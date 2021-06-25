@@ -27,6 +27,18 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: true,
       },
+      category: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        validate: {
+          isIn: [[0, 1, 2, 3, 4, 5, 6, 7, 8]],
+        },
+      },
+      position: {
+        type: DataTypes.INTEGER,
+        defaultValue: 1,
+        allowNull: true,
+      },
     },
     {
       sequelize,

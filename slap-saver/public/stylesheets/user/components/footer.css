@@ -1,0 +1,24 @@
+
+.footer{
+	display: flex;
+	justify-content: center;
+	align-content:space-around;
+
+	height: 46px;
+	width: 100%;
+
+	position:fixed;
+	bottom: 0;
+
+	border-top: solid 1px;
+	border-color: #d4d4d4;
+}
+
+.footer__button{
+	width: 25%;
+	margin: auto;
+
+	display: flex;
+	justify-content: center;
+	align-content:center;
+}

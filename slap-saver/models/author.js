@@ -39,6 +39,13 @@ module.exports = (sequelize, DataTypes) => {
           isIn: [[1, 2, 3, 4, 5, 6, 7, 8, 201, 301, 401, 501, 601, 701, 801]],
         },
       },
+      category: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+          isIn: [[0, 1, 2, 3, 4, 5, 6, 7, 8]],
+        },
+      },
       position: {
         type: DataTypes.INTEGER,
         defaultValue: 1,
@@ -73,7 +80,6 @@ module.exports = (sequelize, DataTypes) => {
       modelName: 'Author',
     },
   );
-
   Author.addHook('beforeCreate', async (author, options) => {
     const salt = await bcrypt.genSaltSync(+process.env.SALT_ROUNDS);
     return bcrypt.hash(author.password, salt).then((hash) => {

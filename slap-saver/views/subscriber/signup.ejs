@@ -1,0 +1,65 @@
+<%- contentFor('styleTag') %>
+<link rel="stylesheet" href="/stylesheets/user/pages/signup.css" />
+
+<%- contentFor('body') %>
+<section class="signup white-three">
+    <div class="signup__logo"></div>
+
+    <form class="signup__form">
+        <input class="login__form__input" placeholder="ID" id="email" type="text" autofocus="" required="">
+        <input class="login__form__input" placeholder="이름" id="name" type="text" value="" required="">
+        <input class="login__form__input" placeholder="Password" id="password" type="password" value=""
+            required="">
+        <input class="login__form__input" placeholder="Password 확인" id="confirm" type="password" value="" required="">
+        <!-- Change this to a button or input when using this as a form -->
+        <button id="submit" type="submit" class="signup__form__button">
+            가입하기
+        </button>
+    </form>
+</section>
+
+
+
+<script>
+    let email = document.querySelector("#email");
+    let name = document.querySelector("#name");
+    let password = document.querySelector('#password');
+    let confirm = document.querySelector('#confirm');
+    let form = document.querySelector('.signup__form');
+    form.addEventListener('submit', (e) => {
+        e.preventDefault()
+    })
+    document.querySelector("#submit").onclick = function submit() {
+        if (email.value == '' || name.value == '' || password.value == '' || confirm.value == '') {
+            alert('빈칸을 채워주세요');
+        }
+        else if (password.value.length < 6)
+        {
+            alert('비밀번호가 너무 짧습니다');
+        }
+        else if (password.value != confirm.value)
+        {
+            alert('비밀번호를 확인해주세요');
+        }
+        else {
+            axios({
+                method: "POST",
+                url: '/subscriber/signup',
+                data: {
+                    "email": email.value,
+                    "name": name.value,
+                    "password": password.value,
+                    "confirm": confirm.value,
+                }
+            }).then((res) => {
+                alert('회원가입 되었습니다.');
+                location.href = '/subscriber/login';
+            }).catch(error => {
+                alert(error.response.data.message);
+            });
+        }
+    }
+
+</script>
+<script defer src="/vendors/axios/axios.min.js"></script>
+

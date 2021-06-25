@@ -13,6 +13,7 @@
     "test": "node_modules/.bin/jest"
   },
   "dependencies": {
+    "@editorjs/editorjs": "^2.22.0",
     "alert": "^5.0.10",
     "axios": "^0.21.1",
     "bcrypt": "^5.0.1",
@@ -28,6 +29,7 @@
     "express-session": "^1.17.1",
     "http-errors": "~1.6.3",
     "jquery": "^3.6.0",
+    "jsonwebtoken": "^8.5.1",
     "mariadb": "^2.5.3",
     "moment": "^2.29.1",
     "morgan": "~1.9.1",
@@ -39,6 +41,12 @@
     "sequelize-cli": "^6.2.0"
   },
   "devDependencies": {
+    "@babel/eslint-parser": "^7.14.5",
+    "@editorjs/image": "^2.6.0",
+    "@editorjs/link": "^2.3.1",
+    "@editorjs/list": "^1.6.2",
+    "@editorjs/nested-list": "^1.0.1",
+    "aws-sdk": "^2.930.0",
     "eslint": "^7.2.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^8.3.0",
@@ -47,6 +55,7 @@
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react": "^7.23.2",
     "jest": "^26.6.3",
+    "multer-s3": "^2.9.0",
     "nodemon": "^2.0.7"
   }
 }

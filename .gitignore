@@ -112,5 +112,12 @@ slap-saver/public/images/
 # session data
 slap-saver/sessions/
 
+*.pem
 
 .prettierignore
+
+*.pem
+
+awsconfig.json
+
+yarn.lock
