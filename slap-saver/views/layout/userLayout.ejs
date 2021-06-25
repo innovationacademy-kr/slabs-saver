@@ -8,7 +8,10 @@
   <title><%= (typeof title != "undefined" ? title : "") %></title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="/stylesheets/user/style.css" />
+
+  <%- defineContent('styleTag') %>
   <%- style %>
+
 </head>
 
 <body>
@@ -19,7 +22,9 @@
   <%- defineContent('footer') %>
 
   <script defer src="/vendors/jquery/jquery.min.js"></script>
+  <script defer src="/vendors/axios/axios.min.js"></script>
   <%- script %>
+  <%- defineContent('scriptTag') %>
 </body>
 
 </html>

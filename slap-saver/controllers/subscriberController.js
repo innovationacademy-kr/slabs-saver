@@ -4,34 +4,32 @@ const { Subscriber } = require('../models');
 var tokenKey = "slap!#abcd"
 
 const signupPage = (req, res, next) => {
-    res.render('subscriber/signup');
+    res.render('subscriber/signup', { layout: "layout/userLayout" });
 }
 
 const loginPage = (req, res, next) => {
-    res.render('subscriber/login');
+    res.render('subscriber/login', { layout: "layout/userLayout" });
 }
 
 const signupRequest = async (req, res, next) => {
     const { email, password, name, confirm } = req.body;
-    let deleted = 1;
+    let deletedAt = 1;
     try {
         const exUser = await Subscriber.findOne({ where: { email } });
-        if (exUser)
-        {
+        if (exUser) {
             res.status(400).json({
                 result: false,
                 message: '이미 계정이 있습니다.',
             });
         }
-        else if (password != confirm)
-        {
+        else if (password != confirm) {
             res.status(400).json({
                 result: false,
                 message: '비밀번호가 동일하지 않습니다.',
             });
         }
         else {
-            await Subscriber.create({ email, name, password, deleted });
+            await Subscriber.create({ email, name, password, deletedAt });
             res.status(200).json({
                 result: true,
                 message: '회원가입 성공',

@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
         is: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,15}$/i,
       },
     },
-    deleted: {
+    deletedAt: {
       type: DataTypes.INTEGER,
       allowNull: false,
     }
