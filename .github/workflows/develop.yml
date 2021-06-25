@@ -1,7 +1,7 @@
 name: remote ssh command for deploy
 on:
   push:
-    branches: [develop]
+    branches: [develop, main]
     paths-ignore:
       - 'README.md'
       - 'docs/**'
