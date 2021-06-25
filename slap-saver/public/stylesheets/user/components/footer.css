@@ -1,5 +1,6 @@
 
 .footer{
+	z-index: 1000;
 	display: flex;
 	justify-content: center;
 	align-content:space-around;
