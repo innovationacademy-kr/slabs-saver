@@ -34,5 +34,5 @@ jobs:
         key: ${{ secrets.KEY }}
         port: ${{ secrets.PORT }}
         script: |
-          ./deploy-dev.sh
+          ./deploy.sh
 
