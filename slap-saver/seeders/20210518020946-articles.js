@@ -17,24 +17,7 @@ module.exports = {
           briefing: JSON.stringify({
             "time": 1623994461706,
             "blocks":
-              [{ "id": "HBC-KsjLLR", "type": "paragraph", "data": { "text": "이건희 삼성전자 회장의 유가족이 이회장의 사재 1조원을 출연해, 감염병 전문병원을 설립하고, 소아암, 희귀질환 어린이를 지원한다고 밝혔다. 더불어, 2만 3천 점에 달하는 미술품을 국가미술관에 기증한다. 유족이 납부해야 할 상속세는 12조원에 달한다. 이건희 회장의" } },
-              {
-                "id": "ztq1wOr3ks", "type": "image",
-                "data":
-                {
-                  "file":
-                  {
-                    "url": "https://swlabs-saver.s3.ap-northeast-2.amazonaws.com/article/fded3c3db7c58c5e175460b953cffa84",
-                    "name": "fded3c3db7c58c5e175460b953cffa84",
-                    "size": 324
-                  },
-                  "caption": "",
-                  "withBorder": false,
-                  "stretched": false,
-                  "withBackground": false
-                }
-              }
-              ],
+              [{ "id": "HBC-KsjLLR", "type": "paragraph", "data": { "text": "이건희 삼성전자 회장의 유가족이 이회장의 사재 1조원을 출연해, 감염병 전문병원을 설립하고, 소아암, 희귀질환 어린이를 지원한다고 밝혔다. 더불어, 2만 3천 점에 달하는 미술품을 국가미술관에 기증한다. 유족이 납부해야 할 상속세는 12조원에 달한다. 이건희 회장의" } },],
             "version": "2.22.0"
           }),
           status: getRandomInt(1, 4),
@@ -65,24 +48,6 @@ module.exports = {
             "time": 1623994461706,
             "blocks":
               [{ "id": "HBC-KsjLLR", "type": "paragraph", "data": { "text": "6월 2일 미국정부가 제공한 약 100만 명분의 코로나 19 얀센백신이 우리나라에 들어온다. 지난 22일 바이든 미국 대통령이 한미정상회담에서 문재인 대통령에게 약속한 55만명 분의 두배에 달하는 물량이다. 한편, 백신 접종 인센티브는 6월 1일부터 시행한다." } },
-              { "id": "6vHIwtQ9pd", "type": "paragraph", "data": { "text": "1" } },
-              { "id": "PwNJFtEhQc", "type": "paragraph", "data": { "text": "2" } },
-              {
-                "id": "ztq1wOr3ks", "type": "image",
-                "data":
-                {
-                  "file":
-                  {
-                    "url": "https://swlabs-saver.s3.ap-northeast-2.amazonaws.com/article/fded3c3db7c58c5e175460b953cffa84",
-                    "name": "fded3c3db7c58c5e175460b953cffa84",
-                    "size": 324
-                  },
-                  "caption": "",
-                  "withBorder": false,
-                  "stretched": false,
-                  "withBackground": false
-                }
-              }
               ],
             "version": "2.22.0"
           }),
@@ -113,24 +78,7 @@ module.exports = {
           briefing: JSON.stringify({
             "time": 1623994461706,
             "blocks":
-              [{ "id": "HBC-KsjLLR", "type": "paragraph", "data": { "text": "내일(6월1일)부터 ‘주택 임대차 신고제’가 본격 시행된다. 이에 따라 전국 대부분의 지역에서 보증금 6000만 원 이상, 월세 30만을 넘는 임대차 계약을 한 경우에는 반드시 30일 이내에 해당지역 관할 주민센터나 정부가 운영하는 부동산거래관리시스템 등을 통해 신고" } },
-              {
-                "id": "ztq1wOr3ks", "type": "image",
-                "data":
-                {
-                  "file":
-                  {
-                    "url": "https://swlabs-saver.s3.ap-northeast-2.amazonaws.com/article/fded3c3db7c58c5e175460b953cffa84",
-                    "name": "fded3c3db7c58c5e175460b953cffa84",
-                    "size": 324
-                  },
-                  "caption": "",
-                  "withBorder": false,
-                  "stretched": false,
-                  "withBackground": false
-                }
-              }
-              ],
+              [{ "id": "HBC-KsjLLR", "type": "paragraph", "data": { "text": "내일(6월1일)부터 ‘주택 임대차 신고제’가 본격 시행된다. 이에 따라 전국 대부분의 지역에서 보증금 6000만 원 이상, 월세 30만을 넘는 임대차 계약을 한 경우에는 반드시 30일 이내에 해당지역 관할 주민센터나 정부가 운영하는 부동산거래관리시스템 등을 통해 신고" } },],
             "version": "2.22.0"
           }),
           status: getRandomInt(1, 4),
@@ -154,24 +102,7 @@ module.exports = {
           briefing: JSON.stringify({
             "time": 1623994461706,
             "blocks":
-              [{ "id": "HBC-KsjLLR", "type": "paragraph", "data": { "text": "더불어민주당 송영길 대표는 2일 취임 후 첫 기자회견에서 조국 전 법무부 장관이 자녀 입시 관련 문제 등에 대해 청년과 국민들에게 사과했다. 그러나 한편으로는 “조국 전 장관에 대한 검찰 수사의 기준은 윤석렬 전 검찰총장의 가족비리와 감찰가족의 비리에 대해서도 동일하" } },
-              {
-                "id": "ztq1wOr3ks", "type": "image",
-                "data":
-                {
-                  "file":
-                  {
-                    "url": "https://swlabs-saver.s3.ap-northeast-2.amazonaws.com/article/fded3c3db7c58c5e175460b953cffa84",
-                    "name": "fded3c3db7c58c5e175460b953cffa84",
-                    "size": 324
-                  },
-                  "caption": "",
-                  "withBorder": false,
-                  "stretched": false,
-                  "withBackground": false
-                }
-              }
-              ],
+              [{ "id": "HBC-KsjLLR", "type": "paragraph", "data": { "text": "더불어민주당 송영길 대표는 2일 취임 후 첫 기자회견에서 조국 전 법무부 장관이 자녀 입시 관련 문제 등에 대해 청년과 국민들에게 사과했다. 그러나 한편으로는 “조국 전 장관에 대한 검찰 수사의 기준은 윤석렬 전 검찰총장의 가족비리와 감찰가족의 비리에 대해서도 동일하" } },],
             "version": "2.22.0"
           }),
           status: getRandomInt(1, 4),

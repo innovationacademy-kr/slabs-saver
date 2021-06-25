@@ -187,7 +187,7 @@ const invitePage = async (req, res, next) => {
 };
 
 const preSignupPage = async (req, res, next) => {
-  res.render('author/preSignup', { title: 'signup request', admin: false });
+  res.render('author/preSignup', { title: 'signup request', POSITION });
 };
 
 const loginPage = async (req, res, next) => {
@@ -212,7 +212,7 @@ const signupPage = async (req, res, next) => {
 
 const editMeetingPage = async (req, res, next) => {
   const currentUser = await getCurrentUser(req.user ? req.user.id : null);
-  res.render('author/editMeeting', { title: 'edit-meeting', currentUser, admin: false });
+  res.render('author/editMeeting', { title: 'edit-meeting', currentUser, POSITION });
 };
 
 //내 기사 목록
@@ -223,7 +223,7 @@ const myArticlePage = async (req, res, next) => {
   return res.render('author/articles', {
     title: 'my articles',
     articles,
-    admin: false,
+    POSITION,
     currentUser,
     POSITION
   });
@@ -234,18 +234,16 @@ const previewPage = async (req, res, next) => {
     where: { id: req.params.articleId },
     include: { model: Author, attributes: ['name', 'photo'] },
   });
-  article.authorImg = `/images/authorImages/${article.Author.photo}`;
-  article.image = `/images/articleImages/${article.image}`;
+  article.authorImg = `${process.env.S3}/${article.Author.photo}`;
+  article.image = `${process.env.S3}/${article.image}`;
   article.paragraphs = JSON.parse(article.paragraphs);
-  res.render('articles/article', { title: 'preview', article, admin: false });
+  res.render('user/article', { title: 'preview', article, POSITION, layout: 'layout/userLayout' });
 };
 
 //접속한 기자 구분//
 const indexPage = async (req, res, next) => {
   const currentUser = await getCurrentUser(req.user ? req.user.id : null);
   if (!currentUser) res.redirect('/author/login'); //유저가 없다면 리다이렉션
-
-
 
   const category = isEmptyObject(req.query) || req.query.category === '0' ? CATEGORY.ALL : +req.query.category;
 
@@ -373,9 +371,8 @@ const newArticlePage = async (req, res, next) => {
     defaultCategory,
     currentUser,
     category: constants.category,
-    admin: false,
-    layout: 'layout/adminLayout',
-    POSITION
+    POSITION,
+    layout: 'layout/adminLayout'
   });
 };
 
@@ -390,7 +387,7 @@ const editArticlePage = async (req, res, next) => {
       article,
       currentUser,
       paragraphs: JSON.parse(article.paragraphs),
-      admin: false,
+      POSITION,
       category: constants.category,
       title: 'edit article',
       layout: 'layout/adminLayout'
@@ -414,7 +411,6 @@ const myPage = async (req, res, next) => {
   };
   res.render('author/mypage/mypage', {
     layout: 'layout/adminLayout',
-    admin: false,
     POSITION,
     currentUser,
     viewOption,
@@ -428,7 +424,7 @@ const todayPage = async (req, res, next) => {
   const currentUser = await getCurrentUser(req.user.id);
   res.render('author/today/today', {
     layout: 'layout/adminLayout',
-    admin: false,
+    POSITION,
     currentUser,
     title: 'today',
     POSITION
