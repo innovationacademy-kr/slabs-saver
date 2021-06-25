@@ -1,57 +1,22 @@
-<% if (admin) { %>
-  <nav class="navbar navbar-expand-md navbar-dark bg-success mb-4">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">SLAB-SAVER</a>
-        <ul class="navbar-nav me-auto mb-2 mb-md-0">
-          <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="/author/_admin">홈</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/author/_admin/invitation">초대관리</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#1">기사 관리</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#2">기자 관리</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#3">유저 관리</a>
-          </li>
-        </ul>
-        <ul class="navbar-nav mb-2 mb-md-0">
-          <li class="nav-item" style="margin-right: 10px">
-              <a class="btn btn-primary" href="/author/logout">로그아웃</a>
-          </li>
-          <li class="nav-item">
-            <a class="btn btn-danger navbar__user-image" href="/author/mypage">
-              <img
-                height="25px"
-                width="25px"
-                src="<%= process.env.S3 %>/<%= currentUser.photo %>"
-                alt="user-image">  <%= currentUser.name %>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-    <script src="/javascripts/adminNavbar.js"></script>
-<% } else { %>
+<% if (currentUser.position===POSITION.ADMIN) { %>
   <nav class="navbar navbar-expand-md navbar-dark bg-success mb-4">
     <div class="container-fluid">
-      <a class="navbar-brand" href="/author">SLAB-SAVER</a>
+      <a class="navbar-brand" href="#">SLAB-SAVER</a>
       <ul class="navbar-nav me-auto mb-2 mb-md-0">
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="/author">홈</a>
+          <a class="nav-link" aria-current="page" href="/author/_admin">홈</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/author/edit-meeting">편집회의</a>
+          <a class="nav-link" href="/author/_admin/invitation">초대관리</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/author/articles">내 기사 목록</a>
+          <a class="nav-link" href="#1">기사 관리</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/author/articles/new">기사 작성</a>
+          <a class="nav-link" href="#2">기자 관리</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#3">유저 관리</a>
         </li>
       </ul>
       <ul class="navbar-nav mb-2 mb-md-0">
@@ -60,15 +25,52 @@
         </li>
         <li class="nav-item">
           <a class="btn btn-danger navbar__user-image" href="/author/mypage">
-            <img
-              height="25px"
-              width="25px"
-              src="<%= process.env.S3 %>/<%= currentUser.photo %>"
-              alt="user-image">  <%= currentUser.name %>
+            <img height="25px" width="25px" src="<%= process.env.S3 %>/<%= currentUser.photo %>" alt="user-image">
+            <%= currentUser.name %>
           </a>
         </li>
       </ul>
     </div>
   </nav>
-  <script src="/javascripts/navbar.js"></script>
-<% } %>
+  <script src="/javascripts/adminNavbar.js"></script>
+  <% } else { %>
+    <nav class="navbar navbar-expand-md navbar-dark bg-success mb-4">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/author">SLAB-SAVER</a>
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+          <% if (currentUser.position===POSITION.EXTERNAL_WRITER) { %>
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" style="display:none" href="/author">홈</a>
+            </li>
+            <% } else{%>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="/author">홈</a>
+              </li>
+              <% } %>
+                <li class="nav-item">
+                  <a class="nav-link" href="/author/articles">내 기사 목록</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/author/articles/new">기사 작성</a>
+                </li>
+                <% if (currentUser.position===POSITION.EXTERNAL_WRITER) { %>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/author/today">오늘의 한마디</a>
+                  </li>
+                  <% } %>
+        </ul>
+        <ul class="navbar-nav mb-2 mb-md-0">
+          <li class="nav-item" style="margin-right: 10px">
+            <a class="btn btn-primary" href="/author/logout">로그아웃</a>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-danger navbar__user-image" href="/author/mypage">
+              <img height="25px" width="25px" src="<%= process.env.S3 %>/<%= currentUser.photo %>" alt="user-image">
+              <%= currentUser.name %>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <script src="/javascripts/navbar.js"></script>
+    <% } %>

@@ -215,6 +215,7 @@ const editMeetingPage = async (req, res, next) => {
   res.render('author/editMeeting', { title: 'edit-meeting', currentUser, admin: false });
 };
 
+//내 기사 목록
 const myArticlePage = async (req, res, next) => {
   const currentUser = await getCurrentUser(req.user ? req.user.id : null);
   const author = await Author.findOne({ where: { id: req.user.id } });
@@ -224,6 +225,7 @@ const myArticlePage = async (req, res, next) => {
     articles,
     admin: false,
     currentUser,
+    POSITION
   });
 };
 
@@ -238,43 +240,51 @@ const previewPage = async (req, res, next) => {
   res.render('articles/article', { title: 'preview', article, admin: false });
 };
 
-//접속한 사람 구분//
+//접속한 기자 구분//
 const indexPage = async (req, res, next) => {
   const currentUser = await getCurrentUser(req.user ? req.user.id : null);
-  if (!currentUser) res.redirect('/author/login');
+  if (!currentUser) res.redirect('/author/login'); //유저가 없다면 리다이렉션
+
+
+
   const category = isEmptyObject(req.query) || req.query.category === '0' ? CATEGORY.ALL : +req.query.category;
 
   // 접속한 사람에 따라 보여지는 기사들이 달라짐
   const articles = await Article.findAll({
     where: { category },
     include: { model: Author, attributes: ['id', 'name', 'code'] },
-  });
+  }); //db에서 사용자 데이터 가져오기
   const { position, code } = currentUser;
   // 기사, 데스크, 편집장인 경우 보여지는 부분이 있음
-  if ([POSITION.REPOTER, POSITION.DESK, POSITION.CHIEF_EDITOR].includes(currentUser.position)) {
+
+  if (position === POSITION.ADMIN) {
+    res.redirect('/author/_admin');
+
+  } else if(position === POSITION.EXTERNAL_WRITER){
+    res.redirect('/author/articles');
+  }
+  else{
     let ejsfile = '';
     let variable;
     const articlesData = JSON.stringify(articles.map((item) => pick(item, ['id', 'pm7', 'am7', 'status'])));
-    if (position === POSITION.REPOTER) {
+    if ([POSITION.REPOTER, POSITION.INTERN].includes(position)) {
       ejsfile = 'author/desking/index';
-    } else if (position === POSITION.DESK) {
+    }  else if (position === POSITION.DESK) {
       currentUser.code = code; // 기사의 코드 === 기사의 카테고리 === 수정가능한 권한을 가짐
       currentUser.category = converter.category(code);
       ejsfile = 'author/desking/desk';
     } else if (position === POSITION.CHIEF_EDITOR) {
       ejsfile = 'author/desking/chiefEditor';
     }
-    variable = { title: 'home', articles, currentUser, admin: false, articlesData, category: constants.category , position: constants.position };
+    variable = { title: 'home', articles, currentUser, articlesData, category: constants.category , position: constants.position , POSITION};
     res.render(ejsfile, variable);
-  } else if (position === POSITION.ADMIN) {
-    res.redirect('/author/_admin');
   }
 };
 
 const adminPage = async (req, res, next) => {
   const currentUser = await getCurrentUser(req.user ? req.user.id : null);
   if (!currentUser) res.redirect('/author/login');
-  res.render('admin/index', { title: 'admin home', currentUser, admin: true });
+  res.render('admin/index', { title: 'admin home', currentUser, currentUser, POSITION});
 };
 
 // TODO: ajax로 변경
@@ -364,7 +374,8 @@ const newArticlePage = async (req, res, next) => {
     currentUser,
     category: constants.category,
     admin: false,
-    layout: 'layout/adminLayout'
+    layout: 'layout/adminLayout',
+    POSITION
   });
 };
 
@@ -420,6 +431,7 @@ const todayPage = async (req, res, next) => {
     admin: false,
     currentUser,
     title: 'today',
+    POSITION
   })
 }
 
