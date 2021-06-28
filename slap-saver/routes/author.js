@@ -1,35 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const authorCtrl = require('../controllers/authorController');
+const authorCtrl = require('../controllers/author/authorController');
 const { s3ImageUpload } = require('../lib/aws/s3Uploader');
-const getCurrentUser = require('../lib/getCurrentUser');
-
-
-// TODO: 모든 url 에 적용하기
-const loggedIn = (req, res, next) => {
-  if (req.user) {
-    return next();
-  }
-  return res.redirect('/author/login');
-};
-
-const alreadyLoggedIn = (req, res, next) => {
-  if (req.user) {
-    return res.redirect('/author');
-  }
-  return next();
-};
-
-const checkCode = async (req, res, next) => {
-  if (req.user == null) {
-    res.redirect('/author');
-  }
-  const currentUser = await getCurrentUser(req.user.id);
-  if (currentUser.position !== 4) {
-    res.redirect('/author');
-  }
-  next();
-};
+const { loggedIn } = require('../middlewares/loggedIn');
+const { alreadyLoggedIn } = require('../middlewares/alreadyLoggedIn');
+const { checkCode } = require('../middlewares/checkCode');
 
 module.exports = (passport) => {
   router.get('/', loggedIn, authorCtrl.page.index);
