@@ -1,5 +1,5 @@
 const express = require('express');
-const articleCtrl = require('../controllers/articleController');
+const articleCtrl = require('../controllers/article/articleController');
 const router = express.Router();
 
 const { s3ImageUpload } = require('../lib/aws/s3Uploader');

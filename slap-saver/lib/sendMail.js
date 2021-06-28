@@ -14,7 +14,7 @@ module.exports = (invitationId, email) => {
     const send = async (data) => {
       nodemailer.createTransport(myEmail).sendMail(data, function (error, info) {
         if (error) {
-          console.error(error);
+          console.log(error);
         } else {
           return info.response;
         }
