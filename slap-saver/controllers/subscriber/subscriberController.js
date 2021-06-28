@@ -1,6 +1,6 @@
 var jwt = require('jsonwebtoken'); //JWT
 const bcrypt = require('bcrypt');
-const { Subscriber } = require('../models');
+const { Subscriber } = require('../../models');
 var tokenKey = "slap!#abcd"
 
 const signupPage = (req, res, next) => {
