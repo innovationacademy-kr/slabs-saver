@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer');
 
-module.exports = (invitationId, email) => {
+module.exports = async(invitationId, email) => {
     const myEmail = {
       service: 'gmail',
       auth: {
@@ -26,5 +26,5 @@ module.exports = (invitationId, email) => {
       subject: 'saver입니다',
       html: `<h1>SAVER</h1><a href="">http://saver.42seoul.io/author/signup?id=${invitationId}</a>`,
     };
-    send(content);
+    await send(content);
 };

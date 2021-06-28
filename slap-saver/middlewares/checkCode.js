@@ -1,4 +1,4 @@
-
+const getCurrentUser = require('../lib/getCurrentUser')
 const checkCode = async (req, res, next) => {
 	if (req.user == null) {
 		res.redirect('/author');

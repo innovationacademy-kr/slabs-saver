@@ -21,7 +21,7 @@ const decisionRequest = async (req, res) => {
 		candidate.state = INVITATION.APPROVAL;
 		candidate.position = select_position;
 		candidate.category = select_category;
-		sendMail(invitationId, email);
+		await sendMail(invitationId, email);
 		await candidate.save();
 		res.status(200).json({
 			result: true,
@@ -48,7 +48,7 @@ const inviteRequest = async (req, res) => {
 			await Invitation.create({ email, name, category, position, state: INVITATION.APPROVAL });
 			const candidate = await Invitation.findOne({ where: { email } });
 			const invitationId = candidate.id;
-			sendMail(invitationId, email);
+			await sendMail(invitationId, email);
 			res.json({
 				message: '이메일이 발송되었습니다.'
 			}).status(200);
