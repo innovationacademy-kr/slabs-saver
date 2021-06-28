@@ -8,7 +8,7 @@ module.exports = {
         {
           email: 'author2@naver.com',
           name: 'author2',
-          code: 201,
+          code: 2,
           category: 2,
           position: 1,
           contact: '01012341234',
@@ -20,7 +20,7 @@ module.exports = {
         {
           email: 'author3@naver.com',
           name: 'author3',
-          code: 301,
+          code: 3,
           category: 3,
           position: 1,
           contact: '01012341234',
@@ -32,7 +32,7 @@ module.exports = {
         {
           email: 'author4@naver.com',
           name: 'author4',
-          code: 401,
+          code: 4,
           category: 4,
           position: 1,
           contact: '01012341234',
@@ -44,7 +44,7 @@ module.exports = {
         {
           email: 'author5@naver.com',
           name: 'author5',
-          code: 501,
+          code: 5,
           category: 5,
           position: 1,
           contact: '01012341234',
@@ -56,8 +56,8 @@ module.exports = {
         {
           email: 'author6@naver.com',
           name: 'author6',
-          code: 601,
-          category: 6,
+          code: 4,
+          category: 4,
           position: 1,
           contact: '01012341234',
           password: '$2b$10$fO/O6fF5w1HDkXNab8AMBOYE/9ByW8/sjIeXpQONQgJxkegxdFDIq',
@@ -68,8 +68,8 @@ module.exports = {
         {
           email: 'author7@naver.com',
           name: 'author7',
-          code: 701,
-          category: 7,
+          code: 3,
+          category: 3,
           position: 1,
           contact: '01012341234',
           password: '$2b$10$fO/O6fF5w1HDkXNab8AMBOYE/9ByW8/sjIeXpQONQgJxkegxdFDIq',
@@ -80,8 +80,8 @@ module.exports = {
         {
           email: 'author8@naver.com',
           name: 'author8',
-          code: 801,
-          category: 8,
+          code: 2,
+          category: 2,
           position: 1,
           contact: '01012341234',
           password: '$2b$10$fO/O6fF5w1HDkXNab8AMBOYE/9ByW8/sjIeXpQONQgJxkegxdFDIq',

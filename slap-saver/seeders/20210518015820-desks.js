@@ -17,7 +17,7 @@ module.exports = {
       {
         email: 'desk3@naver.com',
         name: 'desk3',
-        code: 3,
+        code: 2,
         position: 2,
         contact: '01012341234',
         password: '$2b$10$fO/O6fF5w1HDkXNab8AMBOYE/9ByW8/sjIeXpQONQgJxkegxdFDIq',
@@ -28,7 +28,7 @@ module.exports = {
       {
         email: 'desk4@naver.com',
         name: 'desk4',
-        code: 4,
+        code: 2,
         position: 2,
         contact: '01012341234',
         password: '$2b$10$fO/O6fF5w1HDkXNab8AMBOYE/9ByW8/sjIeXpQONQgJxkegxdFDIq',
@@ -39,7 +39,7 @@ module.exports = {
       {
         email: 'desk5@naver.com',
         name: 'desk5',
-        code: 5,
+        code: 2,
         position: 2,
         contact: '01012341234',
         password: '$2b$10$fO/O6fF5w1HDkXNab8AMBOYE/9ByW8/sjIeXpQONQgJxkegxdFDIq',
@@ -50,7 +50,7 @@ module.exports = {
       {
         email: 'desk6@naver.com',
         name: 'desk6',
-        code: 6,
+        code: 2,
         position: 2,
         contact: '01012341234',
         password: '$2b$10$fO/O6fF5w1HDkXNab8AMBOYE/9ByW8/sjIeXpQONQgJxkegxdFDIq',
@@ -61,7 +61,7 @@ module.exports = {
       {
         email: 'desk7@naver.com',
         name: 'desk7',
-        code: 7,
+        code: 2,
         position: 2,
         contact: '01012341234',
         password: '$2b$10$fO/O6fF5w1HDskXNab8AMBOYE/9ByW8/sjIeXpQONQgJxkegxdFDIq',
@@ -72,7 +72,7 @@ module.exports = {
       {
         email: 'desk8@naver.com',
         name: 'desk8',
-        code: 8,
+        code: 2,
         position: 2,
         contact: '01012341234',
         password: '$2b$10$fO/O6fF5w1HDkXNab8AMBOYE/9ByW8/sjIeXpQONQgJxkegxdFDIq',
