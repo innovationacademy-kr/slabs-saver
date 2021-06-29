@@ -42,7 +42,7 @@ class ArticlePage {
 
 
 		payload.append('status', status);
-		payload.append('category', $('#category')[0].selectedIndex);
+		payload.append('category', $('#category')[0].value);
 		payload.append('headline', $('#headline')[0].value);
 		payload.append('picture', $('#picture')[0].files[0], $('#picture')[0].files[0].name);
 		// 이미지는 blob타입으로 formData에 저장되며, 해당 경우 세번째 파라미터에 파일이름을 지정해줘야한다.

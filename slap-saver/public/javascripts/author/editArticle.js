@@ -25,10 +25,9 @@ class ArticlePage {
 				'Content-Type': 'multipart/form-data'
 			}
 		}).then((res) => {
-			console.error(res.data);
 			if (res.data.result) {
 				alert('등록되었습니다');
-				location.href = '/author/articles';
+				// location.href = '/author/articles';
 			}
 		}).catch((err) => {
 			alert('실패하였습니다');
@@ -43,7 +42,7 @@ class ArticlePage {
 
 
 		payload.append('status', status);
-		payload.append('category', $('#category')[0].selectedIndex);
+		payload.append('category', $('#category')[0].value);
 		payload.append('headline', $('#headline')[0].value);
 		if ($('#picture')[0].files[0]) {
 			payload.append('picture', $('#picture')[0].files[0], $('#picture')[0].files[0].name);
@@ -103,6 +102,7 @@ class ArticlePage {
 	}
 }
 
+console.log(STATUS);
 const page = new ArticlePage();
 page.addEvent();
 page.initEditorJS(editorContent); // editorContent는 ejs에서 받아옴
