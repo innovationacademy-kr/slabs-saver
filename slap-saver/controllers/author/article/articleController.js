@@ -44,6 +44,7 @@ const editArticleRequest = async (req, res, next) => {
 		params: { articleId },
 	} = req;
 	const { headline, category, imageDesc, imageFrom, briefing, status, paragraphs } = body;
+	console.log({headline, category, imageDesc, imageFrom, briefing, status, paragraphs});
 	try {
 		await Article.update({
 			headline,
