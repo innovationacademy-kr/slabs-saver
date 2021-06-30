@@ -2,7 +2,6 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('TodayWords', {
-
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -13,6 +12,9 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      date: {
+        type: Sequelize.DATE
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
@@ -20,15 +22,6 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
-      },
-      AuthorId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        onDelete: 'cascade',
-        references: {
-          model: 'Authors',
-          key: 'id',
-        },
       }
     });
   },
