@@ -4,6 +4,7 @@ const { Author, Article, Invitation } = require('../../../models');
 const getCurrentUser = require('../../../lib/getCurrentUser');
 
 const POSITION = require('../../../lib/constants/position');
+const STATUS = require('../../../lib/constants/articleStatus');
 const { constants } = require('../../../lib/converter');
 
 
@@ -136,6 +137,7 @@ const newArticlePage = async (req, res, next) => {
 		currentUser,
 		category: constants.category,
 		POSITION,
+		STATUS,
 		layout: 'layout/adminLayout'
 	});
 };
@@ -150,8 +152,8 @@ const editArticlePage = async (req, res, next) => {
 		return res.render('author/editArticle', {
 			article,
 			currentUser,
-			paragraphs: JSON.parse(article.paragraphs),
 			POSITION,
+			STATUS,
 			category: constants.category,
 			title: 'edit article',
 			layout: 'layout/adminLayout'

@@ -555,6 +555,23 @@
 div[data-placeholder='Caption'] {
   display: none !important;
 }
+
+.cdx-nested-list--ordered > .cdx-nested-list__item::before {
+	content: counters(item) !important;
+}
+
+.cdx-nested-list--ordered > .cdx-nested-list__item .cdx-nested-list--ordered > .cdx-nested-list__item::before {
+	content: "\f111" !important;
+    font-family: FontAwesome;
+    font-size: 8px;
+}
+
 .codex-editor__redactor {
   padding-bottom: 0px !important;
+}
+
+.article__paragraphs.open ol.cdx-block li:first-child {
+}
+.article__paragraphs.close ol.cdx-block li:not(:first-child) {
+    display: none !important;
 }

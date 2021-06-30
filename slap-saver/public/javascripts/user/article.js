@@ -1,8 +1,7 @@
-function initPage(data) {
+const createEditor = (id, editorContent) => {
 	const editor = new EditorJS({
-		holder: 'editorjs',
-		data,
-		readOnly: true,
+		holder: id,
+		data: editorContent,
 		tools: {
 			linkTool: {
 				class: LinkTool, // ejs파일에서 불러옴
@@ -25,6 +24,13 @@ function initPage(data) {
 			}
 		},
 	});
+	return editor;
+}
+
+function initPage() {
+	console.log({ briefingContent, paragraphsContent });
+	var briefingEditor = createEditor('editorjs_briefing', briefingContent)
+	var paragraphsEditor = createEditor('editorjs_paragraphs', paragraphsContent)
 }
 
 
@@ -35,5 +41,5 @@ const addEvent = () => {
 /***
  * 함수 시작
  */
-initPage(briefing)
+initPage()
 addEvent();
