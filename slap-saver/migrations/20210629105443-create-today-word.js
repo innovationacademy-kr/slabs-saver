@@ -1,30 +1,19 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Bookmarks', {
+    await queryInterface.createTable('TodayWords', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      UserId: {
-        type: Sequelize.INTEGER,
+      word: {
+        type: Sequelize.STRING,
         allowNull: false,
-        onDelete: 'cascade',
-        references: {
-          model: 'Authors',
-          key: 'id',
-        },
       },
-      ArticleId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        onDelete: 'cascade',
-        references: {
-          model: 'Articles',
-          key: 'id',
-        },
+      date: {
+        type: Sequelize.DATE
       },
       createdAt: {
         allowNull: false,
@@ -37,6 +26,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Bookmarks');
+    await queryInterface.dropTable('TodayWords');
   }
 };
