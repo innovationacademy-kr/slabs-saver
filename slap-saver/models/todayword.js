@@ -3,24 +3,21 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Bookmark extends Model {
+  class TodayWord extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({ Subscriber,Article }) {
-      this.belongsTo(Subscriber);
-      this.belongsTo(Article);
+    static associate(models) {
       // define association here
     }
   };
-  Bookmark.init({
-    User_id: DataTypes.INTEGER,
-    Article_id: DataTypes.INTEGER
+  TodayWord.init({
+    date: DataTypes.DATE
   }, {
     sequelize,
-    modelName: 'Bookmarks',
+    modelName: 'TodayWord',
   });
-  return Bookmark;
+  return TodayWord;
 };
