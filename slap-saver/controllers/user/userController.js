@@ -16,27 +16,6 @@ module.exports = {
       limit: ARTICLE_LIMIT,
       include: { model: Author, attributes: ['photo', 'name'] },
     });
-
-	// ajax로 변경
-    // const Articles = await Promise.all(
-    //   ArticlesObj.map(async (article) => {
-    //     const updatedAt = moment(article.updatedAt).format('YYYY-MM-DD HH:mm:ss').slice(0, 16).replace(/\-/gi, '.');
-    //     return {
-    //       ...article.dataValues,
-    //       authorImg: `${process.env.S3}/author/${article.Author.photo}`,
-    //       image: `${process.env.S3}/${article.image}`,
-    //       updatedAt,
-    //       category: converter.categoryEng(article.getDataValue('category')).toLocaleLowerCase(),
-    //     };
-    //   }),
-    // );
-    // NOTE: 오늘의 한마디를 저장한 후 가져와야 한다.
-    // const articles = Articles.map(article => ({
-    //   briefing: article.briefing,
-    //   paragraphs: article.paragraphs,
-    //   id: article.id
-    // }))
-    // console.log(articles);
     res.render('user/index', { title: 'slab-saver', layout: 'layout/userLayout', todayArticle, todayWords });
   },
 

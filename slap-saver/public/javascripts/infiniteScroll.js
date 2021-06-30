@@ -27,10 +27,10 @@ const getPage = () => {
 
 getPage();
 $(window).scroll(function () {
-	if (
-		$(window).scrollTop() + DEFAULT_HEIGHT > $(document).height() - $(window).height() &&
-		!isUsed
-	) {
+	const scrollPosition = $(window).scrollTop() + DEFAULT_HEIGHT;
+	const pageHeight = $(document).height() - $(window).height();
+
+	if (scrollPosition > pageHeight && !isUsed) {
 		isUsed = true;
 		getPage();
 	}

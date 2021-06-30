@@ -1,9 +1,4 @@
 
-// const STATUS = {
-// 	DRAFTS: 1,
-// 	COMPLETED: 2
-// };
-
 const createEditor = (id, editorContent) => {
 	const editor = new EditorJS({
 		holder: id,
@@ -23,8 +18,8 @@ const createEditor = (id, editorContent) => {
 				class: ImageTool,
 				config: {
 					endpoints: {
-						byFile: '/articles/upload/image', // Your backend file uploader endpoint
-						byUrl: '/articles/fetch/image', // Your endpoint that provides uploading by Url
+						byFile: '/articles/upload/image', // editorjs에서 이미지를 업로드할때 사용하는 api이다
+						byUrl: '/articles/fetch/image',
 					}
 				}
 			}
