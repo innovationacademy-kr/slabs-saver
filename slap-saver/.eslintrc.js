@@ -15,6 +15,6 @@ module.exports = {
       },
     ],
   },
-  parser: "@babel/eslint-parser",
+  parser: "eslint-parser",
   extends: ['airbnb', 'plugin:prettier/recommended'],
 };

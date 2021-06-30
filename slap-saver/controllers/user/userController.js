@@ -1,6 +1,6 @@
 const moment = require('moment');
-const { Article, Author } = require('../models');
-const converter = require('../lib/converter');
+const { Article, Author } = require('../../models');
+const converter = require('../../lib/converter');
 
 module.exports = {
   home: async (req, res, next) => {

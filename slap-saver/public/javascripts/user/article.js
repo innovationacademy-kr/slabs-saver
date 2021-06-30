@@ -27,7 +27,13 @@ function initPage(data) {
 	});
 }
 
+
+const addEvent = () => {
+
+}
+
 /***
  * 함수 시작
  */
 initPage(briefing)
+addEvent();
