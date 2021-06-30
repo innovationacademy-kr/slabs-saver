@@ -16,24 +16,7 @@ module.exports = {
       limit: ARTICLE_LIMIT,
       include: { model: Author, attributes: ['photo', 'name'] },
     });
-    const Articles = await Promise.all(
-      ArticlesObj.map(async (article) => {
-        const updatedAt = moment(article.updatedAt).format('YYYY-MM-DD HH:mm:ss').slice(0, 16).replace(/\-/gi, '.');
-        return {
-          ...article.dataValues,
-          authorImg: `${process.env.S3}/author/${article.Author.photo}`,
-          image: `${process.env.S3}/${article.image}`,
-          updatedAt,
-          category: converter.categoryEng(article.getDataValue('category')).toLocaleLowerCase(),
-        };
-      }),
-    );
-    // NOTE: 오늘의 한마디를 저장한 후 가져와야 한다.
-    const briefings = JSON.stringify(Articles.map(article => ({
-      briefing: JSON.parse(article.briefing),
-      id: article.id
-    })))
-    res.render('user/index', { title: 'slab-saver', layout: 'layout/userLayout', todayArticle, todayWords, Articles, briefings });
+    res.render('user/index', { title: 'slab-saver', layout: 'layout/userLayout', todayArticle, todayWords });
   },
 
   moreArticles: async (req, res, next) => {
@@ -46,9 +29,12 @@ module.exports = {
       include: { model: Author, attributes: ['photo', 'name'] },
     });
     const data = articles.map(article => {
+		const updatedAt = moment(article.updatedAt).format('YYYY-MM-DD HH:mm:ss').slice(0, 16).replace(/\-/gi, '.');
       return {
         ...article.dataValues,
-        image: process.env.S3 + '/' + article.image
+        image: process.env.S3 + '/' + article.image,
+		updatedAt,
+		category: converter.categoryEng(article.getDataValue('category')).toLocaleLowerCase(),
       }
     });
     res.send(JSON.stringify(data));

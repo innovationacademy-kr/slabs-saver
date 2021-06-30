@@ -41,44 +41,17 @@
                     <label class="form-label" for="imageFrom">사진 출처</label>
                     <input class="form-control" type="text" id="imageFrom" name="imageFrom" value="<%= article.imageFrom %>" placeholder="사진에 대한 출처를 적어주세요" />
                   </div>
-                  <div class="mb-4">
-                    <label class="form-label" for="breifing">100자 브리핑</label>
-                    <div id="editorjs"></div>
-                  </div>
-                  <div class="mb-4">
-                    <div class="article__paragraphs">
-                      <div class="article__paragraphs--select">
-                        <select name="paragraph-select" class="form-control paragraph-select">
-                          <option value='포인트'>포인트</option>
-                          <option value='향후예측'>향후예측</option>
-                          <option value='논쟁점'>논쟁점</option>
-                          <option value='직접입력(더블클릭으로 수정)'>직접입력</option>
-                        </select>
-                        <button  type="button" class="btn btn-primary paragraph-list--Btn">소단락 추가</button>
-                      </div>
-                      <div class="paragraph-list">
-                      <% if (paragraphs && paragraphs.length > 0) { %>
-                        <% paragraphs.forEach((p)=> { %>
-                        <div class="paragraph-list__item">
-                          <label class="form-label" for=paragraph-title ></label>
-                          <input class="form-control paragraph-item__title" id="paragraph-title" name="paragraph-title" value="<%= p.title %>" readonly="readonly" >
-                          <label class="form-label" for="paragraph-conetent" ></label>
-                          <textarea class="form-control paragraph-item__content" id="paragraph-content" name="paragraph-content"><%= p.content %></textarea>
-                          <button type="button" class="btn btn-warning paragraph-item__deleteBtn">삭제</button>
-                        </div>
-                        <% }) %>
-                      <% } %>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="mb-4">
-                  </div>
-                  <div class="mb-4">
-                  </div>
-                  <div class="d-grid gap-2">
-                    <button class="article--save btn btn-primary" name="saveBtn" type="submit">저장</button>
-                    <button class="article--complete btn btn-info" name="completeBtn" type="submit">완료</button>
-                  </div>
+			<div class="mb-4">
+				<label class="form-label" for="breifing">100자 브리핑</label>
+				<div id="editorjs_briefing"></div>
+			</div>
+			<div class="mb-4">
+				<label class="form-label" for="breifing">소단락</label>
+				<div id="editorjs_paragraphs"></div>
+				<div class="d-grid gap-2">
+					<button class="article--save btn btn-primary" name="saveBtn" type="submit">임시저장</button>
+					<button class="article--complete btn btn-info" name="completeBtn" type="submit">출고</button>
+				</div>
               </div>
             </div>
           </div>
@@ -90,13 +63,15 @@
   <%- contentFor('footer') %>
   <%- include('../partials/footer.ejs') %>
 <script>
-  var editorContent = JSON.parse('<%- article.briefing %>');
-  console.log(editorContent)
+  var briefingContent = JSON.parse('<%- article.briefing %>');
+  var paragraphsContent = JSON.parse('<%- article.paragraphs %>');
+  var STATUS = JSON.parse('<%-JSON.stringify(STATUS)%>')
+  console.log(briefingContent)
+  console.log(paragraphsContent)
 </script>
 
 <script src="/vendors/editorjsNestedList/nested-list.js" defer></script>
 <script src="/vendors/editorjsImage/bundle.js" defer></script>
 <script src="/vendors/editorjsLink/bundle.js" defer></script>
 <script src="/vendors/editorjs/editor.js" defer></script>
-<script type="module" src="/javascripts/addSection.js"></script>
 <script type="module" src="/javascripts/author/editArticle.js"></script>
