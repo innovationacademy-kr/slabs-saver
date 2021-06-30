@@ -1,19 +1,56 @@
-const STATUS = {
-	DRAFTS: 1,
-	COMPLETED: 2
+// const STATUS = {
+// 	DRAFTS: 1,
+// 	COMPLETED: 2
+// }
+
+const createEditor = (id, editorContent) => {
+	const editor = new EditorJS({
+		holder: id,
+		data: editorContent,
+		tools: {
+			linkTool: {
+				class: LinkTool, // ejs파일에서 불러옴
+				config: {
+					endpoint: '', // 크롤링해오는 기능은 사용하지 않음 (newArticle.ejs에서 css로 버튼 가림)
+				}
+			},
+			list: {
+				class: NestedList,
+				inlineToolbar: true,
+			},
+			image: {
+				class: ImageTool,
+				config: {
+					endpoints: {
+						byFile: '/articles/upload/image', // Your backend file uploader endpoint
+						byUrl: '/articles/fetch/image', // Your endpoint that provides uploading by Url
+					}
+				}
+			}
+		},
+	});
+	return editor;
 }
+
 class ArticlePage {
-	editor;
-
 	constructor() {
-
+		this.briefingEditor;
+		this.paragraphsEditor;
 	}
 
-	getEditorJSON = async () => {
-		const content = await this.editor.save();
+	getBriefingJson = async () => {
+		const content = await this.briefingEditor.save();
 		const json = JSON.stringify(content);
 		return json;
 	}
+
+	getParagraphsJson = async () => {
+		const content = await this.paragraphsEditor.save();
+		const json = JSON.stringify(content);
+		return json;
+	}
+
+
 	createArticle = (data) => {
 		axios({
 			method: 'post',
@@ -35,12 +72,7 @@ class ArticlePage {
 	};
 
 	getForm = async (status) => {
-
-		const titles = Array.from(document.querySelectorAll('.paragraph-item__title')).map(el => el.value);
-		const contents = Array.from(document.querySelectorAll('.paragraph-item__content')).map(el => el.value);
 		const payload = new FormData();
-
-
 		payload.append('status', status);
 		payload.append('category', $('#category')[0].value);
 		payload.append('headline', $('#headline')[0].value);
@@ -49,9 +81,9 @@ class ArticlePage {
 		payload.append('picture', $('#picture')[0].value); // 이미지 파일임
 		payload.append('imageDesc', $('#imageDesc')[0].value);
 		payload.append('imageFrom', $('#imageFrom')[0].value);
-		payload.append('briefing', await this.getEditorJSON());
-		const paragraphs = JSON.stringify(titles.map((title, index) => ({ title, content: contents[index] })));
-		payload.append('paragraphs', paragraphs);
+		payload.append('briefing', await this.getBriefingJson());
+		payload.append('paragraphs', await this.getParagraphsJson());
+
 		return payload;
 	}
 
@@ -60,7 +92,7 @@ class ArticlePage {
 			e.preventDefault()
 		})
 		$('button[name="saveBtn"]').on('click', async () => {
-			const briefing = await this.editor.save();
+			const briefing = await this.briefingEditor.save();
 			if (briefing.blocks.length === 0) {
 				alert('100자 브리핑이 비어있습니다!')
 				return 0;
@@ -71,7 +103,7 @@ class ArticlePage {
 		});
 
 		$('button[name="completeBtn"]').on('click', async () => {
-			const briefing = await this.editor.save();
+			const briefing = await this.briefingEditor.save();
 			if (briefing.blocks.length === 0) {
 				alert('100자 브리핑이 비어있습니다!')
 				return 0;
@@ -83,30 +115,8 @@ class ArticlePage {
 	}
 
 	initEditorJS = () => {
-		this.editor = new EditorJS({
-			holder: 'editorjs',
-			tools: {
-				linkTool: {
-					class: LinkTool, // ejs파일에서 불러옴
-					config: {
-						endpoint: '', // 크롤링해오는 기능은 사용하지 않음 (newArticle.ejs에서 css로 버튼 가림)
-					}
-				},
-				list: {
-					class: NestedList,
-					inlineToolbar: true,
-				},
-				image: {
-					class: ImageTool,
-					config: {
-						endpoints: {
-							byFile: '/articles/upload/image', // Your backend file uploader endpoint
-							byUrl: '/articles/fetch/image', // Your endpoint that provides uploading by Url
-						}
-					}
-				}
-			},
-		});
+		this.briefingEditor = createEditor('editorjs_briefing', '')
+		this.paragraphsEditor = createEditor('editorjs_paragraphs', '')
 	}
 }
 

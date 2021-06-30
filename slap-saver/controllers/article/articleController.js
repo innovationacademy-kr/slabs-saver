@@ -14,7 +14,7 @@ const detailPage = async (req, res, next) => {
     return res.redirect('/');
   }
   article.image = `${process.env.S3}/${articleRow.image}`;
-  article.paragraphs = JSON.parse(articleRow.paragraphs);
+//   article.paragraphs = JSON.parse(articleRow.paragraphs);
   article.updatedAt = moment(articleRow.dataValues.updatedAt).format('YYYY.MM.DD HH:mm:ss').slice(15);
   let category = articleRow.getDataValue('category');
   category = converter.categoryEng(category).toLocaleLowerCase();
