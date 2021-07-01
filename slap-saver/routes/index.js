@@ -17,12 +17,6 @@ router.get('/profile', userCtrl.profile);
 // NOTE: 제보 화면 페이지
 router.get('/reporter', userCtrl.reporter);
 
-// NOTE: 유저 로그인 페이지
-router.get('/login', userCtrl.login);
-
-// NOTE: 유저 로그인 요청
-router.post('/login', userCtrl.requestLogin);
-
 // NOTE: 유저 회원가입 페이지
 router.get('/signup', userCtrl.signup);
 

@@ -26,6 +26,7 @@ const indexRouter = require('./routes/index');
 const authorRouter = require('./routes/author')(authorPassport);
 const subscriberRouter = require('./routes/subscriber');
 const articlesRouter = require('./routes/articles');
+const sectionRouter = require('./routes/section')
 
 const layout = require('express-ejs-layouts');
 app.use(layout);
@@ -35,6 +36,8 @@ app.set("layout extractStyles", true);
 
 // NOTE: routing
 app.use('/', indexRouter);
+app.use('/section', sectionRouter);
+
 app.use('/author', authorRouter);
 app.use('/articles', articlesRouter);
 app.use('/vendors',  vendorsRouter);
