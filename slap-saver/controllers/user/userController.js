@@ -48,14 +48,6 @@ module.exports = {
     res.render('index', { title: '제보 화면' });
   },
 
-  login: (req, res, next) => {
-    res.render('login', { title: '유저 로그인1!' });
-  },
-
-  requestLogin: (req, res, next) => {
-    res.send(req.body);
-  },
-
   signup: (req, res, next) => {
     res.render('signup', { title: '유저 회원가입!!' });
   },

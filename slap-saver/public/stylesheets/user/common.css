@@ -471,7 +471,7 @@
 
 /*footer ../icons*/
 
-.home-active {
+.icon-home.active {
   background-image: url('../icons/home-active.svg');
   background-position: center;
   background-size: cover;
@@ -480,7 +480,7 @@
   width: 94px;
 }
 
-.home-inactive {
+.icon-home.inactive {
   background-image: url('../icons/home-inactive.svg');
   background-position: center;
   background-size: cover;
@@ -489,8 +489,8 @@
   width: 94px;
 }
 
-.menu-active {
-  background-image: url('../icons/menu-active.svg');
+.icon-section.active {
+  background-image: url('../icons/section-active.svg');
   background-position: center;
   background-size: cover;
 
@@ -498,15 +498,15 @@
   width: 94px;
 }
 
-.menu-inactive {
-  background-image: url('../icons/menu-inactive.svg');
+.icon-section.inactive {
+  background-image: url('../icons/section-inactive.svg');
   background-position: center;
   background-size: cover;
 
   height: 32px;
   width: 94px;
 }
-.alarm-active {
+.alarm.active {
   background-image: url('../icons/alarm-active.svg');
   background-position: center;
   background-size: cover;
@@ -515,7 +515,7 @@
   width: 94px;
 }
 
-.alarm-inactive {
+.icon-alarm.inactive {
   background-image: url('../icons/alarm-inactive.svg');
   background-position: center;
   background-size: cover;
@@ -524,7 +524,7 @@
   width: 94px;
 }
 
-.alarm-alarm {
+.icon-alarm.inactive.new {
   background-image: url('../icons/alarm-alarm.svg');
   background-position: center;
   background-size: cover;
@@ -533,7 +533,7 @@
   width: 94px;
 }
 
-.bookmark-active {
+.icon-bookmark.active {
   background-image: url('../icons/bookmark-active.svg');
   background-position: center;
   background-size: cover;
@@ -542,7 +542,7 @@
   width: 94px;
 }
 
-.bookmark-inactive {
+.icon-bookmark.inactive {
   background-image: url('../icons/bookmark-inactive.svg');
   background-position: center;
   background-size: cover;
