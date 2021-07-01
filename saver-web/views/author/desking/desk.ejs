@@ -1,0 +1,99 @@
+<%- contentFor('navbar') %>
+<%- include('../../partials/navbar.ejs') %>
+
+<%- contentFor('body') %>
+<section class="desking-table">
+  <br />
+  <div class="desking-table__category">
+    <form method="get" action="/author" enctype="multipart/form-data">
+      <label for="category">카테고리</label>
+      <select name="category" id="category">
+        <% Object.keys(category).forEach((key) => { %>
+          <option value="<%=category[key]%>" >
+            <%=key%>
+          </option>
+        <% }) %>
+      </select>
+      <button type="submit">이동</button>
+    </form>
+    <a href="/author?category=<%= currentUser.code %>">
+      <button type="submit">마이데스킹</button>
+    </a>
+  </div>
+    <table class="table" name="table">
+      <thead class="table-header">
+        <tr class="table-haeder__row">
+          <th class="table-header__cell">NO</th>
+          <th class="table-header__cell">헤드라인</th>
+          <th class="table-header__cell">작성자</th>
+          <th class="table-header__cell">작성일자</th>
+          <th class="table-header__cell">입력일자</th>
+          <th class="table-header__cell">게재일자</th>
+          <th class="table-header__cell">상태</th>
+          <th class="table-header__cell">am7</th>
+          <th class="table-header__cell">pm7</th>
+        </tr>
+      </thead>
+      <tbody class="table-body">
+        <% articles.map((article)=> { %>
+        <tr class="table-body__row" name="cols">
+          <td class="table-body__cell"><%= article.id %></td>
+          <td class="table-body__cell">
+            <a href="/author/articles/<%= article.id %>/preview" target="_blank"> <%= article.headline %> </a>
+          </td>
+          <td class="table-body__cell"><%= article.Author.name %></td>
+          <td class="table-body__cell"><%= article.createdAt %></td>
+          <td class="table-body__cell"><%= article.updatedAt %></td>
+          <%# TODO: 게재 일자도 만들고 여기다가 넣자 %>
+          <td class="table-body__cell">
+            <% if (article.status < 4) { %>
+            미승인
+            <% } else { %>
+            <%= article.publishedAt %>
+            <% } %>
+          </td>
+          <%# TODO: status는 js파일에서 만들고 여기에 넣자. %> <%# %>
+          <td class="table-body__cell">
+            <select name="" class="statusSelector"
+              <%= article.category !== currentUser.category ? 'disabled' : '' %>
+              data-id="<%= article.id %>">
+              <option value="<%=2%>" <%= article.status === 2 ? "selected" : "" %> >작성완료</option>
+              <option value="<%=3%>" <%= article.status === 3 ? "selected" : "" %> >출고</option>
+            </select>
+          </td>
+          <%# NOTE: 출고가 되어야지만 활성화가 된다. 즉 status === 인 경우에만 활성화됨%>
+          <td class="table-body__cell">
+            <label for="am7"></label>
+            <input id="am7" type="checkbox" <%= article.am7 ? 'checked ' : '' %>
+            <% if (article.status < 3 || currentUser.category !== article.category) { %>
+              disabled
+            <% } %>
+            />
+          </td>
+          <td class="table-body__cell">
+            <label for="pm7"></label>
+            <input id="pm7" type="checkbox" <%= article.pm7 ? 'checked ' : '' %>
+            <% if (article.status < 3 || currentUser.category !== article.category) { %>
+              disabled
+            <% } %>
+            />
+          </td>
+          <% }) %>
+        </tr>
+      </tbody>
+    </table>
+    <% if (currentUser.position > 1) { %>
+    <button class="update-btn" type="submit">업데이트</button>
+    <% } %>
+</section>
+
+<%- contentFor('footer') %>
+<%- include('../../partials/footer.ejs') %>
+
+<script>
+  const originArticlesData = JSON.parse('<%-articlesData%>')
+  let articlesData = JSON.parse('<%-articlesData%>')
+</script>
+
+<script defer src="/vendors/axios/axios.min.js"></script>
+<script defer src="/javascripts/author/index.js"></script>
