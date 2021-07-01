@@ -20,9 +20,6 @@ module.exports = (sequelize, DataTypes) => {
     word: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate: {
-          len: [1, 30],
-        }
     },
     createdAt: {
         allowNull: false,

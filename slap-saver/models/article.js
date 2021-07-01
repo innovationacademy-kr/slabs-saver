@@ -21,9 +21,6 @@ module.exports = (sequelize, DataTypes) => {
       headline: {
         type: DataTypes.STRING,
         allowNull: false,
-        validate: {
-          len: [1, 30],
-        },
       },
       category: {
         type: DataTypes.INTEGER,
