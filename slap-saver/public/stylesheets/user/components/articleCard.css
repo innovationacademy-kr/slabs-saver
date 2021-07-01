@@ -50,10 +50,15 @@
 	margin-bottom: 20px;
 }
 
+.article__paragraphs {
+	padding-top: 18px;
+}
+
 .article__control{
 	display: flex;
 	justify-content:space-between;
 	align-items:center;
+	margin-top: 39px;
 }
 
 .article__control__more-button{
@@ -73,9 +78,9 @@
 	background-image: url(../../icons/more-button-text.svg);
 	background-position: center;
 	background-size: cover;
-
 	height: 19px;
 	width: 71px;
+    pointer-events: none;
 }
 
 .article__control__right-buttons{

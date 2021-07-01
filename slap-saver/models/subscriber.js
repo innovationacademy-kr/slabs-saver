@@ -9,8 +9,8 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({ Bookmark }) {
-      this.hasMany(Bookmark);
+    static associate({ Bookmarks }) {
+      this.hasMany(Bookmarks);
     }
     validPassword(password) {
       return bcrypt.compare(password, this.password).then((result) => result);
