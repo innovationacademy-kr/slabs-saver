@@ -1,7 +1,7 @@
 var jwt = require('jsonwebtoken'); //JWT
 const bcrypt = require('bcrypt');
 const { Subscriber } = require('../../models');
-var tokenKey = "slap!#abcd"
+var tokenKey = "slab!#abcd"
 
 const signupPage = (req, res, next) => {
     res.render('subscriber/signup', { layout: "layout/userLayout" });
@@ -57,7 +57,7 @@ const loginRequest = async (req, res, next) => {
                 },
                     tokenKey, {
                     expiresIn: '10d', //유통기간
-                    issuer: 'slap.admin', //누가 만들었느지
+                    issuer: 'slab.admin', //누가 만들었느지
                     subject: 'user.login.info'
                 },
                     function (err, token) {

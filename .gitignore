@@ -104,13 +104,13 @@ dist
 .tern-port
 
 # DB data
-slap-saver/db/srcs/data/
+saver-web/db/srcs/data/
 
 # images
-slap-saver/public/images/
+saver-web/public/images/
 
 # session data
-slap-saver/sessions/
+saver-web/sessions/
 
 *.pem
 
