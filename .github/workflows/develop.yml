@@ -1,0 +1,38 @@
+name: remote ssh command for deploy
+on:
+  push:
+    branches: [develop, main]
+    paths-ignore:
+      - 'README.md'
+      - 'docs/**'
+jobs:
+
+  build-dev:
+    name: deploy-dev
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/develop'
+    steps:
+    - name: executing remote ssh commands using key
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.KEY }}
+        port: ${{ secrets.PORT }}
+        script: |
+          ./deploy-dev.sh
+  build:
+    name: deploy
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+    - name: executing remote ssh commands using key
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.KEY }}
+        port: ${{ secrets.PORT }}
+        script: |
+          ./deploy.sh
+

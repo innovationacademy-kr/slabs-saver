@@ -1,0 +1,56 @@
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: #f8fafb;
+}
+
+.btn {
+  margin: 0;
+}
+
+.login,
+.presignup
+ {
+  position: absolute;
+  width: 100%;
+  top: 30%;
+}
+
+div.signup {
+  position: absolute;
+  width: 100%;
+  top: 10%;
+}
+
+.content {
+  margin-bottom: 20px;
+}
+
+.navbar__user-image {
+  height: 100%;
+  padding: 5px;
+}
+
+.form-block .form-label {
+	font-size: 20px;
+    margin-top: 20px;
+}
+
+/* Editorjs 설정 */
+
+div[id^="editorjs"] {
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+
+.cdx-nested-list--ordered > .cdx-nested-list__item::before {
+	content: counters(item) !important;
+}
+
+.cdx-nested-list--ordered > .cdx-nested-list__item .cdx-nested-list--ordered > .cdx-nested-list__item::before {
+	content: "\f111" !important;
+    font-family: FontAwesome;
+    font-size: 8px;
+}
+div[data-placeholder="Caption"] {
+  display: none !important;
+}

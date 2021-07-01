@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="93.75" height="31" viewBox="0 0 93.75 31">
+    <defs>
+        <style>
+            .cls-2{fill:#fff;stroke:#231815;stroke-miterlimit:10;stroke-width:1.8px}
+        </style>
+    </defs>
+    <g id="그룹_892" transform="translate(-187 -8)">
+        <path id="패스_915" fill="#fff" d="M0 0h93.75v31H0z" transform="translate(187 8)"/>
+        <g id="그룹_868">
+            <g id="그룹_329" transform="translate(5 -766)">
+                <g id="그룹_328" transform="translate(-103.522 384.911)">
+                    <path id="패스_923" d="M334.2 413.52a3.087 3.087 0 0 0-4.364-4.368 3.087 3.087 0 0 0 4.367 4.366z" class="cls-2"/>
+                </g>
+                <path id="합치기_4" d="M425.4 137.644h-17.813c-.569 0-.866-.7-.226-1.139 0 0 2.325-1.81 2.7-3.678a52.4 52.4 0 0 0 .079-5.847c0-2.916 3.051-4.83 6.174-4.971V122h.37v.008c3.122.142 6.173 2.056 6.173 4.971a52 52 0 0 0 .08 5.847c.371 1.868 2.7 3.678 2.7 3.678.639.435.343 1.139-.226 1.139z" class="cls-2" transform="translate(-188 658)"/>
+            </g>
+            <g id="타원_240" fill="#2b94e8" stroke="#fff" stroke-width="1.8px" transform="translate(235 10)">
+                <circle cx="5" cy="5" r="5" stroke="none"/>
+                <circle cx="5" cy="5" r="4.1" fill="none"/>
+            </g>
+        </g>
+    </g>
+</svg>

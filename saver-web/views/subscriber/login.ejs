@@ -1,0 +1,51 @@
+<%- contentFor('body') %>
+<section class="login white-three">
+  <a class="login__cancle" href="javascript:history.back()"></a>
+  <div class="login__logo"></div>
+  <form class="login__form">
+    <input class="login__form__input" type="email" name="email" placeholder="이메일" id="email" required/>
+    <input class="login__form__input" type="password" name="password" placeholder="비밀번호" class="form-control" id="password"  required />
+    <button id="login"  class="login__form__button" type="submit">로그인</button>
+  </form>
+
+  <div class="login__link">
+    <a class="login__link__id" href="/subscriber/signup">이메일 찾기</a>
+    <a class="login__link__pw" href="/subscriber/signup">비밀번호 찾기</a>
+    <a class="login__link__signup" href="/subscriber/signup">회원가입</a>
+  </div>
+</section>
+
+<%- contentFor('scriptTag') %>
+<script>
+    let email = document.querySelector("#email");
+    let password = document.querySelector('#password');
+    let form = document.querySelector('.login__form');
+    form.addEventListener('submit', (e) => {
+        e.preventDefault()
+    })
+    document.querySelector("#login").onclick = function login() {
+        if (email.value === "" || password.value === "" ) {
+            alert('빈칸을 채워주세요');
+        }
+        else {
+            axios({
+                method: "POST",
+                url: '/subscriber/login',
+                data: {
+                    "email": email.value,
+                    "password": password.value,
+                }
+            }).then((res) => {
+                sessionStorage.setItem('jwtToken', res.data.token);
+                if (location.search) {
+                    const redirect = decodeURIComponent(location.search)
+                    location.href = redirect;
+                } else {
+                    location.href = '/';
+                }
+            }).catch(error => {
+                alert(error.response.data.message);
+            });
+        }
+    }
+</script>

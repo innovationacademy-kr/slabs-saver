@@ -1,0 +1,14 @@
+const ECONOMY = 1;
+const POLITICS = 2;
+const INTERNATIONAL = 3;
+const SOCIAL = 4;
+const CULTURE = 5;
+
+module.exports = {
+  ALL: [POLITICS, ECONOMY, SOCIAL, INTERNATIONAL, CULTURE],
+  POLITICS,
+  ECONOMY,
+  SOCIAL,
+  INTERNATIONAL,
+  CULTURE,
+};

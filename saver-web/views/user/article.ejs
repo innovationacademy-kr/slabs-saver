@@ -1,0 +1,44 @@
+<%- contentFor('navbar') %>
+<%- include('./components/nav-back.ejs') %>
+
+<%- contentFor('body') %>
+<div class="article-page">
+  <div class="article">
+  <div class="article__top">
+    <div class=<%=`icon-${article.category}-black` %>></div>
+    <p class="article__top__text ft-detail">
+      <%= article.Author.name %>/<%= article.updatedAt %>
+    </p>
+  </div>
+  <p class="article__title ft-title">
+    <%= article.headline %>
+  </p>
+  <img class="article__img" src=<%=article.image %>>
+  <p class="article__imgtext ft-detail">
+    <%= article.imageDesc %> <%= article.imageFrom %>
+  </p>
+  <div id="editorjs_briefing" class="article__brief-text ft-main">
+  </div>
+  <div id="editorjs_paragraphs" class="article__brief-text ft-main">
+  </div>
+  <p class="article__main-text ft-main">
+  </p>
+  <div class="article__control">
+    <div></div>
+    <div class="article__control__right-buttons">
+      <!--TODO:공유,북마크 기능 herf 추가-->
+      <button id="btn_share" class="article__control__right-buttons__share-button"></button>
+      <button id="btn_bookmark" class="article__control__right-buttons__bookmark-button"></button>
+    </div>
+  </div>
+</div>
+</div>
+<script src="/vendors/editorjs/editor.js" defer></script>
+<script src="/vendors/editorjsNestedList/nested-list.js" defer></script>
+<script src="/vendors/editorjsImage/bundle.js" defer></script>
+<script src="/vendors/editorjsLink/bundle.js" defer></script>
+<script>
+  var briefingContent = JSON.parse(`<%- article.briefing %>`);
+  var paragraphsContent = JSON.parse(`<%- article.paragraphs %>`);
+</script>
+<script type="module" src="/javascripts/user/article.js"></script>

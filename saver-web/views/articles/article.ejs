@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>
+    <!-- <%= article.headline %> -->
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+  <main>
+  <nav class="navbar sticky-top navbar-light bg-light" style="height: 77px;">
+    <div class="container-fluid">
+      <sapn>
+        <a href="/">
+          <button class="btn float-end p-1" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" role="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-left-square" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm11.5 5.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+            </svg>
+          </button>
+        </a>
+      </sapn>
+      <a href="/" class="navbar-brand mb-0">
+        <h3 class="m-0">
+          SAVER
+        </h3>
+      </a>
+    </div>
+  </nav>
+  <div class="frame">
+    <div class="col">
+      <div class="card content">
+        <div class="content-header p-1">
+          <span class="badge rounded-pill bg-primary mb-1">
+            <%= article.category %>
+          </span>
+          <span class="card-title article-title h5">
+            <%= article.headline %>
+          </span>
+        </div>
+        <div class="d-flex align-items-center card-footer p-1">
+          <div class="image mr-3">
+            <img src=<%=article.authorImg %> class="rounded-circle" width="50px" height="50px" />
+          </div>
+          <small class="text-muted">
+            <span class="p-1" style="font-size: 0.8em;">
+              <%= article.Author.name %>
+            </span>
+            <span class="p-1" style="font-size: 0.8em">
+              <%= article.updatedAt %> 작성됨
+            </span>
+          </small>
+        </div>
+        <img src=<%=article.image %> class="card-img-top" alt="...">
+          <class class="card-body pt-0">
+            <div class="card-header bg-transparent image-info px-0 pb-1">
+            <span class="p-0">
+                <p class="m-0" style="font-size: 0.5rem; line-height: 15px;">
+                  <%= article.imageDesc %>
+                </p>
+              </span>
+              <span class="p-0" style="font-size: 0.5rem; line-height: 15px;">
+                <p class="m-0">
+                  <%= article.imageFrom %>
+                </p>
+              </span>
+            </div>
+              <div class="card-body px-0">
+                <p class="card-text">
+                  <%= article.briefing%>
+                </p>
+              </div>
+            <section class="detail">
+              <article class="detail__article">
+                <article class="detail-sections" style="display: none;">
+                  <% article.paragraphs && article.paragraphs.forEach(element => { %>
+                    <h3><%= element.title %> </h3>
+                    <p><%= element.content %> </p>
+                  <% }) %>
+                </article>
+              </article>
+            </section>
+          </class>
+        </div>
+      </div>
+    </div>
+  <button class="btn btn-primary btn-lg detail--button p-2" style="width: 100%">자세히 보기</button>
+  <script src="/javascripts/detail.js"></script>
+  </main>
+</body>
+</html>

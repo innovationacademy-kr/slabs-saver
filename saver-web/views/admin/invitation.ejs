@@ -1,0 +1,115 @@
+<%- contentFor('navbar') %>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <nav class="navbar navbar-expand-md navbar-dark bg-success mb-4">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">SLAB-SAVER</a>
+      <ul class="navbar-nav me-auto mb-2 mb-md-0">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="/author/_admin">홈</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/author/_admin/invitation">초대관리</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">기사 관리</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">기자 관리</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">유저 관리</a>
+        </li>
+      </ul>
+      <a class="btn btn-primary" href="/author/logout">로그아웃</a>
+    </div>
+  </nav>
+
+  <%- contentFor('body') %>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+      초대하기
+    </button>
+
+    <!--모달-->
+    <div class="modal fade modal-dialog-centered" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+      tabindex="-10" aria-labelledby="staticBackdropLabel" style="display: none;">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">초대하기</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form class="needs-validation">
+              <div class="modal-email">
+                <label for="email" class="col-sm-2 text-center">이메일</label>
+                <input type="email" autocapitalize="off" class="invite-email" id="email" required>
+              </div>
+              <div class="modal-name">
+                <label for="name" class="col-sm-2 text-center">이름</label>
+                <input class="invite-name" id="name" required>
+              </div>
+              <!--position-->
+              <div class="modal-code">
+                <label for="position" class="col-sm-2 text-center">직급</label>
+                <select name="position" id="position" required>
+                  <% Object.keys(position).forEach((key)=> { %>
+                    <option value="<%=position[key]%>" <%=position[key]===1 ? 'selected' : '' %> >
+                      <%=key%>
+                    </option>
+                    <% }) %>>
+                </select>
+              </div>
+              <!--modal category-->
+              <div class="modal-code">
+                <label for="category" class="col-sm-2 text-center">분야</label>
+                <select name="category" id="category" required>
+                  <% Object.keys(category).forEach((key)=> { %>
+                    <option value="<%=category[key]%>" <%=category[key]===0 ? 'disabled' : '' %>
+                      <%=category[key]=== 1 ? 'selected' : '' %> >
+                        <%=key%>
+                    </option>
+                    <% }) %>>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-primary mt-3 text-center" id="invite">초대하기</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="admin-table content">
+      <div class="admin-table__category">
+        <table class="table table-hover" name="table">
+          <thead class="standby-user-header">
+            <tr class="standby-user-header__row">
+              <th scope="col">NO</th>
+              <th scope="col">이메일</th>
+              <th scope="col">이름</th>
+              <th scope="col">진행 상황</th>
+              <th scope="col">직급</th>
+              <th scope="col">분야</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody class="standby-user-body">
+
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+
+    <script defer src="/vendors/axios/axios.min.js"></script>
+    <script src="/javascripts/adminNavbar.js"></script>
+
+    <script>
+      var position_options = JSON.parse('<%- positionJSON%>')
+      var category_options = JSON.parse('<%- categoryJSON%>')
+    </script>
+
+    <script defer src="/javascripts/invitation/index.js"></script>
+    <script defer src="/javascripts/invitation/invite.js"></script>
+
+    <%- contentFor('footer') %>
+      <%- include('../partials/footer.ejs') %>

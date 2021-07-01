@@ -1,0 +1,79 @@
+<%- contentFor('navbar') %>
+<%- include('../partials/navbar.ejs') %>
+
+<%- contentFor('body') %>
+<div class="content">
+  <div class="container">
+    <div class="row justify-content-center" >
+      <div class="col-md-6 contents">
+        <div class="row justify-content-center">
+          <div class="col-md-12">
+            <div class="form-block">
+              <div class="mb-4">
+                <h3>기사 작성</h3>
+                <p class="mb-4">새로운 기사를 작성합니다.</p>
+              </div>
+              <form class="needs-validation">
+                <div class="mb-4">
+                  <label class="form-label" for="category">카테고리</label>
+                  <select required class="form-control" name="category" id="category" >
+                    <% Object.keys(category).filter(key => key !== '전체').forEach((key) => { %>
+                      <option value="<%=category[key]%>" >
+                        <%=key%>
+                      </option>
+                    <% }) %>
+                  </select>
+                </div>
+                <div class="mb-4">
+                  <div class="article__headline">
+                      <label required class="form-label" for="headline">헤드라인</label>
+                      <input class="form-control" type="text" id="headline" name="headline" placeholder="뉴스의 헤드라인을 입력해주세요" maxlength="255" />
+                  </div>
+                </div>
+                <div class="mb-4">
+                  <label class="form-label" for="picture">사진</label>
+                  <input required class="form-control" type="file" id="picture" name="picture" accept="image/gif, image/jpeg, image/png" />
+                  <label class="form-label" for="imageDesc">사진 설명</label>
+                  <input required class="form-control" type="text" id="imageDesc" name="imageDesc" placeholder="사진에 대한 설명을 적어주세요" />
+                  <label class="form-label" for="imageFrom">사진 출처</label>
+                  <input required class="form-control" type="text" id="imageFrom" name="imageFrom" placeholder="사진에 대한 출처를 적어주세요" />
+                </div>
+                <div class="mb-4">
+                  <label class="form-label" for="breifing">100자 브리핑</label>
+                  <div id="editorjs_briefing"></div>
+                </div>
+                <div class="mb-4">
+					<label class="form-label" for="breifing">소단락</label>
+					<div id="editorjs_paragraphs"></div>
+                </div>
+                <div class="d-grid gap-2">
+                  <button class="article--save btn btn-primary" name="saveBtn" type="submit">임시저장</button>
+                  <button class="article--complete btn btn-info" name="completeBtn" type="submit">출고</button>
+                </div>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .ce-toolbox__button[data-tool="linkTool"] {
+    display: none;
+  }
+</style>
+<script>
+	var STATUS = JSON.parse('<%-JSON.stringify(STATUS)%>')
+</script>
+
+<%- contentFor('footer') %>
+<%- include('../partials/footer.ejs') %>
+
+<script src="/vendors/editorjsNestedList/nested-list.js" defer></script>
+<script src="/vendors/editorjsImage/bundle.js" defer></script>
+<script src="/vendors/editorjsLink/bundle.js" defer></script>
+<script src="/vendors/editorjs/editor.js" defer></script>
+<script type="module" src="/javascripts/author/newArticle.js"></script>
