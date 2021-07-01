@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-var tokenKey = "slap1234"
+var tokenKey = "slab1234"
 const authMiddleware = (req, res, next) => {
    const token = req.headers['x-access-token'] || req.query.token;
    console.error(token)
