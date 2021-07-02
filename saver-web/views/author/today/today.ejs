@@ -30,5 +30,35 @@
 <%- contentFor('footer') %>
 <%- include('../../partials/footer.ejs') %>
 
+<script>
+
+document.getElementById("save").onclick = function invite() {
+	const comment = document.getElementById("comment");
+	console.log(comment.value);
+	if (comment.value == '')
+	{
+		alert('오늘의 한마디가 비어있습니다');
+	}
+	else{
+		axios({
+        method: "POST",
+        url: '/author/today/new',
+        data: {
+            "word": comment.value,
+        }
+    }).then((res) => {
+        alert('오늘의 한마디 작성');
+        console.log(res);
+    }).catch(error => {
+        alert(error.response.data.message);
+    });
+	}
+
+}
+
+
+</script>
+
+
 <script defer src="/vendors/axios/axios.min.js"></script>
 <script defer src="/javascripts/author/today.js"></script>

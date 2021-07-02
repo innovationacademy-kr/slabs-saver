@@ -49,7 +49,10 @@ module.exports = (passport) => {
   router.post('/_admin/inviteList', authorCtrl.request.inviteList);
   router.post('/_admin/decision', authorCtrl.request.decision);
 
-  router.get('/today', loggedIn, authorCtrl.page.today);
-
+   /**
+   * 외부 필진
+   */
+  router.get('/today/new', loggedIn, authorCtrl.page.today);
+  router.post('/today/new',authorCtrl.request.today);
   return router;
 };

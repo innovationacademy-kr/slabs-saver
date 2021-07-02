@@ -1,5 +1,5 @@
 
-const { Author, Article } = require('../../models');
+const { Author, Article, Words } = require('../../models');
 
 const { pick } = require('../../lib/util');
 
@@ -9,6 +9,7 @@ const converter = require('../../lib/converter');
 
 const CATEGORY = require('../../lib/constants/category');
 const POSITION = require('../../lib/constants/position');
+const TODAYWORD = require('../../lib/constants/todatWordStatus');
 const { constants } = require('../../lib/converter');
 
 const articleController = require('./article/articleController');
@@ -86,7 +87,6 @@ const myPage = async (req, res) => {
 	});
 }
 
-
 const todayPage = async (req, res) => {
 	const currentUser = await getCurrentUser(req.user.id);
 	res.render('author/today/today', {
@@ -98,11 +98,34 @@ const todayPage = async (req, res) => {
 	})
 }
 
+const todayRequest = async (req, res)=> {
+	const word = req.body.word;
+	const currentUser = await getCurrentUser(req.user.id);
+	if (word === '') {
+		res.status(400).json({
+			message: '빈 항목이 있습니다.'
+		});
+	} else {
+		try {
+			await Words.create({ word, AuthorId : currentUser.id, status : TODAYWORD.DRAFTS });
+			res.json({
+				message: '저장되었습니다'
+			}).status(200);
+		} catch (error) {
+			console.log(error);
+			res.status(400).json({
+				message: '에러'
+			});
+		}
+	}
+}
+
 module.exports = {
 	request: {
 		...articleController.request,
 		...authController.request,
 		...inviteController.request,
+		today : todayRequest
 	},
 	page: {
 		index: indexPage,
