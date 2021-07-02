@@ -15,24 +15,27 @@
 							</tr>
 						</thead>
 						<tbody class="table-body">
-							<%# articles.map((article)=> { %>
+							<%# words.map((words)=> { %>
 								<tr class="table-body__row" name="cols">
 									<td class="table-body__cell">
-										1
+										<% words.id %>
 									</td>
 									<td class="table-body__cell">
-										<a href="/author/today/<%#= article.id %>/preview" target="_blank">
-											오늘의한마디오늘의한마디
+										<a href="/author/today/<%#= word.id %>/preview" target="_blank">
+											<% words.word %>
 										</a>
 									</td>
 									<td class="table-body__cell">
-										작성자명
+										<% words.Author.name %>
 									</td>
 									<td class="table-body__cell">
-										2000.00.00
+										<% words.createdAt %>
 									</td>
 									<td class="table-body__cell">
-										<input type="date" placeholder="게시일 선택">
+										<form action="">
+											<input type="date" value="">
+											<input type="reset">
+										</form>
 									</td>
 									<%# }) %>
 								</tr>
@@ -45,4 +48,4 @@
 				<%- include('../../partials/footer.ejs') %>
 
 					<script defer src="/vendors/axios/axios.min.js"></script>
-					<script defer src="/javascripts/author/index.js"></script>
+					<script defer src="/javascripts/author/today/todayDesking.js"></script>

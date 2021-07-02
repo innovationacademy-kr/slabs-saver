@@ -1,5 +1,5 @@
 
-const { Author, Article } = require('../../models');
+const { Author, Article, Words, Todayword  } = require('../../models');
 
 const { pick } = require('../../lib/util');
 
@@ -89,22 +89,36 @@ const myPage = async (req, res) => {
 
 const todayPageDesking = async (req, res) => {
 	const currentUser = await getCurrentUser(req.user.id);
+	const word = await get
 	res.render('author/today/todayDesking', {
 		layout: 'layout/adminLayout',
 		POSITION,
 		currentUser,
+		word,
 		title: 'todayDesking',
-		POSITION
 	})
 }
 
 const todayPage = async (req, res) => {
 	const currentUser = await getCurrentUser(req.user.id);
+	const words = await Words.findAll({
+	include:[{
+		model: 'Author',
+		attribute: ['id', 'name']
+	},{
+		model: 'TodayWord',
+		where: { attribute:  {
+      		[Op.or]: [2, 3]
+    	}}
+	}]
+
+	});
 	res.render('author/today/today', {
 		layout: 'layout/adminLayout',
 		currentUser,
 		title: 'today',
-		POSITION
+		POSITION,
+		words
 	})
 }
 
