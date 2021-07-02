@@ -1,12 +1,20 @@
 const getCurrentUser = require('../../../lib/getCurrentUser');
-const { Words } = require('../../../models')
+const { Words, TodayWord } = require('../../../models')
 const POSITION = require('../../../lib/constants/position');
 const TODAYWORD = require('../../../lib/constants/todayWordStatus');
 const { constants } = require('../../../lib/converter');
 
 const getTodayRequest = async (req, res) => {
 	console.log({ Words });
-	const words = await Words.findAll({ where: { AuthorId: req.user.id } });
+	const words = await Words.findAll({
+		where: {
+			AuthorId: req.user.id
+		},
+		include: {
+			model: TodayWord,
+			attributes: ['id', 'date']
+		}
+	});
 	res.status(200).json(words);
 }
 
