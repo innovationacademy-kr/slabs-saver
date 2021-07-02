@@ -49,7 +49,8 @@ module.exports = (passport) => {
   router.post('/_admin/inviteList', authorCtrl.request.inviteList);
   router.post('/_admin/decision', authorCtrl.request.decision);
 
+  router.get('/today/new', loggedIn, authorCtrl.page.createToday);
   router.get('/today', loggedIn, authorCtrl.page.today);
-
+  router.get('/today/my', loggedIn, authorCtrl.request.getToday);
   return router;
 };
