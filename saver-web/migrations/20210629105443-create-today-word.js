@@ -8,9 +8,14 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      word: {
-        type: Sequelize.STRING,
+      WordId: {
+        type: Sequelize.INTEGER,
         allowNull: false,
+        onDelete: 'cascade',
+        references: {
+          model: 'words',
+          key: 'id',
+        },
       },
       date: {
         type: Sequelize.DATE

@@ -14,20 +14,12 @@
 						<th>내용</th>
 						<th>상태</th>
 						<th>오늘의 한마디 선택여부</th>
+						<th>생서시간</th>
 					</tr>
 				</thead>
 				<tbody>
 				</tbody>
 			</table>
-			<!-- <nav aria-label="Page navigation example">
-				<ul class="pagination justify-content-center">
-					<li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-					<li class="page-item active"><a class="page-link" href="#">1</a></li>
-					<li class="page-item"><a class="page-link" href="#">2</a></li>
-					<li class="page-item"><a class="page-link" href="#">3</a></li>
-					<li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-				</ul>
-			</nav> -->
 		</div>
 	</div>
 </section>
@@ -37,6 +29,10 @@
 		max-width: 600px;
 	}
 </style>
+
+<script>
+	var todayWordStatus = JSON.parse('<%- JSON.stringify(todayWordStatus) %>');
+</script>
 
 <%- contentFor('footer') %>
 <%- include('../../partials/footer.ejs') %>

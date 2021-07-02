@@ -12,8 +12,9 @@ const makeRow = (today) => {
 				${today.word}
 			</span>
 		</td>
-		<td>${today.status}</td>
-		<td>${today.createAt}</td>
+		<td>${todayWordStatus[today.status]}</td>
+		<td>${'-'}</td>
+		<td>${today.createdAt}</td>
 	</tr>
 	`;
 	return htmlText;

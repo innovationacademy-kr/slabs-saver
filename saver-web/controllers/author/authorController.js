@@ -1,5 +1,5 @@
 
-const { Author, Article } = require('../../models');
+const { Author, Article, Words } = require('../../models');
 
 const { pick } = require('../../lib/util');
 
