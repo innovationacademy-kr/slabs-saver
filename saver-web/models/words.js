@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+const moment = require('moment');
 
 module.exports = (sequelize, DataTypes) => {
   class Words extends Model {
@@ -20,10 +21,12 @@ module.exports = (sequelize, DataTypes) => {
     word: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate: {
-          len: [1, 30],
-        }
     },
+    status: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    }
+    ,
     createdAt: {
         allowNull: false,
         type: DataTypes.DATE,

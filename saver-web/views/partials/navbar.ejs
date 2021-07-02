@@ -34,35 +34,39 @@
     </div>
   </nav>
   <script src="/javascripts/adminNavbar.js"></script>
-  <!--관리자가 아닌경우-->
   <% } else { %>
     <nav class="navbar navbar-expand-md navbar-dark bg-success mb-4">
       <div class="container-fluid">
         <a class="navbar-brand" href="/author">SLAB-SAVER</a>
         <ul class="navbar-nav me-auto mb-2 mb-md-0">
-          <!--홈: 외부필진 제외-->
-          <% if (currentUser.position!==POSITION.EXTERNAL_WRITER) { %>
+          <% if (currentUser.position===POSITION.EXTERNAL_WRITER) { %>
             <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="/author">홈</a>
+              <a class="nav-link" aria-current="page" style="display:none" href="/author">홈</a>
             </li>
-            <% } %>
+            <% } else{%>
               <li class="nav-item">
-                <a class="nav-link" href="/author/articles">내 기사 목록</a>
+                <a class="nav-link" aria-current="page" href="/author">홈</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/author/articles/new">기사 작성</a>
-              </li>
-              <!--오늘의 한마디: 외부필진만-->
-              <% if (currentUser.position===POSITION.EXTERNAL_WRITER) { %>
+              <% } %>
                 <li class="nav-item">
-                  <a class="nav-link" href="/author/today">오늘의 한마디</a>
+                  <a class="nav-link" href="/author/articles">내 기사 목록</a>
                 </li>
-                <% } %>
-                  <% if (currentUser.position===POSITION.CHIEF_EDITOR) { %>
-                    <li class="nav-item">
-                      <a class="nav-link" href="/author/todaydesking">오늘의 한마디 관리</a>
-                    </li>
-                    <% } %>
+                <li class="nav-item">
+                  <a class="nav-link" href="/author/articles/new">기사 작성</a>
+                </li>
+                <% if (currentUser.position===POSITION.EXTERNAL_WRITER) { %>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/author/today/new">오늘의 한마디 작성</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/author/today">오늘의 한마디 목록</a>
+                  </li>
+                  <% } %>
+                    <% if (currentUser.position===POSITION.CHIEF_EDITOR) { %>
+                      <li class="nav-item">
+                        <a class="nav-link" href="/author/todaydesking">오늘의 한마디 관리</a>
+                      </li>
+                      <% } %>
         </ul>
         <ul class="navbar-nav mb-2 mb-md-0">
           <li class="nav-item" style="margin-right: 10px">

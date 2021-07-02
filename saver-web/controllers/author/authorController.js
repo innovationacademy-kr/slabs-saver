@@ -1,5 +1,5 @@
 
-const { Author, Article, Words, Todayword  } = require('../../models');
+const { Author, Article} = require('../../models');
 
 const { pick } = require('../../lib/util');
 
@@ -14,6 +14,7 @@ const { constants } = require('../../lib/converter');
 const articleController = require('./article/articleController');
 const authController = require('./auth/authController');
 const inviteController = require('./invite/inviteController');
+const todayController = require('./today/todayController');
 
 
 //접속한 기자 구분//
@@ -83,59 +84,20 @@ const myPage = async (req, res) => {
 	});
 }
 
-/*
-/**오늘의 한마디 관리
-*/
-
-const todayPageDesking = async (req, res) => {
-	const currentUser = await getCurrentUser(req.user.id);
-	const word = await get
-	res.render('author/today/todayDesking', {
-		layout: 'layout/adminLayout',
-		POSITION,
-		currentUser,
-		word,
-		title: 'todayDesking',
-	})
-}
-
-const todayPage = async (req, res) => {
-	const currentUser = await getCurrentUser(req.user.id);
-	const words = await Words.findAll({
-	include:[{
-		model: 'Author',
-		attribute: ['id', 'name']
-	},{
-		model: 'TodayWord',
-		where: { attribute:  {
-      		[Op.or]: [2, 3]
-    	}}
-	}]
-
-	});
-	res.render('author/today/today', {
-		layout: 'layout/adminLayout',
-		currentUser,
-		title: 'today',
-		POSITION,
-		words
-	})
-}
-
 module.exports = {
 	request: {
 		...articleController.request,
 		...authController.request,
 		...inviteController.request,
+		...todayController.request,
 	},
 	page: {
 		index: indexPage,
 		admin: adminPage,
 		mypage: myPage,
-		today: todayPage,
-		todayDesk: todayPageDesking,
 		...articleController.page,
 		...authController.page,
 		...inviteController.page,
+		...todayController.page,
 	},
 };

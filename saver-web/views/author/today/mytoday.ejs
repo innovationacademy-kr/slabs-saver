@@ -1,0 +1,41 @@
+<%- contentFor('navbar') %>
+<%- include('../../partials/navbar.ejs') %>
+
+<%- contentFor('body') %>
+<section class="mytoday container">
+	<div class="row align-items-start">
+		<div class="col align-self-center">
+			<h6 class="mt-5 display-6 text-start">
+				내가 작성한 오늘의  한마디
+			</h6>
+			<table class="table">
+				<thead class="table-header">
+					<tr class="table-haeder__row">
+						<th>내용</th>
+						<th>상태</th>
+						<th>오늘의 한마디 선택여부</th>
+						<th>생서시간</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</section>
+
+<style>
+	.text-truncate {
+		max-width: 600px;
+	}
+</style>
+
+<script>
+	var todayWordStatus = JSON.parse('<%- JSON.stringify(todayWordStatus) %>');
+</script>
+
+<%- contentFor('footer') %>
+<%- include('../../partials/footer.ejs') %>
+
+<script defer src="/vendors/axios/axios.min.js"></script>
+<script defer src="/javascripts/author/mytoday.js"></script>

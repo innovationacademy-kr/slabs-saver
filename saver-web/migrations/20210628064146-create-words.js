@@ -2,7 +2,6 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Words', {
-
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -29,6 +28,10 @@ module.exports = {
           model: 'Authors',
           key: 'id',
         },
+      },
+      status: {
+        allowNull: false,
+        type: Sequelize.INTEGER
       }
     });
   },
