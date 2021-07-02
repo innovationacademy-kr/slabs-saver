@@ -8,12 +8,14 @@ const makeRow = (today) => {
 	const htmlText = `
 	<tr>
 		<td>
-			<span class="d-inline-block text-truncate">
-				${today.word}
-			</span>
+			<a href="/author/today/edit/${today.id}">
+				<span class="d-inline-block text-truncate">
+					${today.word}
+				</span>
+			</a>
 		</td>
 		<td>${todayWordStatus[today.status]}</td>
-		<td>${'-'}</td>
+		<td>${today.TodayWord ? today.TodayWord.date.slice(0, 10) : 'X'}</td>
 		<td>${today.createdAt}</td>
 	</tr>
 	`;
