@@ -40,15 +40,12 @@ const indexPage = async (req, res) => {
 		let ejsfile = '';
 		let variable;
 		const articlesData = JSON.stringify(articles.map((item) => pick(item, ['id', 'pm7', 'am7', 'status'])));
-		console.log({ position, 'POSITION.DESK': POSITION.DESK, });
-		console.log(currentUser.category, category);
 		if ([POSITION.REPOTER, POSITION.INTERN].includes(position)) {
 			ejsfile = 'author/desking/index';
 		} else if (position === POSITION.DESK) {
 			const curr_category = currentUser.category || category;
 			currentUser.code = curr_category; // 기사의 코드 === 기사의 카테고리 === 수정가능한 권한을 가짐
 			currentUser.category = converter.category(curr_category);
-			console.log(currentUser);
 			ejsfile = 'author/desking/desk';
 		} else if (position === POSITION.CHIEF_EDITOR) {
 			ejsfile = 'author/desking/chiefEditor';
@@ -86,12 +83,25 @@ const myPage = async (req, res) => {
 	});
 }
 
+/*
+/**오늘의 한마디 관리
+*/
+
+const todayPageDesking = async (req, res) => {
+	const currentUser = await getCurrentUser(req.user.id);
+	res.render('author/today/todayDesking', {
+		layout: 'layout/adminLayout',
+		POSITION,
+		currentUser,
+		title: 'todayDesking',
+		POSITION
+	})
+}
 
 const todayPage = async (req, res) => {
 	const currentUser = await getCurrentUser(req.user.id);
 	res.render('author/today/today', {
 		layout: 'layout/adminLayout',
-		POSITION,
 		currentUser,
 		title: 'today',
 		POSITION
@@ -109,6 +119,7 @@ module.exports = {
 		admin: adminPage,
 		mypage: myPage,
 		today: todayPage,
+		todayDesk: todayPageDesking,
 		...articleController.page,
 		...authController.page,
 		...inviteController.page,

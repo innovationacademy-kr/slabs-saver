@@ -29,7 +29,7 @@ const requestUpdate = (articles) => {
       alert('수정되었습니다')
     })
     .catch(err => {
-      alert('수정되었습니다')
+      alert('실패했습니다')
       console.error(err);
     })
 }

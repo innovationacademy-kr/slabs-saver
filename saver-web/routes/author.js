@@ -49,7 +49,10 @@ module.exports = (passport) => {
   router.post('/_admin/inviteList', authorCtrl.request.inviteList);
   router.post('/_admin/decision', authorCtrl.request.decision);
 
+  /**
+   * 오늘의 한마디 관리
+   */
   router.get('/today', loggedIn, authorCtrl.page.today);
-
+  router.get('/todaydesking', loggedIn, authorCtrl.page.todayDesk)
   return router;
 };
