@@ -14,6 +14,7 @@ const { constants } = require('../../lib/converter');
 const articleController = require('./article/articleController');
 const authController = require('./auth/authController');
 const inviteController = require('./invite/inviteController');
+const todayController = require('./today/todayController');
 
 
 //접속한 기자 구분//
@@ -86,31 +87,20 @@ const myPage = async (req, res) => {
 	});
 }
 
-
-const todayPage = async (req, res) => {
-	const currentUser = await getCurrentUser(req.user.id);
-	res.render('author/today/today', {
-		layout: 'layout/adminLayout',
-		POSITION,
-		currentUser,
-		title: 'today',
-		POSITION
-	})
-}
-
 module.exports = {
 	request: {
 		...articleController.request,
 		...authController.request,
 		...inviteController.request,
+		...todayController.request,
 	},
 	page: {
 		index: indexPage,
 		admin: adminPage,
 		mypage: myPage,
-		today: todayPage,
 		...articleController.page,
 		...authController.page,
 		...inviteController.page,
+		...todayController.page,
 	},
 };

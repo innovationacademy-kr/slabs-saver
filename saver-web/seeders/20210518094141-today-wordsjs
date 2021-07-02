@@ -1,0 +1,30 @@
+'use strict';
+
+module.exports = {
+	up: async (queryInterface, Sequelize) => {
+		await queryInterface.bulkInsert(
+			'TodayWord',
+			[
+				{
+					id: 1,
+					word: '손실보상법 국회 통과… 소급 적용 빠져',
+					date: null,
+					createdAt: Sequelize.fn('now'),
+					updatedAt: Sequelize.fn('now'),
+				},
+				{
+					id: 2,
+					word: '코로나 대응에 모두가 지치고 힘든 지금, 서로가 서로를 격려하고 위로하는 마음의 방역이 필요한 시점입니다.',
+					date: new Date('2021-07-01'),
+					createdAt: Sequelize.fn('now'),
+					updatedAt: Sequelize.fn('now'),
+				},
+			],
+			{ validate: false },
+		);
+	},
+
+	down: async (queryInterface, Sequelize) => {
+		return queryInterface.bulkDelete('TodayWord', { position: 1 });
+	},
+};

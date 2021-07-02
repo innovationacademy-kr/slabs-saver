@@ -1,0 +1,45 @@
+<%- contentFor('navbar') %>
+<%- include('../../partials/navbar.ejs') %>
+
+<%- contentFor('body') %>
+<section class="mytoday container">
+	<div class="row align-items-start">
+		<div class="col align-self-center">
+			<h6 class="mt-5 display-6 text-start">
+				내가 작성한 오늘의  한마디
+			</h6>
+			<table class="table">
+				<thead class="table-header">
+					<tr class="table-haeder__row">
+						<th>내용</th>
+						<th>상태</th>
+						<th>오늘의 한마디 선택여부</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+			<!-- <nav aria-label="Page navigation example">
+				<ul class="pagination justify-content-center">
+					<li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+					<li class="page-item active"><a class="page-link" href="#">1</a></li>
+					<li class="page-item"><a class="page-link" href="#">2</a></li>
+					<li class="page-item"><a class="page-link" href="#">3</a></li>
+					<li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+				</ul>
+			</nav> -->
+		</div>
+	</div>
+</section>
+
+<style>
+	.text-truncate {
+		max-width: 600px;
+	}
+</style>
+
+<%- contentFor('footer') %>
+<%- include('../../partials/footer.ejs') %>
+
+<script defer src="/vendors/axios/axios.min.js"></script>
+<script defer src="/javascripts/author/mytoday.js"></script>
