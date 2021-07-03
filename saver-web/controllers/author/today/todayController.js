@@ -4,8 +4,11 @@ const POSITION = require('../../../lib/constants/position');
 const TODAYWORD = require('../../../lib/constants/todayWordStatus');
 const { constants } = require('../../../lib/converter');
 
+/**
+ * 관리자 페이지
+ * 기자가 작성한 오늘의 한마디 목록을 조회한다
+ */
 const getTodayRequest = async (req, res) => {
-	console.log({ Words });
 	const words = await Words.findAll({
 		where: {
 			AuthorId: req.user.id
@@ -18,6 +21,10 @@ const getTodayRequest = async (req, res) => {
 	res.status(200).json(words);
 }
 
+/**
+ * 관리자 페이지
+ * 오늘의 한마디를 생성한다.
+ */
 const createTodayPage = async (req, res) => {
 	const currentUser = await getCurrentUser(req.user.id);
 	res.render('author/today/createToday', {
@@ -28,6 +35,11 @@ const createTodayPage = async (req, res) => {
 	})
 }
 
+
+/**
+ * 관리자 페이지
+ * 내가 작성한 오늘의 한마디 페이지를 그린다
+ */
 const todayPage = async (req, res) => {
 	const currentUser = await getCurrentUser(req.user.id);
 	res.render('author/today/mytoday', {
@@ -39,6 +51,9 @@ const todayPage = async (req, res) => {
 	})
 }
 
+/**
+ * 오늘의 한마디를 생성한다.
+ */
 const todayRequest = async (req, res) => {
 	const word = req.body.word;
 	const currentUser = await getCurrentUser(req.user.id);
@@ -61,6 +76,9 @@ const todayRequest = async (req, res) => {
 	}
 }
 
+/**
+ * 오늘의 한마디를 수정한다.
+ */
 const editTodayRequest = async (req,res) => {
 	const id = req.body.id;
 	const word = req.body.word;
@@ -89,7 +107,7 @@ module.exports = {
 	request: {
 		getToday: getTodayRequest,
 		today: todayRequest,
-		editToday : editTodayRequest
+		editToday : editTodayRequest,
 	},
 	page: {
 		createToday: createTodayPage,
