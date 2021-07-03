@@ -1,10 +1,8 @@
-function getParameterByName(name) {
-  var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
-  return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
-}
+//TODO : 날짜 지난 오늘의 한마디 비활성화
+//TODO : 같은 날짜 선택 막아두기
+
 
 var table = document.querySelector('.table');
-var select = document.querySelector('#category');
 
 table.addEventListener('change', function(e) {
   var cell = e.target.closest('.table-body__cell');
@@ -14,16 +12,11 @@ table.addEventListener('change', function(e) {
   }
 });
 
-const currentCategory = getParameterByName('category');
-if (currentCategory) {
-  select.value = currentCategory;
-}
-
-/**
+/*
  * 업데이트 클릭시 ajax 요청
  */
-const requestUpdate = (articles) => {
-  axios.post('/author/desk-process', {articles})
+const requestUpdate = (words) => {
+  axios.post('/author/todaydesking', {words})
     .then(res => {
       console.log(res);
       alert('수정되었습니다')
@@ -34,12 +27,11 @@ const requestUpdate = (articles) => {
     })
 }
 
+//초기화
 const addEvent = () => {
-  articlesData = articlesData.map(function(item) {
+  wordsData = wordsData.map(function(item) {
     item.changed = {
-      status: false,
-      pm7: false,
-      am7: false,
+      status: false
     }
     return item;
   })
@@ -75,15 +67,17 @@ const addEvent = () => {
   const selector = $('select.statusSelector');
   selector.on('change', function (e) {
     const { target: { dataset } } = e;
-    const articleId = parseInt(dataset.id)
-    const value = parseInt(e.target.value)
+    const articleId = parseInt(dataset.id)// date-id 할당
+    const value = parseInt(e.target.value) //input 값 할당
 
     articlesData = articlesData.map(function (item, index) {
       if (item.id === articleId) {
-        const isStatusChanged = originArticlesData[index].status !== value;
-        item.changed.status = isStatusChanged;
-        item.status = value;
-      }
+        const isValueChanged = originWordsData[index].date !== value;
+        //if (데이터에 날짜값이 없으면 ){
+        //  데이터 상태값 바꾸기
+        //}
+        item.todaywords.date = value;
+      } // 값 바꿔주는중...
       return item;
     })
     console.log(getChangedArticle(articlesData));
@@ -101,9 +95,10 @@ const addEvent = () => {
   /**
    * 하단 업데이트 버튼 이벤트 추가
    */
+
   const btn = $(".update-btn");
   btn.on('click', function() {
-    const chageList = getChangedArticle(articlesData);
+    const chageList = getChangedArticle(wordsData);
     requestUpdate(chageList);
   })
 }

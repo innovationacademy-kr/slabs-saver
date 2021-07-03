@@ -1,5 +1,5 @@
 const getCurrentUser = require('../../../lib/getCurrentUser');
-const { Words , Article, TodayWord, Author} = require('../../../models')
+const { Words , TodayWord, Author} = require('../../../models')
 const POSITION = require('../../../lib/constants/position');
 const TODAYWORD = require('../../../lib/constants/todayWordStatus');
 const { constants } = require('../../../lib/converter');
@@ -33,16 +33,20 @@ const todayPageDesking = async (req, res) => {
 	const currentUser = await getCurrentUser(req.user.id);
 	console.log({Author, TodayWord})
 	const words = await Words.findAll({
-	include:[{
-		model: Author,
-		attribute: ['id', 'name']
-	},{
-		model: TodayWord,
-		where: {
+		include:[
+			{
+				model: Author,
+				attribute: ['id', 'name']
+			},
+			{
+				model: TodayWord,
+			},
+		],
+		where:{
 			status:{
-      		[Op.or]: [2, 3]
-    	}}
-	}]
+      			[Op.or]: [2, 3]
+    		}
+		}
 	});
 	res.render('author/today/todayDesking', {
 		layout: 'layout/adminLayout',

@@ -1,6 +1,5 @@
 <%- contentFor('navbar') %>
 	<%- include('../../partials/navbar.ejs') %>
-
 		<%- contentFor('body') %>
 			<section class="desking-table">
 				<%# TODO: 필터링or검색기능 %>
@@ -15,30 +14,32 @@
 							</tr>
 						</thead>
 						<tbody class="table-body">
-							<%# words.map((words)=> { %>
-								<tr class="table-body__row" name="cols">
-									<td class="table-body__cell">
-										<% words.id %>
-									</td>
-									<td class="table-body__cell">
-										<a href="/author/today/<%#= word.id %>/preview" target="_blank">
-											<% words.word %>
-										</a>
-									</td>
-									<td class="table-body__cell">
-										<% words.Author.name %>
-									</td>
-									<td class="table-body__cell">
-										<% words.createdAt %>
-									</td>
-									<td class="table-body__cell">
-										<form action="">
-											<input type="date" value="">
-											<input type="reset">
-										</form>
-									</td>
-									<%# }) %>
-								</tr>
+							<% words.map((word)=> { %>
+								<% console.log(word.id) %>
+
+									<tr class="table-body__row" name="cols">
+										<td class="table-body__cell">
+											<%= word.id %>
+										</td>
+										<td class="table-body__cell">
+											<a href="/author/today/<%#= word.id %>/preview" target="_blank">
+												<%= word.word %>
+											</a>
+										</td>
+										<td class="table-body__cell">
+											<%= word.Author.name %>
+										</td>
+										<td class="table-body__cell">
+											<%= word.createdAt %>
+										</td>
+										<td class="table-body__cell">
+											<form action="">
+												<input class="date" type="date" value="" data-id="<%= word.id %> ">
+												<input type="reset">
+											</form>
+										</td>
+										<% }) %>
+									</tr>
 						</tbody>
 					</table>
 					<button class="update-btn" type="submit">업데이트</button>
