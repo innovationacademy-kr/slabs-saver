@@ -39,6 +39,27 @@ const todayPage = async (req, res) => {
 	})
 }
 
+const editTodayPage = async (req, res) => {
+	const articleId = req.query.id;
+	const currentUser = await getCurrentUser(req.user.id);
+	let word;
+	try{
+		const contents = await Words.findOne({where :{id : articleId}})
+		word = contents.word;
+	}
+	catch (error){
+		console.log(error);
+	}
+	res.render('author/today/editToday', {
+		layout: 'layout/adminLayout',
+		currentUser,
+		title: 'today',
+		word: word,
+		POSITION
+	})
+}
+
+
 const todayRequest = async (req, res) => {
 	const word = req.body.word;
 	const currentUser = await getCurrentUser(req.user.id);
@@ -92,6 +113,7 @@ module.exports = {
 		editToday : editTodayRequest
 	},
 	page: {
+		editToday: editTodayPage,
 		createToday: createTodayPage,
 		today: todayPage,
 	}
