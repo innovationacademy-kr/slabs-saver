@@ -73,7 +73,7 @@ const editTodayRequest = async (req,res) => {
 	}
 	else{
 		try {
-			await Words.update({ id, word, status});
+			await Words.update({word, status},{where : {id : id}});
 		    res.status(200).json({
 			message: '수정 되었습니다'});
 		} catch (error) {
