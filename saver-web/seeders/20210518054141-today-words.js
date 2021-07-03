@@ -1,21 +1,25 @@
 'use strict';
+const moment = require('moment');
 
 module.exports = {
 	up: async (queryInterface, Sequelize) => {
+		const date = moment().set('h', 0).set('m', '0').set('s', 0).format('YYYY-MM-DD');
+		const date2 = moment().add(1, 'day').set('h', 0).set('m', '0').set('s', 0).format('YYYY-MM-DD');
+
 		await queryInterface.bulkInsert(
-			'TodayWord',
+			'TodayWords',
 			[
 				{
 					id: 1,
-					word: '손실보상법 국회 통과… 소급 적용 빠져',
-					date: null,
+					WordId: 1,
+					date: date,
 					createdAt: Sequelize.fn('now'),
 					updatedAt: Sequelize.fn('now'),
 				},
 				{
 					id: 2,
-					word: '코로나 대응에 모두가 지치고 힘든 지금, 서로가 서로를 격려하고 위로하는 마음의 방역이 필요한 시점입니다.',
-					date: new Date('2021-07-01'),
+					WordId: 2,
+					date: date2,
 					createdAt: Sequelize.fn('now'),
 					updatedAt: Sequelize.fn('now'),
 				},
@@ -25,6 +29,6 @@ module.exports = {
 	},
 
 	down: async (queryInterface, Sequelize) => {
-		return queryInterface.bulkDelete('TodayWord', { position: 1 });
+		return queryInterface.bulkDelete('TodayWords');
 	},
 };

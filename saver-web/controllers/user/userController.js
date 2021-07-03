@@ -8,7 +8,6 @@ module.exports = {
     const candidateArticle = await Article.findOne({ where: { status: 4 } });
     const todayArticle = candidateArticle || { headline: '비어있는 항목입니다.' };
     // TODO: todayWords 기능 추가해야함
-    const todayWords = '" 가장 빨리 맞을 수 있는 백신이 가장 좋은 백신 " - 감염내과 전문의 *** -';
     const ARTICLE_LIMIT = 3;
     const ArticlesObj = await Article.findAll({
       where: { status: 4 },
@@ -16,7 +15,7 @@ module.exports = {
       limit: ARTICLE_LIMIT,
       include: { model: Author, attributes: ['photo', 'name'] },
     });
-    res.render('user/index', { title: 'slab-saver', layout: 'layout/userLayout', todayArticle, todayWords });
+    res.render('user/index', { title: 'slab-saver', layout: 'layout/userLayout', todayArticle });
   },
 
   moreArticles: async (req, res, next) => {
