@@ -14,7 +14,7 @@
 	<script>
 		const alarm = document.querySelector("#alarm");
 		const bookmark = document.querySelector("#bookmark");
-		const token = sessionStorage['jwtToken'];
+		const token = localStorage['jwtToken'];
 
 		alarm.addEventListener('click', (e) => {
 			if (token) {
