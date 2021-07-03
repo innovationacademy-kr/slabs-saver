@@ -3,7 +3,11 @@
 module.exports = {
 	up: async (queryInterface, Sequelize) => {
 		await queryInterface.bulkInsert(
+<<<<<<< HEAD:saver-web/seeders/20210518044141-word.js
 			'Words',
+=======
+			'TodayWords',
+>>>>>>> 751e6e125c18245c28bc8efd720664fdf3a3b838:saver-web/seeders/20210518094141-today-wordsjs
 			[
 				{
 					id: 1,
@@ -35,6 +39,10 @@ module.exports = {
 	},
 
 	down: async (queryInterface, Sequelize) => {
+<<<<<<< HEAD:saver-web/seeders/20210518044141-word.js
 		return queryInterface.bulkDelete('Words');
+=======
+		return queryInterface.bulkDelete('TodayWords', );
+>>>>>>> 751e6e125c18245c28bc8efd720664fdf3a3b838:saver-web/seeders/20210518094141-today-wordsjs
 	},
 };

@@ -51,9 +51,33 @@ const todayPage = async (req, res) => {
 	})
 }
 
+<<<<<<< HEAD
 /**
  * 오늘의 한마디를 생성한다.
  */
+=======
+const editTodayPage = async (req, res) => {
+	const articleId = req.query.id;
+	const currentUser = await getCurrentUser(req.user.id);
+	let word;
+	try{
+		const contents = await Words.findOne({where :{id : articleId}})
+		word = contents.word;
+	}
+	catch (error){
+		console.log(error);
+	}
+	res.render('author/today/editToday', {
+		layout: 'layout/adminLayout',
+		currentUser,
+		title: 'today',
+		word: word,
+		POSITION
+	})
+}
+
+
+>>>>>>> 751e6e125c18245c28bc8efd720664fdf3a3b838
 const todayRequest = async (req, res) => {
 	const word = req.body.word;
 	const currentUser = await getCurrentUser(req.user.id);
@@ -110,6 +134,7 @@ module.exports = {
 		editToday : editTodayRequest,
 	},
 	page: {
+		editToday: editTodayPage,
 		createToday: createTodayPage,
 		today: todayPage,
 	}
