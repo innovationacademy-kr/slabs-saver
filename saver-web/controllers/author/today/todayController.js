@@ -1,8 +1,10 @@
 const getCurrentUser = require('../../../lib/getCurrentUser');
-const { Words , Article, Todayword} = require('../../../models')
+const { Words , Article, TodayWord, Author} = require('../../../models')
 const POSITION = require('../../../lib/constants/position');
 const TODAYWORD = require('../../../lib/constants/todayWordStatus');
 const { constants } = require('../../../lib/converter');
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 const getTodayRequest = async (req, res) => {
 	console.log({ Words });
@@ -21,13 +23,15 @@ const createTodayPage = async (req, res) => {
 }
 const todayPageDesking = async (req, res) => {
 	const currentUser = await getCurrentUser(req.user.id);
+	console.log({Author, TodayWord})
 	const words = await Words.findAll({
 	include:[{
-		model: 'Author',
+		model: Author,
 		attribute: ['id', 'name']
 	},{
-		model: 'TodayWord',
-		where: { attribute:  {
+		model: TodayWord,
+		where: {
+			status:{
       		[Op.or]: [2, 3]
     	}}
 	}]
@@ -82,5 +86,6 @@ module.exports = {
 	page: {
 		createToday: createTodayPage,
 		today: todayPage,
+		todayDesk: todayPageDesking
 	}
 };
