@@ -8,7 +8,7 @@ const makeRow = (today) => {
 	const htmlText = `
 	<tr>
 		<td>
-			<a href="/author/today/edit/${today.id}">
+			<a href="/author/today/edit?id=${today.id}">
 				<span class="d-inline-block text-truncate">
 					${today.word}
 				</span>

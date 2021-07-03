@@ -49,9 +49,33 @@ const todayRequest = async (req, res) => {
 	} else {
 		try {
 			await Words.create({ word, AuthorId: currentUser.id, status: TODAYWORD.DRAFTS });
-			res.json({
+			res.status(200).json({
 				message: '저장되었습니다'
-			}).status(200);
+			});
+		} catch (error) {
+			console.log(error);
+			res.status(400).json({
+				message: '에러'
+			});
+		}
+	}
+}
+
+const editTodayRequest = async (req,res) => {
+	const id = req.body.id;
+	const word = req.body.word;
+	const status = req.body.status;
+	if (word == '')
+	{
+		res.status(400).json({
+			message: '빈 항목이 있습니다'
+		});
+	}
+	else{
+		try {
+			await Words.update({word, status},{where : {id : id}});
+		    res.status(200).json({
+			message: '수정 되었습니다'});
 		} catch (error) {
 			console.log(error);
 			res.status(400).json({
@@ -64,7 +88,8 @@ const todayRequest = async (req, res) => {
 module.exports = {
 	request: {
 		getToday: getTodayRequest,
-		today: todayRequest
+		today: todayRequest,
+		editToday : editTodayRequest
 	},
 	page: {
 		createToday: createTodayPage,
