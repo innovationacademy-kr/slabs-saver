@@ -8,7 +8,15 @@ const Op = Sequelize.Op;
 
 const getTodayRequest = async (req, res) => {
 	console.log({ Words });
-	const words = await Words.findAll({ where: { AuthorId: req.user.id } });
+	const words = await Words.findAll({
+		where: {
+			AuthorId: req.user.id
+		},
+		include: {
+			model: TodayWord,
+			attributes: ['id', 'date']
+		}
+	});
 	res.status(200).json(words);
 }
 
