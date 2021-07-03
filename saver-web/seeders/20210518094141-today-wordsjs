@@ -3,7 +3,7 @@
 module.exports = {
 	up: async (queryInterface, Sequelize) => {
 		await queryInterface.bulkInsert(
-			'TodayWord',
+			'TodayWords',
 			[
 				{
 					id: 1,
@@ -25,6 +25,6 @@ module.exports = {
 	},
 
 	down: async (queryInterface, Sequelize) => {
-		return queryInterface.bulkDelete('TodayWord', { position: 1 });
+		return queryInterface.bulkDelete('TodayWords', );
 	},
 };
