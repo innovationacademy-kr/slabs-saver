@@ -35,15 +35,17 @@
 										<td class="table-body__cell">
 											<form action="">
 												<% if (word.TodayWord) { %>
-													<input class="date" type="date" value="" data-id="<%= word.id %> ">
+													<input class="date" type="date" value="<%= word.TodayWord.date %> "
+														data-id="<%= word.id %> ">
 													<%# word.TodayWord.date 불러오는법 %>
-														<input type="reset">
+														<input class="reset" type="reset">
 
 														<% }else{ %>
 															<input class="date" type="date" value=""
-																data-id="<%= word.id %> ">
+																data-id="<%= word.id %>">
 															<%# word.TodayWord.date 불러오는법 %>
-																<input type="reset">
+																<input class="reset" type="reset"
+																	data-id="<%= word.id %>">
 																<% } %>
 											</form>
 										</td>

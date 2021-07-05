@@ -3,7 +3,7 @@
 //TODO : 날짜 초기화시 date삭제
 
 /*
- * 업데이트 클릭시 ajax 요청
+ * 업데이트 클릭시 post 요청
  */
 
 const requestUpdate = (words) => {
@@ -17,7 +17,10 @@ const requestUpdate = (words) => {
     })
 }
 
-//초기화, 배열로 바꿈
+/**
+ * 변화 감지할 changed변수 초기화
+ */
+
 const addEvent = () => {
   wordsData = wordsData.map(function(item) {
     item.changed = false
@@ -28,18 +31,16 @@ const addEvent = () => {
  * 달력값 변경시 저장
  */
 
-  // 셀렉트 이벤트 리스너
-  const selector = $('.date');
-  selector.on('change', function (e) {
+  const dateSelector = $('.date');
+  dateSelector.on('change', function (e) {
     const { target: { dataset } } = e;
-
+    console.log(`change ${wordsData[0].status}`);
     const wordId = parseInt(dataset.id) // date-id 할당
     const value = e.target.value //input 값 할당
 
-    //오늘의 한마디 날짜 수정, status값 변경
+    //wordData 돌면서 수정된 값 확인, 재할당
     wordsData = wordsData.map(function (item, index) {
       if (item.id === wordId) {
-        //원데이터랑 비교
         const isValueChanged = originWordsData[index].date !== value;
         if (!item.TodayWord){ //todayword 선정 안 되어있으면
           item.TodayWordnew = {
@@ -47,7 +48,7 @@ const addEvent = () => {
           }
           item.status = 3;
           item.changed = isValueChanged;
-        }else {
+        } else {
           item.TodayWord.date = value;
           itme.changed = isValueChanged;
         }
@@ -55,6 +56,29 @@ const addEvent = () => {
       return item;
     })
   });
+
+  const resetSelector = $('.reset');
+  resetSelector.on('click', (e) => {
+    console.log(`reset ${wordsData[0].status}`);
+    const wordId = parseInt(e.target.dataset.id);
+
+    wordsData = wordsData.map((item, index) => {
+      if (item.id === wordId){
+        const isValueChanged = originWordsData[index].date !== undefined;
+        if (!item.TodayWord){
+          item.TodayWordnew = undefined;
+          item.status = 2;
+          item.changed = isValueChanged;
+        } else {
+          item.TodayWord.date = undefined;
+          item.status = 2;
+          item.changed = isValueChanged;
+        }
+      }
+      return item;
+
+    })
+  })
 
 /**
  * 변경된 섹션만 저장
