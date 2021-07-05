@@ -31,7 +31,6 @@ const createTodayPage = async (req, res) => {
 }
 const todayPageDesking = async (req, res) => {
 	const currentUser = await getCurrentUser(req.user.id);
-	console.log({Author, TodayWord})
 	const words = await Words.findAll({
 		include:[
 			{
@@ -48,11 +47,14 @@ const todayPageDesking = async (req, res) => {
     		}
 		}
 	});
-	res.render('author/today/todayDesking', {
+	const wordsData = JSON.stringify(words);
+
+	res.render('author/today/todaywordDesking', {
 		layout: 'layout/adminLayout',
 		POSITION,
 		currentUser,
 		words,
+		wordsData,
 		title: 'todayDesking',
 	})
 }

@@ -22,7 +22,7 @@
 											<%= word.id %>
 										</td>
 										<td class="table-body__cell">
-											<a href="/author/today/<%#= word.id %>/preview" target="_blank">
+											<a href="/author/today/edit?id=<%= word.id %>" target="_blank">
 												<%= word.word %>
 											</a>
 										</td>
@@ -34,8 +34,17 @@
 										</td>
 										<td class="table-body__cell">
 											<form action="">
-												<input class="date" type="date" value="" data-id="<%= word.id %> ">
-												<input type="reset">
+												<% if (word.TodayWord) { %>
+													<input class="date" type="date" value="" data-id="<%= word.id %> ">
+													<%# word.TodayWord.date 불러오는법 %>
+														<input type="reset">
+
+														<% }else{ %>
+															<input class="date" type="date" value=""
+																data-id="<%= word.id %> ">
+															<%# word.TodayWord.date 불러오는법 %>
+																<input type="reset">
+																<% } %>
 											</form>
 										</td>
 										<% }) %>
@@ -48,5 +57,10 @@
 			<%- contentFor('footer') %>
 				<%- include('../../partials/footer.ejs') %>
 
+					<script>
+						let wordsData = JSON.parse('<%- wordsData %>');
+						const originWordsData = JSON.parse('<%- wordsData %>');
+
+					</script>
 					<script defer src="/vendors/axios/axios.min.js"></script>
-					<script defer src="/javascripts/author/today/todayDesking.js"></script>
+					<script defer src="/javascripts/today/todaywordDesking.js"></script>
