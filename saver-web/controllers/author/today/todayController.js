@@ -4,6 +4,7 @@ const POSITION = require('../../../lib/constants/position');
 const TODAYWORD = require('../../../lib/constants/todayWordStatus');
 const { constants } = require('../../../lib/converter');
 const Sequelize = require('sequelize');
+const { json } = require('sequelize');
 const Op = Sequelize.Op;
 
 const getTodayRequest = async (req, res) => {
@@ -91,11 +92,18 @@ const todayRequest = async (req, res) => {
 		}
 	}
 }
+ 
+const todayRequestDesking = async(req, res)=>{
+	const data = req.body.words;
+	console.log(data);
+	json(123);
+}
 
 module.exports = {
 	request: {
 		getToday: getTodayRequest,
-		today: todayRequest
+		today: todayRequest,
+		todayDesk:todayRequestDesking
 	},
 	page: {
 		createToday: createTodayPage,

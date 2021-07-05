@@ -7,7 +7,7 @@
  */
 
 const requestUpdate = (words) => {
-  axios.post('/author/todayworddesking', {words})
+  axios.post('/author/todaydesking', {words})
     .then(res => {
       alert('수정되었습니다')
     })
