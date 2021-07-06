@@ -21,7 +21,20 @@ const getProperDate = () => {
 const todayWord = (date) => {
 	return axios({
 		method: "get",
-		url: '/today',
+		url: '/today/word',
+		params: {
+			date
+		}
+	})
+}
+
+/**
+ * 오늘의 기사 정보를 조회합니다.
+ */
+const todayArticle = (date) => {
+	return axios({
+		method: "get",
+		url: '/today/article',
 		params: {
 			date
 		}
@@ -48,6 +61,26 @@ const getTodayWord = () => {
 	});
 }
 
+/**
+ * 오늘의 기사 정보를 가져와 엘리먼트에 업데이트합니다.
+ */
+const getTodayArticle = () => {
+	const date = getProperDate();
+	todayArticle(date).then(res => {
+		if (res.data.Article) {
+			const { headline } = res.data.Article;
+			$("#today_article").append(headline);
+		} else {
+			$("#today_article").hide()
+			$(".today_article").hide()
+		}
+	}).catch(err => {
+		$("#today_article").hide()
+		$(".today_article").hide()
+		console.log(err);
+	});
+}
+
 const addEvent = () => {
 	// 리스트는 처음부터 존재하기 때문에 리스트에게 이벤트리스너를 등록함
 	$('.article-list').on('click', (e) => {
@@ -64,3 +97,4 @@ const addEvent = () => {
 
 addEvent();
 getTodayWord()
+getTodayArticle();

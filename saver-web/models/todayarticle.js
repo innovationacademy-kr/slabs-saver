@@ -3,22 +3,21 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class TodayWord extends Model {
+  class TodayArticle extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({ Words }) {
-		this.belongsTo(Words)
-      // define association here
+	  static associate({ Article }) {
+		this.belongsTo(Article)
     }
   };
-  TodayWord.init({
+  TodayArticle.init({
     date: DataTypes.DATE
   }, {
     sequelize,
-    modelName: 'TodayWord',
+    modelName: 'TodayArticle',
   });
-  return TodayWord;
+  return TodayArticle;
 };

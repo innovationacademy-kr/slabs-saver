@@ -5,13 +5,12 @@
 <main class="main">
 	<div class="today-card ice-blue-two">
 		<!--오늘의뉴스-->
-		<a href=<%=`/articles/detail/${todayArticle.id}` %> >
-			<div class="today-card__title">
+		<a id="today_article_link" href="">
+			<div class="today-card__title today_article">
 				<i class="today-card__title__icon logo-type-small-blue"></i>
 				<h3 class="today-card__title__text">오늘의 뉴스</h3>
 			</div>
-			<p class="today-card__text ft-main">
-				<%= todayArticle.headline %>
+			<p id="today_article" class="today-card__text ft-main">
 			</p>
 		</a>
 		<div class="divide-white"></div>

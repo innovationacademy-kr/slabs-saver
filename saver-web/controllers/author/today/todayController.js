@@ -52,7 +52,7 @@ const todayPage = async (req, res) => {
 }
 
 /**
- * 오늘의 한마디를 생성한다.
+ * 오늘의 한마디 수정페이지
  */
 const editTodayPage = async (req, res) => {
 	const articleId = req.query.id;
@@ -74,7 +74,9 @@ const editTodayPage = async (req, res) => {
 	})
 }
 
-
+/*
+ * 오늘의 한마디 생성
+ */
 const todayRequest = async (req, res) => {
 	const word = req.body.word;
 	const currentUser = await getCurrentUser(req.user.id);
@@ -97,8 +99,9 @@ const todayRequest = async (req, res) => {
 	}
 }
 
+
 /**
- * 오늘의 한마디를 수정한다.
+ * 오늘의 한마디 수정
  */
 const editTodayRequest = async (req,res) => {
 	const id = req.body.id;
@@ -124,6 +127,21 @@ const editTodayRequest = async (req,res) => {
 	}
 }
 
+/**
+ * 오늘의 기사 데스킹
+ */
+const todayArticleDeskingPage = async (req, res) => {
+	const currentUser = await getCurrentUser(req.user.id);
+
+	res.render('author/todayArticle/todayArticleDesking', {
+		layout: 'layout/adminLayout',
+		currentUser,
+		title: 'today',
+		POSITION,
+		todayWordStatus: constants.todayWordStatus
+	})
+}
+
 module.exports = {
 	request: {
 		getToday: getTodayRequest,
@@ -134,5 +152,6 @@ module.exports = {
 		editToday: editTodayPage,
 		createToday: createTodayPage,
 		today: todayPage,
+		todayArticleDesking: todayArticleDeskingPage
 	}
 };
