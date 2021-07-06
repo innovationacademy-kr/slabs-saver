@@ -54,3 +54,11 @@ div[id^="editorjs"] {
 div[data-placeholder="Caption"] {
   display: none !important;
 }
+
+.codex-editor {
+	padding: 8px;
+}
+
+.codex-editor__redactor {
+  padding-bottom: 0px !important;
+}
