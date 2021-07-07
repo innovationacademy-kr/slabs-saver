@@ -1,6 +1,3 @@
-//TODO : 날짜 지난 오늘의 한마디 비활성화
-//TODO : 같은 날짜 선택 막아두기
-//TODO : 날짜 초기화시 date삭제
 
 /*
  * 업데이트 클릭시 post 요청
@@ -31,54 +28,70 @@ const addEvent = () => {
  * 달력값 변경시 저장
  */
 
-  const dateSelector = $('.date');
+//wordData 돌면서 수정된 값 확인, 재할당
+const dateSelector = $('.date');
+
+
+function setDate(wordId, value) {
+    wordsData = wordsData.map(function (item, index) {
+      if (item.id === wordId) {
+        const isValueChanged = originWordsData[index].TodayWord.date !== value;
+        item.status = 3;
+        item.TodayWord.date = value;
+        item.changed = isValueChanged;
+      }
+      return item;
+    })
+}
+
+function isThereSameDate(wordId, value) {
+  for(i=0; i < dateSelector.length; i++){
+    const dateId = parseInt(dateSelector[i].dataset.id);
+    if ( dateId === wordId) {
+      continue;
+    } else if (dateSelector[i].value === value){
+      return true;
+    } else {
+      continue;
+    }
+  }
+}
+
+
   dateSelector.on('change', function (e) {
     const { target: { dataset } } = e;
-    console.log(`change ${wordsData[0].status}`);
     const wordId = parseInt(dataset.id) // date-id 할당
     const value = e.target.value //input 값 할당
 
-    //wordData 돌면서 수정된 값 확인, 재할당
-    wordsData = wordsData.map(function (item, index) {
-      if (item.id === wordId) {
-        const isValueChanged = originWordsData[index].date !== value;
-        if (!item.TodayWord){ //todayword 선정 안 되어있으면
-          item.TodayWordnew = {
-            date : value,
-          }
-          item.status = 3;
-          item.changed = isValueChanged;
-        } else {
-          item.TodayWord.date = value;
-          itme.changed = isValueChanged;
-        }
-      }
-      return item;
-    })
+    if(isThereSameDate(wordId, value)){
+      alert('중복된 날짜입니다.');
+      const originDate = originWordsData.find(item=>item.TodayWord.id === wordId)
+      e.target.value = originDate.TodayWord.date; //originDate의 날짜 넣기
+    } else {
+      setDate(wordId, value);
+    }
   });
+
+  /**
+   * 초기화 클릭시 데이터 삭제
+   */
 
   const resetSelector = $('.reset');
   resetSelector.on('click', (e) => {
-    console.log(`reset ${wordsData[0].status}`);
-    const wordId = parseInt(e.target.dataset.id);
-
-    wordsData = wordsData.map((item, index) => {
-      if (item.id === wordId){
-        const isValueChanged = originWordsData[index].date !== undefined;
-        if (!item.TodayWord){
-          item.TodayWordnew = undefined;
+      const wordId = parseInt(e.target.dataset.id);
+      const value = "";
+      e.target.previousElementSibling.value = value;
+      wordsData = wordsData.map((item, index) => {
+        if (item.id === wordId){
+          const isValueChanged = originWordsData[index].TodayWord.date !== value;
           item.status = 2;
-          item.changed = isValueChanged;
-        } else {
-          item.TodayWord.date = undefined;
-          item.status = 2;
+          item.TodayWord.date = value;
           item.changed = isValueChanged;
         }
-      }
-      return item;
+        return item;
+      })
+  });
 
-    })
-  })
 
 /**
  * 변경된 섹션만 저장

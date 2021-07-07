@@ -1,5 +1,6 @@
 const getCurrentUser = require('../../../lib/getCurrentUser');
 const { Words , TodayWord, Author} = require('../../../models')
+const moment = require('moment');
 const POSITION = require('../../../lib/constants/position');
 const TODAYWORD = require('../../../lib/constants/todayWordStatus');
 const { constants } = require('../../../lib/converter');
@@ -8,7 +9,6 @@ const { json } = require('sequelize');
 const Op = Sequelize.Op;
 
 const getTodayRequest = async (req, res) => {
-	console.log({ Words });
 	const words = await Words.findAll({
 		where: {
 			AuthorId: req.user.id
@@ -32,14 +32,16 @@ const createTodayPage = async (req, res) => {
 }
 const todayPageDesking = async (req, res) => {
 	const currentUser = await getCurrentUser(req.user.id);
-	const words = await Words.findAll({
+	let words = await Words.findAll({
+		attributes: ['id', 'word', 'status'],
 		include:[
 			{
 				model: Author,
-				attribute: ['id', 'name']
+				attributes: ['id', 'name']
 			},
 			{
 				model: TodayWord,
+				attributes: ['id', 'date']
 			},
 		],
 		where:{
@@ -48,14 +50,24 @@ const todayPageDesking = async (req, res) => {
     		}
 		}
 	});
-	const wordsData = JSON.stringify(words);
 
+
+	//note : sequelizer 객체의 dataValues에 접근해야 값 수정 변형 가능
+	words = words.map((item) => {
+		item = item.get({plain: true})
+		//note: sequelizer 객체의 dataValues의 값만 가져옴
+		if (item.TodayWord){
+			item.TodayWord.date = moment(item.TodayWord.date).format('YYYY-MM-DD');
+		} else {
+			item.TodayWord = { date: "" };
+		}
+		return item;
+	});
 	res.render('author/today/todaywordDesking', {
 		layout: 'layout/adminLayout',
 		POSITION,
 		currentUser,
 		words,
-		wordsData,
 		title: 'todayDesking',
 	})
 }
@@ -92,10 +104,9 @@ const todayRequest = async (req, res) => {
 		}
 	}
 }
- 
+
 const todayRequestDesking = async(req, res)=>{
 	const data = req.body.words;
-	console.log(data);
 	json(123);
 }
 

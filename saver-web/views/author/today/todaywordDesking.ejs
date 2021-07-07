@@ -33,21 +33,9 @@
 											<%= word.createdAt %>
 										</td>
 										<td class="table-body__cell">
-											<form action="">
-												<% if (word.TodayWord) { %>
-													<input class="date" type="date" value="<%= word.TodayWord.date %> "
-														data-id="<%= word.id %> ">
-													<%# word.TodayWord.date 불러오는법 %>
-														<input class="reset" type="reset">
-
-														<% }else{ %>
-															<input class="date" type="date" value=""
-																data-id="<%= word.id %>">
-															<%# word.TodayWord.date 불러오는법 %>
-																<input class="reset" type="reset"
-																	data-id="<%= word.id %>">
-																<% } %>
-											</form>
+											<input class="date" type="date" value="<%= word.TodayWord.date %>"
+												data-id="<%= word.id %>">
+											<button class="reset" type="reset" data-id="<%= word.id %>">초기화</button>
 										</td>
 										<% }) %>
 									</tr>
@@ -60,8 +48,8 @@
 				<%- include('../../partials/footer.ejs') %>
 
 					<script>
-						let wordsData = JSON.parse('<%- wordsData %>');
-						const originWordsData = JSON.parse('<%- wordsData %>');
+						let wordsData = JSON.parse('<%- JSON.stringify(words) %>'.replace(/\n/gi, "\\n"));
+						const originWordsData = JSON.parse('<%- JSON.stringify(words) %>'.replace(/\n/gi, "\\n"));
 
 					</script>
 					<script defer src="/vendors/axios/axios.min.js"></script>
