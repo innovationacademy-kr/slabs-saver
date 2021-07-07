@@ -63,5 +63,6 @@ module.exports = (passport) => {
    * 오늘의 기사
    */
   router.get('/todayArticleDesking', loggedIn, authorCtrl.page.todayArticleDesking);
+  router.post('/todayArticleDesking', loggedIn, authorCtrl.request.todayArticleDesking);
   return router;
 };
