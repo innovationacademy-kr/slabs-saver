@@ -107,7 +107,59 @@ const todayRequest = async (req, res) => {
 
 const todayRequestDesking = async(req, res)=>{
 	const data = req.body.words;
-	json(123);
+	for (var i = 0; i < data.length; i++) {
+		const id = await TodayWord.findOne({ where: { wordId: data[i].id } })
+		if (id === null) {
+			try {
+				await TodayWord.create({
+					WordId: data[i].id,
+					date: data[i].TodayWord.date,
+				})
+			} catch (error) {
+				console.log(error);
+				res.status(400).json({
+					message: '에러'
+				});
+			}
+		} else {
+			console.log('---------------------')
+			console.log(data[i]);
+			console.log('---------------------')
+			if (data[i].TodayWord.date != '') {
+				console.log('-------수정-----------')
+				try {
+					await TodayWord.update({
+						date: data[i].TodayWord.date
+					},
+						{
+							where: { wordId: data[i].id }
+						});
+				} catch (error) {
+					console.log(error);
+					res.status(400).json({
+						message: '에러'
+					});
+				}
+			}
+			else {
+				console.log("삭제");
+				console.log(data[i].id);
+				try {
+					await TodayWord.destory({
+						where: { wordId: data[i].id }
+					});
+				} catch (error) {
+					console.log(error);
+					res.status(400).json({
+						message: '에러'
+					});
+				}
+			}
+		}
+	}
+	res.status(200).json({
+		message: '성공'
+	});
 }
 
 module.exports = {
