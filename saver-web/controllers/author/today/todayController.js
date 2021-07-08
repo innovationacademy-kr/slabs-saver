@@ -1,7 +1,7 @@
 const getCurrentUser = require('../../../lib/getCurrentUser');
 const { Author, Article, Words, TodayWord, TodayArticle } = require('../../../models')
 const articleStatus = require('../../../lib/constants/articleStatus');
-const moment = requ ire('moment');
+const moment = require('moment');
 const POSITION = require('../../../lib/constants/position');
 const TODAYWORD = require('../../../lib/constants/todayWordStatus');
 const { constants } = require('../../../lib/converter');
@@ -301,14 +301,14 @@ module.exports = {
 		getToday: getTodayRequest,
 		today: todayRequest,
 		editToday : editTodayRequest,
-		todayArticleDesking: todayArticleDeskingRequest
+		todayArticleDesking: todayArticleDeskingRequest,
 		todayDesk:todayRequestDesking
 	},
 	page: {
 		editToday: editTodayPage,
 		createToday: createTodayPage,
 		today: todayPage,
-		todayArticleDesking: todayArticleDeskingPage
+		todayArticleDesking: todayArticleDeskingPage,
 		todayDesk: todayPageDesking
 	}
 };
