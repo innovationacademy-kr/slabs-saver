@@ -140,7 +140,8 @@ const todayArticleDeskingPage = async (req, res) => {
 		include: [
 			{
 				model: TodayArticle,
-				attributes: ['id', 'date']
+				attributes: ['id', 'date'],
+				order: ['date'],
 			},
 			{
 				model: Author,
@@ -179,7 +180,11 @@ const todayArticleDeskingRequest = async (req, res, next) => {
 		const { id: TodayArticleId, date } = article.TodayArticle;
 		if (TodayArticleId) {
 			// 기존에 존재하는 오늘의 기사이므로 update
-			return TodayArticle.update({ date }, { where: { id: TodayArticleId } })
+			if (date) {
+				return TodayArticle.update({ date }, { where: { id: TodayArticleId } })
+			} else {
+				return TodayArticle.destroy({ where: { id: TodayArticleId }})
+			}
 		} else {
 			// 새로운 오늘의 기사 생성
 			return TodayArticle.create({ date, ArticleId: article.id });

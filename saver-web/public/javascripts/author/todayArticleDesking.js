@@ -7,6 +7,7 @@ const requestUpdate = (articles) => {
   axios.post('/author/todayArticleDesking', { articles })
     .then(res => {
       alert('수정되었습니다')
+      location.reload()
     })
     .catch(err => {
       alert('실패했습니다')

@@ -106,20 +106,20 @@
   text-align: left;
   color: #434343;
 }
-/*m_본문_강조*/
-.ft-main-bold {
-  font-family: 'Noto Sans KR', sans-serif;
-  font-size: 16px;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.6;
-  letter-spacing: -0.3px;
-  text-align: left;
-  color: #2b94e8;
-}
 /*m_본문_강조_링크4*/
-.ft-main-bold-link {
+.ft-main-bold {
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 16px;
+	font-weight: 500;
+	font-stretch: normal;
+	font-style: normal;
+	line-height: 1.6;
+	letter-spacing: -0.3px;
+	text-align: left;
+	color: #2b94e8;
+}
+/*m_본문_강조*/
+.ft-main-bold-link,  .ce-block b {
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 16px;
   font-weight: 500;
@@ -131,13 +131,13 @@
   color: #000000;
 }
 /*m_본문3*/
-.ft-main {
+.ft-main, .ce-paragraph, .cdx-nested-list__item-content {
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 16px;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
-  line-height: 1.6;
+  line-height: 1.625 !important;
   letter-spacing: -0.3px;
   text-align: left;
   color: #434343;
@@ -161,7 +161,7 @@
   font-weight: 500;
   font-stretch: normal;
   font-style: normal;
-  line-height: 1.5;
+  line-height: 18px;
   letter-spacing: 0px;
   text-align: left;
   color: #a7a7a7;
@@ -580,4 +580,10 @@ div[data-placeholder='Caption'] {
 .article__paragraphs.close ol.cdx-block li:not(:first-child) {
     display: none !important;
 
+}
+.ce-block b {
+	vertical-align: initial;
+}
+.cdx-nested-list__item-content {
+	line-height: 1.625;
 }

@@ -2,6 +2,7 @@ const createEditor = (id, editorContent) => {
 	const editor = new EditorJS({
 		holder: id,
 		data: editorContent,
+		readOnly: true,
 		tools: {
 			linkTool: {
 				class: LinkTool, // ejs파일에서 불러옴
