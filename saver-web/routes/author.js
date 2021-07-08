@@ -55,9 +55,10 @@ module.exports = (passport) => {
   router.get('/today/new', loggedIn, authorCtrl.page.createToday);
   router.get('/today', loggedIn, authorCtrl.page.today);
   router.get('/today/my', loggedIn, authorCtrl.request.getToday);
-  router.get('/today/edit',authorCtrl.page.editToday)
-
+  router.get('/todaydesking', loggedIn, authorCtrl.page.todayDesk)
   router.post('/today/new',authorCtrl.request.today);
+  router.post('/todaydesking',authorCtrl.request.todayDesk);
+  router.get('/today/edit',authorCtrl.page.editToday)
   router.post('/today/edit',authorCtrl.request.editToday);
   return router;
 };

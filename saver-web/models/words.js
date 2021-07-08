@@ -11,8 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({ Author, TodayWord }) {
-        console.log({ TodayWord});
+  static associate({ Author, TodayWord }) {
       this.belongsTo(Author);
       this.hasOne(TodayWord)
       // define association here
