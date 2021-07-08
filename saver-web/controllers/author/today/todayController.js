@@ -33,7 +33,7 @@ const createTodayPage = async (req, res) => {
 const todayPageDesking = async (req, res) => {
 	const currentUser = await getCurrentUser(req.user.id);
 	let words = await Words.findAll({
-		attributes: ['id', 'word', 'status'],
+		attributes: ['id', 'word', 'status','createdAt'],
 		include:[
 			{
 				model: Author,
@@ -97,7 +97,7 @@ const todayRequest = async (req, res) => {
 				message: '저장되었습니다'
 			}).status(200);
 		} catch (error) {
-			console.log(error);
+			console.error(error);
 			res.status(400).json({
 				message: '에러'
 			});
@@ -116,17 +116,13 @@ const todayRequestDesking = async(req, res)=>{
 					date: data[i].TodayWord.date,
 				})
 			} catch (error) {
-				console.log(error);
+				console.error(error);
 				res.status(400).json({
 					message: '에러'
 				});
 			}
 		} else {
-			console.log('---------------------')
-			console.log(data[i]);
-			console.log('---------------------')
 			if (data[i].TodayWord.date != '') {
-				console.log('-------수정-----------')
 				try {
 					await TodayWord.update({
 						date: data[i].TodayWord.date
@@ -135,21 +131,19 @@ const todayRequestDesking = async(req, res)=>{
 							where: { wordId: data[i].id }
 						});
 				} catch (error) {
-					console.log(error);
+					console.error(error);
 					res.status(400).json({
 						message: '에러'
 					});
 				}
 			}
 			else {
-				console.log("삭제");
-				console.log(data[i].id);
 				try {
-					await TodayWord.destory({
+					await TodayWord.destroy({
 						where: { wordId: data[i].id }
 					});
 				} catch (error) {
-					console.log(error);
+					console.error(error);
 					res.status(400).json({
 						message: '에러'
 					});

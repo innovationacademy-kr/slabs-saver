@@ -6,7 +6,8 @@
 const requestUpdate = (words) => {
   axios.post('/author/todaydesking', {words})
     .then(res => {
-      alert('수정되었습니다')
+      alert('수정되었습니다');
+      location.reload();
     })
     .catch(err => {
       alert('실패했습니다')
@@ -65,7 +66,7 @@ function isThereSameDate(wordId, value) {
 
     if(isThereSameDate(wordId, value)){
       alert('중복된 날짜입니다.');
-      const originDate = originWordsData.find(item=>item.TodayWord.id === wordId)
+      const originDate = originWordsData.find(item=>item.id === wordId)
       e.target.value = originDate.TodayWord.date; //originDate의 날짜 넣기
     } else {
       setDate(wordId, value);
@@ -110,7 +111,6 @@ function isThereSameDate(wordId, value) {
   const btn = $(".update-btn");
   btn.on('click', function() {
     const chageList = getChangedWords(wordsData);
-    console.log('chageList', chageList);
     requestUpdate(chageList);
   })
 }
