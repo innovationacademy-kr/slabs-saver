@@ -1,10 +1,13 @@
 const getCurrentUser = require('../../../lib/getCurrentUser');
 const { Author, Article, Words, TodayWord, TodayArticle } = require('../../../models')
+const articleStatus = require('../../../lib/constants/articleStatus');
+const moment = requ ire('moment');
 const POSITION = require('../../../lib/constants/position');
 const TODAYWORD = require('../../../lib/constants/todayWordStatus');
 const { constants } = require('../../../lib/converter');
-const moment = require('moment');
-const articleStatus = require('../../../lib/constants/articleStatus');
+const Sequelize = require('sequelize');
+const { json } = require('sequelize');
+const Op = Sequelize.Op;
 
 /**
  * 관리자 페이지
@@ -34,6 +37,47 @@ const createTodayPage = async (req, res) => {
 		currentUser,
 		title: 'today',
 		POSITION
+	})
+}
+const todayPageDesking = async (req, res) => {
+	const currentUser = await getCurrentUser(req.user.id);
+	let words = await Words.findAll({
+		attributes: ['id', 'word', 'status','createdAt'],
+		include:[
+			{
+				model: Author,
+				attributes: ['id', 'name']
+			},
+			{
+				model: TodayWord,
+				attributes: ['id', 'date']
+			},
+		],
+		where:{
+			status:{
+      			[Op.or]: [2, 3]
+    		}
+		}
+	});
+
+
+	//note : sequelizer 객체의 dataValues에 접근해야 값 수정 변형 가능
+	words = words.map((item) => {
+		item = item.get({plain: true})
+		//note: sequelizer 객체의 dataValues의 값만 가져옴
+		if (item.TodayWord){
+			item.TodayWord.date = moment(item.TodayWord.date).format('YYYY-MM-DD');
+		} else {
+			item.TodayWord = { date: "" };
+		}
+		return item;
+	});
+	res.render('author/today/todaywordDesking', {
+		layout: 'layout/adminLayout',
+		POSITION,
+		currentUser,
+		words,
+		title: 'todayDesking',
 	})
 }
 
@@ -120,6 +164,7 @@ const editTodayRequest = async (req,res) => {
 		    res.status(200).json({
 			message: '수정 되었습니다'});
 		} catch (error) {
+			console.error(error);
 			res.status(400).json({
 				message: error.message
 			});
@@ -199,17 +244,71 @@ const todayArticleDeskingRequest = async (req, res, next) => {
 	})
 }
 
+
+const todayRequestDesking = async (req, res) => {
+	const data = req.body.words;
+	for (var i = 0; i < data.length; i++) {
+		const id = await TodayWord.findOne({ where: { wordId: data[i].id } })
+		if (id === null) {
+			try {
+				await TodayWord.create({
+					WordId: data[i].id,
+					date: data[i].TodayWord.date,
+				})
+			} catch (error) {
+				console.error(error);
+				res.status(400).json({
+					message: '에러'
+				});
+			}
+		} else {
+			if (data[i].TodayWord.date != '') {
+				try {
+					await TodayWord.update({
+						date: data[i].TodayWord.date
+					},
+						{
+							where: { wordId: data[i].id }
+						});
+				} catch (error) {
+					console.error(error);
+					res.status(400).json({
+						message: '에러'
+					});
+				}
+			}
+			else {
+				try {
+					await TodayWord.destroy({
+						where: { wordId: data[i].id }
+					});
+				} catch (error) {
+					console.error(error);
+					res.status(400).json({
+						message: '에러'
+					});
+				}
+			}
+		}
+	}
+	res.status(200).json({
+		message: '성공'
+	});
+}
+
 module.exports = {
 	request: {
 		getToday: getTodayRequest,
 		today: todayRequest,
 		editToday : editTodayRequest,
 		todayArticleDesking: todayArticleDeskingRequest
+		todayDesk:todayRequestDesking
 	},
 	page: {
 		editToday: editTodayPage,
 		createToday: createTodayPage,
 		today: todayPage,
 		todayArticleDesking: todayArticleDeskingPage
+		todayDesk: todayPageDesking
 	}
 };

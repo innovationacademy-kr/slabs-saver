@@ -576,8 +576,7 @@ div[data-placeholder='Caption'] {
 
 .article__paragraphs.open ol.cdx-block li:first-child {
 }
-
-.article__paragraphs.close ol.cdx-block li:not(:first-child) {
+.article__paragraphs.close {
     display: none !important;
 
 }

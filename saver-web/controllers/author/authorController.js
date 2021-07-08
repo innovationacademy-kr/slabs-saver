@@ -1,5 +1,5 @@
 
-const { Author, Article, Words } = require('../../models');
+const { Author, Article} = require('../../models');
 
 const { pick } = require('../../lib/util');
 
@@ -41,15 +41,12 @@ const indexPage = async (req, res) => {
 		let ejsfile = '';
 		let variable;
 		const articlesData = JSON.stringify(articles.map((item) => pick(item, ['id', 'pm7', 'am7', 'status'])));
-		console.log({ position, 'POSITION.DESK': POSITION.DESK, });
-		console.log(currentUser.category, category);
 		if ([POSITION.REPOTER, POSITION.INTERN].includes(position)) {
 			ejsfile = 'author/desking/index';
 		} else if (position === POSITION.DESK) {
 			const curr_category = currentUser.category || category;
 			currentUser.code = curr_category; // 기사의 코드 === 기사의 카테고리 === 수정가능한 권한을 가짐
 			currentUser.category = converter.category(curr_category);
-			console.log(currentUser);
 			ejsfile = 'author/desking/desk';
 		} else if (position === POSITION.CHIEF_EDITOR) {
 			ejsfile = 'author/desking/chiefEditor';
