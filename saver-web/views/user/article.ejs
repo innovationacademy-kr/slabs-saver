@@ -39,6 +39,6 @@
 <script src="/vendors/editorjsLink/bundle.js" defer></script>
 <script>
   var briefingContent = JSON.parse(`<%- article.briefing %>`);
-  var paragraphsContent = JSON.parse(`<%- article.paragraphs %>`);
+  var paragraphsContent = JSON.parse(`<%- JSON.stringify(article.paragraphs) %>`);
 </script>
 <script type="module" src="/javascripts/user/article.js"></script>

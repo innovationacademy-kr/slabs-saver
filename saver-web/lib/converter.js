@@ -7,6 +7,7 @@ const {
 } = require('./constants/category');
 const POSITIONS = require('./constants/position');
 const TODAYWORD = require('./constants/todayWordStatus');
+const ARTICLE_STATUS = require('./constants/articleStatus');
 
 const category = {
   전체: 0,
@@ -55,6 +56,13 @@ const todayWordStatus = {
     [TODAYWORD.CONFIRMED]: '날짜 지정',
 }
 
+const articleStatus = {
+    [ARTICLE_STATUS.DRAFTS]: '임시 저장',
+    [ARTICLE_STATUS.COMPLETED]: '작성 완료',
+    [ARTICLE_STATUS.RELEASED]: '출고',
+	[ARTICLE_STATUS.CONFIRMED]: '게재',
+}
+
 module.exports = {
   category: (value) => {
     return Object.keys(category).find((key) => category[key] === value);
@@ -76,6 +84,7 @@ module.exports = {
     inviteState,
     position,
     positionKey,
-    todayWordStatus
+    todayWordStatus,
+	articleStatus
   }
 };

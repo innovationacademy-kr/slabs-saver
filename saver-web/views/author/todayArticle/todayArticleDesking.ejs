@@ -1,0 +1,56 @@
+
+
+<%- contentFor('navbar') %>
+<%- include('../../partials/navbar.ejs') %>
+<%- contentFor('body') %>
+<section class="desking-table">
+  <%# TODO: 필터링or검색기능 %>
+    <table class="table" name="table">
+      <thead class="table-header">
+        <tr class="table-haeder__row">
+          <th class="table-header__cell">NO</th>
+          <th class="table-header__cell">기사</th>
+          <th class="table-header__cell">작성자</th>
+          <th class="table-header__cell">입력일시</th>
+          <th class="table-header__cell">오늘의기사 지정일자</th>
+        </tr>
+      </thead>
+      <tbody class="table-body">
+        <% articles.map((article)=> { %>
+            <tr class="table-body__row" name="cols">
+              <td class="table-body__cell">
+                <%= article.id %>
+              </td>
+              <td class="table-body__cell">
+                <a href="/author/articles/<%= article.id %>/preview" target="_blank">
+                  <%= article.headline %>
+                </a>
+              </td>
+              <td class="table-body__cell">
+                <%= article.Author.name %>
+              </td>
+              <td class="table-body__cell">
+                <%= article.createdAt %>
+              </td>
+              <td class="table-body__cell">
+                <input class="date" type="date" value="<%= article.TodayArticle.date %>"
+                  data-id="<%= article.id %>">
+                <button class="reset" type="reset" data-id="<%= article.id %>">초기화</button>
+              </td>
+              <% }) %>
+            </tr>
+      </tbody>
+    </table>
+    <button class="update-btn" type="submit">업데이트</button>
+</section>
+
+<%- contentFor('footer') %>
+<%- include('../../partials/footer.ejs') %>
+<script>
+	var articlesData = JSON.parse('<%-JSON.stringify(articles)%>');
+	var originArticlesData = JSON.parse('<%-JSON.stringify(articles)%>');
+	var articleStatus = JSON.parse('<%-JSON.stringify(articleStatus)%>');
+</script>
+
+<script defer src="/vendors/axios/axios.min.js"></script>
+<script defer src="/javascripts/author/todayArticleDesking.js"></script>

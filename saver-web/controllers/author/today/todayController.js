@@ -1,6 +1,7 @@
 const getCurrentUser = require('../../../lib/getCurrentUser');
-const { Words , TodayWord, Author} = require('../../../models')
-const moment = require('moment');
+const { Author, Article, Words, TodayWord, TodayArticle } = require('../../../models')
+const articleStatus = require('../../../lib/constants/articleStatus');
+const moment = requ ire('moment');
 const POSITION = require('../../../lib/constants/position');
 const TODAYWORD = require('../../../lib/constants/todayWordStatus');
 const { constants } = require('../../../lib/converter');
@@ -97,7 +98,7 @@ const todayPage = async (req, res) => {
 }
 
 /**
- * 오늘의 한마디를 생성한다.
+ * 오늘의 한마디 수정페이지
  */
 const editTodayPage = async (req, res) => {
 	const articleId = req.query.id;
@@ -119,7 +120,9 @@ const editTodayPage = async (req, res) => {
 	})
 }
 
-
+/*
+ * 오늘의 한마디 생성
+ */
 const todayRequest = async (req, res) => {
 	const word = req.body.word;
 	const currentUser = await getCurrentUser(req.user.id);
@@ -134,16 +137,16 @@ const todayRequest = async (req, res) => {
 				message: '저장되었습니다'
 			});
 		} catch (error) {
-			console.log(error);
 			res.status(400).json({
-				message: '에러'
+				message: error.message
 			});
 		}
 	}
 }
 
+
 /**
- * 오늘의 한마디를 수정한다.
+ * 오늘의 한마디 수정
  */
 const editTodayRequest = async (req,res) => {
 	const id = req.body.id;
@@ -152,7 +155,7 @@ const editTodayRequest = async (req,res) => {
 	if (word == '')
 	{
 		res.status(400).json({
-			message: '빈 항목이 있습니다'
+			message: '빈 항목이 있습니다'
 		});
 	}
 	else{
@@ -163,13 +166,86 @@ const editTodayRequest = async (req,res) => {
 		} catch (error) {
 			console.error(error);
 			res.status(400).json({
-				message: '에러'
+				message: error.message
 			});
 		}
 	}
 }
 
-const todayRequestDesking = async(req, res)=>{
+/**
+ * 오늘의 기사 데스킹
+ */
+const todayArticleDeskingPage = async (req, res) => {
+	const currentUser = await getCurrentUser(req.user.id);
+	let articles = await Article.findAll({
+		attributes: ['id', 'headline', 'createdAt'],
+		where: {
+			status: articleStatus.CONFIRMED
+		},
+		include: [
+			{
+				model: TodayArticle,
+				attributes: ['id', 'date'],
+				order: ['date'],
+			},
+			{
+				model: Author,
+				attributes: ['id', 'name']
+			},
+		]
+
+	});
+
+	articles = articles.map(article => {
+		article = article.get({ plain: true })
+		if (article.TodayArticle) {
+			article.TodayArticle.date = moment(article.TodayArticle.date).format('YYYY-MM-DD');
+		} else {
+			article.TodayArticle = { date: '' };
+		}
+		return article;
+	})
+
+	res.render('author/todayArticle/todayArticleDesking', {
+		layout: 'layout/adminLayout',
+		currentUser,
+		title: 'today',
+		POSITION,
+		articles,
+		articleStatus: constants.articleStatus
+	})
+}
+
+/**
+ * 오늘의 기사 데스킹 업데이트
+ */
+const todayArticleDeskingRequest = async (req, res, next) => {
+	const { articles } = req.body;
+	const reqs = articles.map(article => {
+		const { id: TodayArticleId, date } = article.TodayArticle;
+		if (TodayArticleId) {
+			// 기존에 존재하는 오늘의 기사이므로 update
+			if (date) {
+				return TodayArticle.update({ date }, { where: { id: TodayArticleId } })
+			} else {
+				return TodayArticle.destroy({ where: { id: TodayArticleId }})
+			}
+		} else {
+			// 새로운 오늘의 기사 생성
+			return TodayArticle.create({ date, ArticleId: article.id });
+		}
+	})
+
+	// 모든 비동기요청 배열을  all로 모두 실행함
+	Promise.all(reqs).then(result => {
+		res.status(200).json({result: true})
+	}).catch(err => {
+		res.status(400).json({ result: false, messge: err.message })
+	})
+}
+
+
+const todayRequestDesking = async (req, res) => {
 	const data = req.body.words;
 	for (var i = 0; i < data.length; i++) {
 		const id = await TodayWord.findOne({ where: { wordId: data[i].id } })
@@ -224,12 +300,15 @@ module.exports = {
 	request: {
 		getToday: getTodayRequest,
 		today: todayRequest,
+		editToday : editTodayRequest,
+		todayArticleDesking: todayArticleDeskingRequest
 		todayDesk:todayRequestDesking
 	},
 	page: {
 		editToday: editTodayPage,
 		createToday: createTodayPage,
 		today: todayPage,
+		todayArticleDesking: todayArticleDeskingPage
 		todayDesk: todayPageDesking
 	}
 };
