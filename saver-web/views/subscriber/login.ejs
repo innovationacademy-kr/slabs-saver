@@ -36,7 +36,7 @@
                     "password": password.value,
                 }
             }).then((res) => {
-                sessionStorage.setItem('jwtToken', res.data.token);
+                localStorage.setItem('jwtToken', res.data.token);
                 if (location.search) {
                     const redirect = decodeURIComponent(location.search)
                     location.href = redirect;

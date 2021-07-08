@@ -8,6 +8,10 @@ const Sequelize = require('sequelize');
 const { json } = require('sequelize');
 const Op = Sequelize.Op;
 
+/**
+ * 관리자 페이지
+ * 기자가 작성한 오늘의 한마디 목록을 조회한다
+ */
 const getTodayRequest = async (req, res) => {
 	const words = await Words.findAll({
 		where: {
@@ -21,6 +25,10 @@ const getTodayRequest = async (req, res) => {
 	res.status(200).json(words);
 }
 
+/**
+ * 관리자 페이지
+ * 오늘의 한마디를 생성한다.
+ */
 const createTodayPage = async (req, res) => {
 	const currentUser = await getCurrentUser(req.user.id);
 	res.render('author/today/createToday', {
@@ -72,6 +80,11 @@ const todayPageDesking = async (req, res) => {
 	})
 }
 
+
+/**
+ * 관리자 페이지
+ * 내가 작성한 오늘의 한마디 페이지를 그린다
+ */
 const todayPage = async (req, res) => {
 	const currentUser = await getCurrentUser(req.user.id);
 	res.render('author/today/mytoday', {
@@ -83,6 +96,30 @@ const todayPage = async (req, res) => {
 	})
 }
 
+/**
+ * 오늘의 한마디를 생성한다.
+ */
+const editTodayPage = async (req, res) => {
+	const articleId = req.query.id;
+	const currentUser = await getCurrentUser(req.user.id);
+	let word;
+	try{
+		const contents = await Words.findOne({where :{id : articleId}})
+		word = contents.word;
+	}
+	catch (error){
+		console.log(error);
+	}
+	res.render('author/today/editToday', {
+		layout: 'layout/adminLayout',
+		currentUser,
+		title: 'today',
+		word: word,
+		POSITION
+	})
+}
+
+
 const todayRequest = async (req, res) => {
 	const word = req.body.word;
 	const currentUser = await getCurrentUser(req.user.id);
@@ -93,9 +130,36 @@ const todayRequest = async (req, res) => {
 	} else {
 		try {
 			await Words.create({ word, AuthorId: currentUser.id, status: TODAYWORD.DRAFTS });
-			res.json({
+			res.status(200).json({
 				message: '저장되었습니다'
-			}).status(200);
+			});
+		} catch (error) {
+			console.log(error);
+			res.status(400).json({
+				message: '에러'
+			});
+		}
+	}
+}
+
+/**
+ * 오늘의 한마디를 수정한다.
+ */
+const editTodayRequest = async (req,res) => {
+	const id = req.body.id;
+	const word = req.body.word;
+	const status = req.body.status;
+	if (word == '')
+	{
+		res.status(400).json({
+			message: '빈 항목이 있습니다'
+		});
+	}
+	else{
+		try {
+			await Words.update({word, status},{where : {id : id}});
+		    res.status(200).json({
+			message: '수정 되었습니다'});
 		} catch (error) {
 			console.error(error);
 			res.status(400).json({
@@ -163,6 +227,7 @@ module.exports = {
 		todayDesk:todayRequestDesking
 	},
 	page: {
+		editToday: editTodayPage,
 		createToday: createTodayPage,
 		today: todayPage,
 		todayDesk: todayPageDesking

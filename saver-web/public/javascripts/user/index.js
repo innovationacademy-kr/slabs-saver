@@ -19,10 +19,12 @@ const getProperDate = () => {
  * 오늘의 한마디 정보를 조회합니다.
  */
 const todayWord = (date) => {
-	console.log(date);
 	return axios({
 		method: "get",
-		url: 'https://jsonplaceholder.typicode.com/todos/1'
+		url: '/today',
+		params: {
+			date
+		}
 	})
 }
 
@@ -32,10 +34,9 @@ const todayWord = (date) => {
 const getTodayWord = () => {
 	const date = getProperDate();
 	todayWord(date).then(res => {
-		const word = res.data.title;
-		if (word) {
-			const element = `<p>${word}</p>`;
-			$("#today_word").append(element);
+		if (res.data.Word) {
+			const { word } = res.data.Word;
+			$("#today_word").append(word);
 		} else {
 			$("#today_word").hide()
 			$(".today_word").hide()

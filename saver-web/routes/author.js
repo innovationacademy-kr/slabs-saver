@@ -58,5 +58,7 @@ module.exports = (passport) => {
   router.get('/todaydesking', loggedIn, authorCtrl.page.todayDesk)
   router.post('/today/new',authorCtrl.request.today);
   router.post('/todaydesking',authorCtrl.request.todayDesk);
+  router.get('/today/edit',authorCtrl.page.editToday)
+  router.post('/today/edit',authorCtrl.request.editToday);
   return router;
 };
