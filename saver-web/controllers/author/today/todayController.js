@@ -72,11 +72,16 @@ const todayPageDesking = async (req, res) => {
 		}
 		return item;
 	});
+
+	const wordsData = JSON.stringify(words.map(item => {
+		return { ...item, word: '' };
+	}));
 	res.render('author/today/todaywordDesking', {
 		layout: 'layout/adminLayout',
 		POSITION,
 		currentUser,
 		words,
+		wordsData,
 		title: 'todayDesking',
 	})
 }

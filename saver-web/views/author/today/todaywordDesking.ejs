@@ -48,8 +48,8 @@
 				<%- include('../../partials/footer.ejs') %>
 
 					<script>
-						let wordsData = JSON.parse('<%- JSON.stringify(words) %>'.replace(/\n/gi, "\\n"));
-						const originWordsData = JSON.parse('<%- JSON.stringify(words) %>'.replace(/\n/gi, "\\n"));
+						let wordsData = JSON.parse('<%- wordsData %>');
+						const originWordsData = JSON.parse('<%- wordsData %>');
 
 					</script>
 					<script defer src="/vendors/axios/axios.min.js"></script>
