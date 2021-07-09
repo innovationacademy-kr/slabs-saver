@@ -65,9 +65,10 @@ const editArticleRequest = async (req, res, next) => {
 			result: true,
 		})
 	} catch (error) {
+		console.log(error);
 		res.status(400).json({
 			result: true,
-			message: '수정실패'
+			message: '수정실패' + error.message
 		})
 	}
 };
@@ -190,7 +191,6 @@ const previewPage = async (req, res, next) => {
 	});
 	article.authorImg = `${process.env.S3}/${article.Author.photo}`;
 	article.image = `${process.env.S3}/${article.image}`;
-	article.paragraphs = JSON.parse(article.paragraphs);
 	res.render('user/article', { title: 'preview', article, POSITION, layout: 'layout/userLayout' });
 };
 

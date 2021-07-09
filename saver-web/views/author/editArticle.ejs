@@ -43,7 +43,9 @@
                   </div>
 			<div class="mb-4">
 				<label class="form-label" for="breifing">100자 브리핑</label>
-				<div id="editorjs_briefing"></div>
+				<div id="editor_briefing"></div>
+				<div id="editor_briefing"></div>
+
 			</div>
 			<div class="mb-4">
 				<label class="form-label" for="breifing">
@@ -52,7 +54,8 @@
 						([더 자세히버튼]을 누르면 보여지는 내용입니다)
 					</i>
 				</label>
-				<div id="editorjs_paragraphs"></div>
+				<div id="editor_paragraphs"></div>
+				<div id="editor_paragraphs"></div>
 				<div class="d-grid gap-2 mt-4">
 					<button class="article--save btn btn-primary" name="saveBtn" type="submit">임시저장</button>
 					<button class="article--complete btn btn-info" name="completeBtn" type="submit">출고</button>
@@ -68,15 +71,14 @@
   <%- contentFor('footer') %>
   <%- include('../partials/footer.ejs') %>
 <script>
-  var briefingContent = JSON.parse('<%- article.briefing %>');
-  var paragraphsContent = JSON.parse('<%- article.paragraphs %>');
+  var briefingContent = '<%- article.briefing %>';
+  var paragraphsContent = '<%- article.paragraphs %>';
   var STATUS = JSON.parse('<%-JSON.stringify(STATUS)%>')
   console.log(briefingContent)
   console.log(paragraphsContent)
 </script>
 
-<script src="/vendors/editorjsNestedList/nested-list.js" defer></script>
-<script src="/vendors/editorjsImage/bundle.js" defer></script>
-<script src="/vendors/editorjsLink/bundle.js" defer></script>
-<script src="/vendors/editorjs/editor.js" defer></script>
+<script src="/vendors/summernote/summernote-lite.js" defer></script>
+<link href="/vendors/summernote/summernote-lite.css" rel="stylesheet">
 <script type="module" src="/javascripts/author/editArticle.js"></script>
+

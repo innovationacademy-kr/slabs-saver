@@ -1,34 +1,12 @@
+// TODO: 유저페이지 스타일 추가
+// TODO: 기존 데이터 다 작성하기
+// TODO: 백업본 만들기
+// TODO: seeder 만들기
+// TODO: Editor.js 없에기
+// TODO: 테스트 서버올려보기
+// TODO: thesaver.io에 올려보₩기
 
-const createEditor = (id, editorContent) => {
-	const editor = new EditorJS({
-		holder: id,
-		data: editorContent,
-		tools: {
-			linkTool: {
-				class: LinkTool, // ejs파일에서 불러옴
-				config: {
-					endpoint: '', // 크롤링해오는 기능은 사용하지 않음 (newArticle.ejs에서 css로 버튼 가림)
-				}
-			},
-			list: {
-				class: NestedList,
-				inlineToolbar: true,
-			},
-			image: {
-				class: ImageTool,
-				config: {
-					endpoints: {
-						byFile: '/articles/upload/image', // editorjs에서 이미지를 업로드할때 사용하는 api이다
-						byUrl: '/articles/fetch/image',
-					}
-				}
-			}
-		},
-	});
-	return editor;
-}
-
-class ArticlePage {
+class Editor {
 
 	constructor() {
 		this.briefingEditor;
@@ -36,16 +14,23 @@ class ArticlePage {
 		this.articleId = location.pathname.split("edit/")[1];
 	}
 
-	getBriefingJson = async () => {
-		const content = await this.briefingEditor.save();
-		const json = JSON.stringify(content);
-		return json;
+	createEditor = (selector, editorContent) => {
+		if ($(selector)) {
+			const editor = $(selector).summernote();
+			$(selector).summernote('code', editorContent)
+			return editor;
+		} else {
+			throw '셀렉터를 확인해주세요';
+		}
+	}
+	getBriefingMarkUp = () => {
+		const content = this.briefingEditor.summernote('code');
+		return content;
 	}
 
-	getParagraphsJson = async () => {
-		const content = await this.paragraphsEditor.save();
-		const json = JSON.stringify(content);
-		return json;
+	getParagraphsMarkUp = () => {
+		const content = this.paragraphsEditor.summernote('code');
+		return content;
 	}
 
 	editArticle = (data, articleId) => {
@@ -78,8 +63,8 @@ class ArticlePage {
 		}
 		payload.append('imageDesc', $('#imageDesc')[0].value);
 		payload.append('imageFrom', $('#imageFrom')[0].value);
-		payload.append('briefing', await this.getBriefingJson());
-		payload.append('paragraphs', await this.getParagraphsJson());
+		payload.append('briefing', escape(this.getBriefingMarkUp()));
+		payload.append('paragraphs', escape(this.getParagraphsMarkUp()));
 		return payload;
 	}
 
@@ -97,21 +82,20 @@ class ArticlePage {
 		});
 	}
 
-
-	initEditorJS = (briefingContent, paragraphsContent) => {
-		console.log({ briefingContent, paragraphsContent});
-		this.briefingEditor = createEditor('editorjs_briefing', briefingContent)
-		this.paragraphsEditor = createEditor('editorjs_paragraphs', paragraphsContent)
+	init = (briefingContent, paragraphsContent) => {
+		console.log({ briefingContent, paragraphsContent });
+		this.briefingEditor = this.createEditor('#editor_briefing', briefingContent)
+		this.paragraphsEditor = this.createEditor('#editor_paragraphs', paragraphsContent)
 	}
 }
 
 
-
-const page = new ArticlePage();
-
-page.addEvent();
-page.initEditorJS(briefingContent, paragraphsContent); // editorContent는 ejs에서 받아옴
-window.addEventListener('beforeunload', confirmExit);
+$(document).ready(function () {
+	window.addEventListener('beforeunload', confirmExit);
+	const editor = new Editor();
+	editor.init(unescape(briefingContent), unescape(paragraphsContent))
+	editor.addEvent()
+});
 
 function confirmExit() {
 	return "정말 페이지를 벗어나시겠습니까?";

@@ -68,7 +68,7 @@ const preSignupPage = async (req, res) => {
 };
 
 const loginPage = async (req, res) => {
-	res.render('author/login', { title: 'login' });
+	res.render('author/login', { title: 'login', layout: 'layout/adminLayout' });
 };
 
 const signupPage = async (req, res) => {
