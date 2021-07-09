@@ -89,8 +89,9 @@ const addEvent = () => {
 		if (target.className === 'article__control__more-button') {
 			// 버튼에는 data-id라는 어트리뷰트를 등록함. 해당 값음 target.dataset.id로 참조가능
 			const { id } = target.dataset;
-			$(`#editorjs_paragraphs_0${id}`).removeClass('close');
-			$(`#editorjs_paragraphs_0${id}`).addClass('open');
+			$(`#editor_paragraphs_0${id}`).removeClass('hide');
+			$(`#editor_paragraphs_0${id}`).addClass('open');
+			e.target.classList.add('hide')
 		}
 	})
 }

@@ -17,9 +17,9 @@
   <p class="article__imgtext ft-detail">
     <%= article.imageDesc %> <%= article.imageFrom %>
   </p>
-  <div id="editorjs_briefing" class="article__brief-text ft-main">
+  <div id="editor_briefing" class="article__brief-text ft-main">
   </div>
-  <div id="editorjs_paragraphs" class="article__brief-text ft-main">
+  <div id="editor_paragraphs" class="article__brief-text ft-main">
   </div>
   <p class="article__main-text ft-main">
   </p>
@@ -33,12 +33,8 @@
   </div>
 </div>
 </div>
-<script src="/vendors/editorjs/editor.js" defer></script>
-<script src="/vendors/editorjsNestedList/nested-list.js" defer></script>
-<script src="/vendors/editorjsImage/bundle.js" defer></script>
-<script src="/vendors/editorjsLink/bundle.js" defer></script>
 <script>
-  var briefingContent = JSON.parse(`<%- article.briefing %>`);
-  var paragraphsContent = JSON.parse(`<%- JSON.stringify(article.paragraphs) %>`);
+  var briefingContent = '<%- article.briefing %>';
+  var paragraphsContent = '<%- article.paragraphs %>';
 </script>
 <script type="module" src="/javascripts/user/article.js"></script>

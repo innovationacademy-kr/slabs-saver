@@ -35,30 +35,10 @@ div.signup {
     margin-top: 20px;
 }
 
-/* Editorjs 설정 */
-
-div[id^="editorjs"] {
-  background-color: #fff;
-  border: 1px solid #ddd;
+/* sumemrnote css */
+.note-editable {
+	background-color: white;
 }
-
-.cdx-nested-list--ordered > .cdx-nested-list__item::before {
-	content: counters(item) !important;
-}
-
-.cdx-nested-list--ordered > .cdx-nested-list__item .cdx-nested-list--ordered > .cdx-nested-list__item::before {
-	content: "\f111" !important;
-    font-family: FontAwesome;
-    font-size: 8px;
-}
-div[data-placeholder="Caption"] {
-  display: none !important;
-}
-
-.codex-editor {
-	padding: 8px;
-}
-
-.codex-editor__redactor {
-  padding-bottom: 0px !important;
+img[alt="current-picture"] {
+	border: 1px solid #ddd;
 }

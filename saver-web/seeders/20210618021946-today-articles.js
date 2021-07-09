@@ -10,14 +10,14 @@ module.exports = {
 			[
 				{
 					id: 1,
-					ArticleId: 95,
+					ArticleId: 60,
 					date: date,
 					createdAt: Sequelize.fn('now'),
 					updatedAt: Sequelize.fn('now'),
 				},
 				{
 					id: 2,
-					ArticleId: 96,
+					ArticleId: 61,
 					date: date2,
 					createdAt: Sequelize.fn('now'),
 					updatedAt: Sequelize.fn('now'),
