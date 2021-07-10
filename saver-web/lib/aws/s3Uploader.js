@@ -12,7 +12,7 @@ let multerS3 = require('multer-s3');
 let s3ImageUpload = (config) => multer({
 	storage: multerS3({
 		s3: s3,
-		bucket: "swlabs-saver",// 버켓이름
+		bucket: process.env.S3_BUCKET,// 버켓이름
 		key: function (req, file, cb) {
 			const extension = path.extname(file.originalname); // 확장자
 			const filename = Date.now().toString() + extension; // 파일명 전달
