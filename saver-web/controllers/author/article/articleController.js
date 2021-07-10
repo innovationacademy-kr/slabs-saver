@@ -45,7 +45,6 @@ const editArticleRequest = async (req, res, next) => {
 		params: { articleId },
 	} = req;
 	const { headline, category, imageDesc, imageFrom, briefing, status, paragraphs } = body;
-	console.log({headline, category, imageDesc, imageFrom, briefing, status, paragraphs});
 	try {
 		await Article.update({
 			headline,
@@ -88,7 +87,8 @@ const deskProcessRequest = async (req, res, next) => {
 					am7: article.am7 ? 1 : 0,
 					pm7: article.pm7 ? 1 : 0.
 				}, {
-					where: { id: article.id }
+					where: { id: article.id },
+					individualHooks: true //이건가?
 				}).then(res => {
 					resolve(res);
 				});
@@ -149,7 +149,6 @@ const editArticlePage = async (req, res, next) => {
 		let article = await Article.findOne({ where: { id: req.params.articleId } });
 		article.image = `${process.env.S3}/${article.image}`;
 		article.briefing = article.briefing;
-		console.log(article.briefing);
 		return res.render('author/editArticle', {
 			article,
 			currentUser,

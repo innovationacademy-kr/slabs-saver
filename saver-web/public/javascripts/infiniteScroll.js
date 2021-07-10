@@ -39,7 +39,7 @@ function makeTemplate(article) {
   <div class="article__top">
     <div class="icon-${article.category}-black"></div>
     <p class="article__top__text ft-detail">
-      ${article.Author.name}/${article.updatedAt}
+      ${article.Author.name}/${article.publishedAt}
     </p>
   </div>
   <p class="article__title ft-title">

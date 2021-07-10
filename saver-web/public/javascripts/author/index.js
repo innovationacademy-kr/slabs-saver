@@ -27,6 +27,8 @@ const requestUpdate = (articles) => {
     .then(res => {
       console.log(res);
       alert('수정되었습니다')
+      location.reload();
+
     })
     .catch(err => {
       alert('실패했습니다')
