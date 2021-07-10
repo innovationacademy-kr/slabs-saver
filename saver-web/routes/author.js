@@ -49,7 +49,23 @@ module.exports = (passport) => {
   router.post('/_admin/inviteList', authorCtrl.request.inviteList);
   router.post('/_admin/decision', authorCtrl.request.decision);
 
+  /**
+   * 외부 필진
+   */
+  router.get('/today/new', loggedIn, authorCtrl.page.createToday);
   router.get('/today', loggedIn, authorCtrl.page.today);
+  router.get('/today/my', loggedIn, authorCtrl.request.getToday);
+  router.get('/todaydesking', loggedIn, authorCtrl.page.todayDesk)
+  router.post('/today/new',authorCtrl.request.today);
+  router.post('/todaydesking',authorCtrl.request.todayDesk);
+  router.get('/today/edit',authorCtrl.page.editToday)
+  router.post('/today/edit',authorCtrl.request.editToday);
+  router.post('/today/new', authorCtrl.request.today);
 
+  /**
+   * 오늘의 기사
+   */
+  router.get('/todayArticleDesking', loggedIn, authorCtrl.page.todayArticleDesking);
+  router.post('/todayArticleDesking', loggedIn, authorCtrl.request.todayArticleDesking);
   return router;
 };

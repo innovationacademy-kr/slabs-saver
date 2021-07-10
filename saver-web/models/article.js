@@ -9,10 +9,10 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({ Author,Bookmarks }) {
-      console.log({ Author,Bookmarks });
+    static associate({ Author, Bookmarks, TodayArticle }) {
       this.belongsTo(Author);
       this.hasMany(Bookmarks);
+      this.hasOne(TodayArticle);
       // define association here
     }
   }
@@ -41,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       briefing: {
-        type: DataTypes.TEXT,
+        type: DataTypes.TEXT('long'),
         allowNull: false,
       },
       am7: {
@@ -63,11 +63,12 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: true,
         type: DataTypes.DATE,
         get() {
-          return moment(this.getDataValue('publishedAt')).format('YYYY.MM.DD HH:mm:ss');
+			return moment(this.getDataValue('publishedAt')).format('YYYY.MM.DD HH:mm:ss');
         },
-      },
-      paragraphs: {
-        type: DataTypes.JSON,
+	},
+	paragraphs: {
+		type: DataTypes.TEXT('long'),
+		allowNull: false,
       },
       createdAt: {
         allowNull: false,

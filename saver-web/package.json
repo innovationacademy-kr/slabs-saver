@@ -13,7 +13,6 @@
     "test": "node_modules/.bin/jest"
   },
   "dependencies": {
-    "@editorjs/editorjs": "^2.22.0",
     "alert": "^5.0.10",
     "axios": "^0.21.1",
     "bcrypt": "^5.0.1",
@@ -38,14 +37,11 @@
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "sequelize": "^6.6.2",
-    "sequelize-cli": "^6.2.0"
+    "sequelize-cli": "^6.2.0",
+    "summernote": "^0.8.18"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.14.5",
-    "@editorjs/image": "^2.6.0",
-    "@editorjs/link": "^2.3.1",
-    "@editorjs/list": "^1.6.2",
-    "@editorjs/nested-list": "^1.0.1",
     "aws-sdk": "^2.930.0",
     "eslint": "^7.2.0",
     "eslint-config-airbnb": "^18.2.1",

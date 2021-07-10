@@ -1,0 +1,56 @@
+<%- contentFor('navbar') %>
+	<%- include('../../partials/navbar.ejs') %>
+		<%- contentFor('body') %>
+			<section class="desking-table">
+				<%# TODO: 필터링or검색기능 %>
+					<table class="table" name="table">
+						<thead class="table-header">
+							<tr class="table-haeder__row">
+								<th class="table-header__cell">NO</th>
+								<th class="table-header__cell">오늘의 한마디</th>
+								<th class="table-header__cell">작성자</th>
+								<th class="table-header__cell">입력일시</th>
+								<th class="table-header__cell">게재일자</th>
+							</tr>
+						</thead>
+						<tbody class="table-body">
+							<% words.map((word)=> { %>
+								<% console.log(word.id) %>
+
+									<tr class="table-body__row" name="cols">
+										<td class="table-body__cell">
+											<%= word.id %>
+										</td>
+										<td class="table-body__cell">
+											<a href="/author/today/edit?id=<%= word.id %>" target="_blank">
+												<%= word.word %>
+											</a>
+										</td>
+										<td class="table-body__cell">
+											<%= word.Author.name %>
+										</td>
+										<td class="table-body__cell">
+											<%= word.createdAt %>
+										</td>
+										<td class="table-body__cell">
+											<input class="date" type="date" value="<%= word.TodayWord.date %>"
+												data-id="<%= word.id %>">
+											<button class="reset" type="reset" data-id="<%= word.id %>">초기화</button>
+										</td>
+										<% }) %>
+									</tr>
+						</tbody>
+					</table>
+					<button class="update-btn" type="submit">업데이트</button>
+			</section>
+
+			<%- contentFor('footer') %>
+				<%- include('../../partials/footer.ejs') %>
+
+					<script>
+						let wordsData = JSON.parse('<%- wordsData %>');
+						const originWordsData = JSON.parse('<%- wordsData %>');
+
+					</script>
+					<script defer src="/vendors/axios/axios.min.js"></script>
+					<script defer src="/javascripts/today/todaywordDesking.js"></script>

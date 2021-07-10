@@ -1,5 +1,4 @@
 const loggedIn = (req, res, next) => {
-	console.log('loggedIn', req.user);
 	if (req.user) {
 		return next();
 	}

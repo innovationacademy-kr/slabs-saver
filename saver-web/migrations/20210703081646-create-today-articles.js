@@ -1,19 +1,19 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('TodayWords', {
+    await queryInterface.createTable('TodayArticles', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      WordId: {
-        type: Sequelize.INTEGER,
+      ArticleId: {
+		type: Sequelize.INTEGER,
         allowNull: false,
         onDelete: 'cascade',
         references: {
-          model: 'Words',
+          model: 'Articles',
           key: 'id',
         },
       },
@@ -31,6 +31,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('TodayWords');
+    await queryInterface.dropTable('TodayArticles');
   }
 };

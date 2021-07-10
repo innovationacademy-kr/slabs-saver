@@ -13,9 +13,6 @@ const getPage = () => {
 			articles = JSON.parse(articles);
 			articles.map(function (article) {
 				articleList.insertAdjacentHTML('beforeend', makeTemplate(article));
-				const { id } = article;
-				const briefingEditor = createEditor(`editorjs_briefing_0${id}`, article.briefing)
-				const paragraphsEditor = createEditor(`editorjs_paragraphs_0${id}`, article.paragraphs)
 			});
 			isUsed = false;
 			page += ADD_PAGE;
@@ -52,9 +49,11 @@ function makeTemplate(article) {
   <p class="article__imgtext ft-detail">
     ${article.imageDesc}(${article.imageFrom})
   </p>
-  <div id="editorjs_briefing_0${article.id}" class="article__briefing ft-main">
+  <div id="editor_briefing_0${article.id}" class="article__briefing ft-main">
+  ${unescape(article.briefing)}
   </div>
-  <div id="editorjs_paragraphs_0${article.id}" class="article__paragraphs close ft-main">
+  <div id="editor_paragraphs_0${article.id}" class="article__paragraphs hide ft-main">
+  ${unescape(article.paragraphs)}
   </div>
   <div class="article__control">
     <div data-id="${article.id}" class="article__control__more-button">
@@ -67,35 +66,4 @@ function makeTemplate(article) {
   </div>
 </div>
 `;
-}
-
-
-const createEditor = (id, editorContent) => {
-	const editor = new EditorJS({
-		holder: id,
-		data: JSON.parse(editorContent),
-		readOnly: true,
-		tools: {
-			linkTool: {
-				class: LinkTool, // ejs파일에서 불러옴
-				config: {
-					endpoint: '', // 크롤링해오는 기능은 사용하지 않음 (newArticle.ejs에서 css로 버튼 가림)
-				}
-			},
-			list: {
-				class: NestedList,
-				inlineToolbar: true,
-			},
-			image: {
-				class: ImageTool,
-				config: {
-					endpoints: {
-						byFile: '/articles/upload/image', // Your backend file uploader endpoint
-						byUrl: '/articles/fetch/image', // Your endpoint that provides uploading by Url
-					}
-				}
-			}
-		},
-	});
-	return editor;
 }

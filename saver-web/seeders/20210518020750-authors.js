@@ -89,6 +89,18 @@ module.exports = {
           createdAt: Sequelize.fn('now'),
           updatedAt: Sequelize.fn('now'),
         },
+        {
+          email: 'external@naver.com',
+          name: 'external1',
+          code: 5,
+          category: 2,
+          position: 5,
+          contact: '01012341234',
+          password: '$2b$10$fO/O6fF5w1HDkXNab8AMBOYE/9ByW8/sjIeXpQONQgJxkegxdFDIq',
+          photo: 'author',
+          createdAt: Sequelize.fn('now'),
+          updatedAt: Sequelize.fn('now'),
+        },
       ],
       { validate: false },
     );
