@@ -28,7 +28,7 @@ module.exports = {
         allowNull: false,
       },
       briefing: {
-        type: Sequelize.TEXT,
+        type: Sequelize.TEXT('long'),
         allowNull: false,
       },
       am7: {
@@ -51,16 +51,17 @@ module.exports = {
         allowNull: false,
         onDelete: 'cascade',
         references: {
-          model: 'Authors',
-          key: 'id',
+			model: 'Authors',
+			key: 'id',
         },
-      },
-      publishedAt: {
-        allowNull: true,
+	},
+	publishedAt: {
+		allowNull: true,
         type: Sequelize.DATE,
-      },
-      paragraphs: {
-        type: Sequelize.JSON,
+	},
+	paragraphs: {
+        type: Sequelize.TEXT('long'),
+		allowNull: false,
       },
       createdAt: {
         allowNull: false,

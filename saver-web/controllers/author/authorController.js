@@ -1,5 +1,5 @@
 
-const { Author, Article } = require('../../models');
+const { Author, Article} = require('../../models');
 
 const { pick } = require('../../lib/util');
 
@@ -14,6 +14,7 @@ const { constants } = require('../../lib/converter');
 const articleController = require('./article/articleController');
 const authController = require('./auth/authController');
 const inviteController = require('./invite/inviteController');
+const todayController = require('./today/todayController');
 
 
 //접속한 기자 구분//
@@ -28,6 +29,7 @@ const indexPage = async (req, res) => {
 		where: { category },
 		include: { model: Author, attributes: ['id', 'name', 'category'] },
 	}); //db에서 사용자 데이터 가져오기
+	console.log({ articles});
 	const { position } = currentUser;
 	// 기사, 데스크, 편집장인 경우 보여지는 부분이 있음
 
@@ -40,15 +42,12 @@ const indexPage = async (req, res) => {
 		let ejsfile = '';
 		let variable;
 		const articlesData = JSON.stringify(articles.map((item) => pick(item, ['id', 'pm7', 'am7', 'status'])));
-		console.log({ position, 'POSITION.DESK': POSITION.DESK, });
-		console.log(currentUser.category, category);
 		if ([POSITION.REPOTER, POSITION.INTERN].includes(position)) {
 			ejsfile = 'author/desking/index';
 		} else if (position === POSITION.DESK) {
 			const curr_category = currentUser.category || category;
 			currentUser.code = curr_category; // 기사의 코드 === 기사의 카테고리 === 수정가능한 권한을 가짐
 			currentUser.category = converter.category(curr_category);
-			console.log(currentUser);
 			ejsfile = 'author/desking/desk';
 		} else if (position === POSITION.CHIEF_EDITOR) {
 			ejsfile = 'author/desking/chiefEditor';
@@ -86,31 +85,20 @@ const myPage = async (req, res) => {
 	});
 }
 
-
-const todayPage = async (req, res) => {
-	const currentUser = await getCurrentUser(req.user.id);
-	res.render('author/today/today', {
-		layout: 'layout/adminLayout',
-		POSITION,
-		currentUser,
-		title: 'today',
-		POSITION
-	})
-}
-
 module.exports = {
 	request: {
 		...articleController.request,
 		...authController.request,
 		...inviteController.request,
+		...todayController.request,
 	},
 	page: {
 		index: indexPage,
 		admin: adminPage,
 		mypage: myPage,
-		today: todayPage,
 		...articleController.page,
 		...authController.page,
 		...inviteController.page,
+		...todayController.page,
 	},
 };

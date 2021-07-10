@@ -3,9 +3,11 @@ const {
   ECONOMY,
   SOCIAL,
   INTERNATIONAL,
-  CULTURE
+  CULTURE,
 } = require('./constants/category');
 const POSITIONS = require('./constants/position');
+const TODAYWORD = require('./constants/todayWordStatus');
+const ARTICLE_STATUS = require('./constants/articleStatus');
 
 const category = {
   전체: 0,
@@ -27,19 +29,19 @@ const categoryEng = {
 
 const position = {
   기자: POSITIONS.REPOTER,
-	데스크: POSITIONS.DESK,
+  데스크: POSITIONS.DESK,
   편집장: POSITIONS.CHIEF_EDITOR,
-	관리자: POSITIONS.ADMIN,
-	인턴:POSITIONS.INTERN,
-	외부필진:POSITIONS.EXTERNAL_WRITER
+  관리자: POSITIONS.ADMIN,
+  인턴: POSITIONS.INTERN,
+  외부필진: POSITIONS.EXTERNAL_WRITER
 }
 const positionKey = {
   [POSITIONS.REPOTER]: '기자',
-  [POSITIONS.DESK] : '데스크',
-  [POSITIONS.CHIEF_EDITOR] : '편집장',
-  [POSITIONS.ADMIN] : '관리자',
-  [POSITIONS.INTERN] : '인턴',
-  [POSITIONS.EXTERNAL_WRITER] : '외부필진'
+  [POSITIONS.DESK]: '데스크',
+  [POSITIONS.CHIEF_EDITOR]: '편집장',
+  [POSITIONS.ADMIN]: '관리자',
+  [POSITIONS.INTERN]: '인턴',
+  [POSITIONS.EXTERNAL_WRITER]: '외부필진'
 }
 const inviteState = {
   '가입 대기': 0,
@@ -47,6 +49,19 @@ const inviteState = {
   '가입 완료': 2,
   '가입 거절': 3,
 };
+
+const todayWordStatus = {
+    [TODAYWORD.DRAFTS]: '임시 저장',
+    [TODAYWORD.COMPLETED]: '작성 완료',
+    [TODAYWORD.CONFIRMED]: '날짜 지정',
+}
+
+const articleStatus = {
+    [ARTICLE_STATUS.DRAFTS]: '임시 저장',
+    [ARTICLE_STATUS.COMPLETED]: '작성 완료',
+    [ARTICLE_STATUS.RELEASED]: '출고',
+	[ARTICLE_STATUS.CONFIRMED]: '게재',
+}
 
 module.exports = {
   category: (value) => {
@@ -68,6 +83,8 @@ module.exports = {
     categoryEng,
     inviteState,
     position,
-    positionKey
+    positionKey,
+    todayWordStatus,
+	articleStatus
   }
 };

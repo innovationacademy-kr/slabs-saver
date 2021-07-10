@@ -106,20 +106,20 @@
   text-align: left;
   color: #434343;
 }
-/*m_본문_강조*/
-.ft-main-bold {
-  font-family: 'Noto Sans KR', sans-serif;
-  font-size: 16px;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.6;
-  letter-spacing: -0.3px;
-  text-align: left;
-  color: #2b94e8;
-}
 /*m_본문_강조_링크4*/
-.ft-main-bold-link {
+.ft-main-bold {
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 16px;
+	font-weight: 500;
+	font-stretch: normal;
+	font-style: normal;
+	line-height: 1.6;
+	letter-spacing: -0.3px;
+	text-align: left;
+	color: #2b94e8;
+}
+/*m_본문_강조*/
+.ft-main-bold-link,  .ft-main b, .ft-main strong {
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 16px;
   font-weight: 500;
@@ -131,19 +131,19 @@
   color: #000000;
 }
 /*m_본문3*/
-.ft-main {
+.ft-main, .ft-main > ul > li{
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 16px;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
-  line-height: 1.6;
+  line-height: 1.625 !important;
   letter-spacing: -0.3px;
   text-align: left;
   color: #434343;
 }
 /*m_본문_링크2*/
-.ft-main-link {
+.ft-main-link, .ft-main a {
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 16px;
   font-weight: normal;
@@ -153,6 +153,8 @@
   letter-spacing: 0px;
   text-align: left;
   color: #2b94e8;
+  text-decoration: underline;
+  vertical-align: baseline;
 }
 /*m_기자명/사진설명1*/
 .ft-detail {
@@ -161,11 +163,24 @@
   font-weight: 500;
   font-stretch: normal;
   font-style: normal;
-  line-height: 1.5;
+  line-height: 18px;
   letter-spacing: 0px;
   text-align: left;
   color: #a7a7a7;
 }
+/*
+.ft-main > ol > li,
+.ft-main > ul > li {
+	padding-top: 30px;
+}
+.ft-main > ol > li li,
+.ft-main > ul > li li {
+	padding-right: 17px;
+	text-indent: -20px;
+	list-style-type: disc;
+	margin-left: 30px;
+	list-style-position: inside;
+} */
 
 /*./icons*/
 
@@ -551,27 +566,10 @@
   width: 94px;
 }
 
-/* Editorjs 설정 */
-div[data-placeholder='Caption'] {
-  display: none !important;
+.hide {
+	display: none !important;
 }
 
-.cdx-nested-list--ordered > .cdx-nested-list__item::before {
-	content: counters(item) !important;
-}
-
-.cdx-nested-list--ordered > .cdx-nested-list__item .cdx-nested-list--ordered > .cdx-nested-list__item::before {
-	content: "\f111" !important;
-    font-family: FontAwesome;
-    font-size: 8px;
-}
-
-.codex-editor__redactor {
-  padding-bottom: 0px !important;
-}
-
-.article__paragraphs.open ol.cdx-block li:first-child {
-}
-.article__paragraphs.close ol.cdx-block li:not(:first-child) {
-    display: none !important;
+.ft-main img {
+	max-width: 100%;
 }

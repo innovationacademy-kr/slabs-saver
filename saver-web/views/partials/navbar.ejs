@@ -1,5 +1,5 @@
 <% if (currentUser.position===POSITION.ADMIN) { %>
-  <nav class="navbar navbar-expand-md navbar-dark bg-success mb-4">
+<nav class="navbar navbar-expand-md navbar-dark bg-success mb-4">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">SLAB-SAVER</a>
       <ul class="navbar-nav me-auto mb-2 mb-md-0">
@@ -55,9 +55,20 @@
                 </li>
                 <% if (currentUser.position===POSITION.EXTERNAL_WRITER) { %>
                   <li class="nav-item">
-                    <a class="nav-link" href="/author/today">오늘의 한마디</a>
+                    <a class="nav-link" href="/author/today/new">오늘의 한마디 작성</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/author/today">오늘의 한마디 목록</a>
                   </li>
                   <% } %>
+                    <% if (currentUser.position===POSITION.CHIEF_EDITOR) { %>
+                      <li class="nav-item">
+                        <a class="nav-link" href="/author/todaydesking">오늘의 한마디 관리</a>
+                      </li>
+					  <li class="nav-item">
+						<a class="nav-link" href="/author/todayArticleDesking">오늘의 기사 관리</a>
+					  </li>
+                      <% } %>
         </ul>
         <ul class="navbar-nav mb-2 mb-md-0">
           <li class="nav-item" style="margin-right: 10px">
