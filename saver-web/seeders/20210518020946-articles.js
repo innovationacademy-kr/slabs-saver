@@ -59,7 +59,7 @@ module.exports = {
 <ul>
 <li>대법원의 판결을 통해 그 동안 검찰이 사모펀드를 가지고 조카와 공모했다고 기소한 것이 검찰의 무리한 기소였다는 것을 증명</li>
 </ul>
-<p><img src="https://swlabs-saver.s3.ap-northeast-2.amazonaws.com/article/1625450740199.jpg" alt="https://swlabs-saver.s3.ap-northeast-2.amazonaws.com/article/1625450740199.jpg"></p>"
+<p><img src="https://thesaver.s3.ap-northeast-2.amazonaws.com/article/1625450740199.jpg" alt="https://thesaver.s3.ap-northeast-2.amazonaws.com/article/1625450740199.jpg"></p>"
 					`),
 				}),
 				await author.createArticle({
