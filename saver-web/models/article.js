@@ -94,6 +94,8 @@ module.exports = (sequelize, DataTypes) => {
   Article.addHook('beforeUpdate', async (article, options) => {
     const currentStatus = article._previousDataValues.status;
     const afterStatus = article.dataValues.status;
+    // console.log(currentStatus);
+    // console.log(afterStatus);
     console.log('===================updating...');
     if (currentStatus === 3 && afterStatus === 4) {
       article.publishedAt = Date.now();
