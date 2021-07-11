@@ -33,7 +33,6 @@ const indexPage = async (req, res) => {
 	// 기사, 데스크, 편집장인 경우 보여지는 부분이 있
 	if (position === POSITION.ADMIN) {
 		res.redirect('/author/_admin');
-
 	} else if (position === POSITION.EXTERNAL_WRITER) {
 		res.redirect('/author/articles');
 	} else {
