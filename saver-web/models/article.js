@@ -96,8 +96,7 @@ module.exports = (sequelize, DataTypes) => {
     const afterStatus = article.dataValues.status;
     // console.log(currentStatus);
     // console.log(afterStatus);
-    console.log('===================updating...');
-    if (currentStatus === 3 && afterStatus === 4) {
+    if (currentStatus !== 4 && afterStatus === 4) {
       article.publishedAt = Date.now();
     } else if (currentStatus === 4 && afterStatus === 3) {
       article.publishedAt = null;

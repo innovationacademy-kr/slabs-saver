@@ -1,4 +1,4 @@
-var INITIAL_PAGE = 1;
+var INITIAL_PAGE = 0; // 처음 렌더하는 아티클
 var ADD_PAGE = 3;
 var DEFAULT_HEIGHT = $(window).height() + 10;
 var page = INITIAL_PAGE;
@@ -22,6 +22,7 @@ const getPage = () => {
 	});
 }
 
+//?계속 요청 보내는데??
 getPage();
 $(window).scroll(function () {
 	const scrollPosition = $(window).scrollTop() + DEFAULT_HEIGHT;

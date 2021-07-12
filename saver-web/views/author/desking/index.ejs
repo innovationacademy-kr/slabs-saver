@@ -1,74 +1,85 @@
 <%- contentFor('navbar') %>
-<%- include('../../partials/navbar.ejs') %>
+  <%- include('../../partials/navbar.ejs') %>
 
-<%- contentFor('body') %>
-<section class="desking-table">
-  <!-- NOTE: category select -->
-  <br />
-  <div class="desking-table__category">
-    <form method="get" action="/author" enctype="multipart/form-data">
-      <label for="category">카테고리</label>
-      <select name="category" id="category">
-        <% Object.keys(category).forEach((key) => { %>
-          <option value="<%=category[key]%>" >
-            <%=key%>
-          </option>
-        <% }) %>
-      </select>
-      <button type="submit">이동</button>
-    </form>
-  </div>
-    <table class="table" name="table">
-      <thead class="table-header">
-        <tr class="table-haeder__row">
-          <th class="table-header__cell">NO</th>
-          <th class="table-header__cell">헤드라인</th>
-          <th class="table-header__cell">작성자</th>
-          <th class="table-header__cell">작성일자</th>
-          <th class="table-header__cell">입력일자</th>
-          <th class="table-header__cell">게재일자</th>
-          <th class="table-header__cell">상태</th>
-        </tr>
-      </thead>
-      <tbody class="table-body">
-        <!-- articles 반복문을 돌면서 아래를 출력할 것. -->
-        <% articles.map((article)=> { %>
-        <tr class="table-body__row" name="cols">
-          <td class="table-body__cell"><%= article.id %></td>
-          <td class="table-body__cell">
-            <a href="/author/articles/<%= article.id %>/preview" target="_blank"> <%= article.headline %> </a>
-          </td>
-          <td class="table-body__cell"><%= article.Author.name %></td>
-          <td class="table-body__cell"><%= article.createdAt %></td>
-          <td class="table-body__cell"><%= article.updatedAt %></td>
-          <%# TODO: 게재 일자도 만들고 여기다가 넣자 %>
-          <td class="table-body__cell">
-            <% if (article.status < 4) { %>
-            미승인
-            <% } else { %>
-            <%= article.publishedAt %>
-            <% } %>
-          </td>
+    <%- contentFor('body') %>
+      <section class="desking-table">
+        <!-- NOTE: category select -->
+        <br />
+        <div class="desking-table__category">
+          <form method="get" action="/author" enctype="multipart/form-data">
+            <label for="category">카테고리</label>
+            <select name="category" id="category">
+              <% Object.keys(category).forEach((key)=> { %>
+                <option value="<%=category[key]%>">
+                  <%=key%>
+                </option>
+                <% }) %>
+            </select>
+            <button type="submit">이동</button>
+          </form>
+        </div>
+        <table class="table" name="table">
+          <thead class="table-header">
+            <tr class="table-haeder__row">
+              <th class="table-header__cell">NO</th>
+              <th class="table-header__cell">헤드라인</th>
+              <th class="table-header__cell">작성자</th>
+              <th class="table-header__cell">작성일자</th>
+              <th class="table-header__cell">입력일자</th>
+              <th class="table-header__cell">게재일자</th>
+              <th class="table-header__cell">상태</th>
+            </tr>
+          </thead>
+          <tbody class="table-body">
+            <!-- articles 반복문을 돌면서 아래를 출력할 것. -->
+            <% articles.map((article)=> { %>
+              <tr class="table-body__row" name="cols">
+                <td class="table-body__cell">
+                  <%= article.id %>
+                </td>
+                <td class="table-body__cell">
+                  <a href="/author/articles/<%= article.id %>/preview" target="_blank">
+                    <%= article.headline %>
+                  </a>
+                </td>
+                <td class="table-body__cell">
+                  <%= article.Author.name %>
+                </td>
+                <td class="table-body__cell">
+                  <%= article.createdAt %>
+                </td>
+                <td class="table-body__cell">
+                  <%= article.updatedAt %>
+                </td>
+                <%# TODO: 게재 일자도 만들고 여기다가 넣자 %>
+                  <td class="table-body__cell">
+                    <% if (article.status < 4) { %>
+                      미승인
+                      <% } else { %>
+                        <%= article.publishedAt %>
+                          <% } %>
+                  </td>
 
-          <%# TODO: status는 js파일에서 만들고 여기에 넣자. %> <%# %>
-          <td class="table-body__cell">
-            <% if (article.status === 1) { %> 임시저장 <% } else if (article.status === 2) { %>
-            작성완료 <% } else if (article.status === 3) { %> 출고 <% } else if (article.status
-            === 4) { %> 게재 <% } %>
-          </td>
-        </tr>
-        <% }) %>
-      </tbody>
-    </table>
-</section>
+                  <%# TODO: status는 js파일에서 만들고 여기에 넣자. %>
+                    <%# %>
+                      <td class="table-body__cell">
+                        <% if (article.status===1) { %> 임시저장 <% } else if (article.status===2) { %>
+                            작성완료 <% } else if (article.status===3) { %> 출고 <% } else if (article.status===4) { %> 게재 <%
+                                  } %>
+                      </td>
+              </tr>
+              <% }) %>
+          </tbody>
+        </table>
+      </section>
 
-<%- contentFor('footer') %>
-<%- include('../../partials/footer.ejs') %>
+      <%- contentFor('footer') %>
+        <%- include('../../partials/footer.ejs') %>
 
-<script>
-  const originArticlesData = JSON.parse('<%-articlesData%>')
-  let articlesData = JSON.parse('<%-articlesData%>')
-</script>
+          <script>
+            const originArticlesData = JSON.parse('<%-articlesData%>')
+            let articlesData = JSON.parse('<%-articlesData%>')
+          </script>
 
-<script defer src="/vendors/axios/axios.min.js"></script>
-<script defer src="/javascripts/author/index.js"></script>
+          <script defer src="/vendors/axios/axios.min.js"></script>
+          <script defer src="/javascripts/author/index.js"></script>
