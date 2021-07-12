@@ -80,6 +80,12 @@ class Editor {
 			const form = await this.getForm(STATUS.COMPLETED);
 			this.editArticle(form, this.articleId)
 		});
+
+		$('button[name="editBtn"]').on('click', async () => {
+			window.removeEventListener('beforeunload', confirmExit);
+			const form = await this.getForm(STATUS.CONFIRMED);
+			this.editArticle(form, this.articleId)
+		});
 	}
 
 	init = (briefingContent, paragraphsContent) => {
