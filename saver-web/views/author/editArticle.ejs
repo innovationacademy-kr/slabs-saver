@@ -1,82 +1,90 @@
 <%- contentFor('navbar') %>
-<%- include('../partials/navbar.ejs') %>
+  <%- include('../partials/navbar.ejs') %>
 
-<%- contentFor('body') %>
-<div class="content">
-    <div class="container">
-      <div class="row justify-content-center" >
-        <div class="col-md-6 contents">
+    <%- contentFor('body') %>
+      <div class="content">
+        <div class="container">
           <div class="row justify-content-center">
-            <div class="col-md-12">
-              <div class="form-block">
-                <div class="mb-4">
-                  <h3>기사 수정</h3>
-                </div>
-                  <div class="mb-4">
+            <div class="col-md-6 contents">
+              <div class="row justify-content-center">
+                <div class="col-md-12">
+                  <div class="form-block">
+                    <div class="mb-4">
+                      <h3>기사 수정</h3>
+                    </div>
+                    <div class="mb-4">
                       <label class="form-label" for="category">카테고리</label>
                       <select class="form-control" name="category" id="category">
-                        <% Object.keys(category).filter(key => key !== '전체').forEach((key) => { %>
-                          <option value="<%=category[key]%>" <%= article.category === key ? 'selected' : '' %> >
+                        <% Object.keys(category).filter(key=> key !== '전체').forEach((key) => { %>
+                          <option value="<%=category[key]%>" <%=article.category===key ? 'selected' : '' %> >
                             <%=key%>
                           </option>
-                        <% }) %>
+                          <% }) %>
                       </select>
-                  </div>
-                  <div class="mb-4">
-                    <div class="article__headline">
+                    </div>
+                    <div class="mb-4">
+                      <div class="article__headline">
                         <label class="form-label" for="headline">헤드라인</label>
-                        <input class="form-control" type="text" id="headline" name="headline" value='<%= article.headline %>' placeholder="뉴스의 헤드라인을 입력해주세요"
-                        maxlength="255" />
+                        <input class="form-control" type="text" id="headline" name="headline"
+                          value='<%= article.headline %>' placeholder="뉴스의 헤드라인을 입력해주세요" maxlength="255" />
+                      </div>
+                    </div>
+                    <div class="mb-4">
+                      <label for="current-picture">현재 사진</label>
+                      <br>
+                      <img src=<%=article.image %> alt="current-picture" width="300px" height="300px">
+                      <br>
+                      <label class="form-label" for="picture">새로운 사진</label>
+                      <input class="form-control" type="file" id="picture" name="picture"
+                        accept="image/gif, image/jpeg, image/png" />
+                      <label class="form-label" for="imageDesc">사진 설명</label>
+                      <input class="form-control" type="text" id="imageDesc" name="imageDesc"
+                        value="<%= article.imageDesc %>" placeholder="사진에 대한 설명을 적어주세요" />
+                      <label class="form-label" for="imageFrom">사진 출처</label>
+                      <input class="form-control" type="text" id="imageFrom" name="imageFrom"
+                        value="<%= article.imageFrom %>" placeholder="사진에 대한 출처를 적어주세요" />
+                    </div>
+                    <div class="mb-4">
+                      <label class="form-label" for="breifing">100자 브리핑</label>
+                      <div id="editor_briefing"></div>
+                      <div id="editor_briefing"></div>
+
+                    </div>
+                    <div class="mb-4">
+                      <label class="form-label" for="breifing">
+                        소단락
+                        <i class="text-muted">
+                          ([더 자세히버튼]을 누르면 보여지는 내용입니다)
+                        </i>
+                      </label>
+                      <div id="editor_paragraphs"></div>
+                      <div id="editor_paragraphs"></div>
+                      <div class="d-grid gap-2 mt-4">
+                        <% if(article.status !==STATUS['CONFIRMED']){ %>
+                          <button class="article--save btn btn-primary" name="saveBtn" type="submit">임시저장</button>
+                          <button class="article--complete btn btn-info" name="completeBtn" type="submit">출고</button>
+                          <% } else{ %>
+                            <button class="article--edit btn btn-info" name="editBtn" type="submit">수정</button>
+
+                            <% } %>
+                      </div>
                     </div>
                   </div>
-                  <div class="mb-4">
-                    <label for="current-picture">현재 사진</label>
-                    <br>
-                    <img src=<%= article.image %> alt="current-picture" width="300px" height="300px">
-                    <br>
-                    <label class="form-label" for="picture">새로운 사진</label>
-                    <input class="form-control" type="file" id="picture" name="picture" accept="image/gif, image/jpeg, image/png" />
-                    <label class="form-label" for="imageDesc">사진 설명</label>
-                    <input class="form-control" type="text" id="imageDesc" name="imageDesc" value="<%= article.imageDesc %>" placeholder="사진에 대한 설명을 적어주세요" />
-                    <label class="form-label" for="imageFrom">사진 출처</label>
-                    <input class="form-control" type="text" id="imageFrom" name="imageFrom" value="<%= article.imageFrom %>" placeholder="사진에 대한 출처를 적어주세요" />
-                  </div>
-			<div class="mb-4">
-				<label class="form-label" for="breifing">100자 브리핑</label>
-				<div id="editor_briefing"></div>
-				<div id="editor_briefing"></div>
-
-			</div>
-			<div class="mb-4">
-				<label class="form-label" for="breifing">
-					소단락
-					<i class="text-muted">
-						([더 자세히버튼]을 누르면 보여지는 내용입니다)
-					</i>
-				</label>
-				<div id="editor_paragraphs"></div>
-				<div id="editor_paragraphs"></div>
-				<div class="d-grid gap-2 mt-4">
-					<button class="article--save btn btn-primary" name="saveBtn" type="submit">임시저장</button>
-					<button class="article--complete btn btn-info" name="completeBtn" type="submit">출고</button>
-				</div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
 
-  <%- contentFor('footer') %>
-  <%- include('../partials/footer.ejs') %>
-<script>
-  var briefingContent = '<%- article.briefing %>';
-  var paragraphsContent = '<%- article.paragraphs %>';
-  var STATUS = JSON.parse('<%-JSON.stringify(STATUS)%>')
-</script>
+        <%- contentFor('footer') %>
+          <%- include('../partials/footer.ejs') %>
+            <script>
+              var briefingContent = '<%- article.briefing %>';
+              const articleStatus = parseInt('<%- article.status %>');
+              var paragraphsContent = '<%- article.paragraphs %>';
+              var STATUS = JSON.parse('<%-JSON.stringify(STATUS)%>')
+            </script>
 
-<script src="/vendors/summernote/summernote-lite.js" defer></script>
-<link href="/vendors/summernote/summernote-lite.css" rel="stylesheet">
-<script type="module" src="/javascripts/author/editArticle.js"></script>
-
+            <script src="/vendors/summernote/summernote-lite.js" defer></script>
+            <link href="/vendors/summernote/summernote-lite.css" rel="stylesheet">
+            <script type="module" src="/javascripts/author/editArticle.js"></script>

@@ -143,6 +143,10 @@ const newArticlePage = async (req, res, next) => {
 	});
 };
 
+/**
+ * 아티클 수정 get요청
+ */
+
 const editArticlePage = async (req, res, next) => {
 	const currentUser = await getCurrentUser(req.user?.id);
 	try {
