@@ -10,6 +10,22 @@ class Editor {
 		if ($(selector)) {
 			const editor = $(selector).summernote();
 			$(selector).summernote('code', editorContent)
+
+			// 붙여넣을 경우 이벤트리스너
+			editor.on('summernote.paste', function (e, ne) {
+				setTimeout(() => {
+					var badAttributes = ['style', 'width', 'hegith'];
+					let output = editor.summernote('code');
+
+					// 문자열에서 style="" 어트리뷰트를 공백으로 치환
+					for (var i = 0; i < badAttributes.length; i++) {
+						var attributeStripper = new RegExp(' ' + badAttributes[i] + '="(.*?)"', 'gi');
+						output = output.replace(attributeStripper, '');
+					}
+					editor.summernote('code', output)
+				}, 10)
+			})
+
 			return editor;
 		} else {
 			throw '셀렉터를 확인해주세요';

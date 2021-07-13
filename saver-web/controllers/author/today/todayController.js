@@ -70,6 +70,7 @@ const todayPageDesking = async (req, res) => {
 		} else {
 			item.TodayWord = { date: "" };
 		}
+		item.word = escape(item.word);
 		return item;
 	});
 
@@ -208,6 +209,7 @@ const todayArticleDeskingPage = async (req, res) => {
 		} else {
 			article.TodayArticle = { date: '' };
 		}
+		article.headline = escape(article.headline);
 		return article;
 	})
 

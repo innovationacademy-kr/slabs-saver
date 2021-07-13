@@ -23,7 +23,7 @@
               </td>
               <td class="table-body__cell">
                 <a href="/author/articles/<%= article.id %>/preview" target="_blank">
-                  <%= article.headline %>
+                  <%= unescape(article.headline) %>
                 </a>
               </td>
               <td class="table-body__cell">
