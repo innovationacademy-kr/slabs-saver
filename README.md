@@ -1,6 +1,6 @@
 # slabs-saver
 * Innovation Academy Software Labs CMS Open Source Project
-* https://saver.42seoul.io
+* https://thesaver.io/
 ## Wiki
 https://github.com/innovationacademy-kr/slabs-saver/wiki
 
