@@ -1,15 +1,10 @@
 package com.seoul42.saver_android
 
 import android.content.Intent
-import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.messaging.ktx.messaging
 
 class MainActivity : AppCompatActivity() {
 
