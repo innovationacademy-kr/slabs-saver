@@ -11,7 +11,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val intent = Intent(this, LandingActivity::class.java)
+        val intent = Intent(this, SplashScreenActivity::class.java)
         startActivity(intent)
 
         val myWebView: WebView = findViewById(R.id.main_webView)
