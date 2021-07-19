@@ -7,6 +7,11 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 
 class MainActivity : AppCompatActivity() {
+
+   private val myWebView: WebView by lazy{
+        findViewById(R.id.main_webView)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -14,20 +19,15 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, SplashScreenActivity::class.java)
         startActivity(intent)
 
-        val myWebView: WebView = findViewById(R.id.main_webView)
-
-        //apply를 통해 myWebView.~~~ 의세팅을 블럭으로 해결
         myWebView.apply {
             webViewClient = WebViewClient()
+            settings.domStorageEnabled =true
             settings.javaScriptEnabled = true
         }
         myWebView.loadUrl("https://thesaver.io")
     }
 
     override fun onBackPressed() {
-
-        val myWebView: WebView = findViewById(R.id.main_webView)
-
         if (myWebView.canGoBack()) {
             myWebView.goBack()
         }
@@ -35,4 +35,5 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
     }
+
 }
