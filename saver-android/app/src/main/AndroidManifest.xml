@@ -11,9 +11,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Saverandroid">
+        <meta-data
+            android:name="com.google.android.actions"
+            android:resource="@xml/splash" />
+
         <activity
-            android:name=".LandingActivity"
-            android:exported="true"/>
+            android:name=".SplashScreenActivity"
+            android:exported="true" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
