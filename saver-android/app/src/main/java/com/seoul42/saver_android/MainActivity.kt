@@ -1,6 +1,9 @@
 package com.seoul42.saver_android
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -29,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         myWebView.loadUrl("https://thesaver.io")
+        subscribeTopic("zax")
     }
 
     override fun onBackPressed() {
