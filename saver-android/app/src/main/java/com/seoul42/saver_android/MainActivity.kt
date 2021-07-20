@@ -2,6 +2,7 @@ package com.seoul42.saver_android
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -22,7 +23,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val intent = Intent(this, SplashScreenActivity::class.java)
+        var intent = getIntent()
+        var url = intent.getStringExtra("url")
+        intent = Intent(this, SplashScreenActivity::class.java)
         startActivity(intent)
 
         myWebView.apply {
@@ -30,9 +33,10 @@ class MainActivity : AppCompatActivity() {
             settings.domStorageEnabled = true
             settings.javaScriptEnabled = true
         }
-
         myWebView.loadUrl("https://thesaver.io")
-        subscribeTopic("zax")
+        url?.let {
+            myWebView.loadUrl(url)
+        }
     }
 
     override fun onBackPressed() {
@@ -53,7 +57,6 @@ class MainActivity : AppCompatActivity() {
                     "실패"
                 Log.d("구독", msg)
             }
-
     }
 
     private fun unsubscribeTopic(topic: String) {
