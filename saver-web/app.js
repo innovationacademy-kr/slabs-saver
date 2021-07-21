@@ -26,14 +26,15 @@ const indexRouter = require('./routes/index');
 const authorRouter = require('./routes/author')(authorPassport);
 const subscriberRouter = require('./routes/subscriber');
 const articlesRouter = require('./routes/articles');
-const sectionRouter = require('./routes/section')
-const todayRouter = require('./routes/today')
+const sectionRouter = require('./routes/section');
+const todayRouter = require('./routes/today');
+const firebaseRouter = require('./routes/firebase');
 
 const layout = require('express-ejs-layouts');
 app.use(layout);
 app.set('layout', 'layout/layout');
-app.set("layout extractScripts", true);
-app.set("layout extractStyles", true);
+app.set('layout extractScripts', true);
+app.set('layout extractStyles', true);
 
 // NOTE: routing
 app.use('/', indexRouter);
@@ -45,21 +46,21 @@ app.use('/vendors', vendorsRouter);
 app.use('/subscriber', subscriberRouter);
 app.use('/today', todayRouter);
 
-
+app.use('/firebase', firebaseRouter);
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-	next(createError(404));
+  next(createError(404));
 });
 
 // error handler
 app.use((err, req, res, next) => {
-	// set locals, only providing error in development
-	res.locals.message = err.message;
-	res.locals.error = req.app.get('env') === 'development' ? err : {};
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-	// render the error page
-	res.status(err.status || 500);
-	res.render('error');
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error');
 });
 
 module.exports = app;
