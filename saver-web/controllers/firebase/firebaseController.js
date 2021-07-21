@@ -14,7 +14,7 @@ const postFirebaseMessage = async (req, res) => {
   try {
     const message = req.body.message;
     await admin.messaging().send(message);
-    res.status(200).json({ success: false, message });
+    res.status(200).json({ success: true, message });
   } catch (error) {
     console.log(error);
     res.status(400).json({ success: false, error });
