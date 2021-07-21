@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		418D79EAB6BA6ACF614CB1D5 /* Pods_saver_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F824290896AB143D2673BDDD /* Pods_saver_ios.framework */; };
+		4F6A05F226A7C1A10051589B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4F6A05F126A7C1A10051589B /* GoogleService-Info.plist */; };
+		4F6A05F426A7C30E0051589B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4F6A05F326A7C30E0051589B /* LaunchScreen.storyboard */; };
 		4FC71CBD269EDAB500EA086E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC71CBC269EDAB500EA086E /* AppDelegate.swift */; };
 		4FC71CBF269EDAB500EA086E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC71CBE269EDAB500EA086E /* SceneDelegate.swift */; };
 		4FC71CC1269EDAB500EA086E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC71CC0269EDAB500EA086E /* ViewController.swift */; };
@@ -16,8 +18,6 @@
 		4FC71CD4269EDAB800EA086E /* saver_iosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC71CD3269EDAB800EA086E /* saver_iosTests.swift */; };
 		4FC71CDF269EDAB800EA086E /* saver_iosUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC71CDE269EDAB800EA086E /* saver_iosUITests.swift */; };
 		4FC71CEE269EDB1C00EA086E /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FC71CED269EDB1C00EA086E /* WebKit.framework */; };
-		59BBF24826A5B90200F0A1EE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 59BBF24626A5B90100F0A1EE /* LaunchScreen.storyboard */; };
-		59E6E83926A5AC43001D13A0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 59E6E83826A5AC43001D13A0 /* GoogleService-Info.plist */; };
 		68CE649DD668D94644C751E4 /* Pods_saver_ios_saver_iosUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B8074DC08FAF05C6D0CAEB7 /* Pods_saver_ios_saver_iosUITests.framework */; };
 		A6E4CAD59D3F3223ECA85C9A /* Pods_saver_iosTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D80196B8B192A8CD30971EE9 /* Pods_saver_iosTests.framework */; };
 /* End PBXBuildFile section */
@@ -42,6 +42,8 @@
 /* Begin PBXFileReference section */
 		096AE8CB1434FFFB7FA180AB /* Pods-saver-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-saver-ios.release.xcconfig"; path = "Target Support Files/Pods-saver-ios/Pods-saver-ios.release.xcconfig"; sourceTree = "<group>"; };
 		3B8074DC08FAF05C6D0CAEB7 /* Pods_saver_ios_saver_iosUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_saver_ios_saver_iosUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4F6A05F126A7C1A10051589B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Desktop/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		4F6A05F326A7C30E0051589B /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4FC71CB9269EDAB500EA086E /* saver-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "saver-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FC71CBC269EDAB500EA086E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4FC71CBE269EDAB500EA086E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -56,8 +58,6 @@
 		4FC71CDE269EDAB800EA086E /* saver_iosUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = saver_iosUITests.swift; sourceTree = "<group>"; };
 		4FC71CE0269EDAB800EA086E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4FC71CED269EDB1C00EA086E /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
-		59BBF24726A5B90200F0A1EE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "../../../ios/saver-ios/saver-ios/Base.lproj/LaunchScreen.storyboard"; sourceTree = "<group>"; };
-		59E6E83826A5AC43001D13A0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5D79B1AA6D0FAC52ED4E33E2 /* Pods-saver-iosTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-saver-iosTests.release.xcconfig"; path = "Target Support Files/Pods-saver-iosTests/Pods-saver-iosTests.release.xcconfig"; sourceTree = "<group>"; };
 		88D0BA1E5125E3B25ACBCB1B /* Pods-saver-ios-saver-iosUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-saver-ios-saver-iosUITests.release.xcconfig"; path = "Target Support Files/Pods-saver-ios-saver-iosUITests/Pods-saver-ios-saver-iosUITests.release.xcconfig"; sourceTree = "<group>"; };
 		AD97AE1FCACA13D3569888ED /* Pods-saver-ios-saver-iosUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-saver-ios-saver-iosUITests.debug.xcconfig"; path = "Target Support Files/Pods-saver-ios-saver-iosUITests/Pods-saver-ios-saver-iosUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -124,11 +124,11 @@
 				4FC71CBC269EDAB500EA086E /* AppDelegate.swift */,
 				4FC71CBE269EDAB500EA086E /* SceneDelegate.swift */,
 				4FC71CC0269EDAB500EA086E /* ViewController.swift */,
+				4F6A05F326A7C30E0051589B /* LaunchScreen.storyboard */,
 				4FC71CC2269EDAB500EA086E /* Main.storyboard */,
 				4FC71CC5269EDAB700EA086E /* Assets.xcassets */,
-				59BBF24626A5B90100F0A1EE /* LaunchScreen.storyboard */,
+				4F6A05F126A7C1A10051589B /* GoogleService-Info.plist */,
 				4FC71CCA269EDAB700EA086E /* Info.plist */,
-				59E6E83826A5AC43001D13A0 /* GoogleService-Info.plist */,
 			);
 			path = "saver-ios";
 			sourceTree = "<group>";
@@ -283,9 +283,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				59E6E83926A5AC43001D13A0 /* GoogleService-Info.plist in Resources */,
 				4FC71CC6269EDAB700EA086E /* Assets.xcassets in Resources */,
-				59BBF24826A5B90200F0A1EE /* LaunchScreen.storyboard in Resources */,
+				4F6A05F226A7C1A10051589B /* GoogleService-Info.plist in Resources */,
+				4F6A05F426A7C30E0051589B /* LaunchScreen.storyboard in Resources */,
 				4FC71CC4269EDAB500EA086E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -458,14 +458,6 @@
 				4FC71CC3269EDAB500EA086E /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		59BBF24626A5B90100F0A1EE /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				59BBF24726A5B90200F0A1EE /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
