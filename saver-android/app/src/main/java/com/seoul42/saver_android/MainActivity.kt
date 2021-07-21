@@ -4,6 +4,7 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -22,10 +23,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val data: Uri? = intent?.data
+        var url: String? = intent.getStringExtra("url")
+        if (data != null)
+            url = data.toString()
 
-        var intent = getIntent()
-        var url = intent.getStringExtra("url")
-        intent = Intent(this, SplashScreenActivity::class.java)
+
+        var intent = Intent(this, SplashScreenActivity::class.java)
         startActivity(intent)
 
         myWebView.apply {
