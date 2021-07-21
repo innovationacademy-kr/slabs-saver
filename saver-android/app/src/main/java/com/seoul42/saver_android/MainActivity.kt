@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        
+
         var intent = getIntent()
         var url = intent.getStringExtra("url")
         intent = Intent(this, SplashScreenActivity::class.java)

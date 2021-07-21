@@ -6,20 +6,27 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.media.RingtoneManager
 import android.os.Build
 import android.util.Log
-import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
-class MyFirebaseMessagingService(): FirebaseMessagingService() {
+class MyFirebaseMessagingService: FirebaseMessagingService() {
+
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
         Log.d("firebase", "메세지 수신 성공!")
-        createNotificationChannel()
-        NotificationManagerCompat.from(this).notify(0,createNotification(message))
+        if(message.notification != null) {
+            sendNotification(message.notification?.body, message.notification?.title)
+        }
+        else {
+            createNotificationChannel(this, NotificationManagerCompat.IMPORTANCE_HIGH, false,
+                "CHANNEL_NAME", "App notification channel")
+            NotificationManagerCompat.from(this).notify(0, createNotification(message))
+        }
     }
 
     private fun  createNotification(message: RemoteMessage): Notification
@@ -41,12 +48,52 @@ class MyFirebaseMessagingService(): FirebaseMessagingService() {
         return  notificationBuilder.build()
     }
 
-    private fun createNotificationChannel(){
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-        {
-            val channel = NotificationChannel("CHANNEL_ID", "CHANNEL_NAME", NotificationManager.IMPORTANCE_DEFAULT)
-            channel.description = "CHANNEL_DESCRIPTION"
-            (getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager).createNotificationChannel((channel))
+    private fun sendNotification(body: String?, title: String?) {
+        val intent = Intent(this, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            putExtra("Notification", body)
+            putExtra("Notification",title)
+        }
+
+        var pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT)
+        val notificationSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+
+        val notificationId = 1001
+        createNotificationChannel(this, NotificationManagerCompat.IMPORTANCE_HIGH, false,
+            getString(R.string.app_name), "App notification channel")
+
+        val channelId = "$packageName-${getString(R.string.app_name)}"
+
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        val fullScreenPendingIntent = PendingIntent.getActivity(baseContext, 0,
+            intent, PendingIntent.FLAG_UPDATE_CURRENT)
+
+        //https://mrw0119.tistory.com/146 참조
+        var notificationBuilder = NotificationCompat.Builder(this,channelId)
+            .setSmallIcon(R.mipmap.ic_launcher)
+            .setContentTitle(title)
+            .setContentText(body)
+            .setAutoCancel(true)
+            .setSound(notificationSound)
+            .setContentIntent(pendingIntent)
+            .setFullScreenIntent(fullScreenPendingIntent, true)
+            .setTimeoutAfter(3000)
+
+        notificationBuilder.priority = NotificationCompat.PRIORITY_HIGH
+        var notificationManager: NotificationManager = this.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.notify(notificationId, notificationBuilder.build())
+    }
+
+    private fun createNotificationChannel(context: Context, importance: Int, showBadge: Boolean,
+                                          name: String, description: String) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channelId = "${context.packageName}-$name"
+            val channel = NotificationChannel(channelId, name, importance)
+            channel.description = description
+            channel.setShowBadge(showBadge)
+
+            val notificationManager = context.getSystemService(NotificationManager::class.java)
+            notificationManager.createNotificationChannel(channel)
         }
     }
 
