@@ -19,7 +19,7 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let url = URL(string: "https://naver.com")
+        let url = URL(string: "http://localhost:1234")
         let request = URLRequest(url: url!)
         self.webView?.allowsBackForwardNavigationGestures = true  //뒤로가기 제스쳐 허용
 //        webView.configuration.preferences.javaScriptEnabled = true  //자바스크립트 활성화
