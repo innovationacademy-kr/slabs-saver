@@ -1,16 +1,13 @@
 package com.seoul42.saver_android
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.ktx.messaging
 
@@ -18,6 +15,9 @@ class MainActivity : AppCompatActivity() {
 
     private val myWebView: WebView by lazy {
         findViewById(R.id.main_webView)
+    }
+    private val swipeRefreshLayout: SwipeRefreshLayout by lazy{
+        findViewById(R.id.swipe_refresh_layout)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,6 +40,11 @@ class MainActivity : AppCompatActivity() {
         myWebView.loadUrl("https://thesaver.io")
         url?.let {
             myWebView.loadUrl(url)
+        }
+
+        swipeRefreshLayout.setOnRefreshListener {
+            myWebView.reload()
+            swipeRefreshLayout.isRefreshing = false
         }
     }
 
