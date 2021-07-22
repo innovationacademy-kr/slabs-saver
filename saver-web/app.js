@@ -61,6 +61,10 @@ app.use((err, req, res, next) => {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+
+  // schedule(link push_message)
+  const schedulePush = require('./lib/scheduleUpdate')
+  schedulePush.test()
 });
 
 module.exports = app;
