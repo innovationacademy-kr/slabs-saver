@@ -13,9 +13,9 @@
 		4F223F4526A950AB00ED04E4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F223F4426A950AB00ED04E4 /* ViewController.swift */; };
 		4F223F4826A950AB00ED04E4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4F223F4626A950AB00ED04E4 /* Main.storyboard */; };
 		4F223F4A26A950B300ED04E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F223F4926A950B300ED04E4 /* Assets.xcassets */; };
-		4F223F5526A9535F00ED04E4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4F223F5426A9535F00ED04E4 /* GoogleService-Info.plist */; };
 		4F223F5726A9543F00ED04E4 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F223F5626A9543F00ED04E4 /* WebKit.framework */; };
 		4F223F5D26A9567A00ED04E4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4F223F5C26A9567A00ED04E4 /* LaunchScreen.storyboard */; };
+		4FB57EE726A9866B0050BB89 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4FB57EE626A9866B0050BB89 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,10 +27,10 @@
 		4F223F4726A950AB00ED04E4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4F223F4926A950B300ED04E4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4F223F4E26A950B300ED04E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4F223F5426A9535F00ED04E4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Desktop/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4F223F5626A9543F00ED04E4 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		4F223F5C26A9567A00ED04E4 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4F81934456AF6C17B6042CDB /* Pods-saver-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-saver-ios.release.xcconfig"; path = "Target Support Files/Pods-saver-ios/Pods-saver-ios.release.xcconfig"; sourceTree = "<group>"; };
+		4FB57EE626A9866B0050BB89 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Documents/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		948D95444A4A7B48451ED265 /* Pods-saver-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-saver-ios.debug.xcconfig"; path = "Target Support Files/Pods-saver-ios/Pods-saver-ios.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -84,7 +84,7 @@
 				4F223F4626A950AB00ED04E4 /* Main.storyboard */,
 				4F223F4926A950B300ED04E4 /* Assets.xcassets */,
 				4F223F4E26A950B300ED04E4 /* Info.plist */,
-				4F223F5426A9535F00ED04E4 /* GoogleService-Info.plist */,
+				4FB57EE626A9866B0050BB89 /* GoogleService-Info.plist */,
 			);
 			path = "saver-ios";
 			sourceTree = "<group>";
@@ -157,8 +157,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4F223F5526A9535F00ED04E4 /* GoogleService-Info.plist in Resources */,
 				4F223F5D26A9567A00ED04E4 /* LaunchScreen.storyboard in Resources */,
+				4FB57EE726A9866B0050BB89 /* GoogleService-Info.plist in Resources */,
 				4F223F4A26A950B300ED04E4 /* Assets.xcassets in Resources */,
 				4F223F4826A950AB00ED04E4 /* Main.storyboard in Resources */,
 			);

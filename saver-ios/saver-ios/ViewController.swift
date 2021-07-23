@@ -6,24 +6,64 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
     
     @IBOutlet var webView: WKWebView!
     
-    
-    override func loadView() {
-        super.loadView()
-        
-        webView = WKWebView(frame: self.view.frame)
-        webView.uiDelegate = self
-        webView.navigationDelegate = self
-        self.view = self.webView
-    }
-    
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         
-        let url = URL(string: "http://localhost:1234")
-        let request = URLRequest(url: url!)
-        self.webView?.allowsBackForwardNavigationGestures = true  //뒤로가기 제스쳐 허용
-//        webView.configuration.preferences.javaScriptEnabled = true  //자바스크립트 활성화
-        webView.load(request)
+        let webConfiguration = WKWebViewConfiguration()
+        webView = WKWebView(frame: self.view.frame, configuration: webConfiguration)
+        webView.uiDelegate = self
+        self.view.addSubview(webView)
+        
+        let myURL = URL(string: "http://localhost:1234")
+        let myRequest = URLRequest(url: myURL!)
+        
+        webView.load(myRequest)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        // 화면이 회전할 때 대응하기 위해 만들어놓은 것. 이 부분은 현재 issue로 인해 아직 실행되지 않는다.
+        var viewBounds:CGRect = self.view.bounds
+        let window = UIApplication.shared.windows[0]
+        
+        var screenHeight: CGFloat!
+        var screenWidth: CGFloat!
+        
+        if UIScreen.main.bounds.height > UIScreen.main.bounds.width {
+            
+            screenHeight = UIScreen.main.bounds.height
+            screenWidth = UIScreen.main.bounds.width
+        }
+        else {
+            
+            screenHeight = UIScreen.main.bounds.width
+            screenWidth = UIScreen.main.bounds.height
+        }
+        
+        if UIDevice.current.orientation.isLandscape {
+
+            viewBounds.origin.y = 0
+            viewBounds.origin.x = window.safeAreaInsets.right;
+            viewBounds.size.width = screenHeight - window.safeAreaInsets.right
+            viewBounds.size.height = screenWidth
+            webView.scrollView.contentInsetAdjustmentBehavior = .never
+        }
+        else {
+            // 실제로 동작하는 부분.
+            viewBounds.origin.y = window.safeAreaInsets.top;
+            viewBounds.origin.x = 0
+            viewBounds.size.height = screenHeight - window.safeAreaInsets.top - window.safeAreaInsets.bottom
+            viewBounds.size.width = screenWidth
+            webView.scrollView.contentInsetAdjustmentBehavior = .never
+        }
+        self.webView.frame = viewBounds;
+    }
+
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        
+        viewWillAppear(true)
     }
     
     //모달창 닫힐때 앱 종료현상 방지.
