@@ -1,38 +1,29 @@
-<%- contentFor('navbar') %>
-<%- include('./components/nav.ejs') %>
-
-<%- contentFor('body') %>
+<%- contentFor('navbar') %> <%- include('./components/nav.ejs') %> <%- contentFor('body') %>
 <main class="main">
-	<div class="today-card ice-blue-two">
-		<!--오늘의뉴스-->
-		<a id="today_article_link" href="">
-			<div class="today-card__title today_article">
-				<i class="today-card__title__icon logo-type-small-blue"></i>
-				<h3 class="today-card__title__text">오늘의 뉴스</h3>
-			</div>
-			<p id="today_article" class="today-card__text ft-main">
-			</p>
-		</a>
-		<div class="divide-white"></div>
+  <div class="today-card ice-blue-two">
+    <!--오늘의뉴스-->
+    <a id="today_article_link" href="">
+      <div class="today-card__title today_article">
+        <i class="today-card__title__icon logo-type-small-blue"></i>
+        <h3 class="today-card__title__text">오늘의 뉴스</h3>
+      </div>
+      <p id="today_article" class="today-card__text ft-main"></p>
+    </a>
+    <div class="divide-white"></div>
 
-		<!--오늘의 한마디-->
-		<div class="today-card__title today_word">
-			<i class="today-card__title__icon logo-small-blue"></i>
-			<h3 class="today-card__title__text">오늘의 한마디</h3>
-		</div>
-		<p id="today_word" class="today-card__text ft-main">
-		</p>
-  	</div>
+    <!--오늘의 한마디-->
+    <div class="today-card__title today_word">
+      <i class="today-card__title__icon logo-small-blue"></i>
+      <h3 class="today-card__title__text">오늘의 한마디</h3>
+    </div>
+    <p id="today_word" class="today-card__text ft-main"></p>
+  </div>
 
-
-  	<div class="article-list">
-	</div>
+  <div class="article-list"></div>
 </main>
-<%- contentFor('footer') %>
-<%- include('./components/foo.ejs') %>
+<%- contentFor('footer') %> <%- include('./components/foo.ejs') %>
 
-<script>
-</script>
-
+<script></script>
+<script defer src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script defer type="module" src="/javascripts/user/index.js"></script>
-<script defer src="/javascripts/infiniteScroll.js"></script>
+<script defer type="module" src="/javascripts/infiniteScroll.js"></script>
