@@ -7,7 +7,7 @@ var articleList = document.querySelector('.article-list');
 
 const KaKaoShare = (id, article) => {
   if (!Kakao.isInitialized()) Kakao.init('카카오톡 JS 키');
-  const targetLink = `http://localhost:1234/articles/detail/${article.id}`;
+  const targetLink = `${document.location.href}articles/detail/${article.id}`;
 
   Kakao.Link.createDefaultButton({
     container: `#${id}`,
@@ -35,6 +35,7 @@ const KaKaoShare = (id, article) => {
         link: {
           webUrl: targetLink,
           mobileWebUrl: targetLink,
+          androidExecutionParams: `articles/detail/${article.id}`,
         },
       },
     ],

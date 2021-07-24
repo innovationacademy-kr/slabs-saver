@@ -37,6 +37,7 @@ class Editor {
           link: {
             webUrl: targetLink,
             mobileWebUrl: targetLink,
+            androidExecutionParams: `articles/detail/${article.id}`,
           },
         },
       ],
