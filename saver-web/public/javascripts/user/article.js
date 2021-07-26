@@ -27,6 +27,5 @@ $(document).ready(function () {
     briefing: briefingContent,
     image: document.getElementsByTagName('img')[0].src
   }
-  alert(article.image)
   if (btn) KaKaoShare(btn.id, article);
 });
