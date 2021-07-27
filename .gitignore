@@ -119,6 +119,7 @@ saver-web/sessions/
 *.pem
 
 awsconfig.json
+firebase-adminsdk.json
 
 yarn.lock
 
