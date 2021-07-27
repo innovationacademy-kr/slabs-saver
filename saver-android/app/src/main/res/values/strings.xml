@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">saver-android</string>
+    <string name="key">kakao{카카오 네이티브 키}</string>
+
+</resources>
