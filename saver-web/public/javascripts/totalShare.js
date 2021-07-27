@@ -1,6 +1,9 @@
 const KaKaoShare = (id, article) => {
     try{
-        if (!Kakao.isInitialized()) Kakao.init('카카오톡 js 키');
+        if (!Kakao.isInitialized()) {
+          Kakao.init('88a18de81dffaf88dc400e3b6d907468');
+          console.log("init in KaKaoShare func");
+        }
         let targetLink = document.location.href;
         if (article.id != null){
             targetLink += `articles/detail/${article.id}`;
@@ -37,7 +40,7 @@ const KaKaoShare = (id, article) => {
             },
         ],
         });
-        }catch(e){ 
+        }catch(e){
             window.kakaoDemoException && window.kakaoDemoException(e)
     }
 };
