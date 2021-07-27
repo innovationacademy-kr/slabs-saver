@@ -116,7 +116,7 @@ saver-web/sessions/
 
 .prettierignore
 
-*.pem
+.DS_Store
 
 awsconfig.json
 firebase-adminsdk.json
