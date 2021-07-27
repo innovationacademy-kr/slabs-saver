@@ -106,3 +106,58 @@
 	height: 36px;
 	width: 36px;
 }
+
+
+/* 모달 바깥 불투명 배경 */
+.share-modal{
+	display: none; 
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0,0,0); /* Fallback color */
+	background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* 모달 박스*/
+.modal-content {
+	background-color: #fefefe;
+	position: fixed; /* Stay in place */
+	padding: 20px;
+	border: 1px solid #888;
+	width: 50%; /* Could be more or less, depending on screen size */                          
+	
+	/* 모달 가운데 정렬 */
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	-o-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+}
+/* 모달 닫기 버튼*/
+.share-close {
+	color: #aaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+.share-close:hover,
+.share-close:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+/* 카카오 아이콘 */
+.article_kakao_share-button{
+	background-image: url(//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png);
+	background-size: cover;
+	background-color: white;
+	height: 36px;
+	width: 36px;
+}
