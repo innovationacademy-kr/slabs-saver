@@ -1,4 +1,5 @@
 PODS:
+  - Alamofire (5.4.3)
   - Firebase/Analytics (8.3.0):
     - Firebase/Core
   - Firebase/Core (8.3.0):
@@ -74,6 +75,38 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (7.5.0):
     - GoogleUtilities/Logger
+  - KakaoSDK (2.5.5):
+    - KakaoSDKAuth (= 2.5.5)
+    - KakaoSDKCommon (= 2.5.5)
+    - KakaoSDKLink (= 2.5.5)
+    - KakaoSDKNavi (= 2.5.5)
+    - KakaoSDKStory (= 2.5.5)
+    - KakaoSDKTalk (= 2.5.5)
+    - KakaoSDKTemplate (= 2.5.5)
+    - KakaoSDKUser (= 2.5.5)
+  - KakaoSDKAuth (2.5.5):
+    - KakaoSDKCommon (= 2.5.5)
+  - KakaoSDKCommon (2.5.5):
+    - KakaoSDKCommon/Common (= 2.5.5)
+    - KakaoSDKCommon/Network (= 2.5.5)
+  - KakaoSDKCommon/Common (2.5.5)
+  - KakaoSDKCommon/Network (2.5.5):
+    - Alamofire (~> 5.1)
+    - KakaoSDKCommon/Common (= 2.5.5)
+  - KakaoSDKLink (2.5.5):
+    - KakaoSDKCommon (= 2.5.5)
+    - KakaoSDKTemplate (= 2.5.5)
+  - KakaoSDKNavi (2.5.5):
+    - KakaoSDKCommon/Common (= 2.5.5)
+  - KakaoSDKStory (2.5.5):
+    - KakaoSDKUser (= 2.5.5)
+  - KakaoSDKTalk (2.5.5):
+    - KakaoSDKTemplate (= 2.5.5)
+    - KakaoSDKUser (= 2.5.5)
+  - KakaoSDKTemplate (2.5.5):
+    - KakaoSDKCommon/Common (= 2.5.5)
+  - KakaoSDKUser (2.5.5):
+    - KakaoSDKAuth (= 2.5.5)
   - nanopb (2.30908.0):
     - nanopb/decode (= 2.30908.0)
     - nanopb/encode (= 2.30908.0)
@@ -83,9 +116,11 @@ PODS:
 
 DEPENDENCIES:
   - Firebase/Analytics
+  - KakaoSDK
 
 SPEC REPOS:
   trunk:
+    - Alamofire
     - Firebase
     - FirebaseAnalytics
     - FirebaseCore
@@ -94,10 +129,20 @@ SPEC REPOS:
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleUtilities
+    - KakaoSDK
+    - KakaoSDKAuth
+    - KakaoSDKCommon
+    - KakaoSDKLink
+    - KakaoSDKNavi
+    - KakaoSDKStory
+    - KakaoSDKTalk
+    - KakaoSDKTemplate
+    - KakaoSDKUser
     - nanopb
     - PromisesObjC
 
 SPEC CHECKSUMS:
+  Alamofire: e447a2774a40c996748296fa2c55112fdbbc42f9
   Firebase: 817b9171d0d51dccc458b94a5e8edff6b1dd323d
   FirebaseAnalytics: 456f2c51599870a15ded4548d1f1f7b2cabf65a7
   FirebaseCore: a6dba751680d7033b9d3831e1cfc95ead0605118
@@ -106,9 +151,18 @@ SPEC CHECKSUMS:
   GoogleAppMeasurement: de70802583dedceb0bca18172b345307e8f410b8
   GoogleDataTransport: 85fd18ff3019bb85d3f2c551d04c481dedf71fc9
   GoogleUtilities: eea970f4a389963963bffe8d8fabe43540678b9c
+  KakaoSDK: afcc0d5724e9e11d6250ae9f6069ad181df5b84e
+  KakaoSDKAuth: 7474cf67d199a9c2ec6a46e4ed8398cf34c1262d
+  KakaoSDKCommon: fb2c9223a86d6f65a8ba73bbaad7cec6a2b09630
+  KakaoSDKLink: 34f56557c37526484bad33c714fe100b6050f066
+  KakaoSDKNavi: 436791d81df5892d1d38e7aba91d39e7d905b5e4
+  KakaoSDKStory: f8986c1970310c2d60c66222c5e7b5b466ec18b3
+  KakaoSDKTalk: d464152ad2f6612753c12dcc91a1967e9181d46f
+  KakaoSDKTemplate: 5e9fd8dacb0516cc2bdb0fbd6b5b81a8a4277afa
+  KakaoSDKUser: 7bb1c38bbd4608bd4e7eebbd4eda130338364fb3
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
 
-PODFILE CHECKSUM: b78c8006dd5ac97667e7f4c47be78c258dc04337
+PODFILE CHECKSUM: efeec7654b19424e0e0f865c929016abe38ecf0d
 
 COCOAPODS: 1.10.1

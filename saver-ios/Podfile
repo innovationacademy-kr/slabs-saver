@@ -6,6 +6,7 @@ target 'saver-ios' do
   use_frameworks!
 
   # Pods for saver-ios
+  pod 'KakaoSDK'
 
 end
 
