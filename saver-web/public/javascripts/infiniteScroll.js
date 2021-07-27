@@ -65,10 +65,24 @@ function makeTemplate(article) {
     <div data-id="${article.id}" class="article__control__more-button">
       <div class="article__control__more-button__img"></div>
     </div>
+    <div id="share-modal-${article.id}" class="share-modal">
+      <div class="modal-content">
+        <div class="title">
+          <span id="share-close-${article.id}" class="share-close">&times;</span>                                                        
+          <h3>공유하기</h3>
+        </div>
+        <br><hr style="border: solid 1px gray;"><br>
+        <div class="content">
+          <ul class="share-layer-content">
+              <button onclick="kakaoshare('https://dev.thesaver.io/articles/detail/${article.id}', '${article.image}', '${article.headline}', '${unescape(article.briefing)}')" class="article_kakao_share-button"></button>
+              <button onclick="facebookshare('https://dev.thesaver.io/articles/detail/${article.id}', '${article.image}', '${article.headline}', '${unescape(article.briefing)}')" class="article_facebook_share-button">facebook</button>
+              <button onclick="urlshare('https://dev.thesaver.io/articles/detail/${article.id}', '${article.image}', '${article.headline}', '${unescape(article.briefing)}')" class="article_url_share-button">url</button>
+          </ul>
+        </div>
+      </div>
+    </div>
     <div class="article__control__right-buttons">
-      <button class="article__control__right-buttons__share-button" id="share-button_${
-        article.id
-      }"></button>
+      <button onclick="modalFunction(${article.id})" class="article__control__right-buttons__share-button"></button>
       <button class="article__control__right-buttons__bookmark-button"></button>
     </div>
   </div>
