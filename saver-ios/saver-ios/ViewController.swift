@@ -13,9 +13,12 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
         let webConfiguration = WKWebViewConfiguration()
         webView = WKWebView(frame: self.view.frame, configuration: webConfiguration)
         webView.uiDelegate = self
+        webView.navigationDelegate = self
+
         self.view.addSubview(webView)
         
-        let myURL = URL(string: "http://localhost:1234")
+        //let myURL = URL(string: "http://localhost:1234")
+        let myURL = URL(string: "http://192.168.0.14:1234")
         let myRequest = URLRequest(url: myURL!)
         
         webView.load(myRequest)
@@ -108,6 +111,30 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
         if navigationAction.targetFrame == nil { webView.load(navigationAction.request) }
         return nil
         
+    }
+    
+    // kakao 하이브리드앱 카카오링크
+    func webView(_ webView: WKWebView,
+                 decidePolicyFor navigationAction: WKNavigationAction,
+                 decisionHandler: @escaping (WKNavigationActionPolicy) -> Void
+    ) {
+        print(navigationAction.request.url?.absoluteString ?? "")
+
+        // 카카오 SDK가 호출하는 커스텀 스킴인 경우 open(_ url:) 메소드를 호출합니다.
+        if let url = navigationAction.request.url
+            , ["kakaokompassauth", "kakaolink"].contains(url.scheme) {
+
+            // 카카오톡 실행
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+
+            decisionHandler(.cancel)
+            return
+        }
+
+        // 서비스 상황에 맞는 나머지 로직을 구현합니다.
+
+
+        decisionHandler(.allow)
     }
     
 }
