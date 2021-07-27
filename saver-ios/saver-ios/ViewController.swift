@@ -19,6 +19,11 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
         let myRequest = URLRequest(url: myURL!)
         
         webView.load(myRequest)
+        
+        let refreshControl = UIRefreshControl()
+        
+        refreshControl.addTarget(self, action: #selector(reloadWebView(_:)), for: .valueChanged)
+        webView.scrollView.addSubview(refreshControl)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -64,6 +69,11 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         
         viewWillAppear(true)
+    }
+    
+    @objc func reloadWebView(_ sender: UIRefreshControl) {
+        webView.reload()
+        sender.endRefreshing()
     }
     
     //모달창 닫힐때 앱 종료현상 방지.
