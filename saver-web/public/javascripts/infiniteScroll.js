@@ -5,7 +5,6 @@ var page = INITIAL_PAGE;
 var isUsed = false;
 var articleList = document.querySelector('.article-list');
 
-import KaKaoShare from './totalShare.js';
 
 const getPage = () => {
   $.ajax({
@@ -15,8 +14,8 @@ const getPage = () => {
       articles = JSON.parse(articles);
       articles.map(function (article) {
         articleList.insertAdjacentHTML('beforeend', makeTemplate(article));
-        const item = document.getElementById(`share-button_${article.id}`);
-        article.path = `articles/detail/${article.id}`
+        const item = document.getElementById(`kakao_share_${article.id}`);
+        article.path = `articles/detail/${article.id}`;
         if (item) KaKaoShare(item.id, article);
       });
 
@@ -65,10 +64,30 @@ function makeTemplate(article) {
     <div data-id="${article.id}" class="article__control__more-button">
       <div class="article__control__more-button__img"></div>
     </div>
+    <div id="share-modal-${article.id}" class="share-modal">
+      <div class="modal-content">
+        <div class="title">
+          <span id="share-close-${
+            article.id
+          }" class="share-close">&times;</span>                                                        
+          <h3>공유하기</h3>
+        </div>
+        <br><hr style="border: solid 1px gray;"><br>
+        <div class="content">
+          <ul class="share-layer-content">
+           <li>   <button id="kakao_share_${article.id}" class="article_kakao_share-button"></button> </li> 
+           <li>   <button onclick="facebookshare('https://dev.thesaver.io/articles/detail/${article.id}')"
+            class="article_facebook_share-button"></button></li> 
+           <li>   <button onclick="urlshare('https://dev.thesaver.io/articles/detail/${article.id }',
+            '${article.image}', '${article.headline}', '${unescape(article.briefing,)}')" class="article_url_share-button">url</button></li> 
+          </ul>
+        </div>
+      </div>
+    </div>
     <div class="article__control__right-buttons">
-      <button class="article__control__right-buttons__share-button" id="share-button_${
+      <button onclick="modalFunction(${
         article.id
-      }"></button>
+      })" class="article__control__right-buttons__share-button"></button>
       <button class="article__control__right-buttons__bookmark-button"></button>
     </div>
   </div>

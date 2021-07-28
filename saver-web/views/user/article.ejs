@@ -24,10 +24,25 @@
   <p class="article__main-text ft-main">
   </p>
   <div class="article__control">
-    <div></div>
+    <div id="share-modal-1" class="share-modal">
+      <div class="modal-content">
+        <div class="title">
+          <span id="share-close-1" class="share-close">&times;</span>                                                        
+          <h3>공유하기</h3>
+        </div>
+        <br><hr style="border: solid 1px gray;"><br>
+        <div class="content">
+          <ul class="share-layer-content">
+           <li> <button id="kakao-share-button" class="article_kakao_share-button"></button></li> 
+            <li>  <button onclick="facebookshare(window.location.href)" class="article_facebook_share-button"></button></li> 
+              <li>  <button onclick="urlshare('https://dev.thesaver.io/articles/detail/${article.id}', '${article.image}', '${article.headline}', '${unescape(article.briefing)}')" class="article_url_share-button">url</button></li> 
+          </ul>
+        </div>
+      </div>
+    </div>
     <div class="article__control__right-buttons">
       <!--TODO:공유,북마크 기능 herf 추가-->
-      <button id="btn_share" class="article__control__right-buttons__share-button"></button>
+      <button onclick="modalFunction('1')" class="article__control__right-buttons__share-button"></button>
       <button id="btn_bookmark" class="article__control__right-buttons__bookmark-button"></button>
     </div>
   </div>
@@ -40,4 +55,3 @@
 
 <script defer src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script type="module" src="/javascripts/user/article.js"></script>
-<script defer type="module" src="/javascripts/totalShare.js"></script>

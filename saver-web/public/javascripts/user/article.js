@@ -1,4 +1,4 @@
-import KaKaoShare from '../totalShare.js';
+
 class Editor {
   constructor() {}
 
@@ -19,7 +19,7 @@ class Editor {
 $(document).ready(function () {
   const editor = new Editor();
   editor.init(unescape(briefingContent), unescape(paragraphsContent));
-  const btn = document.getElementById('btn_share');
+  const btn = document.getElementById('kakao-share-button');
   const pathname = window.location.pathname;
   const article = {
     path: pathname.substring(1, pathname.length),
