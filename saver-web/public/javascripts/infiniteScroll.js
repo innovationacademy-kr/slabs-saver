@@ -5,7 +5,6 @@ var page = INITIAL_PAGE;
 var isUsed = false;
 var articleList = document.querySelector('.article-list');
 
-import KaKaoShare from './totalShare.js';
 
 const getPage = () => {
   $.ajax({
@@ -15,7 +14,7 @@ const getPage = () => {
       articles = JSON.parse(articles);
       articles.map(function (article) {
         articleList.insertAdjacentHTML('beforeend', makeTemplate(article));
-        const item = document.getElementById(`share-button_${article.id}`);
+        const item = document.getElementById(`kakao_share_${article.id}`);
         article.path = `articles/detail/${article.id}`;
         if (item) KaKaoShare(item.id, article);
       });
@@ -76,8 +75,7 @@ function makeTemplate(article) {
         <br><hr style="border: solid 1px gray;"><br>
         <div class="content">
           <ul class="share-layer-content">
-           <li>   <button onclick="kakaoshare('http://dev.thesaver.io/articles/detail/${article.id}',
-            '${article.image}', '${article.headline}', '${unescape(article.briefing,)}')" class="article_kakao_share-button"></button> </li> 
+           <li>   <button id="kakao_share_${article.id}" class="article_kakao_share-button"></button> </li> 
            <li>   <button onclick="facebookshare('https://dev.thesaver.io/articles/detail/${article.id}')"
             class="article_facebook_share-button"></button></li> 
            <li>   <button onclick="urlshare('https://dev.thesaver.io/articles/detail/${article.id }',
