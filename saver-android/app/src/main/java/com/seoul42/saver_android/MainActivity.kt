@@ -1,14 +1,17 @@
 package com.seoul42.saver_android
 
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Message
 import android.util.Log
+import android.webkit.WebResourceRequest
 import android.webkit.WebView
-import android.webkit.WebViewClient
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.ktx.messaging
+import java.net.URISyntaxException
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,7 +29,9 @@ class MainActivity : AppCompatActivity() {
         startActivity(Intent(this, SplashScreenActivity::class.java))
 
         myWebView.apply {
-            webViewClient = WebViewClient()
+            webViewClient = MyWebClient()
+            webChromeClient = MyWebChromeClient()
+
             settings.run {
                 javaScriptEnabled = true
                 settings.domStorageEnabled = true
@@ -49,8 +54,8 @@ class MainActivity : AppCompatActivity() {
             url = intent?.data.toString()
         url?.let {
             if (it.contains("kakaolink")) {
-                Log.d("주소", baseUrl + "${it.substring(it.indexOf('?') + 1, it.length)}");
-                return baseUrl + "${it.substring(it.indexOf('?') + 1, it.length)}"
+                Log.d("주소", baseUrl + it.substring(it.indexOf('?') + 1, it.length));
+                return baseUrl + it.substring(it.indexOf('?') + 1, it.length)
             }
             return url
         }
@@ -88,5 +93,89 @@ class MainActivity : AppCompatActivity() {
             }
 
     }
+
+    inner class MyWebClient : android.webkit.WebViewClient()
+    {
+        override fun shouldOverrideUrlLoading(view: WebView,request: WebResourceRequest): Boolean {
+
+            if (request.url.scheme == "intent") {
+                try {
+                    // Intent 생성
+                    val intent = Intent.parseUri(request.url.toString(), Intent.URI_INTENT_SCHEME)
+
+                    // 실행 가능한 앱이 있으면 앱 실행
+                    if (intent.resolveActivity(packageManager) != null) {
+                        startActivity(intent)
+                        return true
+                    }
+
+                    // Fallback URL이 있으면 현재 웹뷰에 로딩
+                    val fallbackUrl = intent.getStringExtra("browser_fallback_url")
+                    if (fallbackUrl != null) {
+                        view.loadUrl(fallbackUrl)
+                        return true
+                    }
+
+
+                } catch (e: URISyntaxException) {
+                    Log.e("error", "Invalid intent request", e)
+                }
+            }
+
+            // 나머지 서비스 로직 구현
+
+            return false
+        }
+    }
+    inner class MyWebChromeClient() : android.webkit.WebChromeClient(){
+
+        /// ---------- 팝업 열기 ----------
+        /// - 카카오 JavaScript SDK의 로그인 기능은 popup을 이용합니다.
+        /// - window.open() 호출 시 별도 팝업 webview가 생성되어야 합니다.
+        override fun onCreateWindow(
+            view: WebView,
+            isDialog: Boolean,
+            isUserGesture: Boolean,
+            resultMsg: Message
+        ): Boolean {
+
+            // 웹뷰 만들기
+            var childWebView = WebView(view.context)
+
+            // 부모 웹뷰와 동일하게 웹뷰 설정
+            childWebView.run {
+                settings.run {
+                    javaScriptEnabled = true
+                    javaScriptCanOpenWindowsAutomatically = true
+                    setSupportMultipleWindows(true)
+                }
+                layoutParams = view.layoutParams
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    webViewClient = view.webViewClient
+                    webChromeClient = view.webChromeClient
+                }
+            }
+
+            // 화면에 추가하기
+            swipeRefreshLayout.addView(childWebView)
+
+            // 웹뷰 간 연동
+            val transport = resultMsg.obj as WebView.WebViewTransport
+            transport.webView = childWebView
+            resultMsg.sendToTarget()
+
+            return true
+        }
+
+        /// ---------- 팝업 닫기 ----------
+        /// - window.close()가 호출되면 앞에서 생성한 팝업 webview를 닫아야 합니다.
+        override fun onCloseWindow(window: WebView) {
+            super.onCloseWindow(window)
+
+            // 화면에서 제거하기
+            swipeRefreshLayout.removeView(window)
+        }
+    }
+
 
 }
