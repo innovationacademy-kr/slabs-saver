@@ -1,6 +1,6 @@
 function modalFunction(id) {
 	var modal = document.getElementById('share-modal-'+id);                                  
-  var span =  document.getElementById('share-close-'+id);
+  	var span =  document.getElementById('share-close-'+id);
 
 	modal.style.display = "block";
 
@@ -57,3 +57,8 @@ function kakaoshare(url, image, headline, descrip){
   ; window.kakaoDemoCallback && window.kakaoDemoCallback() }
   catch(e) { window.kakaoDemoException && window.kakaoDemoException(e) }
   }
+
+  function facebookshare(url) {
+	console.log(url);
+    window.open("http://www.facebook.com/sharer/sharer.php?u=" + url);
+}

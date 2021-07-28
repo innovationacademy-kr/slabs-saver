@@ -158,6 +158,21 @@
 	background-image: url(//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png);
 	background-size: cover;
 	background-color: white;
-	height: 36px;
-	width: 36px;
+	height: 43px;
+	width: 43px;
+}
+
+/* 페이스북 아이콘 */
+.article_facebook_share-button{
+	background-image:url('../../icons/facebook.png');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-color: white;
+	height: 43px;
+	width: 43px;
+}
+
+.share-layer-content{
+	position: relative;
+	padding: 30px;
 }

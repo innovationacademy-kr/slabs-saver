@@ -74,8 +74,8 @@ function makeTemplate(article) {
         <br><hr style="border: solid 1px gray;"><br>
         <div class="content">
           <ul class="share-layer-content">
-              <button onclick="kakaoshare('https://dev.thesaver.io/articles/detail/${article.id}', '${article.image}', '${article.headline}', '${unescape(article.briefing)}')" class="article_kakao_share-button"></button>
-              <button onclick="facebookshare('https://dev.thesaver.io/articles/detail/${article.id}', '${article.image}', '${article.headline}', '${unescape(article.briefing)}')" class="article_facebook_share-button">facebook</button>
+              <button onclick="kakaoshare('http://dev.thesaver.io/articles/detail/${article.id}', '${article.image}', '${article.headline}', '${unescape(article.briefing)}')" class="article_kakao_share-button"></button>
+              <button onclick="facebookshare('https://dev.thesaver.io/articles/detail/${article.id}')" class="article_facebook_share-button"></button>
               <button onclick="urlshare('https://dev.thesaver.io/articles/detail/${article.id}', '${article.image}', '${article.headline}', '${unescape(article.briefing)}')" class="article_url_share-button">url</button>
           </ul>
         </div>
