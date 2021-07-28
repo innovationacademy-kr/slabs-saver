@@ -59,7 +59,7 @@ function KaKaoShare  (id, article)  {
             },
         ],
         });
-        }catch(e){ 
+        }catch(e){
             window.kakaoDemoException && window.kakaoDemoException(e)
     }
 };
