@@ -7,6 +7,9 @@ PODS:
     - FirebaseAnalytics (~> 8.3.0)
   - Firebase/CoreOnly (8.3.0):
     - FirebaseCore (= 8.3.0)
+  - Firebase/Messaging (8.3.0):
+    - Firebase/CoreOnly
+    - FirebaseMessaging (~> 8.3.0)
   - FirebaseAnalytics (8.3.0):
     - FirebaseAnalytics/AdIdSupport (= 8.3.0)
     - FirebaseCore (~> 8.0)
@@ -39,6 +42,13 @@ PODS:
     - GoogleUtilities/Environment (~> 7.4)
     - GoogleUtilities/UserDefaults (~> 7.4)
     - PromisesObjC (~> 1.2)
+  - FirebaseMessaging (8.3.0):
+    - FirebaseCore (~> 8.0)
+    - FirebaseInstallations (~> 8.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.4)
+    - GoogleUtilities/Environment (~> 7.4)
+    - GoogleUtilities/Reachability (~> 7.4)
+    - GoogleUtilities/UserDefaults (~> 7.4)
   - GoogleAppMeasurement (8.3.0):
     - GoogleAppMeasurement/AdIdSupport (= 8.3.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.4)
@@ -116,6 +126,7 @@ PODS:
 
 DEPENDENCIES:
   - Firebase/Analytics
+  - Firebase/Messaging
   - KakaoSDK
 
 SPEC REPOS:
@@ -126,6 +137,7 @@ SPEC REPOS:
     - FirebaseCore
     - FirebaseCoreDiagnostics
     - FirebaseInstallations
+    - FirebaseMessaging
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleUtilities
@@ -148,6 +160,7 @@ SPEC CHECKSUMS:
   FirebaseCore: a6dba751680d7033b9d3831e1cfc95ead0605118
   FirebaseCoreDiagnostics: 7e873baabcfaa9512f538554ae4fa0817aaafbdb
   FirebaseInstallations: b69db7680870dbac17bba7a51fc0b5c4b365baa7
+  FirebaseMessaging: 42252b79b860482021483748669ec32e22196462
   GoogleAppMeasurement: de70802583dedceb0bca18172b345307e8f410b8
   GoogleDataTransport: 85fd18ff3019bb85d3f2c551d04c481dedf71fc9
   GoogleUtilities: eea970f4a389963963bffe8d8fabe43540678b9c
@@ -163,6 +176,6 @@ SPEC CHECKSUMS:
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
 
-PODFILE CHECKSUM: efeec7654b19424e0e0f865c929016abe38ecf0d
+PODFILE CHECKSUM: d59aae405c61e84d0e493ec717e055ad35bc3caa
 
 COCOAPODS: 1.10.1
