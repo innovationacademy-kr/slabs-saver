@@ -22,7 +22,7 @@ function modalFunction(id) {
 
 function KaKaoShare  (id, article)  {
     try{
-        if (!Kakao.isInitialized()) Kakao.init('e02c5b453cf259510435c35b79bb45eb');
+        if (!Kakao.isInitialized()) Kakao.init('카카오 JS 키');
         let targetLink = document.location.href;
         if (article.id != null){
             targetLink += `articles/detail/${article.id}`;
