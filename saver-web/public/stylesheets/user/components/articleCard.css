@@ -1,178 +1,187 @@
-.article-page{
-	top: 50px;
-	position: relative;
+.article-page {
+  top: 50px;
+  position: relative;
 }
 
-.article{
-	box-sizing: border-box;
-	padding: 36px 17px 40px 17px;
-	margin-bottom: 8px;
+.article {
+  box-sizing: border-box;
+  padding: 36px 17px 40px 17px;
+  margin-bottom: 8px;
 
-	background-color: white;
+  background-color: white;
 }
 
-.article__top{
-
-	display: flex;
-	justify-content: flex-start;
-	align-items: center;
-	margin-bottom: 10px;
+.article__top {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
-.article__top__text{
-	margin-left: 8px;
+.article__top__text {
+  margin-left: 8px;
 }
 
-.article__title{
-	margin-bottom: 15px;
+.article__title {
+  margin-bottom: 15px;
 }
-.article__img{
-	width: 100vw;
-	background-color: grey;
-	margin-left: -17px;
-	margin-bottom: 7px;
-
-}
-
-.article__imgtext{
-	margin-bottom: 20px;
+.article__img {
+  width: 100vw;
+  background-color: grey;
+  margin-left: -17px;
+  margin-bottom: 7px;
 }
 
-.article__brief-text{
-	margin-bottom: 20px;
+.article__imgtext {
+  margin-bottom: 20px;
+}
+
+.article__brief-text {
+  margin-bottom: 20px;
 }
 .article-list .article__brief-text {
-	overflow: hidden;
-	max-height: 80px;
+  overflow: hidden;
+  max-height: 80px;
 }
 
-.article__main-text{
-	margin-bottom: 20px;
+.article__main-text {
+  margin-bottom: 20px;
 }
 
 .article__paragraphs {
-	padding-top: 18px;
+  padding-top: 18px;
 }
 
-.article__control{
-	display: flex;
-	justify-content:space-between;
-	align-items:center;
-	margin-top: 39px;
+.article__control {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 39px;
 }
 
-.article__control__more-button{
-	border: solid 1px black;
-	width: 166px;
-	height: 36px;
+.article__control__more-button {
+  border: solid 1px black;
+  width: 166px;
+  height: 36px;
 
-	border-radius: 4px;
-	background-color: white;
+  border-radius: 4px;
+  background-color: white;
 
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.article__control__more-button__img{
-	background-image: url(../../icons/more-button-text.svg);
-	background-position: center;
-	background-size: cover;
-	height: 19px;
-	width: 71px;
-    pointer-events: none;
+.article__control__more-button__img {
+  background-image: url(../../icons/more-button-text.svg);
+  background-position: center;
+  background-size: cover;
+  height: 19px;
+  width: 71px;
+  pointer-events: none;
 }
 
-.article__control__right-buttons{
-
+.article__control__right-buttons {
 }
 
-.article__control__right-buttons__share-button{
-	background-image: url(../../icons/share-button.svg);
-	background-position: center;
-	background-size: cover;
+.article__control__right-buttons__share-button {
+  background-image: url(../../icons/share-button.svg);
+  background-position: center;
+  background-size: cover;
 
-	background-color: white;
-	height: 36px;
-	width: 36px;
+  background-color: white;
+  height: 36px;
+  width: 36px;
 }
 
-.article__control__right-buttons__bookmark-button{
-	background-image: url(../../icons/bookmark-button.svg);
-	background-position: center;
-	background-size: cover;
+.article__control__right-buttons__bookmark-button {
+  background-image: url(../../icons/bookmark-button.svg);
+  background-position: center;
+  background-size: cover;
 
-	background-color: white;
-	height: 36px;
-	width: 36px;
+  background-color: white;
+  height: 36px;
+  width: 36px;
 }
-
 
 /* 모달 바깥 불투명 배경 */
-.share-modal{
-	display: none; 
-	position: fixed; /* Stay in place */
-	z-index: 1; /* Sit on top */
-	left: 0;
-	top: 0;
-	width: 100%; /* Full width */
-	height: 100%; /* Full height */
-	overflow: auto; /* Enable scroll if needed */
-	background-color: rgb(0,0,0); /* Fallback color */
-	background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+.share-modal {
+  display: none;
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
 
 /* 모달 박스*/
 .modal-content {
-	background-color: #fefefe;
-	position: fixed; /* Stay in place */
-	padding: 20px;
-	border: 1px solid #888;
-	width: 50%; /* Could be more or less, depending on screen size */                          
-	
-	/* 모달 가운데 정렬 */
-	top: 50%;
-	left: 50%;
-	-webkit-transform: translate(-50%, -50%);
-	-moz-transform: translate(-50%, -50%);
-	-ms-transform: translate(-50%, -50%);
-	-o-transform: translate(-50%, -50%);
-	transform: translate(-50%, -50%);
+  background-color: #fefefe;
+  position: fixed; /* Stay in place */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%; /* Could be more or less, depending on screen size */
+
+  /* 모달 가운데 정렬 */
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 /* 모달 닫기 버튼*/
 .share-close {
-	color: #aaa;
-	float: right;
-	font-size: 28px;
-	font-weight: bold;
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
 }
 .share-close:hover,
 .share-close:focus {
-	color: black;
-	text-decoration: none;
-	cursor: pointer;
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 /* 카카오 아이콘 */
-.article_kakao_share-button{
-	background-image: url(//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png);
-	background-size: cover;
-	background-color: white;
-	height: 43px;
-	width: 43px;
+.article_kakao_share-button {
+  background-image: url(//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png);
+  background-size: cover;
+  background-color: white;
+  height: 43px;
+  width: 43px;
 }
 
 /* 페이스북 아이콘 */
-.article_facebook_share-button{
-	background-image:url('../../icons/facebook.png');
-	background-repeat: no-repeat;
-	background-size: cover;
-	background-color: white;
-	height: 43px;
-	width: 43px;
+.article_facebook_share-button {
+  background-image: url('../../icons/facebook.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: white;
+  height: 43px;
+  width: 43px;
 }
 
-.share-layer-content{
-	position: relative;
-	padding: 30px;
+.share-modal .modal-content {
+  width: 250px;
+}
+
+.share-layer-content {
+  width: 100%;
+  position: relative;
+  margin: 10px 0px;
+}
+
+.share-layer-content li {
+  float: left;
+  width: 33%;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
 }
