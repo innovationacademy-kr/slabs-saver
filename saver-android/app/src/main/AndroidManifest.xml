@@ -16,10 +16,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Saverandroid"
         android:usesCleartextTraffic="true">
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_key"/>
+        <meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>
         <meta-data
             android:name="com.google.android.actions"
             android:resource="@xml/splash" />
-
+        <provider android:authorities="com.facebook.app.FacebookContentProvider{페이스북 APP_ID}"
+            android:name="com.facebook.FacebookContentProvider"
+            android:exported="true"/>
         <activity
             android:name=".SplashScreenActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
