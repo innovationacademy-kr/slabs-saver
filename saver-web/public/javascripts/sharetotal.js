@@ -15,9 +15,22 @@ function modalFunction(id) {
 	}
 }
 
-  function facebookshare(url) {
+function facebookshare(url) {
 	console.log(url);
     window.open("http://www.facebook.com/sharer/sharer.php?u=" + url);
+}
+
+function urlshare(url){
+    const textarea = document.createElement("textarea");
+
+    document.body.appendChild(textarea);
+    textarea.value = url;
+    textarea.select();
+
+    document.execCommand('copy');
+    document.body.removeChild(textarea)
+
+    alert('url 복사가 완료되었습니다.');
 }
 
 function KaKaoShare  (id, article)  {
