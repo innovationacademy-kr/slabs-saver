@@ -81,6 +81,15 @@
   pointer-events: none;
 }
 
+.article__control__fold-button__img {
+  background-image: url(../../icons/fold-button-text.svg);
+  background-position: center;
+  background-size: cover;
+  height: 19px;
+  width: 42.5px;
+  pointer-events: none;
+}
+
 .article__control__right-buttons {
 }
 
