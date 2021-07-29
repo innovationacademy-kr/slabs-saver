@@ -47,7 +47,7 @@ function KaKaoShare  (id, article)  {
             targetLink += `articles/detail/${article.id}`;
         }
 
-        const briefing = unescape(article.briefing);
+        const briefing = removeTag(unescape(article.briefing));
 
         Kakao.Link.createDefaultButton({
         container: `#${id}`,
