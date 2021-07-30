@@ -33,6 +33,12 @@ function urlshare(url){
     alert('url 복사가 완료되었습니다.');
 }
 
+//html 태그 제거
+function removeTag(text) {
+    text = text.replace(/(<([^>]+)>)/ig, "");
+    return text;
+}
+
 function KaKaoShare  (id, article)  {
     try{
         if (!Kakao.isInitialized()) Kakao.init('카카오 JS 키');
@@ -41,12 +47,14 @@ function KaKaoShare  (id, article)  {
             targetLink += `articles/detail/${article.id}`;
         }
 
+        const briefing = removeTag(unescape(article.briefing));
+
         Kakao.Link.createDefaultButton({
         container: `#${id}`,
         objectType: 'feed',
         content: {
             title: article.headline,
-            description: unescape(article.briefing),
+            description: briefing,
             imageUrl: article.image,
             link: {
             webUrl: targetLink,
