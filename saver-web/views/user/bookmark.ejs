@@ -1,0 +1,172 @@
+<%- contentFor('styleTag') %>
+	<link rel="stylesheet" href="/stylesheets/user/pages/bookmark.css" />
+
+
+	<%- contentFor('navbar') %>
+		<%- include('./components/nav.ejs') %>
+
+			<%- contentFor('body') %>
+				<div class="bookmark-page white">
+					<div class="bookmark-title">
+                        <div class="bookmark-title-col1">
+                            <div class="icon-bookmark-black"></div>
+						</div>
+                        <div class="bookmark-title-col2">
+                            <p class="bookmark-title-col2-text">오늘</p>
+                        </div>
+					</div>
+
+                    <div class="bookmark-section">
+                        <div class="bookmark-section-icon">
+                            <div class="icon-politics-blue"></div>
+                        </div>
+                        <div class="bookmark-section-text">
+                            <div class="bookmark-section-text-area">
+                                <p class="bookmark-section-text-text">1아응애에요아응애에요아응애에요</p>
+                            </div>
+                            <div class="bookmark-section-text-line"></div>
+                            <div class="bookmark-section-text-area">
+                                <p class="bookmark-section-text-text">2아응애에요아응애에요아응애에요</p>
+                            </div>
+                            <div class="bookmark-section-text-line"></div>
+                        </div>
+                    </div>
+
+                    <div class="bookmark-section-tap"></div>
+
+                    <div class="bookmark-section">
+                        <div class="bookmark-section-icon">
+                            <div class="icon-economy-blue"></div>
+                        </div>
+                        <div class="bookmark-section-text">
+                            <div class="bookmark-section-text-area">
+                                <p class="bookmark-section-text-text">이코노미에코노미이코노sadfsdafsafdsdafsfdasfdafdsafdsafdsafdasfdsaf미에코노미</p>
+                            </div>
+                            <div class="bookmark-section-text-line"></div>
+                            <div class="bookmark-section-text-area">
+                                <p class="bookmark-section-text-text">이코노미에sdfsadfasdfsadfsadfsadfsdafsadfsdafsdfsadf코노미이코노미에코노미</p>
+                            </div>
+                            <div class="bookmark-section-text-line"></div>
+                            <div class="bookmark-section-text-area">
+                                <p class="bookmark-section-text-text">이코노미에코노미이코노미sadffffffffffffffffffffffffffffffffffffffffffffff에코노미</p>
+                            </div>
+                            <div class="bookmark-section-text-line"></div>
+                            <div class="bookmark-section-text-area">
+                                <p class="bookmark-section-text-text">이코노미에코노미이코노미sdafsdafsadfsadfasdfasdfadsfdsafsdafsadfasdfsadfasfd에코노미</p>
+                            </div>
+                            <div class="bookmark-section-text-line"></div>
+                            <div class="bookmark-section-text-area">
+                                <p class="bookmark-section-text-text">이11111111111111111111111111111111111111111111111111111111111코노미에코노미이코노미에코노미</p>
+                            </div>
+                            <div class="bookmark-section-text-line"></div>
+                        </div>
+                    </div>
+                    
+
+
+
+                        <div class="bookmark-title">
+                            <div class="bookmark-title-col1">
+                                <div class="icon-bookmark-black"></div>
+                            </div>
+                            <div class="bookmark-title-col2">
+                                <p class="bookmark-title-col2-text">어제</p>
+                            </div>
+                        </div>
+
+
+                        <div class="bookmark-section">
+                            <div class="bookmark-section-icon">
+                                <div class="icon-politics-grey"></div>
+                            </div>
+                            <div class="bookmark-section-text">
+                                <div class="bookmark-section-text-area">
+                                    <p class="bookmark-section-text-text">1아응애에요아응애에요아응애에요</p>
+                                </div>
+                                <div class="bookmark-section-text-line"></div>
+                                <div class="bookmark-section-text-area">
+                                    <p class="bookmark-section-text-text">2아응애에요아응애에요아응애에요</p>
+                                </div>
+                                <div class="bookmark-section-text-line"></div>
+                            </div>
+                        </div>
+
+                        <div class="bookmark-section-tap"></div>
+
+
+					<!-- 
+                    밑의 모든 내용은
+                    <div class="bookmark-page white">
+
+                    </div> 로 감싸야함
+
+
+                    오늘, 어제, 수요일, 금요일등 타이틀
+
+                    <div class="bookmark-title">
+                        <div class="bookmark-title-col1">
+                            <div class="icon-bookmark-black"></div>
+						</div>
+                        <div class="bookmark-title-col2">
+                            <p class="bookmark-title-col2-text">//이곳에 오늘 어제 수요일등 원하는것 작성//</p>
+                        </div>
+					</div>
+                        
+
+
+                    기사
+                    
+                    각 기사의 모든 내용은 밑의 박스로 감싸야함
+                    <div class="bookmark-section">
+
+                    </div>
+
+
+                    기사 아이콘
+
+                    <div class="bookmark-section-icon">
+                        //이곳에 밑의 아이콘중 맞는 아이콘 찾아서 넣기
+                        <div class="icon-politics-blue"></div>
+                    </div>
+
+                    각종 아이콘    
+                    <div class="logo-small-blue"></div>
+					<div class="icon-politics-blue"></div>
+                    <div class="icon-politics-grey"></div>
+					<div class="icon-economy-blue"></div>
+                    <div class="icon-economy-grey"></div>
+                    <div class="icon-international-blue"></div>
+                    <div class="icon-international-grey"></div>
+    				<div class="icon-social-blue"></div>
+                    <div class="icon-social-grey"></div>
+					<div class="icon-bookmark-black"></div>
+                    <div class="icon-culture-blue"></div>
+                    <div class="icon-culture-grey"></div> 
+                
+
+                    이섹션 기사의 모든 내용은 밑의 박스에 다들어가야함
+                    <div class="bookmark-section-text">
+
+                    </div>
+                    
+                    기사본문
+
+                    <div class="bookmark-section-text-area">
+                        <p class="bookmark-section-text-text">//이곳에 기사내용 작성//</p>
+                    </div>
+                    <div class="bookmark-section-text-line"></div>
+                    위의내용을 이섹션에서 북마크한 모든 기사 개수만큼 반복
+                
+                    기타
+                    섹션과 섹션사이는
+                    <div class="bookmark-section-tap"></div>
+                    이용해서 띄워줘야함
+
+                    섹션과 타이틀(오늘,어제,수요일등등..)사이는 안띄워도됨
+                    -->
+
+
+
+				</div>
+				<%- contentFor('footer') %>
+					<%- include('./components/foo.ejs') %>

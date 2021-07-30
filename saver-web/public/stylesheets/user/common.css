@@ -484,6 +484,15 @@
   width: 28px;
 }
 
+.icon-bookmark-black {
+  background-image: url('../icons/bookmark-black.svg');
+  background-position: center;
+  background-size: cover;
+
+  height: 20px;
+  width: 28px;
+}
+
 /*footer ../icons*/
 
 .icon-home.active {
