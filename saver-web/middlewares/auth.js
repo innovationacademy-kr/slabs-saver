@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken')
-var tokenKey = "slab1234"
+// var tokenKey = "slab1234"
+var tokenKey = "slab!#abcd"
 const authMiddleware = (req, res, next) => {
    const token = req.headers['x-access-token'] || req.query.token;
    console.error(token)
@@ -14,6 +15,7 @@ const authMiddleware = (req, res, next) => {
        (resolve, reject) => {
            jwt.verify(token, tokenKey, (err, decoded) => {
                if(err) reject(err)
+               console.log(decoded);
                resolve(decoded)
            })
        }

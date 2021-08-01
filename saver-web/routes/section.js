@@ -1,7 +1,11 @@
 const express = require('express');
-const sectionCtrl = require('../controllers/user/sectionController');
 const router = express.Router();
 
-	router.get('/', sectionCtrl.section);
+const authMiddleware = require('../middlewares/auth')
+const sectionCtrl = require('../controllers/user/sectionController');
+
+
+router.get('/', sectionCtrl.page.section);
+router.post('/user', authMiddleware, sectionCtrl.request.getSection);
 
 module.exports = router;
