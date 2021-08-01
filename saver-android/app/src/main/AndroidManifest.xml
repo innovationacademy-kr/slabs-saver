@@ -7,6 +7,9 @@
     <queries>
         <package android:name="com.kakao.talk" />
     </queries>
+    <queries>
+        <provider android:authorities="com.facebook.katana.provider.PlatformProvider" />
+    </queries>
 
     <application
         android:allowBackup="true"
@@ -17,18 +20,29 @@
         android:theme="@style/Theme.Saverandroid"
         android:usesCleartextTraffic="true">
         <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_key" />
+        <meta-data
+            android:name="com.facebook.sdk.ClientToken"
+            android:value="@string/facebook_client_token" />
+        <meta-data
             android:name="com.google.android.actions"
             android:resource="@xml/splash" />
+
+        <provider
+            android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider{페이스북 APP ID}"
+            android:exported="true" />
 
         <activity
             android:name=".SplashScreenActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="portrait"
-            android:exported="true" />
-        <activity android:name=".MainActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="portrait"
-            >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -49,7 +63,8 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                   <data
+
+                <data
                     android:host="kakaolink"
                     android:scheme="@string/key" />
             </intent-filter>

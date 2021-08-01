@@ -1,17 +1,17 @@
 package com.seoul42.saver_android
 
 import android.content.Intent
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Message
 import android.util.Log
-import android.webkit.WebResourceRequest
 import android.webkit.WebView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.ktx.messaging
-import java.net.URISyntaxException
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,15 +21,25 @@ class MainActivity : AppCompatActivity() {
     private val swipeRefreshLayout: SwipeRefreshLayout by lazy {
         findViewById(R.id.swipe_refresh_layout)
     }
+    private val constraintLayout: ConstraintLayout by lazy {
+        findViewById(R.id.constraint_layout)
+    }
 
+    private var childView: WebView? = null
+    private var childWebClient: MyWebClient? = null
+
+    private val baseUrl = "http://thesaver.io/";
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         startActivity(Intent(this, SplashScreenActivity::class.java))
 
+        childWebClient = MyWebClient(this@MainActivity, packageManager)
+
+
         myWebView.apply {
-            webViewClient = MyWebClient()
+            webViewClient = MyWebClient(this@MainActivity, packageManager)
             webChromeClient = MyWebChromeClient()
 
             settings.run {
@@ -48,7 +58,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getStartUrl(intent: Intent): String {
-        val baseUrl = "https://thesaver.io/";
         var url: String? = intent.getStringExtra("url")
         if (intent?.data != null)
             url = intent?.data.toString()
@@ -62,11 +71,22 @@ class MainActivity : AppCompatActivity() {
         return baseUrl
     }
 
+
     override fun onBackPressed() {
-        if (myWebView.canGoBack()) {
-            myWebView.goBack()
-        } else {
-            finish()
+        when {
+            myWebView.canGoBack() -> {
+                myWebView.goBack()
+            }
+            childView != null -> {
+                childView?.loadUrl("javascript:window.close();");
+            }
+            myWebView.url != baseUrl -> {
+                myWebView.clearHistory()
+                myWebView.loadUrl(baseUrl)
+            }
+            else -> {
+                finish()
+            }
         }
     }
 
@@ -94,40 +114,13 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    inner class MyWebClient : android.webkit.WebViewClient()
-    {
-        override fun shouldOverrideUrlLoading(view: WebView,request: WebResourceRequest): Boolean {
 
-            if (request.url.scheme == "intent") {
-                try {
-                    // Intent 생성
-                    val intent = Intent.parseUri(request.url.toString(), Intent.URI_INTENT_SCHEME)
-
-                    // 실행 가능한 앱이 있으면 앱 실행
-                    if (intent.resolveActivity(packageManager) != null) {
-                        startActivity(intent)
-                        return true
-                    }
-
-                    // Fallback URL이 있으면 현재 웹뷰에 로딩
-                    val fallbackUrl = intent.getStringExtra("browser_fallback_url")
-                    if (fallbackUrl != null) {
-                        view.loadUrl(fallbackUrl)
-                        return true
-                    }
-
-
-                } catch (e: URISyntaxException) {
-                    Log.e("error", "Invalid intent request", e)
-                }
-            }
-
-            // 나머지 서비스 로직 구현
-
-            return false
-        }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        childWebClient?.getCallbackManager()?.onActivityResult(requestCode,resultCode,data)
+        super.onActivityResult(requestCode, resultCode, data)
     }
-    inner class MyWebChromeClient() : android.webkit.WebChromeClient(){
+
+    inner class MyWebChromeClient() : android.webkit.WebChromeClient() {
 
         /// ---------- 팝업 열기 ----------
         /// - 카카오 JavaScript SDK의 로그인 기능은 popup을 이용합니다.
@@ -139,29 +132,29 @@ class MainActivity : AppCompatActivity() {
             resultMsg: Message
         ): Boolean {
 
-            // 웹뷰 만들기
-            var childWebView = WebView(view.context)
+            childView = WebView(view.context)
 
             // 부모 웹뷰와 동일하게 웹뷰 설정
-            childWebView.run {
+            childView?.run {
                 settings.run {
                     javaScriptEnabled = true
                     javaScriptCanOpenWindowsAutomatically = true
                     setSupportMultipleWindows(true)
                 }
                 layoutParams = view.layoutParams
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    webViewClient = view.webViewClient
-                    webChromeClient = view.webChromeClient
-                }
+                setBackgroundColor(Color.TRANSPARENT)
+                childWebClient?.setIsDirect(false)
+                webViewClient = childWebClient!!
+                webChromeClient = MyWebChromeClient()
+
             }
 
             // 화면에 추가하기
-            swipeRefreshLayout.addView(childWebView)
+            constraintLayout.addView(childView)
 
             // 웹뷰 간 연동
             val transport = resultMsg.obj as WebView.WebViewTransport
-            transport.webView = childWebView
+            transport.webView = childView
             resultMsg.sendToTarget()
 
             return true
@@ -173,9 +166,8 @@ class MainActivity : AppCompatActivity() {
             super.onCloseWindow(window)
 
             // 화면에서 제거하기
-            swipeRefreshLayout.removeView(window)
+            constraintLayout.removeView(window)
         }
     }
-
 
 }
