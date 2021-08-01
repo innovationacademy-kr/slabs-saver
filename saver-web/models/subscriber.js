@@ -16,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       return bcrypt.compare(password, this.password).then((result) => result);
     }
   };
+
   Subscriber.init({
     email: {
       type: DataTypes.STRING,
@@ -38,11 +39,16 @@ module.exports = (sequelize, DataTypes) => {
     deletedAt: {
       type: DataTypes.INTEGER,
       allowNull: false,
+    },
+    followSections: {
+      type: DataTypes.STRING,
+      allowNull: true,
     }
   }, {
     sequelize,
     modelName: 'Subscriber',
   });
+
   Subscriber.addHook('beforeCreate', async (subscriber, options) => {
     const salt = await bcrypt.genSaltSync(+process.env.SALT_ROUNDS);
     return bcrypt.hash(subscriber.password, salt).then((hash) => {
