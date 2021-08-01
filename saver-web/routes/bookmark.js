@@ -9,4 +9,7 @@ router.get('/article', authMiddleware, bookmarkCtrl.page.bookmark);
 router.get('/more', authMiddleware, bookmarkCtrl.request.getBookmark);
 router.post('/:id', authMiddleware, bookmarkCtrl.request.createBookmark);
 
+// 북마크페이지 연결
+router.get('/', bookmarkCtrl.section);
+
 module.exports = router;

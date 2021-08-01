@@ -48,6 +48,9 @@ const bookmarkPage = async (req, res) => {
 };
 
 module.exports = {
+  section: (req, res, next) => {
+		res.render('user/bookmark', { title : 'slab-saver', layout: 'layout/userLayout' });
+	},
   request: {
     getBookmark: getBookmarkRequest,
     createBookmark: createBookmarkRequest,

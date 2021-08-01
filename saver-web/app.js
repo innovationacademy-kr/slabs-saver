@@ -40,7 +40,6 @@ app.set('layout extractStyles', true);
 // NOTE: routing
 app.use('/', indexRouter);
 app.use('/section', sectionRouter);
-
 app.use('/author', authorRouter);
 app.use('/articles', articlesRouter);
 app.use('/vendors', vendorsRouter);
