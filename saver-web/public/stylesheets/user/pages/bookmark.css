@@ -1,111 +1,109 @@
-  .bookmark-page {
-    position: relative;
-    top: 50px;
-    padding-bottom: 40px;
-  }
-  
-  .bookmark-title {
-    width: 100%;
-    height: 58px;
-  
-    display: flex;
-    align-items: center;
-  }
-  
-  .bookmark-title-col1 {
-    width: 22px;
-    flex-direction: column;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-left: 17px;
-  }
+.bookmark-page {
+  position: relative;
+  top: 50px;
+  padding-bottom: 40px;
+}
 
-  .bookmark-title-col2 {
-    flex-direction: column;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-left: 22px;
-  }
+.bookmark-title {
+  width: 100%;
+  height: 58px;
+  display: flex;
+  align-items: center;
+}
 
-  .bookmark-title-col2-text {
-    font-family: NotoSansCJKkr;
-    font-size: 16px;
-    font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.5;
-    letter-spacing: -0.48px;
-    text-align: left;
-    color: var(--black);
-  }
+.bookmark-title-col1 {
+  width: 22px;
+  flex-direction: column;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 17px;
+}
 
-  .bookmark-section {
-    width: 100%;
-    display: flex;
-    height: fit-content;
-  }
+.bookmark-title-col2 {
+  flex-direction: column;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 22px;
+}
 
-  .bookmark-section-icon{
-    width: 22px;
-    flex-direction: column;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-left: 17px;
-    margin-top: 15.8px;
-  }
+.bookmark-title-col2-text {
+  font-family: NotoSansCJKkr;
+  font-size: 16px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.5;
+  letter-spacing: -0.48px;
+  text-align: left;
+  color: var(--black);
+}
 
-  .bookmark-section-text{
-    margin-left: 22px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 8px;
-    margin-right:17px;
-    height: fit-content;
-    text-overflow: ellipsis;
-    white-space: nowrap; 
-    overflow: hidden;
-  }
+.bookmark-section {
+  width: 100%;
+  display: flex;
+  height: available;
+}
 
-  .bookmark-section-text-area{
-      display: flex;
-      flex-direction: column;
-    height: 42px;
-    text-overflow: ellipsis;
-    white-space: nowrap; 
-    overflow: hidden;
-  }
+.bookmark-section-icon {
+  width: 22px;
+  flex-direction: column;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 17px;
+  margin-top: 15.8px;
+}
 
-  .bookmark-section-text-text{
-    height: 24px;
-    margin: 10px 0.5px 8.5px 0;
-    font-family: NotoSansCJKkr;
-    font-size: 16px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.63;
-    letter-spacing: -0.32px;
-    text-align: left;
-    text-overflow: ellipsis;
-    white-space: nowrap; 
-    overflow: hidden;
-    color: var(--greyish-brown);
-  }
+.bookmark-section-text {
+  margin-left: 22px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-right: 17px;
+  height: fit-content;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
 
-  .bookmark-section-text-line{
-    height: 0;
-    width: 100%;
-    display: flex;
-    margin: 0.5px 0 0 0.5px;
-    border: solid 1px var(--white-three);
-  }
+.bookmark-section-text-area {
+  display: flex;
+  flex-direction: column;
+  height: 43.5px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
 
-  .bookmark-section-tap{
-      height:8px;
-      display: flex;
-  }
-  
+.bookmark-section-text-text {
+  height: 24px;
+  margin: 10px 0.5px 8.5px 0;
+  font-family: NotoSansCJKkr;
+  font-size: 16px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.63;
+  letter-spacing: -0.32px;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  color: var(--greyish-brown);
+}
+
+.bookmark-section-text-line {
+  height: 0;
+  width: 100%;
+  display: flex;
+  margin: 0.5px 0 0 0.5px;
+  border: solid 1px var(--white-three);
+}
+
+.bookmark-section-tap {
+  width: 100%;
+  height: 8px;
+  background-color: var(--white-two);
+}
