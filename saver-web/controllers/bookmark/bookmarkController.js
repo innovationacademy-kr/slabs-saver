@@ -1,8 +1,25 @@
-const { Bookmarks } = require('../../models');
+const { Bookmarks, Article } = require('../../models');
+const sequelize = require('../../models').sequelize;
 
 const getBookmarkRequest = async (req, res) => {
   const page = req.query.page;
-  const bookmark = new Bookmarks.findAll({ where: { UserId: req.decoded.userId } });
+  const bookmark = await Bookmarks.findAll({
+    where: { UserId: req.decoded.userId },
+    include: [
+      {
+        model: Article,
+        as: 'Article',
+        attributes: [['publishedAt', 'date_col_formed'], 'category'],
+      },
+    ],
+    order: [
+      [sequelize.fn('date_format', sequelize.col('Article.publishedAt'), '%Y-%m-%d'), 'DESC'],
+      ['Article', 'category', 'DESC'],
+      ['Article', 'publishedAt', 'DESC'],
+    ],
+    offset: page * 15,
+    limit: 15,
+  });
   try {
     res.status(200).json({
       bookmark,
@@ -49,8 +66,8 @@ const bookmarkPage = async (req, res) => {
 
 module.exports = {
   section: (req, res, next) => {
-		res.render('user/bookmark', { title : 'slab-saver', layout: 'layout/userLayout' });
-	},
+    res.render('user/bookmark', { title: 'slab-saver', layout: 'layout/userLayout' });
+  },
   request: {
     getBookmark: getBookmarkRequest,
     createBookmark: createBookmarkRequest,
