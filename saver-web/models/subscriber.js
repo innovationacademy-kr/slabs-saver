@@ -10,39 +10,42 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate({ Bookmarks }) {
-      this.hasMany(Bookmarks);
+      this.hasMany(Bookmarks, { foreignKey: 'UserId' });
     }
     validPassword(password) {
       return bcrypt.compare(password, this.password).then((result) => result);
     }
-  };
-  Subscriber.init({
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: {
-        msg: '이미 존재하는 이메일입니다.',
+  }
+  Subscriber.init(
+    {
+      email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: {
+          msg: '이미 존재하는 이메일입니다.',
+        },
+      },
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          is: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,15}$/i,
+        },
+      },
+      deletedAt: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
       },
     },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
+    {
+      sequelize,
+      modelName: 'Subscriber',
     },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        is: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,15}$/i,
-      },
-    },
-    deletedAt: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    }
-  }, {
-    sequelize,
-    modelName: 'Subscriber',
-  });
+  );
   Subscriber.addHook('beforeCreate', async (subscriber, options) => {
     const salt = await bcrypt.genSaltSync(+process.env.SALT_ROUNDS);
     return bcrypt.hash(subscriber.password, salt).then((hash) => {
