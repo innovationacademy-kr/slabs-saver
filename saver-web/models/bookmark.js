@@ -1,7 +1,5 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Bookmark extends Model {
     /**
@@ -9,18 +7,18 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({ Subscriber,Article }) {
-      this.belongsTo(Subscriber);
-      this.belongsTo(Article);
+    static associate({ Subscriber, Article }) {
+      this.belongsTo(Subscriber, { foreignKey: 'UserId' });
+      this.belongsTo(Article, { foreignKey: 'ArticleId' });
       // define association here
     }
-  };
-  Bookmark.init({
-    User_id: DataTypes.INTEGER,
-    Article_id: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'Bookmarks',
-  });
+  }
+  Bookmark.init(
+    {},
+    {
+      sequelize,
+      modelName: 'Bookmarks',
+    },
+  );
   return Bookmark;
 };
