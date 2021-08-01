@@ -15,19 +15,30 @@ const getBookmarkRequest = async (req, res) => {
 };
 
 const createBookmarkRequest = async (req, res) => {
-  const bookmark = await Bookmarks.findAll({ where: { UserId: req.decoded.userId } });
   const articleId = req.params.id;
+  const bookmark = await Bookmarks.findAll({
+    where: { UserId: req.decoded.userId, ArticleId: articleId },
+  });
+  if (Object.keys(bookmark).length != 0) {
+    res.status(200).json({
+      success: true,
+      bookmark,
+    });
+    return;
+  }
   try {
     const result = await Bookmarks.create({
       UserId: req.decoded.userId,
       ArticleId: articleId,
     });
     res.status(200).json({
-      bookmark,
+      success: true,
+      result,
     });
   } catch (error) {
     res.status(400).json({
-      bookmark,
+      success: false,
+      error,
     });
   }
 };
@@ -37,6 +48,9 @@ const bookmarkPage = async (req, res) => {
 };
 
 module.exports = {
+  section: (req, res, next) => {
+		res.render('user/bookmark', { title : 'slab-saver', layout: 'layout/userLayout' });
+	},
   request: {
     getBookmark: getBookmarkRequest,
     createBookmark: createBookmarkRequest,
