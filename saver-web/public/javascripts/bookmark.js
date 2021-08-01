@@ -7,7 +7,7 @@ async function enrollBookmark(id) {
   try {
     result = await axios({
       method: 'post',
-      url: `/subscriber/bookmark/${id}`,
+      url: `/bookmark/${id}`,
       headers: {
         'x-access-token': token,
       },
