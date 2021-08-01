@@ -16,6 +16,7 @@ const getPage = () => {
         const item = document.getElementById(`kakao_share_${article.id}`);
         article.path = `articles/detail/${article.id}`;
         if (item) KaKaoShare(item.id, article);
+        selectBookmarkClass(article.id, `btn_bookmark-${article.id}`);
       });
 
       isUsed = false;
@@ -92,9 +93,9 @@ function makeTemplate(article) {
       <button onclick="modalFunction(${
         article.id
       })" class="article__control__right-buttons__share-button"></button>
-      <button onclick="enrollBookmark(${
-        article.id
-      })" class="article__control__right-buttons__bookmark-button"></button>
+      <button id="btn_bookmark-${article.id}" onclick="clickBookmark(
+        ${article.id}, 'btn_bookmark-${article.id}')" 
+        class="article__control__right-buttons__bookmark-button"></button>
     </div>
   </div>
 </div>
