@@ -7,11 +7,15 @@ const getSectionRequest = async (req, res) => {
 	 const userId = req.decoded.userId;
 
 	console.log("userEmail =" + userEmail + "  userid = "+ userId);
-	res.status(200).json();
+	res.status(200).json(userId);
 }
 
 const sectionPage = (req, res, next) => {
 	res.render('user/section', { title : 'slab-saver', layout: 'layout/userLayout'});
+}
+
+const loginedSection = (req, res, next) => {
+	res.render('user/loginedSection', { title : 'slab-saver', layout: 'layout/userLayout'});
 }
 
 module.exports = {
@@ -21,5 +25,6 @@ module.exports = {
 	},
 	page: {
 		section: sectionPage,
+		logined: loginedSection,
 	},
 };

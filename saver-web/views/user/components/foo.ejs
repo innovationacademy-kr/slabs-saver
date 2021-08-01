@@ -28,7 +28,8 @@
 						'x-access-token': token
 					}
 				}).then((res) => {
-					location.href = '/section'
+					console.log("res.userId = "+res.data); //local console에 잠깐 떴다 사라집니다.
+					location.href = '/section/logined'
 				}).catch(error => {
 					alert(error.response.data.message);
 				});				
