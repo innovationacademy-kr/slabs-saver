@@ -14,6 +14,7 @@ const loginPage = (req, res, next) => {
 const signupRequest = async (req, res, next) => {
     const { email, password, name, confirm } = req.body;
     let deletedAt = 1;
+    let followSections = "7,";
     try {
         const exUser = await Subscriber.findOne({ where: { email } });
         if (exUser) {
@@ -29,7 +30,7 @@ const signupRequest = async (req, res, next) => {
             });
         }
         else {
-            await Subscriber.create({ email, name, password, deletedAt });
+            await Subscriber.create({ email, name, password, deletedAt, followSections});
             res.status(200).json({
                 result: true,
                 message: '회원가입 성공',

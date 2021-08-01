@@ -28,6 +28,10 @@ module.exports = {
       deletedAt: {
         allowNull: false,
         type: Sequelize.INTEGER
+      },
+      followSections: {
+        allowNull: true,
+        type: Sequelize.STRING
       }
     });
   },
