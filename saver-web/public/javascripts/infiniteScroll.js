@@ -5,7 +5,6 @@ var page = INITIAL_PAGE;
 var isUsed = false;
 var articleList = document.querySelector('.article-list');
 
-
 const getPage = () => {
   $.ajax({
     url: `/moreArticles?page=${page}`,
@@ -75,10 +74,16 @@ function makeTemplate(article) {
         <br><hr style="border: solid 1px gray;"><br>
         <div class="content">
           <ul class="share-layer-content">
-           <li>   <button id="kakao_share_${article.id}" class="article_kakao_share-button"></button> </li> 
-           <li>   <button onclick="facebookshare('${document.location.href}articles/detail/${article.id}')"
+           <li>   <button id="kakao_share_${
+             article.id
+           }" class="article_kakao_share-button"></button> </li> 
+           <li>   <button onclick="facebookshare('${document.location.href}articles/detail/${
+    article.id
+  }')"
             class="article_facebook_share-button"></button></li> 
-           <li>   <button onclick="urlshare('${document.location.href}articles/detail/${article.id}')" class="article_url_share-button">url</button></li> 
+           <li>   <button onclick="urlshare('${document.location.href}articles/detail/${
+    article.id
+  }')" class="article_url_share-button">url</button></li> 
           </ul>
         </div>
       </div>
@@ -87,7 +92,9 @@ function makeTemplate(article) {
       <button onclick="modalFunction(${
         article.id
       })" class="article__control__right-buttons__share-button"></button>
-      <button class="article__control__right-buttons__bookmark-button"></button>
+      <button onclick="enrollBookmark(${
+        article.id
+      })" class="article__control__right-buttons__bookmark-button"></button>
     </div>
   </div>
 </div>
