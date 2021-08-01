@@ -1,9 +1,5 @@
-const token = localStorage['jwtToken'];
-
 async function enrollBookmark(id) {
-  id = Number(id);
-  let result;
-  console.log(typeof id + ': ' + id);
+  const token = localStorage['jwtToken'];
   try {
     result = await axios({
       method: 'post',
