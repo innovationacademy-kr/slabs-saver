@@ -81,7 +81,7 @@ function getListTemplate(article) {
     'beforeend',
     `
     <div class="bookmark-list" id="bookmark-list-${article.date}">
-      <div class="bookmark-title" ">
+      <div class="bookmark-title">
         <div class="bookmark-title-col1">
           <div class="icon-bookmark-black-transparent"></div>
         </div>
@@ -134,7 +134,7 @@ function fillBookmark(template, article, articleId) {
     'beforeend',
     `
       <div class="bookmark-section-text-area">
-        <a href="articles/detail/${articleId}"/>
+        <a href="articles/detail/${articleId}"></a>
         <p class="bookmark-section-text-text">${article.headline}</p>
       </div>
 `,
