@@ -9,16 +9,20 @@ const getBookmarkRequest = async (req, res) => {
       {
         model: Article,
         as: 'Article',
-        attributes: [['publishedAt', 'date_col_formed'], 'category'],
+        attributes: [
+          [sequelize.fn('date_format', sequelize.col('publishedAt'), '%Y.%m.%d'), 'date'],
+          'category',
+          'headline',
+        ],
       },
     ],
     order: [
-      [sequelize.fn('date_format', sequelize.col('Article.publishedAt'), '%Y-%m-%d'), 'DESC'],
+      [sequelize.fn('date_format', sequelize.col('Article.publishedAt'), '%Y.%m.%d'), 'DESC'],
       ['Article', 'category', 'DESC'],
       ['Article', 'publishedAt', 'DESC'],
     ],
-    offset: page * 15,
-    limit: 15,
+    offset: page * 20,
+    limit: 20,
   });
   try {
     res.status(200).json({
