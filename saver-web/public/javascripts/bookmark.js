@@ -1,4 +1,4 @@
-//임시로 공유버튼 설정 -> 수정 필요함
+//북마크버튼
 const marked = "article__control__right-buttons__bookmark-button-active"
 const unmarked = "article__control__right-buttons__bookmark-button"
 
