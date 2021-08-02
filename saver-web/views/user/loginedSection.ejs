@@ -1,3 +1,47 @@
+<%- contentFor('scriptTag') %>
+	<script>
+		const politic = document.querySelector("#politic");
+		let currentUserID
+
+		window.onload = function() {
+			if (!token) {
+				location.href = '/section/'
+			} else {
+				axios({
+					method: 'post',
+					url: '/section/user',
+					headers: {
+						'x-access-token': token
+					}
+				}).then((res) => {
+					currentUserID = res.data;
+				}).catch(error => {
+					alert(error.response.data.message);
+				});
+			}
+		}
+
+
+		politic.addEventListener('click', (e) => {
+			if (!token) {
+				location.href = '/section/follow'
+			} else {
+				axios({
+						method: 'post',
+						url: 'follow',
+						data: {
+							userId: currentUserID,
+							followValue: 1,
+						}
+					}).then((res) => {
+
+				}).catch(error => {
+					alert(error.response.data.message);
+				});
+			}
+		});
+	</script>
+
 <%- contentFor('styleTag') %>
 	<link rel="stylesheet" href="/stylesheets/user/pages/section.css" />
 	<%- contentFor('navbar') %>
@@ -38,7 +82,7 @@
 								맥락과 숨은 뜻까지 집어주는<br>
 								색다른 브리핑 서비스
 							</p>
-							<button class="section__col2__btn">
+							<button id="politic" class="section__col2__btn">
 								<p class="section__col2__btn__text">
 									팔로우
 								</p>

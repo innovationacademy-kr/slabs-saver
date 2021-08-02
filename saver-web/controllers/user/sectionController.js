@@ -1,6 +1,7 @@
 const moment = require('moment');
-const { Article, Author } = require('../../models');
+const { Article, Author, Subscriber } = require('../../models');
 const converter = require('../../lib/converter');
+const { subscribe } = require('../../routes');
 
 const getSectionRequest = async (req, res) => {
 	 const userEmail = req.decoded.userEmail;
@@ -18,13 +19,40 @@ const loginedSection = (req, res, next) => {
 	res.render('user/loginedSection', { title : 'slab-saver', layout: 'layout/userLayout'});
 }
 
+const updateFollowStatus = async (req, res, next) => {
+    const { userId, followValue } = req.body;
+    try {
+        const userFound = await Subscriber.findOne({ userId: userId})
+		if (userFound) {
+			Subscriber.update({
+				followSections: userFound.followSections + followValue + ","
+			}, {
+				where: { id: userId}
+			})
+		} else {
+			res.status(400).json({
+				result: false,
+				message: 'user ID 오류가 발생하였습니다.',
+			});
+		}
+    } catch (error) {
+        console.log(error);
+        res.status(400).json({
+            result: false,
+            message: `오류가 발생하였습니다 (${error.message})`,
+        });
+    }
+};
+
 module.exports = {
 	request: {
 		getSection: getSectionRequest,
 		// insertSection: insertSectionRequest
+		follow: updateFollowStatus,
 	},
 	page: {
 		section: sectionPage,
 		logined: loginedSection,
 	},
 };
+
