@@ -2,7 +2,7 @@
     <g>
         <path fill="#2b94e8" d="M87.841 205.317l5.859 5.473v-13.451H81.979v13.451z" transform="translate(-322 -922) translate(252.021 735.661)"/>
         <g>
-            <g fill="none" stroke="#c2c2c2" transform="translate(-322 -922) translate(322.333 922) translate(-.333)">
+            <g fill="none" stroke="#2b94e8" transform="translate(-322 -922) translate(322.333 922) translate(-.333)">
                 <rect width="36" height="36" stroke="none" rx="6"/>
                 <rect width="35" height="35" x=".5" y=".5" rx="5.5"/>
             </g>
