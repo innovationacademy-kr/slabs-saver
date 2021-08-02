@@ -1,5 +1,5 @@
 //임시로 공유버튼 설정 -> 수정 필요함
-const marked = "article__control__right-buttons__share-button"
+const marked = "article__control__right-buttons__bookmark-button-active"
 const unmarked = "article__control__right-buttons__bookmark-button"
 
 async function enrollBookmark(id) {

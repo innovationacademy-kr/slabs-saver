@@ -113,6 +113,16 @@
   width: 36px;
 }
 
+.article__control__right-buttons__bookmark-button-active {
+  background-image: url(../../icons/bookmark-button-active.svg);
+  background-position: center;
+  background-size: cover;
+
+  background-color: white;
+  height: 36px;
+  width: 36px;
+}
+
 /* 모달 바깥 불투명 배경 */
 .share-modal {
   display: none;
