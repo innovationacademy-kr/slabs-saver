@@ -5,9 +5,9 @@ const authMiddleware = require('../middlewares/auth');
 const bookmarkCtrl = require('../controllers/bookmark/bookmarkController');
 
 // 북마크
-router.get('/article', authMiddleware, bookmarkCtrl.page.bookmark);
-router.get('/more', authMiddleware, bookmarkCtrl.request.getBookmark);
-router.get('/:id', authMiddleware, bookmarkCtrl.request.checkBookmark);
+
+router.get('/article', authMiddleware, bookmarkCtrl.request.getBookmark);
+
 router.post('/:id', authMiddleware, bookmarkCtrl.request.createBookmark);
 router.delete('/:id', authMiddleware, bookmarkCtrl.request.deleteBookmark);
 
