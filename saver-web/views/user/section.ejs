@@ -1,26 +1,29 @@
 <%- contentFor('scriptTag') %>
 	<script>
-		const politic = document.querySelector("#politic");
+		let notYetLogineds = document.querySelectorAll("#notYetLogined");
 
-		politic.addEventListener('click', (e) => {
-			console.log("clicked(politic)");
-			if (!token) {
-				location.href = '/subscriber/login'
-			} else {
-				axios({
-					method: 'post',
-					url: '/section/user',
-					headers: {
-						'x-access-token': token
-					}
-				}).then((res) => {
-					location.href = '/section/logined'
+		for (let notYetLogined of notYetLogineds) {
 
-				}).catch(error => {
-					alert(error.response.data.message);
-				});
-			}
-		});
+			notYetLogined.addEventListener('click', (e) => {
+				console.log("clicked(politic)");
+				if (!token) {
+					location.href = '/subscriber/login'
+				} else {
+					axios({
+						method: 'post',
+						url: '/section/user',
+						headers: {
+							'x-access-token': token
+						}
+					}).then((res) => {
+						location.href = '/section/logined'
+
+					}).catch(error => {
+						alert(error.response.data.message);
+					});
+				}
+			});
+		}
 	</script>
 
 <%- contentFor('styleTag') %>
@@ -42,7 +45,7 @@
 						</div>
 						<div class="section__col2">
 							<p class="section__col2__text text-login">
-								로그인 하고 My Secrion 설정하기<br>
+								로그인 하고 My Section 설정하기<br>
 							</p>
 							<button onclick="location.href ='subscriber/login'" class="section__col2__btn ">
 								<p class="section__col2__btn__text">
@@ -67,7 +70,7 @@
 								맥락과 숨은 뜻까지 집어주는<br>
 								색다른 브리핑 서비스
 							</p>
-							<button id="politic" class="section__col2__btn">
+							<button id="notYetLogined" class="section__col2__btn">
 								<p class="section__col2__btn__text">
 									팔로우
 								</p>
@@ -86,7 +89,7 @@
 								어려운 이야기를 쉽게 풀어주는<br>
 								세이버 경제 섹션
 							</p>
-							<button class="section__col2__btn">
+							<button id="notYetLogined" class="section__col2__btn">
 								<p class="section__col2__btn__text">
 									팔로우
 								</p>
@@ -105,7 +108,7 @@
 								세이버에서 확인하세요<br>
 								정확한 뉴스를 전해드립니다.
 							</p>
-							<button class="section__col2__btn">
+							<button id="notYetLogined" class="section__col2__btn">
 								<p class="section__col2__btn__text">
 									팔로우
 								</p>
@@ -120,11 +123,11 @@
 						</div>
 						<div class="section__col2">
 							<p class="section__col2__text">
-								놓칠 수 없는 국제뉴스<br>
+								놓칠 수 없는 사회뉴스<br>
 								세이버에서 확인하세요<br>
 								정확한 뉴스를 전해드립니다.
 							</p>
-							<button class="section__col2__btn">
+							<button id="notYetLogined" class="section__col2__btn">
 								<p class="section__col2__btn__text">
 									팔로우
 								</p>
@@ -143,7 +146,7 @@
 								맥락과 숨은 뜻까지 집어주는<br>
 								색다른 브리핑 서비스
 							</p>
-							<button class="section__col2__btn">
+							<button id="notYetLogined" class="section__col2__btn">
 								<p class="section__col2__btn__text">
 									팔로우
 								</p>
@@ -165,7 +168,7 @@
 								오늘 당신이 알아야할 뉴스를 <br>
 								일목요연하게 알려드립니다.
 							</p>
-							<button class="section__col2__btn">
+							<button id="notYetLogined" class="section__col2__btn">
 								<p class="section__col2__btn__text">
 									팔로우
 								</p>
