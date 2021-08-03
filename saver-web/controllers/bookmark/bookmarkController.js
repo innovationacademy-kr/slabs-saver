@@ -1,4 +1,4 @@
-const { Bookmarks, Article } = require('../../models');
+const { Bookmarks, Article, Alarm } = require('../../models');
 const sequelize = require('../../models').sequelize;
 
 const getBookmarkRequest = async (req, res) => {
@@ -49,6 +49,12 @@ const createBookmarkRequest = async (req, res) => {
   }
   try {
     const result = await Bookmarks.create({
+      UserId: req.decoded.userId,
+      ArticleId: articleId,
+    });
+
+    //임시로 알람db도 같이저장
+      await Alarm.create({
       UserId: req.decoded.userId,
       ArticleId: articleId,
     });

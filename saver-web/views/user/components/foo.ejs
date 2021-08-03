@@ -32,7 +32,7 @@ var current = window.location.pathname;
 
   alarm.addEventListener('click', (e) => {
     if (token) {
-      alert('로그인한 유저');
+      location.href = '/alarm';
     } else {
       location.href = '/subscriber/login';
     }
