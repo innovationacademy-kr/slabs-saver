@@ -14,7 +14,7 @@ const deleteAlarm = async(id) => {
     }
     catch (err) {
         console.log(err.response)
-        alert('알람 제거에 실패했습니다.');
+        alert('알람 제거 실패.');
     }
 }
 
