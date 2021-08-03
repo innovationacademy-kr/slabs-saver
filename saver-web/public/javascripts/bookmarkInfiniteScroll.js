@@ -134,8 +134,9 @@ function fillBookmark(template, article, articleId) {
     'beforeend',
     `
       <div class="bookmark-section-text-area">
-        <a href="articles/detail/${articleId}"></a>
+        <a href="articles/detail/${articleId}">
         <p class="bookmark-section-text-text">${article.headline}</p>
+        </a>
       </div>
 `,
   );
