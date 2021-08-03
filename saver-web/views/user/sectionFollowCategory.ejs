@@ -9,7 +9,7 @@
 
     let currentUserID
 
-    // page load 시 로그인 정보 확인
+    // page load 시 로그인 정보 확인 / page 렌더
     window.onload = function () {
       if (!token) {
         location.href = '/section/'
@@ -28,6 +28,8 @@
             data: {
               userId: currentUserID,
             }
+          }).then((res) => {
+
           })
         }).catch(error => {
           alert(error.response.data.message);
@@ -48,7 +50,7 @@
             followValue: 1,
           }
         }).then((res) => {
-
+          location.reload();
         }).catch(error => {
           alert(error.response.data.message);
         });
@@ -68,7 +70,7 @@
             followValue: 2,
           }
         }).then((res) => {
-
+          location.reload();
         }).catch(error => {
           alert(error.response.data.message);
         });
@@ -88,7 +90,7 @@
             followValue: 3,
           }
         }).then((res) => {
-
+          location.reload();
         }).catch(error => {
           alert(error.response.data.message);
         });
@@ -108,7 +110,7 @@
             followValue: 4,
           }
         }).then((res) => {
-
+          location.reload();
         }).catch(error => {
           alert(error.response.data.message);
         });
@@ -128,7 +130,7 @@
             followValue: 5,
           }
         }).then((res) => {
-
+          location.reload();
         }).catch(error => {
           alert(error.response.data.message);
         });
@@ -148,7 +150,7 @@
             followValue: 6,
           }
         }).then((res) => {
-
+          location.reload();
         }).catch(error => {
           alert(error.response.data.message);
         });

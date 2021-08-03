@@ -70,13 +70,13 @@ const ampm = new Section(
   'ampm',
 )
 
-const sections = new Array();
-sections[1] = politic;
-sections[2] = economy;
-sections[3] = international;
-sections[4] = social;
-sections[5] = culture;
-sections[6] = ampm;
+const categories = new Array();
+categories[1] = politic;
+categories[2] = economy;
+categories[3] = international;
+categories[4] = social;
+categories[5] = culture;
+categories[6] = ampm;
 
 
-module.exports = sections;
+module.exports = categories;

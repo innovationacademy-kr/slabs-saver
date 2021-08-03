@@ -2,7 +2,7 @@ const moment = require('moment');
 const { Article, Author, Subscriber } = require('../../models');
 const converter = require('../../lib/converter');
 const { subscribe } = require('../../routes');
-const sections = require('../../public/javascripts/sectionCategory')
+const categories = require('../../public/javascripts/sectionCategory')
 
 let currentFollowingStatus = [];
 
@@ -27,15 +27,20 @@ const updateFollowStatus = async (req, res, next) => {
     try {
         const userFound = await Subscriber.findOne({ userId: userId})
 		if (userFound) {
-			Subscriber.update({
+			await Subscriber.update({
 				followingCategories: userFound.followingCategories + followValue + ","
 			}, {
 				where: { id: userId}
 			})
-			if (userFound.followingCategories)
-				currentFollowingStatus = await userFound.followingCategories.split(',')
-			res.render('user/sectionFollowCategory',
-				{ title : 'slab-saver', layout: 'layout/userLayout', section: sections, follow: currentFollowingStatus });
+			const updatedUserFound = await Subscriber.findOne({ userId: userId})
+			if (updatedUserFound.followingCategories)
+				currentFollowingStatus = updatedUserFound.followingCategories.split(',')
+			// await res.render('user/sectionFollowCategory',
+			// 	{ title : 'slab-saver', layout: 'layout/userLayout', section: categories, follow: currentFollowingStatus });
+			res.status(200).json({
+				categories: categories,
+				followStatus: currentFollowingStatus,
+			})
 		} else {
 			res.status(400).json({
 				result: false,
@@ -56,10 +61,11 @@ const initFollowStatus = async (req, res, next) => {
 	try {
 		const userFound = await Subscriber.findOne({ userId: userId})
 		if (userFound) {
-			if (userFound.followSections)
-				currentFollowingStatus = await userFound.followSections.split(',')
+			if (userFound.followingCategories)
+				currentFollowingStatus = await userFound.followingCategories.split(',')
 		}
-		await res.render('user/sectionFollowCategory', { title : 'slab-saver', layout: 'layout/userLayout', section: sections, follow: currentFollowingStatus });
+		await res.render('user/sectionFollowCategory',
+			{ title : 'slab-saver', layout: 'layout/userLayout', section: categories, follow: currentFollowingStatus });
     } catch (error) {
         console.log(error);
         res.status(400).json({
@@ -70,7 +76,8 @@ const initFollowStatus = async (req, res, next) => {
 };
 
 const loginedPage = (req, res, next) => {
-  res.render('user/sectionFollowCategory', { title : 'slab-saver', layout: 'layout/userLayout', section: sections, follow: currentFollowingStatus });
+	res.render('user/sectionFollowCategory',
+		{ title : 'slab-saver', layout: 'layout/userLayout', section: categories, follow: currentFollowingStatus });
 }
 
 module.exports = {
