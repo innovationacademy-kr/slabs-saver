@@ -9,16 +9,26 @@
   <button id="alarm" class="footer__button white">
     <i class="icon icon-alarm inactive"></i>
   </button>
-  <button id="bookmark" class="footer__button white">
-    <i class="icon icon-bookmark inactive"></i>
+  <button id="bookmark" class="footer__button white" data-link="/bookmark">
+    <i class="icon icon-bookmark inactive" ></i>
   </button>
 </footer>
 
 <%- contentFor('scriptTag') %>
 <script>
+
+var current = window.location.pathname;
+  const icon = document.querySelector(`.footer__button[data-link="${current}"] i`);
+  if (icon) {
+    icon.classList.add('active');
+    icon.classList.remove('inactive');
+  }
+
   const alarm = document.querySelector('#alarm');
   const bookmark = document.querySelector('#bookmark');
   const token = localStorage['jwtToken'];
+
+
 
   alarm.addEventListener('click', (e) => {
     if (token) {
@@ -35,10 +45,5 @@
     }
   });
 
-  var current = window.location.pathname;
-  const icon = document.querySelector(`.footer__button[data-link="${current}"] i`);
-  if (icon) {
-    icon.classList.add('active');
-    icon.classList.remove('inactive');
-  }
+
 </script>

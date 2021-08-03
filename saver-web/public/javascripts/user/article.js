@@ -30,7 +30,7 @@ $(document).ready(function () {
   if (kakaoBtn) KaKaoShare(kakaoBtn.id, article);
   const bookmarkBtn = document.getElementById('btn_bookmark');
   const pathnames = pathname.split('/');
+  selectBookmarkClass(pathnames[pathnames.length - 1], "btn_bookmark"); 
 
-  console.log(pathnames[pathnames.length - 1]);
-  if (bookmarkBtn) bookmarkBtn.onclick = () => enrollBookmark(pathnames[pathnames.length - 1]);
+  if (bookmarkBtn) bookmarkBtn.onclick = () => clickBookmark(pathnames[pathnames.length - 1], "btn_bookmark");
 });
