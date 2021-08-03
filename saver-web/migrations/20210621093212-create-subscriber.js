@@ -29,7 +29,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER
       },
-      followSections: {
+      followingCategories: {
         allowNull: true,
         type: Sequelize.STRING
       }

@@ -7,6 +7,7 @@ const sectionCtrl = require('../controllers/user/sectionController');
 
 router.get('/', sectionCtrl.page.section);
 router.get('/logined', sectionCtrl.page.logined);
+router.post('/init', sectionCtrl.request.init);
 router.get('/loginedTest', sectionCtrl.page.loginedTest);
 router.post('/user', authMiddleware, sectionCtrl.request.getSection);
 router.post('/follow', sectionCtrl.request.follow)

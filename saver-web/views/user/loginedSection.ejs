@@ -10,7 +10,7 @@
 		let currentUserID
 
 		// page load 시 로그인 정보 확인
-		window.onload = function() {
+		window.onload = function () {
 			if (!token) {
 				location.href = '/section/'
 			} else {
@@ -34,13 +34,13 @@
 				location.href = '/section/follow'
 			} else {
 				axios({
-						method: 'post',
-						url: 'follow',
-						data: {
-							userId: currentUserID,
-							followValue: 1,
-						}
-					}).then((res) => {
+					method: 'post',
+					url: 'follow',
+					data: {
+						userId: currentUserID,
+						followValue: 1,
+					}
+				}).then((res) => {
 
 				}).catch(error => {
 					alert(error.response.data.message);
@@ -54,13 +54,13 @@
 				location.href = '/section/follow'
 			} else {
 				axios({
-						method: 'post',
-						url: 'follow',
-						data: {
-							userId: currentUserID,
-							followValue: 2,
-						}
-					}).then((res) => {
+					method: 'post',
+					url: 'follow',
+					data: {
+						userId: currentUserID,
+						followValue: 2,
+					}
+				}).then((res) => {
 
 				}).catch(error => {
 					alert(error.response.data.message);
@@ -74,13 +74,13 @@
 				location.href = '/section/follow'
 			} else {
 				axios({
-						method: 'post',
-						url: 'follow',
-						data: {
-							userId: currentUserID,
-							followValue: 3,
-						}
-					}).then((res) => {
+					method: 'post',
+					url: 'follow',
+					data: {
+						userId: currentUserID,
+						followValue: 3,
+					}
+				}).then((res) => {
 
 				}).catch(error => {
 					alert(error.response.data.message);
@@ -94,13 +94,13 @@
 				location.href = '/section/follow'
 			} else {
 				axios({
-						method: 'post',
-						url: 'follow',
-						data: {
-							userId: currentUserID,
-							followValue: 4,
-						}
-					}).then((res) => {
+					method: 'post',
+					url: 'follow',
+					data: {
+						userId: currentUserID,
+						followValue: 4,
+					}
+				}).then((res) => {
 
 				}).catch(error => {
 					alert(error.response.data.message);
@@ -114,13 +114,13 @@
 				location.href = '/section/follow'
 			} else {
 				axios({
-						method: 'post',
-						url: 'follow',
-						data: {
-							userId: currentUserID,
-							followValue: 5,
-						}
-					}).then((res) => {
+					method: 'post',
+					url: 'follow',
+					data: {
+						userId: currentUserID,
+						followValue: 5,
+					}
+				}).then((res) => {
 
 				}).catch(error => {
 					alert(error.response.data.message);
@@ -134,13 +134,13 @@
 				location.href = '/section/follow'
 			} else {
 				axios({
-						method: 'post',
-						url: 'follow',
-						data: {
-							userId: currentUserID,
-							followValue: 6,
-						}
-					}).then((res) => {
+					method: 'post',
+					url: 'follow',
+					data: {
+						userId: currentUserID,
+						followValue: 6,
+					}
+				}).then((res) => {
 
 				}).catch(error => {
 					alert(error.response.data.message);
@@ -150,150 +150,87 @@
 
 	</script>
 
-<%- contentFor('styleTag') %>
-	<link rel="stylesheet" href="/stylesheets/user/pages/section.css" />
-	<%- contentFor('navbar') %>
-		<%- include('./components/nav.ejs') %>
 
-			<%- contentFor('body') %>
-				<div class="section-page white">
-					<div class="section-div">
-						<h3 class="section-div__title">My Section</h3>
-					</div>
 
-					<!--login -->
-					<div class="section ice-blue-two">
-						<div class="section__col1">
-							<div class="section__col1__title my">saver</div>
-							<div class="logo-small-blue"></div>
-						</div>
-						<div class="section__col2">
-							<p class="section__col2__text text-login">
-								아직 팔로우 한 섹션이 없습니다.<br>
-								원하는 섹션을 Other Section에서 팔로우하세요.<br>
-							</p>
-						</div>
-					</div>
-					<div class="section-div white">
-						<h3 class="section-div__title">Other Section</h3>
-					</div>
+	<%- contentFor('styleTag') %>
+		<link rel="stylesheet" href="/stylesheets/user/pages/section.css" />
 
-					<!--section - politic -->
-					<div class="section ice-blue">
-						<div class="section__col1">
-							<div class="section__col1__title other">정치</div>
-							<div class="icon-politics-big-purple"></div>
-						</div>
-						<div class="section__col2">
-							<p class="section__col2__text">
-								애매모호한 설명은 없다.<br>
-								맥락과 숨은 뜻까지 집어주는<br>
-								색다른 브리핑 서비스
-							</p>
-							<button id="politic" class="section__col2__btn">
-								<p class="section__col2__btn__text">
-									팔로우
-								</p>
-						</div>
-					</div>
+		<%- contentFor('navbar') %>
+			<%- include('./components/nav.ejs') %>
 
-					<!--section - economy -->
-					<div class="section ice-blue">
-						<div class="section__col1">
-							<div class="section__col1__title other">경제</div>
-							<div class="icon-economy-big-purple"></div>
+				<%- contentFor('body') %>
+					<div class="section-page white">
+						<div class="section-div">
+							<h3 class="section-div__title">My Section</h3>
 						</div>
-						<div class="section__col2">
-							<p class="section__col2__text">
-								부동산, 증시, 경기전망<br>
-								어려운 이야기를 쉽게 풀어주는<br>
-								세이버 경제 섹션
-							</p>
-							<button id="economy" class="section__col2__btn">
-								<p class="section__col2__btn__text">
-									팔로우
-								</p>
-						</div>
-					</div>
 
-					<!--section - international -->
-					<div class="section ice-blue">
-						<div class="section__col1">
-							<div class="section__col1__title other">국제</div>
-							<div class="icon-international-big-purple"></div>
-						</div>
-						<div class="section__col2">
-							<p class="section__col2__text">
-								놓칠 수 없는 국제뉴스 <br>
-								세이버에서 확인하세요<br>
-								정확한 뉴스를 전해드립니다.
-							</p>
-							<button id="international" class="section__col2__btn">
-								<p class="section__col2__btn__text">
-									팔로우
-								</p>
-						</div>
-					</div>
+						<!--Section: following -->
+						<% for(var i=0; i < section.length; i++){ %>
 
-					<!--section - social -->
-					<div class="section ice-blue">
-						<div class="section__col1">
-							<div class="section__col1__title other">사회</div>
-							<div class="icon-social-big-purple"></div>
-						</div>
-						<div class="section__col2">
-							<p class="section__col2__text">
-								놓칠 수 없는 국제뉴스<br>
-								세이버에서 확인하세요<br>
-								정확한 뉴스를 전해드립니다.
-							</p>
-							<button id="social" class="section__col2__btn">
-								<p class="section__col2__btn__text">
-									팔로우
-								</p>
-						</div>
-					</div>
+							<% if (i==follow.find((e)=> e == i)) { %>
 
-					<!--section - culture -->
-					<div class="section ice-blue">
-						<div class="section__col1">
-							<div class="section__col1__title other">문화</div>
-							<div class="icon-culture-big-purple"></div>
-						</div>
-						<div class="section__col2">
-							<p class="section__col2__text">
-								애매모호한 설명은 없다.<br>
-								맥락과 숨은 뜻까지 집어주는<br>
-								색다른 브리핑 서비스
-							</p>
-							<button id="culture" class="section__col2__btn">
-								<p class="section__col2__btn__text">
-									팔로우
-								</p>
-						</div>
-					</div>
+								<div class="section ice-blue-two">
+									<div class="section__col1">
+										<div class="section__col1__title my">
+											<%=section[i].title%>
+										</div>
+										<% var icon="icon-" + section[i].icon + "-big-blue" %>
+											<div class=<%=icon%>></div>
+									</div>
+									<div class="section__col2">
+										<p class="section__col2__text text-login">
 
-					<!--section - 7 -->
-					<div class="section ice-blue">
-						<div class="section__col1">
-							<div class="section__col1__title other">
-								AM7 <br>
-								PM7
-							</div>
-							<div class="icon-7-big-purple"></div>
-						</div>
-						<div class="section__col2">
-							<p class="section__col2__text">
-								아침 7시, 저녁7시 <br>
-								오늘 당신이 알아야할 뉴스를 <br>
-								일목요연하게 알려드립니다.
-							</p>
-							<button id="ampm" class="section__col2__btn">
-								<p class="section__col2__btn__text">
-									팔로우
-								</p>
-						</div>
-					</div>
-				</div>
-				<%- contentFor('footer') %>
-					<%- include('./components/foo.ejs') %>
+											<% for(var j=0; j < section[i].text.length; j++){ %>
+												<%= section[i].text[j] %> <br>
+													<% } %>
+										</p>
+										<!-- TODO: 팔로우 해제 버튼 -->
+										<button id=<%=section[i].icon %> class="section__col2__btn ">
+											<p class="section__col2__btn__text">
+												팔로잉
+											</p>
+										</button>
+									</div>
+								</div>
+
+								<% } %>
+									<% } %>
+
+										<div class="section-div white">
+											<h3 class="section-div__title">Other Section</h3>
+										</div>
+
+										<!--Section: follow -->
+										<% for(var i=0; i < section.length; i++){ %>
+
+											<% if (i==follow.find((e)=> e == i)) { %>
+												<% continue; %>
+													<% } %>
+
+														<div class="section ice-blue">
+															<div class="section__col1">
+																<div class="section__col1__title other">
+																	<%=section[i].title%>
+																</div>
+																<% var icon="icon-" + section[i].icon + "-big-purple" %>
+																	<div class=<%=icon%>></div>
+															</div>
+															<div class="section__col2">
+																<p class="section__col2__text">
+																	<% for(var j=0; j < section[i].text.length; j++){ %>
+																		<%= section[i].text[j] %> <br>
+																			<% } %>
+																</p>
+																<!-- TODO: 팔로우 버튼 -->
+																<button id=<%=section[i].icon %>
+																	class="section__col2__btn">
+																	<p class="section__col2__btn__text">
+																		팔로우
+																	</p>
+															</div>
+														</div>
+
+														<% } %>
+
+															<%- contentFor('footer') %>
+																<%- include('./components/foo.ejs') %>

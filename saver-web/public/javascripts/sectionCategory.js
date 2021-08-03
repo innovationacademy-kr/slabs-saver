@@ -1,13 +1,14 @@
 
 /* Section Class */
 class Section {
-  constructor(title, text, icon) {
+  constructor(title, text, icon, button) {
     this.title = title;
     this.text = text;
     this.icon = icon;
+    this.button = button;
   }
 }
-const politics = new Section(
+const politic = new Section(
   '정치',
   [
     '애매모호한 설명은 없다.',
@@ -15,6 +16,7 @@ const politics = new Section(
     '색다른 브리핑 서비스',
   ],
   'politics',
+  'politic',
 )
 const economy = new Section(
   '경제',
@@ -23,6 +25,7 @@ const economy = new Section(
     '어려운 이야기를 쉽게 풀어주는',
     '세이버 경제 섹션',
   ],
+  'economy',
   'economy',
 )
 const international = new Section(
@@ -33,6 +36,7 @@ const international = new Section(
     '정확한 뉴스를 전해드립니다.',
   ],
   'international',
+  'international',
 )
 const social = new Section(
   '사회',
@@ -41,6 +45,7 @@ const social = new Section(
     '세이버에서 확인하세요',
     '정확한 뉴스를 전해드립니다.',
   ],
+  'social',
   'social',
 )
 
@@ -52,8 +57,9 @@ const culture = new Section(
     '영화 영화 영화 ',
   ],
   'culture',
+  'culture',
 )
-const sevenAMPM = new Section(
+const ampm = new Section(
   'AM7/PM7',
   [
     '아침 7시, 저녁7시',
@@ -61,15 +67,16 @@ const sevenAMPM = new Section(
     '일목요연하게 알려드립니다.',
   ],
   '7',
+  'ampm',
 )
 
 const sections = new Array();
-sections[0] = politics;
-sections[1] = economy;
-sections[2] = international;
-sections[3] = social;
-sections[4] = culture;
-sections[5] = sevenAMPM;
+sections[1] = politic;
+sections[2] = economy;
+sections[3] = international;
+sections[4] = social;
+sections[5] = culture;
+sections[6] = ampm;
 
 
 module.exports = sections;

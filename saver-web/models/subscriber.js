@@ -40,7 +40,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    followSections: {
+    followingCategories: {
       type: DataTypes.STRING,
       allowNull: true,
     }

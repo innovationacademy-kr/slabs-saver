@@ -4,6 +4,8 @@ const converter = require('../../lib/converter');
 const { subscribe } = require('../../routes');
 const sections = require('../../public/javascripts/sectionCategory')
 
+let currentFollowingStatus = [];
+
 const getSectionRequest = async (req, res) => {
 	 const userEmail = req.decoded.userEmail;
 	 const userId = req.decoded.userId;
@@ -26,10 +28,14 @@ const updateFollowStatus = async (req, res, next) => {
         const userFound = await Subscriber.findOne({ userId: userId})
 		if (userFound) {
 			Subscriber.update({
-				followSections: userFound.followSections + followValue + ","
+				followingCategories: userFound.followingCategories + followValue + ","
 			}, {
 				where: { id: userId}
 			})
+			if (userFound.followingCategories)
+				currentFollowingStatus = await userFound.followingCategories.split(',')
+			res.render('user/sectionFollowCategory',
+				{ title : 'slab-saver', layout: 'layout/userLayout', section: sections, follow: currentFollowingStatus });
 		} else {
 			res.status(400).json({
 				result: false,
@@ -45,11 +51,26 @@ const updateFollowStatus = async (req, res, next) => {
     }
 };
 
-const follow = [1,2]
+const initFollowStatus = async (req, res, next) => {
+    const { userId } = req.body
+	try {
+		const userFound = await Subscriber.findOne({ userId: userId})
+		if (userFound) {
+			if (userFound.followSections)
+				currentFollowingStatus = await userFound.followSections.split(',')
+		}
+		await res.render('user/sectionFollowCategory', { title : 'slab-saver', layout: 'layout/userLayout', section: sections, follow: currentFollowingStatus });
+    } catch (error) {
+        console.log(error);
+        res.status(400).json({
+            result: false,
+            message: `오류가 발생하였습니다 (${error.message})`,
+        });
+    }
+};
 
 const loginedPage = (req, res, next) => {
-  console.log(sections[0])
-  res.render('user/sectionFollowCategory', { title : 'slab-saver', layout: 'layout/userLayout', section: sections, follow: follow });
+  res.render('user/sectionFollowCategory', { title : 'slab-saver', layout: 'layout/userLayout', section: sections, follow: currentFollowingStatus });
 }
 
 module.exports = {
@@ -57,6 +78,7 @@ module.exports = {
 		getSection: getSectionRequest,
 		// insertSection: insertSectionRequest
 		follow: updateFollowStatus,
+		init: initFollowStatus,
 	},
 	page: {
 		section: sectionPage,
