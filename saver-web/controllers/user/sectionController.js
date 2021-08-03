@@ -2,6 +2,7 @@ const moment = require('moment');
 const { Article, Author, Subscriber } = require('../../models');
 const converter = require('../../lib/converter');
 const { subscribe } = require('../../routes');
+const sections = require('../../public/javascripts/sectionCategory')
 
 const getSectionRequest = async (req, res) => {
 	 const userEmail = req.decoded.userEmail;
@@ -44,6 +45,13 @@ const updateFollowStatus = async (req, res, next) => {
     }
 };
 
+const follow = [1,2]
+
+const loginedPage = (req, res, next) => {
+  console.log(sections[0])
+  res.render('user/sectionFollowCategory', { title : 'slab-saver', layout: 'layout/userLayout', section: sections, follow: follow });
+}
+
 module.exports = {
 	request: {
 		getSection: getSectionRequest,
@@ -53,6 +61,6 @@ module.exports = {
 	page: {
 		section: sectionPage,
 		logined: loginedSection,
+		loginedTest: loginedPage,
 	},
 };
-

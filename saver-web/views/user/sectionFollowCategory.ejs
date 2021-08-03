@@ -1,0 +1,81 @@
+<%- contentFor('styleTag') %>
+<link rel="stylesheet" href="/stylesheets/user/pages/section.css" />
+
+<%- contentFor('navbar') %>
+<%- include('./components/nav.ejs') %>
+
+<%- contentFor('body') %>
+<div class="section-page white">
+  <div class="section-div">
+    <h3 class="section-div__title">My Section</h3>
+  </div>
+
+  <!--Section: following -->
+  <% for(var i = 0; i < section.length; i++){ %> 
+
+  <% if (i == follow.find((e) => e == i)) { %>
+
+  <div class="section ice-blue-two">
+    <div class="section__col1">
+      <div class="section__col1__title my">
+        <%=section[i].title%>
+      </div>
+      <% var icon = "icon-"+ section[i].icon + "-big-blue" %>
+      <div class=<%=icon%>></div>
+    </div>
+    <div class="section__col2">
+      <p class="section__col2__text text-login">
+
+      <% for(var j = 0; j < section[i].text.length; j++){ %> 
+      <%= section[i].text[j] %> <br>
+      <% } %>
+      </p>
+      <!-- TODO: 팔로우 해제 버튼 -->
+      <button id=<%= section[i].icon %> class="section__col2__btn ">
+        <p class="section__col2__btn__text">
+        팔로잉
+        </p>
+      </button>
+    </div>
+  </div>
+
+  <% } %>
+  <% } %>
+
+  <div class="section-div white">
+    <h3 class="section-div__title">Other Section</h3>
+  </div>
+
+  <!--Section: follow -->
+  <% for(var i = 0; i < section.length; i++){ %> 
+
+  <% if (i == follow.find((e) => e == i)) { %>
+  <% continue; %>
+  <% } %>
+
+  <div class="section ice-blue">
+    <div class="section__col1">
+      <div class="section__col1__title other">
+        <%=section[i].title%>
+      </div>
+      <% var icon = "icon-"+ section[i].icon + "-big-purple" %>
+      <div class=<%=icon%>></div>
+    </div>
+    <div class="section__col2">
+      <p class="section__col2__text">
+      <% for(var j = 0; j < section[i].text.length; j++){ %> 
+      <%= section[i].text[j] %> <br>
+      <% } %>
+      </p>
+      <!-- TODO: 팔로우 버튼 -->
+      <button id=<%= section[i].icon %> class="section__col2__btn">
+        <p class="section__col2__btn__text">
+        팔로우
+        </p>
+    </div>
+  </div>
+
+  <% } %>
+
+  <%- contentFor('footer') %>
+  <%- include('./components/foo.ejs') %>

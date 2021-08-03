@@ -29,7 +29,8 @@
 					}
 				}).then((res) => {
 					console.log("res.userId = "+res.data); //local console에 잠깐 떴다 사라집니다.
-					location.href = '/section/logined'
+					//location.href = '/section/logined'
+					location.href = '/section/loginedTest'
 				}).catch(error => {
 					alert(error.response.data.message);
 				});				
