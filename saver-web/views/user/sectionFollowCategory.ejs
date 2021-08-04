@@ -14,8 +14,47 @@
     const destroyCulture = document.querySelector("#destroyCulture");
     const destroyAmpm = document.querySelector("#destroyAmpm");
 
-
     let currentUserID
+
+    const print_section = function(e) {
+          console.log(e)
+        }
+
+    const init_section = function(id) {
+          const class_name = "#" + id;
+          const div_id = document.querySelector(class_name);
+          div_id.style.display="none"
+        }
+
+    const section_display_change = function(e) {
+          let div_id;
+          let following = false;
+          //check-button-id : button or text-field
+          // 버튼안의 텍스트를 클릭했을 경우 버튼id가져오기
+          if (e.srcElement.id == "")
+                div_id = e.srcElement.parentElement.id
+          else
+            div_id = e.srcElement.id
+          //destroy버튼일경우 소문자로, 팔로잉상태 on, 앞에문자제거.
+          if (div_id.indexOf("destroy") == 0) {
+                following = true;
+                div_id = div_id.substring(7, div_id.length);
+                div_id = div_id.toLowerCase();
+              }
+          console.log(div_id);
+
+          const my_section = document.querySelector("#my-" + div_id)
+          const other_section = document.querySelector("#other-" + div_id)
+          //상단하단 div-section display 상태 변경하기
+          if (following) {
+                my_section.style.display="none"
+                other_section.style.display="grid"
+
+              } else {
+                    my_section.style.display="grid"
+                    other_section.style.display="none"
+                  }
+        }
 
     // page load 시 로그인 정보 확인 / page 렌더
     window.onload = function () {
@@ -59,7 +98,7 @@ if (politic) {
             followValue: 1,
           }
         }).then((res) => {
-          location.reload();
+              section_display_change(e)
         }).catch(error => {
           alert(error.response.data.message);
         });
@@ -81,7 +120,7 @@ if (politic) {
             followValue: 2,
           }
         }).then((res) => {
-          location.reload();
+              section_display_change(e)
         }).catch(error => {
           alert(error.response.data.message);
         });
@@ -103,7 +142,7 @@ if (international) {
             followValue: 3,
           }
         }).then((res) => {
-          location.reload();
+              section_display_change(e)
         }).catch(error => {
           alert(error.response.data.message);
         });
@@ -125,7 +164,7 @@ if (international) {
             followValue: 4,
           }
         }).then((res) => {
-          location.reload();
+              section_display_change(e)
         }).catch(error => {
           alert(error.response.data.message);
         });
@@ -147,7 +186,7 @@ if (international) {
             followValue: 5,
           }
         }).then((res) => {
-          location.reload();
+              section_display_change(e)
         }).catch(error => {
           alert(error.response.data.message);
         });
@@ -169,16 +208,13 @@ if (international) {
             followValue: 6,
           }
         }).then((res) => {
-          location.reload();
+              section_display_change(e)
         }).catch(error => {
           alert(error.response.data.message);
         });
       }
     });
   }
-
-
-
 
   if (destroyPolitic) {
     destroyPolitic.addEventListener('click', (e) => {
@@ -193,7 +229,7 @@ if (international) {
             followValue: 1,
           }
         }).then((res) => {
-          location.reload();
+              section_display_change(e)
         }).catch(error => {
           alert(error.response.data.message);
         });
@@ -214,7 +250,7 @@ if (international) {
             followValue: 2,
           }
         }).then((res) => {
-          location.reload();
+              section_display_change(e)
         }).catch(error => {
           alert(error.response.data.message);
         });
@@ -235,7 +271,7 @@ if (international) {
             followValue: 3,
           }
         }).then((res) => {
-          location.reload();
+              section_display_change(e)
         }).catch(error => {
           alert(error.response.data.message);
         });
@@ -256,7 +292,7 @@ if (international) {
             followValue: 4,
           }
         }).then((res) => {
-          location.reload();
+              section_display_change(e)
         }).catch(error => {
           alert(error.response.data.message);
         });
@@ -277,7 +313,7 @@ if (international) {
             followValue: 5,
           }
         }).then((res) => {
-          location.reload();
+              section_display_change(e)
         }).catch(error => {
           alert(error.response.data.message);
         });
@@ -298,7 +334,7 @@ if (international) {
             followValue: 6,
           }
         }).then((res) => {
-          location.reload();
+              section_display_change(e)
         }).catch(error => {
           alert(error.response.data.message);
         });
@@ -323,9 +359,18 @@ if (international) {
             <!--Section: following -->
             <% for(var i=1; i < section.length; i++){ %>
 
-              <% if (i==follow.find((e)=> e == i)) { %>
+            <!--set id: following section div -->
+              <% var mySectionDiv = "my-" + section[i].button %>
+              <div id=<%= mySectionDiv %> class="section ice-blue-two">
 
-                <div class="section ice-blue-two">
+            <!--open section only following -->
+                <% if (i != follow.find((e) => e == i)) { %>
+                <script>
+                  print_section("<%=section[i].title%>")
+                  init_section("<%= mySectionDiv %>");
+                </script>
+                <% } %>
+
                   <div class="section__col1">
                     <div class="section__col1__title my">
                       <%=section[i].title%>
@@ -350,7 +395,6 @@ if (international) {
                 </div>
 
                 <% } %>
-                  <% } %>
 
                     <div class="section-div white">
                       <h3 class="section-div__title">Other Section</h3>
@@ -359,11 +403,18 @@ if (international) {
                     <!--Section: follow -->
                     <% for(var i=1; i < section.length; i++){ %>
 
-                      <% if (i==follow.find((e)=> e == i)) { %>
-                        <% continue; %>
-                          <% } %>
+            <!--set id: follow section div -->
+              <% var otherSectionDiv = "other-" + section[i].button %>
+              <div id=<%= otherSectionDiv %> class="section ice-blue">
 
-                            <div class="section ice-blue">
+                <!--open section only not followed -->
+                <% if (i == follow.find((e) => e == i)) { %>
+                <script>
+                  print_section("<%=section[i].title%>")
+                  init_section("<%= otherSectionDiv %>");
+                </script>
+                <% } %>
+
                               <div class="section__col1">
                                 <div class="section__col1__title other">
                                   <%=section[i].title%>
