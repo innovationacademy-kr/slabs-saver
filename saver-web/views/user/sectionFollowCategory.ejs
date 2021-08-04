@@ -7,6 +7,14 @@
     const culture = document.querySelector("#culture");
     const ampm = document.querySelector("#ampm");
 
+    const destroyPolitic = document.querySelector("#destroyPolitic");
+    const destroyEconomy = document.querySelector("#destroyEconomy");
+    const destroyInternational = document.querySelector("#destroyInternational");
+    const destroySocial = document.querySelector("#destroySocial");
+    const destroyCulture = document.querySelector("#destroyCulture");
+    const destroyAmpm = document.querySelector("#destroyAmpm");
+
+
     let currentUserID
 
     // page load 시 로그인 정보 확인 / page 렌더
@@ -38,7 +46,8 @@
     }
 
     // politic follow button (value = 1)
-    politic.addEventListener('click', (e) => {
+if (politic) {
+  politic.addEventListener('click', (e) => {
       if (!token) {
         location.href = '/section/follow'
       } else {
@@ -56,7 +65,9 @@
         });
       }
     });
+  }
 
+  if (economy) {
     // economy follow button (value = 2)
     economy.addEventListener('click', (e) => {
       if (!token) {
@@ -76,7 +87,9 @@
         });
       }
     });
+}
 
+if (international) {
     // international follow button (value = 3)
     international.addEventListener('click', (e) => {
       if (!token) {
@@ -96,7 +109,9 @@
         });
       }
     });
+  }
 
+  if (social) {
     // social follow button (value = 4)
     social.addEventListener('click', (e) => {
       if (!token) {
@@ -116,7 +131,9 @@
         });
       }
     });
+  }
 
+  if (culture) {
     // culture follow button (value = 5)
     culture.addEventListener('click', (e) => {
       if (!token) {
@@ -136,7 +153,9 @@
         });
       }
     });
+  }
 
+  if (ampm) {
     // ampm follow buttton (value = 6)
     ampm.addEventListener('click', (e) => {
       if (!token) {
@@ -156,6 +175,136 @@
         });
       }
     });
+  }
+
+
+
+
+  if (destroyPolitic) {
+    destroyPolitic.addEventListener('click', (e) => {
+      if (!token) {
+        location.href = '/section/unfollow'
+      } else {
+        axios({
+          method: 'post',
+          url: 'unfollow',
+          data: {
+            userId: currentUserID,
+            followValue: 1,
+          }
+        }).then((res) => {
+          location.reload();
+        }).catch(error => {
+          alert(error.response.data.message);
+        });
+      }
+    });
+  }
+
+  if (destroyEconomy) {
+    destroyEconomy.addEventListener('click', (e) => {
+      if (!token) {
+        location.href = '/section/unfollow'
+      } else {
+        axios({
+          method: 'post',
+          url: 'unfollow',
+          data: {
+            userId: currentUserID,
+            followValue: 2,
+          }
+        }).then((res) => {
+          location.reload();
+        }).catch(error => {
+          alert(error.response.data.message);
+        });
+      }
+    });
+  }
+
+  if (destroyInternational) {
+    destroyInternational.addEventListener('click', (e) => {
+      if (!token) {
+        location.href = '/section/unfollow'
+      } else {
+        axios({
+          method: 'post',
+          url: 'unfollow',
+          data: {
+            userId: currentUserID,
+            followValue: 3,
+          }
+        }).then((res) => {
+          location.reload();
+        }).catch(error => {
+          alert(error.response.data.message);
+        });
+      }
+    });
+  }
+
+  if (destroySocial) {
+    destroySocial.addEventListener('click', (e) => {
+      if (!token) {
+        location.href = '/section/unfollow'
+      } else {
+        axios({
+          method: 'post',
+          url: 'unfollow',
+          data: {
+            userId: currentUserID,
+            followValue: 4,
+          }
+        }).then((res) => {
+          location.reload();
+        }).catch(error => {
+          alert(error.response.data.message);
+        });
+      }
+    });
+  }
+
+  if (destroyCulture) {
+    destroyCulture.addEventListener('click', (e) => {
+      if (!token) {
+        location.href = '/section/unfollow'
+      } else {
+        axios({
+          method: 'post',
+          url: 'unfollow',
+          data: {
+            userId: currentUserID,
+            followValue: 5,
+          }
+        }).then((res) => {
+          location.reload();
+        }).catch(error => {
+          alert(error.response.data.message);
+        });
+      }
+    });
+  }
+
+  if (destroyAmpm) {
+    destroyAmpm.addEventListener('click', (e) => {
+      if (!token) {
+        location.href = '/section/unfollow'
+      } else {
+        axios({
+          method: 'post',
+          url: 'unfollow',
+          data: {
+            userId: currentUserID,
+            followValue: 6,
+          }
+        }).then((res) => {
+          location.reload();
+        }).catch(error => {
+          alert(error.response.data.message);
+        });
+      }
+    });
+  }
 
   </script>
 
@@ -192,7 +341,7 @@
                           <% } %>
                     </p>
                     <!-- TODO: 팔로우 해제 버튼 -->
-                    <button id=<%=section[i].button %> class="section__col2__btn ">
+                    <button id=<%=section[i].destroyButton %> class="section__col2__btn ">
                       <p class="section__col2__btn__text">
                         팔로잉
                       </p>

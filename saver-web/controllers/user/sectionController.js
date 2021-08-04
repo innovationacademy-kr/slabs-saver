@@ -22,23 +22,61 @@ const loginedSection = (req, res, next) => {
 	res.render('user/loginedSection', { title : 'slab-saver', layout: 'layout/userLayout'});
 }
 
+const destroyFollowStatus = async (req, res, next) => {
+    const { userId, followValue } = req.body;
+    try {
+		console.log("destroy!");
+        const userFound = await Subscriber.findOne({ userId: userId})
+		if (userFound) {
+			if (userFound.followingCategories)
+			{
+				currentFollowingStatus = userFound.followingCategories.split(',');
+				let index = currentFollowingStatus.indexOf(followValue);
+				console.log(index);
+				currentFollowingStatus.splice(index, 1);
+			}
+			await Subscriber.update({
+				followingCategories: currentFollowingStatus.join()
+			}, {
+				where: {id: userId }
+			})
+			console.log(currentFollowingStatus);
+			res.status(200).json({
+				followStatus: currentFollowingStatus,
+			})
+		} else {
+			res.status(400).json({
+				result: false,
+				message: 'user ID 오류가 발생하였습니다.',
+			});
+		}
+    } catch (error) {
+        console.log(error);
+        res.status(400).json({
+            result: false,
+            message: `오류가 발생하였습니다 (${error.message})`,
+        });
+    }
+};
+
 const updateFollowStatus = async (req, res, next) => {
     const { userId, followValue } = req.body;
     try {
+		console.log("update!");
         const userFound = await Subscriber.findOne({ userId: userId})
 		if (userFound) {
+			if (userFound.followingCategories)
+				currentFollowingStatus = userFound.followingCategories.split(',');
+			currentFollowingStatus.push(followValue);
 			await Subscriber.update({
-				followingCategories: userFound.followingCategories + followValue + ","
+				followingCategories: currentFollowingStatus.join()
 			}, {
-				where: { id: userId}
+				where: { id: userId }
 			})
-			const updatedUserFound = await Subscriber.findOne({ userId: userId})
-			if (updatedUserFound.followingCategories)
-				currentFollowingStatus = updatedUserFound.followingCategories.split(',')
+			console.log(currentFollowingStatus);
 			// await res.render('user/sectionFollowCategory',
 			// 	{ title : 'slab-saver', layout: 'layout/userLayout', section: categories, follow: currentFollowingStatus });
 			res.status(200).json({
-				categories: categories,
 				followStatus: currentFollowingStatus,
 			})
 		} else {
@@ -85,6 +123,7 @@ module.exports = {
 		getSection: getSectionRequest,
 		// insertSection: insertSectionRequest
 		follow: updateFollowStatus,
+		unfollow: destroyFollowStatus,
 		init: initFollowStatus,
 	},
 	page: {

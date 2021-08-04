@@ -10,6 +10,7 @@ router.get('/logined', sectionCtrl.page.logined);
 router.post('/init', sectionCtrl.request.init);
 router.get('/loginedTest', sectionCtrl.page.loginedTest);
 router.post('/user', authMiddleware, sectionCtrl.request.getSection);
-router.post('/follow', sectionCtrl.request.follow)
+router.post('/follow', sectionCtrl.request.follow);
+router.post('/unfollow', sectionCtrl.request.unfollow);
 
 module.exports = router;
