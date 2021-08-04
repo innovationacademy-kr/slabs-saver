@@ -22,6 +22,7 @@ const loginedSection = (req, res, next) => {
 	res.render('user/loginedSection', { title : 'slab-saver', layout: 'layout/userLayout'});
 }
 
+// unfollow 기능
 const destroyFollowStatus = async (req, res, next) => {
     const { userId, followValue } = req.body;
     try {
@@ -32,8 +33,13 @@ const destroyFollowStatus = async (req, res, next) => {
 			{
 				currentFollowingStatus = userFound.followingCategories.split(',').map(x=>+x);
 				let index = currentFollowingStatus.indexOf(followValue);
-				if (index >= 0)
+				if (index >= 0) // 찾았을 경우
 					currentFollowingStatus.splice(index, 1);
+				currentFollowingStatus.sort(function(a, b)  {
+					if(a > b) return 1;
+					if(a === b) return 0;
+					if(a < b) return -1;
+				});
 			}
 			await Subscriber.update({
 				followingCategories: currentFollowingStatus.join()
@@ -59,6 +65,7 @@ const destroyFollowStatus = async (req, res, next) => {
     }
 };
 
+// follow 기능
 const updateFollowStatus = async (req, res, next) => {
     const { userId, followValue } = req.body;
     try {
@@ -67,13 +74,19 @@ const updateFollowStatus = async (req, res, next) => {
 		if (userFound) {
 			if (userFound.followingCategories)
 				currentFollowingStatus = userFound.followingCategories.split(',').map(x=>+x);
-			currentFollowingStatus.push(followValue);
-			await Subscriber.update({
-				followingCategories: currentFollowingStatus.join()
-			}, {
-				where: { id: userId }
-			})
-			console.log(currentFollowingStatus);
+			if (currentFollowingStatus.indexOf(followValue) < 0) { // 기존에 없을 경우에만 추가
+				currentFollowingStatus.push(followValue);
+				currentFollowingStatus.sort(function(a, b)  {
+					if(a > b) return 1;
+					if(a === b) return 0;
+					if(a < b) return -1;
+				});
+				await Subscriber.update({
+					followingCategories: currentFollowingStatus.join()
+				}, {
+					where: { id: userId }
+				})
+			}
 			// await res.render('user/sectionFollowCategory',
 			// 	{ title : 'slab-saver', layout: 'layout/userLayout', section: categories, follow: currentFollowingStatus });
 			res.status(200).json({
@@ -94,6 +107,7 @@ const updateFollowStatus = async (req, res, next) => {
     }
 };
 
+// 페이지 로딩 될 때, DB에서 처음으로 followStatus를 가져오는 작업
 const initFollowStatus = async (req, res, next) => {
     const { userId } = req.body
 	try {
