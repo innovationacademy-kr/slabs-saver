@@ -32,7 +32,7 @@ const destroyFollowStatus = async (req, res, next) => {
 			{
 				currentFollowingStatus = userFound.followingCategories.split(',').map(x=>+x);
 				let index = currentFollowingStatus.indexOf(followValue);
-				if (index >= 0)
+				if (index >= 0) // 찾았을 경우
 					currentFollowingStatus.splice(index, 1);
 			}
 			await Subscriber.update({
@@ -67,13 +67,14 @@ const updateFollowStatus = async (req, res, next) => {
 		if (userFound) {
 			if (userFound.followingCategories)
 				currentFollowingStatus = userFound.followingCategories.split(',').map(x=>+x);
-			currentFollowingStatus.push(followValue);
-			await Subscriber.update({
-				followingCategories: currentFollowingStatus.join()
-			}, {
-				where: { id: userId }
-			})
-			console.log(currentFollowingStatus);
+			if (currentFollowingStatus.indexOf(followValue) < 0) {
+				currentFollowingStatus.push(followValue);
+				await Subscriber.update({
+					followingCategories: currentFollowingStatus.join()
+				}, {
+					where: { id: userId }
+				})
+			}
 			// await res.render('user/sectionFollowCategory',
 			// 	{ title : 'slab-saver', layout: 'layout/userLayout', section: categories, follow: currentFollowingStatus });
 			res.status(200).json({
