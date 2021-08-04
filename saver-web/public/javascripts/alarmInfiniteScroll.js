@@ -1,6 +1,7 @@
 var DEFAULT_HEIGHT = $(window).height() + 10;
 var page = 0;
-var isUsed = false;
+var pageStart = false;
+var isUsed = true;
 var alarmList = document.querySelector('.bookmark_alarm-page');
 
 const category = {
@@ -29,6 +30,7 @@ const getalarm = () => {
     headers: { 'x-access-token': token },
     success: function (alarm) {
         alarm.alarm.map(function (alarm) {
+            console.log(alarm);
           if (!(alarm.deleted))
           {
           const article = alarm.Article;
@@ -38,7 +40,15 @@ const getalarm = () => {
           }
         });
       isUsed = false;
-      page += 1;
+      page += 20;
+      if (!pageStart)
+      {
+        pageStart = true;
+        if ((!isUsed && $(window).height() == $(document).height()) && !isUsed) {
+          isUsed = true;
+          getalarm();
+        }
+      }
     },
     error: function (err) {},
   });
@@ -46,11 +56,13 @@ const getalarm = () => {
 
 getalarm();
 
-$(window).scroll(function () {
-  const scrollPosition = $(window).scrollTop() + DEFAULT_HEIGHT;
-  const pageHeight = $(document).height() - $(window).height();
 
-  if (scrollPosition > pageHeight && !isUsed) {
+
+$(window).scroll(function () {
+  const scrollPosition = window.innerHeight + window.scrollY;
+  const pageHeight = document.body.offsetHeight;
+
+  if ((scrollPosition >= pageHeight) && !isUsed) {
     isUsed = true;
     getalarm();
   }

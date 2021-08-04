@@ -17,11 +17,10 @@ const getAlarmRequest = async (req, res) => {
       },
     ],
     order: [
-      [sequelize.fn('date_format', sequelize.col('Article.publishedAt'), '%Y.%m.%d'), 'DESC'],
+      ['createdAt', 'DESC'],
       ['Article', 'category', 'DESC'],
-      ['Article', 'publishedAt', 'DESC'],
     ],
-    offset: page * 20,
+    offset: +page,
     limit: 20,
   });
   try {
