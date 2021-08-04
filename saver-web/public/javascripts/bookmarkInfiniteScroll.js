@@ -28,6 +28,7 @@ const getBookmark = () => {
     type: 'get',
     headers: { 'x-access-token': token },
     success: function (bookmarks) {
+      console.log('suceess' + bookmarks.bookmark.length + '(' + page);
       bookmarks.bookmark.map(function (bookmark) {
         const article = bookmark.Article;
         const listTemplate = getListTemplate(article);
@@ -39,7 +40,7 @@ const getBookmark = () => {
         addEvent(listTemplate, item, bookmark.ArticleId);
       });
       isUsed = false;
-      page += 1;
+      page += 10;
     },
     error: function (err) {},
   });
@@ -174,6 +175,12 @@ function deleteElement(listTemplate, liItem) {
       listTemplate.remove();
     }, 200);
   }
+  console.log(isUsed + ':' + $(window).height() + ' / ' + $(document).height());
+  if (!isUsed && $(window).height() == $(document).height()) {
+    console.log('grt');
+    isUsed = true;
+    getBookmark();
+  }
 }
 
 function addEvent(listTemplate, liItem, acticleId) {
@@ -230,6 +237,7 @@ function addEvent(listTemplate, liItem, acticleId) {
       setTimeout(() => {
         underlineLiItem?.remove();
         deleteElement(listTemplate, liItem);
+        page--;
         deleteBookmark(acticleId);
       }, 150);
     },
