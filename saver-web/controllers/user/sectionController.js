@@ -22,6 +22,7 @@ const loginedSection = (req, res, next) => {
 	res.render('user/loginedSection', { title : 'slab-saver', layout: 'layout/userLayout'});
 }
 
+// unfollow 기능
 const destroyFollowStatus = async (req, res, next) => {
     const { userId, followValue } = req.body;
     try {
@@ -34,6 +35,11 @@ const destroyFollowStatus = async (req, res, next) => {
 				let index = currentFollowingStatus.indexOf(followValue);
 				if (index >= 0) // 찾았을 경우
 					currentFollowingStatus.splice(index, 1);
+				currentFollowingStatus.sort(function(a, b)  {
+					if(a > b) return 1;
+					if(a === b) return 0;
+					if(a < b) return -1;
+				});
 			}
 			await Subscriber.update({
 				followingCategories: currentFollowingStatus.join()
@@ -59,6 +65,7 @@ const destroyFollowStatus = async (req, res, next) => {
     }
 };
 
+// follow 기능
 const updateFollowStatus = async (req, res, next) => {
     const { userId, followValue } = req.body;
     try {
@@ -67,8 +74,13 @@ const updateFollowStatus = async (req, res, next) => {
 		if (userFound) {
 			if (userFound.followingCategories)
 				currentFollowingStatus = userFound.followingCategories.split(',').map(x=>+x);
-			if (currentFollowingStatus.indexOf(followValue) < 0) {
+			if (currentFollowingStatus.indexOf(followValue) < 0) { // 기존에 없을 경우에만 추가
 				currentFollowingStatus.push(followValue);
+				currentFollowingStatus.sort(function(a, b)  {
+					if(a > b) return 1;
+					if(a === b) return 0;
+					if(a < b) return -1;
+				});
 				await Subscriber.update({
 					followingCategories: currentFollowingStatus.join()
 				}, {
@@ -95,6 +107,7 @@ const updateFollowStatus = async (req, res, next) => {
     }
 };
 
+// 페이지 로딩 될 때, DB에서 처음으로 followStatus를 가져오는 작업
 const initFollowStatus = async (req, res, next) => {
     const { userId } = req.body
 	try {
