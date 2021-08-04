@@ -1,0 +1,62 @@
+<%- contentFor('style') %>
+
+<script src="/javascripts/sendPush.js"></script>
+
+<%- contentFor('body') %>
+<link rel="stylesheet" href="/stylesheets/user/articles.css" />
+<section class="list-table">
+    <table class="mytable">
+      <thead class="table-header">
+        <tr class="table-header__row">
+          <th class="table-header__cell">No</th>
+          <th class="table-header__cell">헤드라인</th>
+          <th class="table-header__cell">카테고리</th>
+          <th class="table-header__cell">작성일시</th>
+          <th class="table-header__cell">출고 상황</th>
+          <th class="table-header__cell">푸시 알림</th>
+
+        </tr>
+      </thead>
+      <tbody class="table-body">
+        <% articles.forEach((article)=> { %>
+        <tr class="table-body__row">
+          <td class="table-body__cell"><%= article.id %></td>
+          <td class="table-body__cell">
+            <% if (article.status < 3) { %>
+              <a href=<%= `/author/articles/edit/${article.id}` %> > <%= article.headline %> </a>
+            <% } else { %>
+                <%= article.headline %>
+            <% } %>
+          </td>
+          <td class="table-body__cell"><%= article.category %></td>
+          <td class="table-body__cell"><%= article.updatedAt %></td>
+          <td class="table-body__cell"><%= article.status === 4 ? 'O' : 'X' %></td>
+          <td>
+            <button  id =<%= `push-${article.id}` %>   class = "push">알림 보내기</button>
+          </td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </section>
+
+
+
+
+  <%- contentFor('footer') %>
+
+  <%- contentFor('scriptTag') %>
+  <script defer>
+   pushBtns = document.getElementsByClassName('push')
+   Array.from(pushBtns).map (pushBtn=>{
+
+    pushBtn.addEventListener('click', ()=>{ 
+         sendPush(parseInt(pushBtn.id.split('-')[1]));
+      });
+   })
+    
+  </script>
+
+  <%- include('../partials/footer.ejs') %>
+
+
