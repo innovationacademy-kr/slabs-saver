@@ -23,8 +23,7 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
             sendNotification(message.notification?.body, message.notification?.title)
         }
         else {
-            createNotificationChannel(this, NotificationManagerCompat.IMPORTANCE_HIGH, false,
-                "CHANNEL_NAME", "App notification channel")
+            createNotificationChannel("CHANNEL_NAME", "App notification channel")
             NotificationManagerCompat.from(this).notify(0, createNotification(message))
         }
     }
@@ -59,8 +58,7 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
         val notificationSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
 
         val notificationId = 1001
-        createNotificationChannel(this, NotificationManagerCompat.IMPORTANCE_HIGH, false,
-            getString(R.string.app_name), "App notification channel")
+        createNotificationChannel(getString(R.string.app_name), "App notification channel")
 
         val channelId = "$packageName-${getString(R.string.app_name)}"
 
@@ -84,16 +82,11 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
         notificationManager.notify(notificationId, notificationBuilder.build())
     }
 
-    private fun createNotificationChannel(context: Context, importance: Int, showBadge: Boolean,
-                                          name: String, description: String) {
+    private fun createNotificationChannel(name: String, description: String) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channelId = "${context.packageName}-$name"
-            val channel = NotificationChannel(channelId, name, importance)
+            val channel = NotificationChannel("CHANNEL_ID", name, NotificationManager.IMPORTANCE_DEFAULT)
             channel.description = description
-            channel.setShowBadge(showBadge)
-
-            val notificationManager = context.getSystemService(NotificationManager::class.java)
-            notificationManager.createNotificationChannel(channel)
+            (getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager).createNotificationChannel((channel))
         }
     }
 
