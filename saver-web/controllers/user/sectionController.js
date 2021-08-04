@@ -30,10 +30,10 @@ const destroyFollowStatus = async (req, res, next) => {
 		if (userFound) {
 			if (userFound.followingCategories)
 			{
-				currentFollowingStatus = userFound.followingCategories.split(',');
+				currentFollowingStatus = userFound.followingCategories.split(',').map(x=>+x);
 				let index = currentFollowingStatus.indexOf(followValue);
-				console.log(index);
-				currentFollowingStatus.splice(index, 1);
+				if (index >= 0)
+					currentFollowingStatus.splice(index, 1);
 			}
 			await Subscriber.update({
 				followingCategories: currentFollowingStatus.join()
@@ -66,7 +66,7 @@ const updateFollowStatus = async (req, res, next) => {
         const userFound = await Subscriber.findOne({ userId: userId})
 		if (userFound) {
 			if (userFound.followingCategories)
-				currentFollowingStatus = userFound.followingCategories.split(',');
+				currentFollowingStatus = userFound.followingCategories.split(',').map(x=>+x);
 			currentFollowingStatus.push(followValue);
 			await Subscriber.update({
 				followingCategories: currentFollowingStatus.join()
@@ -100,7 +100,7 @@ const initFollowStatus = async (req, res, next) => {
 		const userFound = await Subscriber.findOne({ userId: userId})
 		if (userFound) {
 			if (userFound.followingCategories)
-				currentFollowingStatus = await userFound.followingCategories.split(',')
+				currentFollowingStatus = await userFound.followingCategories.split(',').map(x=>+x)
 		}
 		await res.render('user/sectionFollowCategory',
 			{ title : 'slab-saver', layout: 'layout/userLayout', section: categories, follow: currentFollowingStatus });
