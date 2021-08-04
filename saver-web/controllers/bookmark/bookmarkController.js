@@ -23,7 +23,7 @@ const getBookmarkRequest = async (req, res) => {
         ['Article', 'publishedAt', 'DESC'],
       ],
       offset: page,
-      limit: 10,
+      limit: 20,
     });
     res.status(200).json({
       bookmark,

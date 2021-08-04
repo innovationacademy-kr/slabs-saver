@@ -40,7 +40,7 @@ const getBookmark = () => {
         addEvent(listTemplate, item, bookmark.ArticleId);
       });
       isUsed = false;
-      page += 10;
+      page += 20;
     },
     error: function (err) {},
   });
