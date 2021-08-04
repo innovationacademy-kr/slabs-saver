@@ -33,7 +33,8 @@ const getalarm = () => {
           {
           const article = alarm.Article;
           const listTemplate = getListTemplate(article);
-          fillalarm(getSectionTemplate(listTemplate, article), article, alarm.ArticleId);
+          const boxId = fillalarm(getSectionTemplate(listTemplate, article), article, alarm.ArticleId);
+          addEvent(boxId, alarm.ArticleId);
           }
         });
       isUsed = false;
@@ -134,20 +135,83 @@ function fillalarm(template, article, articleId) {
       `
       <div class="bookmark_alarm-section-text-line"></div>`,
     );
-  template.insertAdjacentHTML(
-    'beforeend',
-    `
-      <div class="bookmark_alarm-section-text-area">
-        <div style="position:relative;" id="drawer_${articleId}" ondrop="drop(event, '${articleId}')" ondragover="dragover(event)">
-          <div style="positon:absolute;" id="mydiv_${articleId}" draggable="true" ondragstart="dragstart(event)">
-            <a href="articles/detail/${articleId}">
-            <p class="bookmark_alarm-section-text-text">${article.headline}</p>
-            </a>
+    template.insertAdjacentHTML(
+      'beforeend',
+      `
+        <div class="bookmark_alarm-section-text-area" id="alarm-box_${articleId}">
+          <div style="position:relative;" id="drawer_${articleId}" ondrop="drop(event, '${articleId}')" ondragover="dragover(event)">
+            <div style="positon:absolute;" id="mydiv_${articleId}" draggable="true" ondragstart="dragstart(event)">
+              <a href="articles/detail/${articleId}">
+              <p class="bookmark_alarm-section-text-text">${article.headline}</p>
+              </a>
+            </div>
           </div>
         </div>
-      </div>
-`,
-  );
+  `,
+    );
   //각 북마크 추가
-  return;
+  return document.getElementById(`alarm-box_${articleId}`);
+}
+
+const deleteAlarm = async(id) => {
+  const token = localStorage['jwtToken'];
+  id = String(id);
+  try {
+      result = await axios({
+          method: 'post',
+          url: `/alarm/del/${id}`,
+          headers: {
+              'x-access-token':token,
+          },
+      });
+      alert('알람 제거에 성공했습니다.');
+  }
+  catch (err) {
+      console.log(err.response)
+      alert('알람 제거 실패.');
+  }
+}
+
+function addEvent(liItem, articleId) {
+  var moveX;
+  var pItem = liItem.children[0].children[0];
+
+  liItem.addEventListener(
+    'touchstart',
+    (e) => {
+      pItem.style.transitionDuration = '0s';
+      moveX = e.touches[0].clientX;
+    },
+    { passive: true },
+  );
+  liItem.addEventListener(
+    'touchmove',
+    (e) => {
+      pItem.style.transform = `translateX(${-moveX + e.touches[0].clientX}px)`;
+    },
+    { passive: true },
+  );
+
+  liItem.addEventListener(
+    'touchcancel',
+    (e) => {
+      pItem.style.transform = `translateX(0px)`;
+      pItem.style.transitionDuration = '0.5s';
+    },
+    { passive: true },
+  );
+
+  liItem.addEventListener(
+    'touchend',
+    (e) => {
+      if (Math.abs(moveX - e.changedTouches[0].clientX) < 120) {
+        pItem.style.transform = `translateX(0px)`;
+        pItem.style.transitionDuration = '0.5s';
+        return;
+      }
+      deleteAlarm(articleId);
+      window.location.reload()
+    },
+    { passive: true },
+  );
 }

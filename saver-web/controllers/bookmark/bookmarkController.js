@@ -2,35 +2,36 @@ const { Bookmarks, Article, Alarm } = require('../../models');
 const sequelize = require('../../models').sequelize;
 
 const getBookmarkRequest = async (req, res) => {
-  const page = req.query.page;
-  const bookmark = await Bookmarks.findAll({
-    where: { UserId: req.decoded.userId },
-    include: [
-      {
-        model: Article,
-        as: 'Article',
-        attributes: [
-          [sequelize.fn('date_format', sequelize.col('publishedAt'), '%Y.%m.%d'), 'date'],
-          'category',
-          'headline',
-        ],
-      },
-    ],
-    order: [
-      [sequelize.fn('date_format', sequelize.col('Article.publishedAt'), '%Y.%m.%d'), 'DESC'],
-      ['Article', 'category', 'DESC'],
-      ['Article', 'publishedAt', 'DESC'],
-    ],
-    offset: page * 20,
-    limit: 20,
-  });
+  const page = parseInt(req.query.page);
   try {
+    const bookmark = await Bookmarks.findAll({
+      where: { UserId: req.decoded.userId },
+      include: [
+        {
+          model: Article,
+          as: 'Article',
+          attributes: [
+            [sequelize.fn('date_format', sequelize.col('publishedAt'), '%Y.%m.%d'), 'date'],
+            'category',
+            'headline',
+          ],
+        },
+      ],
+      order: [
+        [sequelize.fn('date_format', sequelize.col('Article.publishedAt'), '%Y.%m.%d'), 'DESC'],
+        ['Article', 'category', 'DESC'],
+        ['Article', 'publishedAt', 'DESC'],
+      ],
+      offset: +page,
+      limit: 10,
+    });
     res.status(200).json({
       bookmark,
     });
   } catch (error) {
+    console.log(JSON.stringify(error));
     res.status(400).json({
-      bookmark,
+      error,
     });
   }
 };
@@ -79,19 +80,19 @@ const deleteBookmarkRequest = async (req, res) => {
   if (Object.keys(bookmark).length == 0) {
     res.status(400).json({
       success: false,
-      message: '북마크 상태가 아닙니다.'
+      message: '북마크 상태가 아닙니다.',
     });
     return;
   }
   try {
     const result = await Bookmarks.destroy({
       where: {
-          UserId: req.decoded.userId,
-          ArticleId: articleId,
+        UserId: req.decoded.userId,
+        ArticleId: articleId,
       },
     });
     res.status(200).json({
-      success: true
+      success: true,
     });
   } catch (error) {
     console.log(error);
@@ -109,7 +110,7 @@ const bookmarkPage = async (req, res) => {
 const checkBookmarkRequest = async (req, res) => {
   const articleId = req.params.id;
   let result;
-  try{
+  try {
     const bookmark = await Bookmarks.findAll({
       where: { UserId: req.decoded.userId, ArticleId: articleId },
     });
@@ -119,16 +120,15 @@ const checkBookmarkRequest = async (req, res) => {
 
     res.status(200).json({
       success: true,
-      result: result
+      result: result,
     });
-  } catch (error){
+  } catch (error) {
     res.status(400).json({
       success: false,
-      error
+      error,
     });
   }
-
-}
+};
 
 module.exports = {
   section: (req, res, next) => {
@@ -138,9 +138,9 @@ module.exports = {
     getBookmark: getBookmarkRequest,
     createBookmark: createBookmarkRequest,
     deleteBookmark: deleteBookmarkRequest,
-    checkBookmark: checkBookmarkRequest
+    checkBookmark: checkBookmarkRequest,
   },
   page: {
     bookmark: bookmarkPage,
-  }
+  },
 };

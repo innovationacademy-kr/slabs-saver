@@ -3,8 +3,42 @@
 
 <%- contentFor('navbar') %> <%- include('./components/nav.ejs') %> <%- contentFor('body') %>
 <div class="bookmark_alarm-page">
+      <!-- 예시
+
+
+    <div class="bookmark-list" id="bookmark-list-${article.date}">
+
+        <div class="bookmark-title">
+            <div class="bookmark-title-col1">
+            <div class="icon-bookmark-black-transparent"></div>
+            </div>
+            <div class="bookmark-title-col2">
+            <p class="bookmark-title-col2-text">${getDate(article.date)}</p>
+            </div>
+        </div>
+
+        <div class="bookmark-section white">
+            <div class="bookmark-section-icon">
+                <div id class="icon-${category[article.category]}-blue"></div>
+            </div>
+            <ul class="bookmark-section-text" 
+            id="bookmark-section-text-${category[article.category]}-${article.date}">
+                <li class="bookmark-section-text-line"></li>
+                <li class="bookmark-section-text-area" id="item-${articleId}">
+                    <a href="articles/detail/${articleId}">
+                    <p class="bookmark-section-text-text">${article.headline}</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+                    -->
     </div>
     <%- contentFor('footer') %> <%- include('./components/foo.ejs') %>
   </div>
 </div>
 <script defer type="module" src="/javascripts/bookmarkInfiniteScroll.js"></script>
+
+ 
