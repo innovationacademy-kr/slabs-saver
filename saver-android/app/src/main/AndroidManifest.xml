@@ -23,9 +23,6 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_key" />
         <meta-data
-            android:name="com.facebook.sdk.ClientToken"
-            android:value="@string/facebook_client_token" />
-        <meta-data
             android:name="com.google.android.actions"
             android:resource="@xml/splash" />
 
@@ -66,7 +63,7 @@
 
                 <data
                     android:host="kakaolink"
-                    android:scheme="@string/key" />
+                    android:scheme="@string/kakao_key" />
             </intent-filter>
 
         </activity>
