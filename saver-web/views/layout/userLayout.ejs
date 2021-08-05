@@ -1,34 +1,29 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title><%= (typeof title != "undefined" ? title : "") %></title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="/stylesheets/user/style.css" />
+    <script defer src="/vendors/jquery/jquery.min.js"></script>
+    <script src="/vendors/summernote/summernote-lite.js" defer></script>
+    <link href="/vendors/summernote/summernote-lite.css" rel="stylesheet" />
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title><%= (typeof title != "undefined" ? title : "") %></title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="/stylesheets/user/style.css" />
-  <script defer src="/vendors/jquery/jquery.min.js"></script>
-	<script src="/vendors/summernote/summernote-lite.js" defer></script>
-	<link href="/vendors/summernote/summernote-lite.css" rel="stylesheet">
+    <%- defineContent('styleTag') %> <%- style %>
+    <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+    <script src="/javascripts/sharetotal.js"></script>
+    <script src="/javascripts/bookmark.js"></script>
+  </head>
 
-  <%- defineContent('styleTag') %>
-  <%- style %>
-  <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
-  <script src="/javascripts/sharetotal.js"></script>
-</head>
+  <body>
+    <%- defineContent('navbar') %> <%- defineContent('body') %> <%- defineContent('footer') %>
 
-<body>
-  <%- defineContent('navbar') %>
-  <%- defineContent('body') %>
-
-
-  <%- defineContent('footer') %>
-
-
-  <script defer src="/vendors/axios/axios.min.js"></script>
-  <%- script %>
-  <%- defineContent('scriptTag') %>
-</body>
-
+    <script defer src="/vendors/axios/axios.min.js"></script>
+    <%- script %> <%- defineContent('scriptTag') %>
+  </body>
 </html>
