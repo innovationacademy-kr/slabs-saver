@@ -22,8 +22,8 @@ const getBookmarkRequest = async (req, res) => {
         ['Article', 'category', 'DESC'],
         ['Article', 'publishedAt', 'DESC'],
       ],
-      offset: +page,
-      limit: 10,
+      offset: page,
+      limit: 20,
     });
     res.status(200).json({
       bookmark,
@@ -54,11 +54,6 @@ const createBookmarkRequest = async (req, res) => {
       ArticleId: articleId,
     });
 
-    //임시로 알람db도 같이저장
-      await Alarm.create({
-      UserId: req.decoded.userId,
-      ArticleId: articleId,
-    });
     res.status(200).json({
       success: true,
       result,
