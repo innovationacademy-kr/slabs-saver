@@ -1,5 +1,75 @@
-const { Article, Alarm } = require('../../models');
+const { Article, Alarm, Subscriber } = require('../../models');
 const sequelize = require('../../models').sequelize;
+const Sequelize = require("sequelize");
+const Op = Sequelize.Op;
+
+const newAlarmRequest = async(req, res, next) => {
+
+  const { articleId, category } = req.body;
+  var categorynum;
+
+  switch (category) {
+    case '경제':
+      categorynum = '1';
+      break;
+    case '정치':
+      categorynum = '2';
+      break;
+    case '국제':
+      categorynum = '3';
+      break;
+    case '사회':
+      categorynum = '4';
+      break;
+    case '문화':
+      categorynum = '5';
+      break;
+    default:
+      categorynum = null;
+  }
+
+  const Users = await Subscriber.findAll({
+    attributes: [ 'id' ],
+     where:{
+      followingCategories: {
+          [Op.like]: "%" + categorynum + "%"
+      }
+    }
+  });
+
+  const newAlarmArray = (arr) => arr.map((user) => {
+     const request = new Promise((resolve, reject) => {
+       try {
+         Alarm.create({
+           UserId: user.id,
+           ArticleId: articleId
+         }).then(res => {
+           resolve(res);
+         });
+       } 
+       catch (error) {
+         reject(error);
+       }
+     })
+      return request;
+   });
+
+
+  try{    
+    const requests = newAlarmArray(Users);
+    await Promise.all(requests)
+      .then((result) => {
+        console.log("추가된 알림 개수 =", result.length);
+      })
+      .catch((err) => {
+				console.log(err);
+			})
+  } 
+  catch (error){
+		console.log(error);
+	}
+    res.status(200).json({result: '알림 추가 완료'});
+};
 
 const getAlarmRequest = async (req, res) => {
   const page = req.query.page;
@@ -89,7 +159,8 @@ module.exports = {
   request: {
     getAlarm: getAlarmRequest,
     checkAlarm: checkAlarmRequest,
-    delAlarm: deleteAlarmRequest
+    delAlarm: deleteAlarmRequest,
+    newAlarm: newAlarmRequest,
   },
   page: {
     Alarm: AlarmPage,
