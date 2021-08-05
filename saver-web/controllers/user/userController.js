@@ -12,7 +12,7 @@ module.exports = {
  */
 
   moreArticles: async (req, res, next) => {
-    const { page } = req.body;
+    const { page } = req.query;
     const articles = await Article.findAll({
       where: { status: 4 },
       order: [['publishedAt', 'DESC']],
