@@ -20,7 +20,6 @@ const setAdmin = () => {
 
 const postFirebaseMessage = async (req, res) => {
   if (!admin) setAdmin();
-
   try {
     const message = req.body.message;
 
@@ -57,6 +56,7 @@ const pushPage = async (req, res) => {
   const articles = await Article.findAll({});
   res.render('user/pushPage', {
     articles,
+    category,
   });
 };
 
