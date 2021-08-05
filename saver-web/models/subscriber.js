@@ -23,22 +23,22 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       unique: {
         msg: '이미 존재하는 이메일입니다.',
+      }
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        is: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,15}$/i,
       },
-      name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      password: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-          is: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,15}$/i,
-        },
-      },
-      deletedAt: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
+    },
+    deletedAt: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
     followingCategories: {
       type: DataTypes.STRING,
