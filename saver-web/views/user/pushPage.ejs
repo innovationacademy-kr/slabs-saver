@@ -2,8 +2,77 @@
 
 <script src="/javascripts/sendPush.js"></script>
 
+<%- contentFor('navbar') %>
+
 <%- contentFor('body') %>
 <link rel="stylesheet" href="/stylesheets/user/articles.css" />
+<link rel="stylesheet" href="/stylesheets/author/index.css" />
+
+<iframe id="iframe1" name="iframe1" style="display:none"></iframe>
+
+<div class="content" style="margin-top: 80px;">
+  <div class="container">
+    <div class="row justify-content-center" >
+      <div class="col-md-6 contents">
+        <div class="row justify-content-center">
+          <div class="col-md-12">
+            <div class="form-block">
+              <div class="mb-4">
+                <h3>알림 작성</h3>
+                <p class="mb-4">사용자에게 새로운 알림을 보냅니다.</p>
+              </div>
+              <form class="needs-validation" target="iframe1">
+                <div class="mb-4">
+                  <label class="form-label" for="category">카테고리</label>
+                  <select required class="form-control" name="category" id="category" >
+                    <% Object.keys(category).filter(key => key !== '전체').forEach((key) => { %>
+                      <option value="<%=category[key]%>" >
+                        <%=key%>
+                      </option>
+                    <% }) %>
+                  </select>
+                </div>
+                <div class="mb-4">
+                  <div class="article__headline">
+                      <label required class="form-label" for="headline">헤드라인</label>
+                      <input class="form-control" type="text" id="headline" name="headline" placeholder="뉴스의 헤드라인을 입력해주세요" maxlength="100" />
+                  </div>
+                </div>
+
+                <div class="mb-4">
+                  <label class="form-label" for="breifing">100자 브리핑<br></label>
+                  <textarea class="form-control" style="resize: none;" rows="3" id="briefing" wrap="virtual" placeholder="뉴스의 브리핑을 입력해주세요" maxlength="100"></textarea>
+                </div>
+
+                <div class="mb-4">
+                  <div class="article__url">
+                      <label required class="form-label" for="url">연결 URL</label>
+                      <input class="form-control" type="text" id="url" name="url" placeholder="뉴스의 헤드라인을 입력해주세요" maxlength="100" />
+                  </div>
+                </div>
+
+                <div class="d-grid gap-2 mt-4">
+                  <button class="article--complete btn btn-primary" name="completeBtn" type="submit" id="complete-btn">보내기</button>
+                </div>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
 <section class="list-table">
     <table class="mytable">
       <thead class="table-header">
@@ -51,9 +120,24 @@
    Array.from(pushBtns).map (pushBtn=>{
 
     pushBtn.addEventListener('click', ()=>{ 
-         sendPush(parseInt(pushBtn.id.split('-')[1]));
+      sendAriclePush(parseInt(pushBtn.id.split('-')[1]));
       });
    })
+
+   completeBtn = document.getElementById('complete-btn')
+   completeBtn.addEventListener('click', ()=>{ 
+      console.log(completeBtn + "\n\n\n")
+        message = {}
+        message["topic"] = document.getElementById('category').value
+        data = {}
+        data["title"] =  document.getElementById('headline').value
+        data["description"] =  document.getElementById('briefing').value
+        data["url"] =  document.getElementById('url').value
+        message["data"] = data
+        sendMessagePush(message);
+      });
+
+
     
   </script>
 
