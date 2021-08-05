@@ -18,8 +18,9 @@ const sectionPage = (req, res, next) => {
 	res.render('user/section', { title : 'slab-saver', layout: 'layout/userLayout'});
 }
 
-const loginedSection = (req, res, next) => {
-	res.render('user/loginedSection', { title : 'slab-saver', layout: 'layout/userLayout'});
+const loginedPage = (req, res, next) => {
+	res.render('user/loginedSection',
+		{ title : 'slab-saver', layout: 'layout/userLayout', section: categories, follow: currentFollowingStatus });
 }
 
 // unfollow 기능
@@ -116,7 +117,7 @@ const initFollowStatus = async (req, res, next) => {
 			if (userFound.followingCategories)
 				currentFollowingStatus = await userFound.followingCategories.split(',').map(x=>+x)
 		}
-		await res.render('user/sectionFollowCategory',
+		await res.render('user/loginedSection',
 			{ title : 'slab-saver', layout: 'layout/userLayout', section: categories, follow: currentFollowingStatus });
     } catch (error) {
         console.log(error);
@@ -126,11 +127,6 @@ const initFollowStatus = async (req, res, next) => {
         });
     }
 };
-
-const loginedPage = (req, res, next) => {
-	res.render('user/sectionFollowCategory',
-		{ title : 'slab-saver', layout: 'layout/userLayout', section: categories, follow: currentFollowingStatus });
-}
 
 module.exports = {
 	request: {
@@ -142,7 +138,6 @@ module.exports = {
 	},
 	page: {
 		section: sectionPage,
-		logined: loginedSection,
-		loginedTest: loginedPage,
+		logined: loginedPage,
 	},
 };
