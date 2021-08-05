@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">saver-android</string>
-    <string name="key">kakao{카카오 네이티브 키}</string>
+    <string name="kakao_key">kakao{카카오 키}</string>
+    <string name="facebook_key">{페이스북 app id}</string>
+
 
 </resources>
