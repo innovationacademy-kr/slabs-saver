@@ -29,7 +29,7 @@ const signupRequest = async (req, res, next) => {
             });
         }
         else {
-            await Subscriber.create({ email, name, password, deletedAt });
+            await Subscriber.create({ email, name, password, deletedAt});
             res.status(200).json({
                 result: true,
                 message: '회원가입 성공',
