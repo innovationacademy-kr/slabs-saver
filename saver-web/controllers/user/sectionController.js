@@ -46,7 +46,6 @@ const destroyFollowStatus = async (req, res, next) => {
 			}, {
 				where: {id: userId }
 			})
-			console.log(currentFollowingStatus);
 			res.status(200).json({
 				followStatus: currentFollowingStatus,
 			})
