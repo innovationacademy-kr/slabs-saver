@@ -27,8 +27,7 @@ const loginedPage = (req, res, next) => {
 const destroyFollowStatus = async (req, res, next) => {
     const { userId, followValue } = req.body;
     try {
-		console.log("destroy!");
-        const userFound = await Subscriber.findOne({ userId: userId})
+        const userFound = await Subscriber.findOne({ where: {id: userId } });
 		if (userFound) {
 			if (userFound.followingCategories)
 			{
@@ -70,8 +69,7 @@ const destroyFollowStatus = async (req, res, next) => {
 const updateFollowStatus = async (req, res, next) => {
     const { userId, followValue } = req.body;
     try {
-		console.log("update!");
-        const userFound = await Subscriber.findOne({ userId: userId})
+        const userFound = await Subscriber.findOne({ where: { id: userId } });
 		if (userFound) {
 			if (userFound.followingCategories)
 				currentFollowingStatus = userFound.followingCategories.split(',').map(x=>+x);
@@ -88,8 +86,6 @@ const updateFollowStatus = async (req, res, next) => {
 					where: { id: userId }
 				})
 			}
-			// await res.render('user/sectionFollowCategory',
-			// 	{ title : 'slab-saver', layout: 'layout/userLayout', section: categories, follow: currentFollowingStatus });
 			res.status(200).json({
 				followStatus: currentFollowingStatus,
 			})
@@ -112,7 +108,7 @@ const updateFollowStatus = async (req, res, next) => {
 const initFollowStatus = async (req, res, next) => {
     const { userId } = req.body
 	try {
-		const userFound = await Subscriber.findOne({ userId: userId})
+		const userFound = await Subscriber.findOne({ where : { id: userId } });
 		if (userFound) {
 			if (userFound.followingCategories)
 				currentFollowingStatus = await userFound.followingCategories.split(',').map(x=>+x)
@@ -131,7 +127,6 @@ const initFollowStatus = async (req, res, next) => {
 module.exports = {
 	request: {
 		getSection: getSectionRequest,
-		// insertSection: insertSectionRequest
 		follow: updateFollowStatus,
 		unfollow: destroyFollowStatus,
 		init: initFollowStatus,
