@@ -32,8 +32,8 @@ const clickBookmark = (id, btnId) => {
   const btn_bookmark = document.getElementById(btnId);
 
   if (!token){
-    alert('로그인 후 이용가능합니다.');
-    window.location.href = '/subscriber/login';
+    const redirect = encodeURIComponent(location.pathname);
+		location.href = `/subscriber/login?redirect=${redirect}`
   }
   else if (btn_bookmark.className == unmarked) {
     enrollBookmark(id);
