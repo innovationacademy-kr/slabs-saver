@@ -14,7 +14,14 @@
     const destroyCulture = document.querySelector("#destroyCulture");
     const destroyAmpm = document.querySelector("#destroyAmpm");
 
+    const my_section_default_div = document.querySelector("#my_section_default");
+
     let currentUserID
+    let followCount = 0;
+
+    const print_follow_count = function() {
+          console.log("number of following sections: " + followCount);
+        }
 
     const print_section = function(e) {
           console.log(e)
@@ -24,6 +31,10 @@
           const class_name = "#" + id;
           const div_id = document.querySelector(class_name);
           div_id.style.display="none"
+          if (followCount == 0)
+            my_section_default_div.style.display="grid";
+          else
+            my_section_default_div.style.display="none";
         }
 
     const section_display_change = function(e) {
@@ -49,11 +60,20 @@
           if (following) {
                 my_section.style.display="none"
                 other_section.style.display="grid"
+                followCount -= 1;
 
               } else {
                     my_section.style.display="grid"
                     other_section.style.display="none"
+                    followCount += 1;
                   }
+
+          // follow count에 따라 기본 섹션 보이기 및 숨기기
+          print_follow_count();
+          if (followCount > 0)
+            my_section_default_div.style.display="none";
+          else
+            my_section_default_div.style.display="grid";
         }
 
     // page load 시 로그인 정보 확인 / page 렌더
@@ -356,6 +376,14 @@ if (international) {
               <h3 class="section-div__title">My Section</h3>
             </div>
 
+            <!--Section: default My Section -->
+					<div id="my_section_default" class="my_section_default ice-blue-two">
+            <p class="my_section_default_text">
+              아직 팔로우 한 섹션이 없습니다.<br>
+              원하는 섹션을 Other Section에서 팔로우하세요.<br>
+            </p>
+          </div>
+
             <!--Section: following -->
             <% for(var i=1; i < section.length; i++){ %>
 
@@ -411,6 +439,7 @@ if (international) {
                 <% if (i == follow.find((e) => e == i)) { %>
                 <script>
                   //print_section("<%=section[i].title%>")
+                  followCount += 1;
                   init_section("<%= otherSectionDiv %>");
                 </script>
                 <% } %>
@@ -437,6 +466,9 @@ if (international) {
                             </div>
 
                             <% } %>
+                <script>
+                  print_follow_count()
+                </script>
 
                               <%- contentFor('footer') %>
                                 <%- include('./components/foo.ejs') %>
