@@ -6,6 +6,8 @@ const { loggedIn } = require('../middlewares/loggedIn');
 const { alreadyLoggedIn } = require('../middlewares/alreadyLoggedIn');
 const { checkCode } = require('../middlewares/checkCode');
 
+const firebaseCtrl = require('../controllers/firebase/firebaseController');
+
 module.exports = (passport) => {
   router.get('/', loggedIn, authorCtrl.page.index);
 
@@ -67,5 +69,13 @@ module.exports = (passport) => {
    */
   router.get('/todayArticleDesking', loggedIn, authorCtrl.page.todayArticleDesking);
   router.post('/todayArticleDesking', loggedIn, authorCtrl.request.todayArticleDesking);
+
+
+/*파이어베이스*/
+
+router.get('/push', loggedIn, firebaseCtrl.pushPage);
+router.get('/push/send/:articleId', loggedIn, firebaseCtrl.pushSendPage);
+router.post('/push/',loggedIn, firebaseCtrl.postFirebaseMessage);
+
   return router;
 };

@@ -1,5 +1,8 @@
 var admin;
 const { Article } = require('../../models');
+const POSITION = require('../../lib/constants/position');
+const getCurrentUser = require('../../lib/getCurrentUser');
+const STATUS = require('../../lib/constants/articleStatus');
 
 const category = {
   전체: 'total',
@@ -9,6 +12,7 @@ const category = {
   사회: 'social',
   문화: 'culture',
 };
+
 
 const setAdmin = () => {
   admin = require('firebase-admin');
@@ -31,33 +35,43 @@ const postFirebaseMessage = async (req, res) => {
   }
 };
 
-const postFirebaseArticle = async (req, res) => {
-  const article = await Article.findOne({ where: { id: req.params.articleId } });
-
-  if (!admin) setAdmin();
-  try {
-    const message = {
-      topic: category[article.category],
-      data: {
-        title: article.headline,
-        message: unescape(article.briefing),
-        url: `https://thesaver.io/articles/detail/${article.id}`,
-      },
-    };
-    await admin.messaging().send(message);
-    res.status(200).json({ success: true, message });
-  } catch (error) {
-    console.log(error);
-    res.status(400).json({ success: false, error });
-  }
-};
-
 const pushPage = async (req, res) => {
-  const articles = await Article.findAll({});
-  res.render('user/pushPage', {
+  const currentUser = await getCurrentUser(req.user?.id);
+	if (!currentUser) return res.redirect('/author/login');
+  const page = req.query.page ? parseInt(req.query.page) : 0;
+  const limit = 15;
+  const articles = await Article.findAll({
+    offset: page * limit,
+    limit: limit,
+  });
+
+  var totalPage = await Article.count({});
+  totalPage = Math.floor(totalPage / limit);
+
+  const underLimitPage = page - 2 < 0 ? 0 : page - 2;
+
+  res.render('author/pushPage', {
     articles,
     category,
+    totalPage,
+    page,
+    underLimitPage,
+    POSITION,
+    currentUser
   });
 };
 
-module.exports = { postFirebaseMessage, pushPage, postFirebaseArticle };
+const pushSendPage = async (req, res) => {
+  const currentUser = await getCurrentUser(req.user?.id);
+	if (!currentUser) return res.redirect('/author/login');
+  const article = await Article.findOne({ where: { id: req.params.articleId } });
+  console.log(article.headline)
+  res.render('author/pushSendPage', {
+    article,
+    category,
+    POSITION,
+    currentUser
+  });
+};
+
+module.exports = { postFirebaseMessage, pushPage, pushSendPage };

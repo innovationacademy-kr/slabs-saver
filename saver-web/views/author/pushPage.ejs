@@ -1,0 +1,81 @@
+<%- contentFor('styleTag') %>
+
+<script src="/javascripts/sendPush.js"></script>
+
+<%- contentFor('navbar') %>
+<%- include('../partials/navbar.ejs') %>
+<%- contentFor('body') %>
+<link rel="stylesheet" href="/stylesheets/author/articles.css" />
+
+
+<section class="list-table flex-section" style="margin-top: 1rem;">
+  <h3>알림</h3>
+</section>  
+
+  <section class="list-table flex-section"> 
+  <table class="mytable">
+    <thead class="table-header">
+      <tr class="table-header__row">
+        <th class="table-header__cell">No</th>
+        <th class="table-header__cell">헤드라인</th>
+        <th class="table-header__cell">카테고리</th>
+        <th class="table-header__cell">작성일시</th>
+        <th class="table-header__cell">출고 상황</th>
+        <th class="table-header__cell">푸시 알림</th>
+
+      </tr>
+    </thead>
+    <tbody class="table-body">
+      <% articles.forEach((article)=> { %>
+      <tr class="table-body__row">
+        <td class="table-body__cell"><%= article.id %></td>
+        <td class="table-body__cell">
+          <% if (article.status < 3) { %>
+            <a href=<%= `/author/articles/edit/${article.id}` %> > <%= article.headline %> </a>
+          <% } else { %>
+              <%= article.headline %>
+          <% } %>
+        </td>
+        <td class="table-body__cell"><%= article.category %></td>
+        <td class="table-body__cell"><%= article.updatedAt %></td>
+        <td class="table-body__cell"><%= article.status === 4 ? 'O' : 'X' %></td>
+        <td>
+          <a  href=<%=`/author/push/send/${article.id}` %>  id =<%= `push-${article.id}` %> style="font-size:14.4px"  class = "btn btn-primary push">보내기</a>
+        </td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</section>
+
+
+<section class="list-buttons flex-section" style="margin-bottom: 2rem;">
+
+  <% if (underLimitPage != 0) { %>
+    <a class = "btn btn-primary margin-btn"  href= "/author/push?page=0"> < </a>
+  <% } %>
+
+  <% for(var i = underLimitPage; i < underLimitPage + 5 && i <= totalPage; i++){ %>
+    <a class = "btn btn-primary margin-btn" href= <%=`/author/push?page=${i}`%>> <%=i + 1%> </a>
+  <% } %>
+
+  
+  <% if (page + 2 < totalPage) { %>
+    <a class = "btn btn-primary margin-btn" href=<%=`/author/push?page=${totalPage}`%> > > </a>
+  <% } %>
+
+  </section>
+
+
+    </div>
+  </div>
+</div>
+
+
+  <%- contentFor('footer') %>
+
+
+
+  <%- include('../partials/footer.ejs') %>
+
+

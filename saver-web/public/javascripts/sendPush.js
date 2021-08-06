@@ -2,13 +2,14 @@ async function sendAriclePush(articleId) {
   const token = localStorage['jwtToken'];
 
   $.ajax({
-    url: `/firebase/${articleId}`,
+    url: `/author/push/${articleId}`,
     type: 'post',
     headers: {
       'x-access-token': token,
     },
     success: function () {
       alert('알림을 보냈습니다.');
+      
     },
     error: function (err) {
       console.log(err);
@@ -20,9 +21,10 @@ async function sendAriclePush(articleId) {
 async function sendMessagePush(messageData) {
   const token = localStorage['jwtToken'];
   const message = {};
+
   message['message'] = messageData;
   $.ajax({
-    url: `/firebase`,
+    url: `/author/push`,
     type: 'post',
     headers: {
       'x-access-token': token,
@@ -32,10 +34,13 @@ async function sendMessagePush(messageData) {
     data: JSON.stringify(message),
     success: function () {
       alert('알림을 보냈습니다.');
+      window.location = '/author/push';
+
     },
     error: function (err) {
       console.log(err);
       alert('알림을 보내지 못했습니다.');
+      document.getElementById('complete-btn').disabled = false;
     },
   });
 }
