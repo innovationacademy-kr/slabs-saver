@@ -10,6 +10,7 @@ module.exports = {
       createdAt: Sequelize.fn('now'),
       updatedAt: Sequelize.fn('now'),
       deletedAt : 1,
+      alarmStatus : 1,
     }], {});
   },
 

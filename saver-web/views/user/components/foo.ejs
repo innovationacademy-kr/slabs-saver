@@ -4,7 +4,7 @@
 		<i class="icon icon-home inactive"></i></button>
 	<button id="section" class="footer__button white">
 		<i class="icon icon-section inactive"></i></button>
-	<button id="alarm" class="footer__button white">
+	<button id="alarm" class="footer__button white" data-link="/alarm">
 		<i class="icon icon-alarm inactive"></i></button>
 	<button id="bookmark" class="footer__button white" data-link="/bookmark">
 		<i class="icon icon-bookmark inactive"></i></button>
@@ -23,6 +23,8 @@
 		const bookmark = document.querySelector("#bookmark");
 		const section = document.querySelector("#section");
 		const token = localStorage['jwtToken'];
+
+		
 		
 		section.addEventListener('click', (e) => {
 			if (!token){
