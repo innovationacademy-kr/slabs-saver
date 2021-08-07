@@ -1,29 +1,16 @@
-var admin;
+const admin = require('firebase-admin');
 const { Article } = require('../../models');
 const POSITION = require('../../lib/constants/position');
 const getCurrentUser = require('../../lib/getCurrentUser');
 const STATUS = require('../../lib/constants/articleStatus');
+const { constants } = require('../../lib/converter');
 
-const category = {
-  전체: 'total',
-  경제: 'economy',
-  정치: 'politics',
-  국제: 'international',
-  사회: 'social',
-  문화: 'culture',
-};
-
-
-const setAdmin = () => {
-  admin = require('firebase-admin');
-  const serviceAccount = require('../../config/firebase-adminsdk.json');
-  admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-  });
-};
+const serviceAccount = require('../../config/firebase-adminsdk.json');
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+});
 
 const postFirebaseMessage = async (req, res) => {
-  if (!admin) setAdmin();
   try {
     const message = req.body.message;
 
@@ -37,7 +24,7 @@ const postFirebaseMessage = async (req, res) => {
 
 const pushPage = async (req, res) => {
   const currentUser = await getCurrentUser(req.user?.id);
-	if (!currentUser) return res.redirect('/author/login');
+  if (!currentUser) return res.redirect('/author/login');
   const page = req.query.page ? parseInt(req.query.page) : 0;
   const limit = 15;
   const articles = await Article.findAll({
@@ -52,25 +39,26 @@ const pushPage = async (req, res) => {
 
   res.render('author/pushPage', {
     articles,
-    category,
     totalPage,
     page,
     underLimitPage,
+    category: constants.category,
     POSITION,
-    currentUser
+    STATUS,
+    currentUser,
   });
 };
 
 const pushSendPage = async (req, res) => {
   const currentUser = await getCurrentUser(req.user?.id);
-	if (!currentUser) return res.redirect('/author/login');
+  if (!currentUser) return res.redirect('/author/login');
   const article = await Article.findOne({ where: { id: req.params.articleId } });
-  console.log(article.headline)
   res.render('author/pushSendPage', {
     article,
-    category,
+    category: constants.category,
     POSITION,
-    currentUser
+    STATUS,
+    currentUser,
   });
 };
 

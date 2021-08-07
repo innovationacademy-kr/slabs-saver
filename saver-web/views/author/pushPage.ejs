@@ -50,28 +50,16 @@
   <% if (underLimitPage != 0) { %>
     <a class = "btn btn-primary margin-btn"  href= "/author/push?page=0"> < </a>
   <% } %>
-
   <% for(var i = underLimitPage; i < underLimitPage + 5 && i <= totalPage; i++){ %>
     <a class = "btn btn-primary margin-btn" href= <%=`/author/push?page=${i}`%>> <%=i + 1%> </a>
   <% } %>
-
-  
   <% if (page + 2 < totalPage) { %>
     <a class = "btn btn-primary margin-btn" href=<%=`/author/push?page=${totalPage}`%> > > </a>
   <% } %>
 
   </section>
 
-
-    </div>
-  </div>
-</div>
-
-
   <%- contentFor('footer') %>
-
-
-
   <%- include('../partials/footer.ejs') %>
 
 
