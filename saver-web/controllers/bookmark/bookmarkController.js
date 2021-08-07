@@ -1,4 +1,4 @@
-const { Bookmarks, Article } = require('../../models');
+const { Bookmarks, Article, Alarm } = require('../../models');
 const sequelize = require('../../models').sequelize;
 
 const getBookmarkRequest = async (req, res) => {
@@ -53,6 +53,7 @@ const createBookmarkRequest = async (req, res) => {
       UserId: req.decoded.userId,
       ArticleId: articleId,
     });
+
     res.status(200).json({
       success: true,
       result,

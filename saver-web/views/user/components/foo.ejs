@@ -4,7 +4,7 @@
 		<i class="icon icon-home inactive"></i></button>
 	<button id="section" class="footer__button white">
 		<i class="icon icon-section inactive"></i></button>
-	<button id="alarm" class="footer__button white">
+	<button id="alarm" class="footer__button white" data-link="/alarm">
 		<i class="icon icon-alarm inactive"></i></button>
 	<button id="bookmark" class="footer__button white" data-link="/bookmark">
 		<i class="icon icon-bookmark inactive"></i></button>
@@ -12,10 +12,19 @@
 
 <%- contentFor('scriptTag') %>
 	<script>
+		var current = window.location.pathname;
+		const icon = document.querySelector(`.footer__button[data-link="${current}"] i`)
+		if (icon) {
+			icon.classList.add('active');
+			icon.classList.remove('inactive')
+		}
+
 		const alarm = document.querySelector("#alarm");
 		const bookmark = document.querySelector("#bookmark");
 		const section = document.querySelector("#section");
 		const token = localStorage['jwtToken'];
+
+		
 		
 		section.addEventListener('click', (e) => {
 			if (!token){
@@ -37,23 +46,18 @@
 		});
 		alarm.addEventListener('click', (e) => {
 			if (token) {
-				alert('로그인한 유저');
+				location.href = '/alarm';
 			} else {
 				location.href = '/subscriber/login'
 			}
 		});
 		bookmark.addEventListener('click', (e) => {
 			if (token) {
-        location.href = '/bookmark';
+				location.href = '/bookmark';
 			} else {
 				location.href = '/subscriber/login'
 			}
 		});
 
-		var current = window.location.pathname;
-		const icon = document.querySelector(`.footer__button[data-link="${current}"] i`)
-		if (icon) {
-			icon.classList.add('active');
-			icon.classList.remove('inactive')
-		}
+
 	</script>

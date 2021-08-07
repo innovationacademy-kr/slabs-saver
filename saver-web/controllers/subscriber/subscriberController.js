@@ -84,10 +84,46 @@ const loginRequest = async (req, res, next) => {
     }
 }
 
+const getUserAlarmStatus = async (req, res) => {
+	const userId = req.decoded.userId;
+    try{
+        const status = await Subscriber.findOne({
+            attributes: [ 'alarmStatus' ],
+            where: { id: userId},
+        });
+        res.status(200).json(status);
+    }
+    catch (error) {
+        console.log(JSON.stringify(error));
+        res.status(400).json({
+          error,
+        });
+      }
+}
+
+const updateAlarmStatus = async (req, res) => {
+    const userId = req.decoded.userId;
+    try{
+        const status = await Subscriber.update(
+            { alarmStatus: 1},
+             { where: { id: userId, alarmStatus: 2 }}
+          );
+          res.status(200).json(status); 
+    }
+    catch (error) {
+        console.log(JSON.stringify(error));
+        res.status(400).json({
+          error,
+        });
+    }
+}
+
 module.exports = {
     request: {
         signup: signupRequest,
-        login: loginRequest
+        login: loginRequest,
+        AlarmStatus: getUserAlarmStatus,
+        upAlarmStatus: updateAlarmStatus,
     },
     page: {
         login: loginPage,

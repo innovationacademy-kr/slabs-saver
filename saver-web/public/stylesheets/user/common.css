@@ -543,7 +543,7 @@
   height: 32px;
   width: 94px;
 }
-.alarm.active {
+.icon-alarm.active {
   background-image: url('../icons/alarm-active.svg');
   background-position: center;
   background-size: cover;

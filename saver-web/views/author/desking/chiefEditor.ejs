@@ -20,6 +20,7 @@
           <thead class="table-header">
             <tr class="table-haeder__row">
               <th class="table-header__cell">NO</th>
+              <th class="table-header__cell">알림</th>
               <th class="table-header__cell">헤드라인</th>
               <th class="table-header__cell">작성자</th>
               <th class="table-header__cell">작성일자</th>
@@ -36,6 +37,9 @@
                 <td class="table-body__cell">
                   <%= article.id %>
                     <button onclick="location.href='/author/articles/edit/<%= article.id %>'">수정</button>
+                </td>
+                <td class="table-body__cell">
+                    <button onclick="newalarmdb('<%= article.id %>', '<%= article.status %>', '<%= article.category %>')">알림</button>
                 </td>
                 <td class="table-body__cell">
                   <a href="/author/articles/<%= article.id %>/preview" target="_blank">

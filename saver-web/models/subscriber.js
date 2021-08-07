@@ -43,11 +43,19 @@ module.exports = (sequelize, DataTypes) => {
     followingCategories: {
       type: DataTypes.STRING,
       allowNull: true,
-    }
-  }, {
+    },
+    alarmStatus: {
+      type: DataTypes.INTEGER,
+      defaultValue: 1,
+      allowNull: false,
+    },
+  }, 
+  {
     sequelize,
     modelName: 'Subscriber',
-  });
+  }
+  );
+
   Subscriber.addHook('beforeCreate', async (subscriber, options) => {
     const salt = await bcrypt.genSaltSync(+process.env.SALT_ROUNDS);
     return bcrypt.hash(subscriber.password, salt).then((hash) => {

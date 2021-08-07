@@ -100,6 +100,7 @@ const addEvent = () => {
     })
   }
 
+
   /**
    * 하단 업데이트 버튼 이벤트 추가
    */
@@ -108,6 +109,29 @@ const addEvent = () => {
     const chageList = getChangedArticle(articlesData);
     requestUpdate(chageList);
   })
+}
+
+//알림 디비 추가 함수
+function newalarmdb(article, status, category){
+  if (status === '4'){ //게재 상태인 기사인지 확인
+   axios({
+      method: "POST",
+      url: '/alarm/alarm-process',
+      data: {
+        "articleId": article,
+        "category": category,
+      },
+    }).then((res) => {
+        console.log(res);
+        return alert('알림디비가 추가되었습니다');
+      }).catch((err) => {
+        alert('실패했습니다')
+        console.error(err);
+      })
+  }
+  else {
+    return alert('게재 된 기사가 아닙니다.');
+  }
 }
 
 addEvent();
