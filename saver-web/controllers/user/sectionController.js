@@ -7,15 +7,17 @@ const categories = require('../../public/javascripts/sectionCategory')
 let currentFollowingStatus = [];
 
 const getSectionRequest = async (req, res) => {
-	 const userEmail = req.decoded.userEmail;
-	 const userId = req.decoded.userId;
+  const userEmail = req.decoded.userEmail;
+  const userId = req.decoded.userId;
+  const userFound = await Subscriber.findOne({ where : { id: userId } });
+  if (userFound.followingCategories)
+    currentFollowingStatus = await userFound.followingCategories.split(',').map(x=>+x)
 
-	// response
+  // response
 	res.status(200).json(userId);
 }
 
 const sectionPage = (req, res, next) => {
-  initFollowStatus(req, res, next);
 	res.render('user/section', { title : 'slab-saver', layout: 'layout/userLayout'});
 }
 
