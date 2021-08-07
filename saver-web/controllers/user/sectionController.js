@@ -10,7 +10,7 @@ const getSectionRequest = async (req, res) => {
 	 const userEmail = req.decoded.userEmail;
 	 const userId = req.decoded.userId;
 
-	console.log("userEmail =" + userEmail + "  userid = "+ userId);
+	// response
 	res.status(200).json(userId);
 }
 
@@ -103,17 +103,23 @@ const updateFollowStatus = async (req, res, next) => {
     }
 };
 
-// 페이지 로딩 될 때, DB에서 처음으로 followStatus를 가져오는 작업
+// 페이지 로딩 될 때, DB에서 처음으로 followStatus를 가져오는 작업, 아무것도 없을 때는 이전 남아있던 데이터를 초기화 하는 작업도 수행한다.
 const initFollowStatus = async (req, res, next) => {
     const { userId } = req.body
+	currentFollowingStatus = [];
 	try {
 		const userFound = await Subscriber.findOne({ where : { id: userId } });
 		if (userFound) {
 			if (userFound.followingCategories)
 				currentFollowingStatus = await userFound.followingCategories.split(',').map(x=>+x)
+			else {
+				await Subscriber.update({
+					followingCategories: '',
+				}, {
+					where: { id: userId }
+				})
+			}
 		}
-		await res.render('user/loginedSection',
-			{ title : 'slab-saver', layout: 'layout/userLayout', section: categories, follow: currentFollowingStatus });
     } catch (error) {
         console.log(error);
         res.status(400).json({
