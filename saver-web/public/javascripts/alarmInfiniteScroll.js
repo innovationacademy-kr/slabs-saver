@@ -23,6 +23,21 @@ const weekDay = {
   6: '토요일',
 };
 
+const upUserAlarmStatus = () => {
+  if (token){
+    axios({
+      method: 'post',
+      url: '/subscriber/updateAlarmStatus',
+      headers: {
+        'x-access-token': token
+      }
+    }).then((res) => {
+    }).catch(error => {
+      alert(error.response.data.message);
+    });
+  }
+};
+
 const getalarm = () => {
   $.ajax({
     url: `/alarm/article?page=${page}`,
@@ -54,6 +69,7 @@ const getalarm = () => {
   });
 };
 
+upUserAlarmStatus();
 getalarm();
 
 

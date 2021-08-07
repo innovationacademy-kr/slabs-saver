@@ -37,16 +37,6 @@ const newAlarmRequest = async(req, res, next) => {
     }
   });
 
-  const alarmStatusUsers = await Subscriber.findAll({
-    attributes: [ 'id' ],
-     where:{
-      followingCategories: {
-          [Op.like]: "%" + categorynum + "%"
-      },
-      alarmStatus: 1,
-    }
-  });
-
   const newAlarmArray = (arr) => arr.map((user) => {
      const request = new Promise((resolve, reject) => {
        try {
@@ -64,36 +54,34 @@ const newAlarmRequest = async(req, res, next) => {
       return request;
    });
 
-   /*
-   알림 디비가 추가되면 유저의 알림상태도 변경
-   alarmStatus 1 = 알림 활성화 상태, 새로운 알림 없음
-   alarmStatus 2 = 알림 활성화 상태, 새로운 알림 있음
-   alarmStatus 3 = 알림 비활성 상태 
-   */
-   const updateUserAlarmStatus = (arr) => arr.map((user) => {
-      const request = new Promise((resolve, reject) => {
-        try {
-          Subscriber.update({
-            alarmStatus: '2',
-          }, {
-            where: { id: user.id },
-          }).then(res => {
-            resolve(res);
-          });
-        } 
-        catch (error) {
-          reject(error);
-        }
-      })
-      return request;
-    });
+   //알림 디비가 추가되면 유저의 알림상태도 변경
+   //alarmStatus 1 = 알림 활성화 상태, 새로운 알림 없음
+   //alarmStatus 2 = 알림 활성화 상태, 새로운 알림 있음
+   //alarmStatus 3 = 알림 비활성 상태 
+   const UserAlarmStatus = (arr) => arr.map((user) => {
+    const request = new Promise((resolve, reject) => {
+      try {
+        Subscriber.update({
+          alarmStatus: '2',
+        }, {
+          where: { id: user.id },
+        }).then(res => {
+          resolve(res);
+        });
+      } 
+      catch (error) {
+        reject(error);
+      }
+    })
+     return request;
+  });
 
   try{    
     const requests = newAlarmArray(Users);
-    const nextRequests = updateUserAlarmStatus(alarmStatusUsers);
+    const nextRequests = UserAlarmStatus(Users);
     await Promise.all(requests)
       .then((result) => {
-        return new Promise.all(nextRequests);
+        return Promise.all(nextRequests);
       })
       .then((result) =>{
         console.log("추가된 알림 개수 =", result.length);
@@ -110,6 +98,7 @@ const newAlarmRequest = async(req, res, next) => {
 
 const getAlarmRequest = async (req, res) => {
   const page = req.query.page;
+
   const alarm = await Alarm.findAll({
     where: { UserId: req.decoded.userId },
     include: [
