@@ -71,3 +71,13 @@ button {
   font-weight: bold;
   color: var(--dark-cyan);
 }
+
+.flex-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.margin-btn {
+  margin: 0 2px;
+}
