@@ -1,7 +1,7 @@
 var DEFAULT_HEIGHT = $(window).height() + 10;
 var page = 0;
 var isUsed = false;
-var bookmarkList = document.querySelector('.bookmark-page');
+var bookmarkList = document.querySelector('.bookmark_alarm-page');
 
 const category = {
   전체: 'total',
@@ -87,12 +87,12 @@ function getListTemplate(article) {
     'beforeend',
     `
     <div class="bookmark-list" id="bookmark-list-${article.date}">
-      <div class="bookmark-title">
-        <div class="bookmark-title-col1">
+      <div class="bookmark_alarm-title">
+        <div class="bookmark_alarm-title-col1">
           <div class="icon-bookmark-black-transparent"></div>
         </div>
-        <div class="bookmark-title-col2">
-          <p class="bookmark-title-col2-text">${getDate(article.date)}</p>
+        <div class="bookmark_alarm-title-col2">
+          <p class="bookmark_alarm-title-col2-text">${getDate(article.date)}</p>
         </div>
       </div>
     </div>
@@ -104,7 +104,7 @@ function getListTemplate(article) {
 
 function getSectionTemplate(ListTemplate, article) {
   var template = document.getElementById(
-    `bookmark-section-text-${category[article.category]}-${article.date}`,
+    `bookmark_alarm-section-text-${category[article.category]}-${article.date}`,
   );
   if (template) return template;
   if (ListTemplate.childElementCount > 1)
@@ -116,12 +116,12 @@ function getSectionTemplate(ListTemplate, article) {
   ListTemplate.insertAdjacentHTML(
     'beforeend',
     `
-  <div class="bookmark-section white">
-    <div class="bookmark-section-icon">
+  <div class="bookmark_alarm-section white">
+    <div class="bookmark_alarm-section-icon">
       <div id class="icon-${category[article.category]}-blue"></div>
     </div>
-    <ul class="bookmark-section-text" 
-    id="bookmark-section-text-${category[article.category]}-${article.date}">
+    <ul class="bookmark_alarm-section-text" 
+    id="bookmark_alarm-section-text-${category[article.category]}-${article.date}">
     </ul>
   </div>
 
@@ -130,7 +130,7 @@ function getSectionTemplate(ListTemplate, article) {
   );
   //아이콘 부분 추가
   return document.getElementById(
-    `bookmark-section-text-${category[article.category]}-${article.date}`,
+    `bookmark_alarm-section-text-${category[article.category]}-${article.date}`,
   );
 }
 
@@ -139,14 +139,14 @@ function fillBookmark(template, article, articleId) {
     template.insertAdjacentHTML(
       'beforeend',
       `
-      <li class="bookmark-section-text-line"></li>`,
+      <li class="bookmark_alarm-section-text-line"></li>`,
     );
   template.insertAdjacentHTML(
     'beforeend',
     `
-      <li class="bookmark-section-text-area" id="item-${articleId}">
+      <li class="bookmark_alarm-section-text-area" id="item-${articleId}">
         <a href="articles/detail/${articleId}">
-        <p class="bookmark-section-text-text">${article.headline}</p>
+        <p class="bookmark_alarm-section-text-text">${article.headline}</p>
         </a>
       </li>
 `,

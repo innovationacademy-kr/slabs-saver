@@ -29,6 +29,7 @@ const articlesRouter = require('./routes/articles');
 const sectionRouter = require('./routes/section');
 const todayRouter = require('./routes/today');
 const bookmarkRouter = require('./routes/bookmark');
+const alarmRouter = require('./routes/alarm');
 
 const layout = require('express-ejs-layouts');
 app.use(layout);
@@ -45,6 +46,7 @@ app.use('/vendors', vendorsRouter);
 app.use('/subscriber', subscriberRouter);
 app.use('/today', todayRouter);
 app.use('/bookmark', bookmarkRouter);
+app.use('/alarm', alarmRouter);
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
   next(createError(404));
