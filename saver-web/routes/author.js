@@ -5,6 +5,7 @@ const { s3ImageUpload } = require('../lib/aws/s3Uploader');
 const { loggedIn } = require('../middlewares/loggedIn');
 const { alreadyLoggedIn } = require('../middlewares/alreadyLoggedIn');
 const { checkCode } = require('../middlewares/checkCode');
+const firebaseCtrl = require('../controllers/firebase/firebaseController');
 
 module.exports = (passport) => {
   router.get('/', loggedIn, authorCtrl.page.index);
@@ -22,7 +23,12 @@ module.exports = (passport) => {
   );
   router.get('/logout', authorCtrl.request.logout);
   router.get('/signup', alreadyLoggedIn, authorCtrl.page.signup);
-  router.post('/signup', alreadyLoggedIn, s3ImageUpload({ folder: 'author' }).single('picture'), authorCtrl.request.signup);
+  router.post(
+    '/signup',
+    alreadyLoggedIn,
+    s3ImageUpload({ folder: 'author' }).single('picture'),
+    authorCtrl.request.signup,
+  );
   router.get('/edit-meeting', loggedIn, authorCtrl.page.editMeeting);
   router.get('/mypage', loggedIn, authorCtrl.page.mypage);
 
@@ -33,10 +39,17 @@ module.exports = (passport) => {
   router.get('/articles', loggedIn, authorCtrl.page.myArticle);
   router.get('/articles/:articleId/preview', loggedIn, authorCtrl.page.preview);
   router.get('/articles/edit/:articleId', loggedIn, authorCtrl.page.editArticle);
-  router.post('/articles/edit/:articleId', s3ImageUpload({ folder: 'article' }).single('picture'), authorCtrl.request.editArticle);
-  router.post('/createArticle', s3ImageUpload({ folder: 'article' }).single('picture'), authorCtrl.request.newArticle);
+  router.post(
+    '/articles/edit/:articleId',
+    s3ImageUpload({ folder: 'article' }).single('picture'),
+    authorCtrl.request.editArticle,
+  );
+  router.post(
+    '/createArticle',
+    s3ImageUpload({ folder: 'article' }).single('picture'),
+    authorCtrl.request.newArticle,
+  );
   router.post('/desk-process', loggedIn, authorCtrl.request.deskProcess);
-
 
   /**
    * 기자 관리
@@ -55,11 +68,11 @@ module.exports = (passport) => {
   router.get('/today/new', loggedIn, authorCtrl.page.createToday);
   router.get('/today', loggedIn, authorCtrl.page.today);
   router.get('/today/my', loggedIn, authorCtrl.request.getToday);
-  router.get('/todaydesking', loggedIn, authorCtrl.page.todayDesk)
-  router.post('/today/new',authorCtrl.request.today);
-  router.post('/todaydesking',authorCtrl.request.todayDesk);
-  router.get('/today/edit',authorCtrl.page.editToday)
-  router.post('/today/edit',authorCtrl.request.editToday);
+  router.get('/todaydesking', loggedIn, authorCtrl.page.todayDesk);
+  router.post('/today/new', authorCtrl.request.today);
+  router.post('/todaydesking', authorCtrl.request.todayDesk);
+  router.get('/today/edit', authorCtrl.page.editToday);
+  router.post('/today/edit', authorCtrl.request.editToday);
   router.post('/today/new', authorCtrl.request.today);
 
   /**
@@ -67,5 +80,12 @@ module.exports = (passport) => {
    */
   router.get('/todayArticleDesking', loggedIn, authorCtrl.page.todayArticleDesking);
   router.post('/todayArticleDesking', loggedIn, authorCtrl.request.todayArticleDesking);
+
+  /*파이어베이스*/
+
+  router.get('/push', loggedIn, firebaseCtrl.pushPage);
+  router.get('/push/send/:articleId', loggedIn, firebaseCtrl.pushSendPage);
+  router.post('/push/', loggedIn, firebaseCtrl.postFirebaseMessage);
+
   return router;
 };
