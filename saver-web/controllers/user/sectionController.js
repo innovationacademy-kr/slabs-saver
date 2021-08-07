@@ -15,6 +15,7 @@ const getSectionRequest = async (req, res) => {
 }
 
 const sectionPage = (req, res, next) => {
+  initFollowStatus(req, res, next);
 	res.render('user/section', { title : 'slab-saver', layout: 'layout/userLayout'});
 }
 
