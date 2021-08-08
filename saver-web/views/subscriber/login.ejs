@@ -38,8 +38,9 @@
             }).then((res) => {
                 localStorage.setItem('jwtToken', res.data.token);
                 if (location.search) {
-                    const redirect = decodeURIComponent(location.search)
-                    location.href = redirect;
+                    const redirect = decodeURIComponent(location.search);
+                    console.log(redirect);
+                    location.href = redirect.split('=')[1];
                 } else {
                     location.href = '/';
                 }
