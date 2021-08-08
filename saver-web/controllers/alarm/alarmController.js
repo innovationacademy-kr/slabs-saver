@@ -4,35 +4,13 @@ const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 
 const newAlarmRequest = async(req, res, next) => {
-
   const { articleId, category } = req.body;
-  var categorynum;
-
-  switch (category) {
-    case '경제':
-      categorynum = '1';
-      break;
-    case '정치':
-      categorynum = '2';
-      break;
-    case '국제':
-      categorynum = '3';
-      break;
-    case '사회':
-      categorynum = '4';
-      break;
-    case '문화':
-      categorynum = '5';
-      break;
-    default:
-      categorynum = null;
-  }
 
   const Users = await Subscriber.findAll({
     attributes: [ 'id' ],
      where:{
       followingCategories: {
-          [Op.like]: "%" + categorynum + "%"
+          [Op.like]: "%" + category + "%"
       }
     }
   });
