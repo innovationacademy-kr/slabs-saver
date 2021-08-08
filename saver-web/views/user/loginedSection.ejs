@@ -1,371 +1,5 @@
 <%- contentFor('scriptTag') %>
-  <script>
-    const politic = document.querySelector("#politic");
-    const economy = document.querySelector("#economy");
-    const international = document.querySelector("#international");
-    const social = document.querySelector("#social");
-    const culture = document.querySelector("#culture");
-    const ampm = document.querySelector("#ampm");
-
-    const destroyPolitic = document.querySelector("#destroyPolitic");
-    const destroyEconomy = document.querySelector("#destroyEconomy");
-    const destroyInternational = document.querySelector("#destroyInternational");
-    const destroySocial = document.querySelector("#destroySocial");
-    const destroyCulture = document.querySelector("#destroyCulture");
-    const destroyAmpm = document.querySelector("#destroyAmpm");
-
-    const my_section_default_div = document.querySelector("#my_section_default");
-
-    let currentUserID
-    let followCount = 0;
-
-    const print_follow_count = function() {
-          console.log("number of following sections: " + followCount);
-        }
-
-    const print_section = function(e) {
-          console.log(e)
-        }
-
-    const init_section = function(id) {
-          const class_name = "#" + id;
-          const div_id = document.querySelector(class_name);
-          div_id.style.display="none"
-          if (followCount == 0)
-            my_section_default_div.style.display="grid";
-          else
-            my_section_default_div.style.display="none";
-        }
-
-    const section_display_change = function(e) {
-          let div_id;
-          let following = false;
-          //check-button-id : button or text-field
-          // 버튼안의 텍스트를 클릭했을 경우 버튼id가져오기
-          if (e.srcElement.id == "")
-                div_id = e.srcElement.parentElement.id
-          else
-            div_id = e.srcElement.id
-          //destroy버튼일경우 소문자로, 팔로잉상태 on, 앞에문자제거.
-          if (div_id.indexOf("destroy") == 0) {
-                following = true;
-                div_id = div_id.substring(7, div_id.length);
-                div_id = div_id.toLowerCase();
-              }
-
-          //div sections 선택하기
-          const my_section = document.querySelector("#my-" + div_id)
-          const other_section = document.querySelector("#other-" + div_id)
-          //상단하단 div-section display 상태 변경하기
-          if (following) {
-                my_section.style.display="none"
-                other_section.style.display="grid"
-                followCount -= 1;
-
-              } else {
-                    my_section.style.display="grid"
-                    other_section.style.display="none"
-                    followCount += 1;
-                  }
-
-          // follow count에 따라 기본 섹션 보이기 및 숨기기
-          print_follow_count();
-          if (followCount > 0)
-            my_section_default_div.style.display="none";
-          else
-            my_section_default_div.style.display="grid";
-        }
-
-    // page load 시 로그인 정보 확인 / page 렌더
-    window.onload = function () {
-      if (!token) {
-        location.href = '/section/'
-      } else {
-        axios({
-          method: 'post',
-          url: '/section/user',
-          headers: {
-            'x-access-token': token
-          }
-        }).then((res) => {
-          currentUserID = res.data;
-        }).catch(error => {
-          alert(error.response.data.message);
-        });
-      }
-    }
-
-    // politic follow button (value = 1)
-if (politic) {
-  politic.addEventListener('click', (e) => {
-      if (!token) {
-        location.href = '/section/follow'
-      } else {
-        axios({
-          method: 'post',
-          url: 'follow',
-          data: {
-            userId: currentUserID,
-            followValue: 1,
-          }
-        }).then((res) => {
-              alert('팔로우 되었습니다.');
-              section_display_change(e)
-        }).catch(error => {
-          alert(error.response.data.message);
-        });
-      }
-    });
-  }
-
-  if (economy) {
-    // economy follow button (value = 2)
-    economy.addEventListener('click', (e) => {
-      if (!token) {
-        location.href = '/section/follow'
-      } else {
-        axios({
-          method: 'post',
-          url: 'follow',
-          data: {
-            userId: currentUserID,
-            followValue: 2,
-          }
-        }).then((res) => {
-              alert('팔로우 되었습니다.');
-              section_display_change(e)
-        }).catch(error => {
-          alert(error.response.data.message);
-        });
-      }
-    });
-}
-
-if (international) {
-    // international follow button (value = 3)
-    international.addEventListener('click', (e) => {
-      if (!token) {
-        location.href = '/section/follow'
-      } else {
-        axios({
-          method: 'post',
-          url: 'follow',
-          data: {
-            userId: currentUserID,
-            followValue: 3,
-          }
-        }).then((res) => {
-              alert('팔로우 되었습니다.');
-              section_display_change(e)
-        }).catch(error => {
-          alert(error.response.data.message);
-        });
-      }
-    });
-  }
-
-  if (social) {
-    // social follow button (value = 4)
-    social.addEventListener('click', (e) => {
-      if (!token) {
-        location.href = '/section/follow'
-      } else {
-        axios({
-          method: 'post',
-          url: 'follow',
-          data: {
-            userId: currentUserID,
-            followValue: 4,
-          }
-        }).then((res) => {
-              alert('팔로우 되었습니다.');
-              section_display_change(e)
-        }).catch(error => {
-          alert(error.response.data.message);
-        });
-      }
-    });
-  }
-
-  if (culture) {
-    // culture follow button (value = 5)
-    culture.addEventListener('click', (e) => {
-      if (!token) {
-        location.href = '/section/follow'
-      } else {
-        axios({
-          method: 'post',
-          url: 'follow',
-          data: {
-            userId: currentUserID,
-            followValue: 5,
-          }
-        }).then((res) => {
-              alert('팔로우 되었습니다.');
-              section_display_change(e)
-        }).catch(error => {
-          alert(error.response.data.message);
-        });
-      }
-    });
-  }
-
-  if (ampm) {
-    // ampm follow buttton (value = 6)
-    ampm.addEventListener('click', (e) => {
-      if (!token) {
-        location.href = '/section/follow'
-      } else {
-        axios({
-          method: 'post',
-          url: 'follow',
-          data: {
-            userId: currentUserID,
-            followValue: 6,
-          }
-        }).then((res) => {
-              alert('팔로우 되었습니다.');
-              section_display_change(e)
-        }).catch(error => {
-          alert(error.response.data.message);
-        });
-      }
-    });
-  }
-
-  if (destroyPolitic) {
-    destroyPolitic.addEventListener('click', (e) => {
-      if (!token) {
-        location.href = '/section/unfollow'
-      } else {
-        axios({
-          method: 'post',
-          url: 'unfollow',
-          data: {
-            userId: currentUserID,
-            followValue: 1,
-          }
-        }).then((res) => {
-              alert('언팔로우 되었습니다.');
-              section_display_change(e)
-        }).catch(error => {
-          alert(error.response.data.message);
-        });
-      }
-    });
-  }
-
-  if (destroyEconomy) {
-    destroyEconomy.addEventListener('click', (e) => {
-      if (!token) {
-        location.href = '/section/unfollow'
-      } else {
-        axios({
-          method: 'post',
-          url: 'unfollow',
-          data: {
-            userId: currentUserID,
-            followValue: 2,
-          }
-        }).then((res) => {
-              alert('언팔로우 되었습니다.');
-              section_display_change(e)
-        }).catch(error => {
-          alert(error.response.data.message);
-        });
-      }
-    });
-  }
-
-  if (destroyInternational) {
-    destroyInternational.addEventListener('click', (e) => {
-      if (!token) {
-        location.href = '/section/unfollow'
-      } else {
-        axios({
-          method: 'post',
-          url: 'unfollow',
-          data: {
-            userId: currentUserID,
-            followValue: 3,
-          }
-        }).then((res) => {
-              alert('언팔로우 되었습니다.');
-              section_display_change(e)
-        }).catch(error => {
-          alert(error.response.data.message);
-        });
-      }
-    });
-  }
-
-  if (destroySocial) {
-    destroySocial.addEventListener('click', (e) => {
-      if (!token) {
-        location.href = '/section/unfollow'
-      } else {
-        axios({
-          method: 'post',
-          url: 'unfollow',
-          data: {
-            userId: currentUserID,
-            followValue: 4,
-          }
-        }).then((res) => {
-              alert('언팔로우 되었습니다.');
-              section_display_change(e)
-        }).catch(error => {
-          alert(error.response.data.message);
-        });
-      }
-    });
-  }
-
-  if (destroyCulture) {
-    destroyCulture.addEventListener('click', (e) => {
-      if (!token) {
-        location.href = '/section/unfollow'
-      } else {
-        axios({
-          method: 'post',
-          url: 'unfollow',
-          data: {
-            userId: currentUserID,
-            followValue: 5,
-          }
-        }).then((res) => {
-              alert('언팔로우 되었습니다.');
-              section_display_change(e)
-        }).catch(error => {
-          alert(error.response.data.message);
-        });
-      }
-    });
-  }
-
-  if (destroyAmpm) {
-    destroyAmpm.addEventListener('click', (e) => {
-      if (!token) {
-        location.href = '/section/unfollow'
-      } else {
-        axios({
-          method: 'post',
-          url: 'unfollow',
-          data: {
-            userId: currentUserID,
-            followValue: 6,
-          }
-        }).then((res) => {
-              alert('언팔로우 되었습니다.');
-              section_display_change(e)
-        }).catch(error => {
-          alert(error.response.data.message);
-        });
-      }
-    });
-  }
-
-  </script>
+  <script src= "/javascripts/sectionFollowButton.js"> </script>
 
   <%- contentFor('styleTag') %>
     <link rel="stylesheet" href="/stylesheets/user/pages/section.css" />
@@ -380,98 +14,100 @@ if (international) {
             </div>
 
             <!--Section: default My Section -->
-					<div id="my_section_default" class="my_section_default ice-blue-two">
-            <p class="my_section_default_text">
-              아직 팔로우 한 섹션이 없습니다.<br>
-              원하는 섹션을 Other Section에서 팔로우하세요.<br>
-            </p>
-          </div>
+            <div id="my_section_default" class="my_section_default ice-blue-two">
+              <p class="my_section_default_text">
+                아직 팔로우 한 섹션이 없습니다.<br>
+                원하는 섹션을 Other Section에서 팔로우하세요.<br>
+              </p>
+            </div>
 
             <!--Section: following -->
             <% for(var i=1; i < section.length; i++){ %>
 
-            <!--set id: following section div -->
-              <% var mySectionDiv = "my-" + section[i].button %>
-              <div id=<%= mySectionDiv %> class="section ice-blue-two">
+              <!--set id: following section div -->
+              <% var mySectionDiv="my-" + section[i].button %>
+                <div id=<%=mySectionDiv %> class="section ice-blue-two">
 
-            <!--open section only following -->
-                <% if (i != follow.find((e) => e == i)) { %>
-                <script>
-                  //print_section("<%=section[i].title%>")
-                  init_section("<%= mySectionDiv %>");
-                </script>
-                <% } %>
+                  <!--open section only following -->
+                  <% if (i !=follow.find((e)=> e == i)) { %>
+                    <script>
+                      //print_section("<%=section[i].title%>")
+                      init_section("<%= mySectionDiv %>");
+                    </script>
+                    <% } %>
 
-                  <div class="section__col1">
-                    <div class="section__col1__title my">
-                      <%=section[i].title%>
-                    </div>
-                    <% var icon="icon-" + section[i].icon + "-big-blue" %>
-                      <div class=<%=icon%>></div>
-                  </div>
-                  <div class="section__col2">
-                    <p class="section__col2__text text-login">
+                      <div class="section__col1">
+                        <div class="section__col1__title my">
+                          <%=section[i].title%>
+                        </div>
+                        <% var icon="icon-" + section[i].icon + "-big-blue" %>
+                          <div class=<%=icon%>></div>
+                      </div>
+                      <div class="section__col2">
+                        <p class="section__col2__text text-login">
 
-                      <% for(var j=0; j < section[i].text.length; j++){ %>
-                        <%= section[i].text[j] %> <br>
-                          <% } %>
-                    </p>
-                    <!-- TODO: 팔로우 해제 버튼 -->
-                    <button id=<%=section[i].destroyButton %> class="section__col2__btn ">
-                      <p class="section__col2__btn__text">
-                        팔로잉
-                      </p>
-                    </button>
-                  </div>
+                          <% for(var j=0; j < section[i].text.length; j++){ %>
+                            <%= section[i].text[j] %> <br>
+                              <% } %>
+                        </p>
+                        <!-- TODO: 팔로우 해제 버튼 -->
+                        <button id=<%=section[i].destroyButton %> class="section__col2__btn"
+                          onclick="clickFollow(<%=section[i].destroyButton %>, <%=section[i].value %>, 'unfollow')">
+                          <p class="section__col2__btn__text">
+                            팔로잉
+                          </p>
+                        </button>
+                      </div>
                 </div>
 
                 <% } %>
 
-                    <div class="section-div white">
-                      <h3 class="section-div__title">Other Section</h3>
-                    </div>
+                  <div class="section-div white">
+                    <h3 class="section-div__title">Other Section</h3>
+                  </div>
 
-                    <!--Section: follow -->
-                    <% for(var i=1; i < section.length; i++){ %>
+                  <!--Section: follow -->
+                  <% for(var i=1; i < section.length; i++){ %>
 
-            <!--set id: follow section div -->
-              <% var otherSectionDiv = "other-" + section[i].button %>
-              <div id=<%= otherSectionDiv %> class="section ice-blue">
+                    <!--set id: follow section div -->
+                    <% var otherSectionDiv="other-" + section[i].button %>
+                      <div id=<%=otherSectionDiv %> class="section ice-blue">
 
-                <!--open section only not followed -->
-                <% if (i == follow.find((e) => e == i)) { %>
-                <script>
-                  //print_section("<%=section[i].title%>")
-                  followCount += 1;
-                  init_section("<%= otherSectionDiv %>");
-                </script>
-                <% } %>
+                        <!--open section only not followed -->
+                        <% if (i==follow.find((e)=> e == i)) { %>
+                          <script>
+                            //print_section("<%=section[i].title%>")
+                            followCount += 1;
+                            init_section("<%= otherSectionDiv %>");
+                          </script>
+                          <% } %>
 
-                              <div class="section__col1">
-                                <div class="section__col1__title other">
-                                  <%=section[i].title%>
-                                </div>
-                                <% var icon="icon-" + section[i].icon + "-big-purple" %>
-                                  <div class=<%=icon%>></div>
+                            <div class="section__col1">
+                              <div class="section__col1__title other">
+                                <%=section[i].title%>
                               </div>
-                              <div class="section__col2">
-                                <p class="section__col2__text">
-                                  <% for(var j=0; j < section[i].text.length; j++){ %>
-                                    <%= section[i].text[j] %> <br>
-                                      <% } %>
-                                </p>
-                                <!-- TODO: 팔로우 버튼 -->
-                                <button id=<%=section[i].button %> class="section__col2__btn">
-                                  <p class="section__col2__btn__text">
-                                    팔로우
-                                  </p>
-                              </div>
+                              <% var icon="icon-" + section[i].icon + "-big-purple" %>
+                                <div class=<%=icon%>></div>
                             </div>
+                            <div class="section__col2">
+                              <p class="section__col2__text">
+                                <% for(var j=0; j < section[i].text.length; j++){ %>
+                                  <%= section[i].text[j] %> <br>
+                                    <% } %>
+                              </p>
+                              <!-- TODO: 팔로우 버튼 -->
+                              <button id=<%=section[i].button %> class="section__col2__btn"
+                                onclick="clickFollow(<%=section[i].button %>, <%=section[i].value %>, 'follow')" >
+                                    <p class="section__col2__btn__text">
+                                      팔로우
+                                    </p>
+                            </div>
+                      </div>
 
-                            <% } %>
-                <script>
-                  print_follow_count()
-                </script>
+                      <% } %>
+                        <script>
+                          print_follow_count()
+                        </script>
 
-                              <%- contentFor('footer') %>
-                                <%- include('./components/foo.ejs') %>
+                        <%- contentFor('footer') %>
+                          <%- include('./components/foo.ejs') %>

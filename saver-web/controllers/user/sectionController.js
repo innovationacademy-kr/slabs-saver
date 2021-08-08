@@ -6,16 +6,7 @@ const categories = require('../../public/javascripts/sectionCategory')
 
 let currentFollowingStatus = [];
 
-const getSectionRequest = async (req, res) => {
-  const userEmail = req.decoded.userEmail;
-  const userId = req.decoded.userId;
-  const userFound = await Subscriber.findOne({ where : { id: userId } });
-  if (userFound.followingCategories)
-    currentFollowingStatus = await userFound.followingCategories.split(',').map(x=>+x)
 
-  // response
-	res.status(200).json(userId);
-}
 
 const sectionPage = (req, res, next) => {
 	res.render('user/section', { title : 'slab-saver', layout: 'layout/userLayout'});
@@ -106,7 +97,8 @@ const updateFollowStatus = async (req, res, next) => {
     }
 };
 
-// 페이지 로딩 될 때, DB에서 처음으로 followStatus를 가져오는 작업, 아무것도 없을 때는 이전 남아있던 데이터를 초기화 하는 작업도 수행한다.
+// [START] : 페이지 로딩 시, currentFollowStatus 초기화 작업 수행.
+// 1. 새로 고침 시
 const initFollowStatus = async (req, res, next) => {
     const { userId } = req.body
 	currentFollowingStatus = [];
@@ -116,6 +108,7 @@ const initFollowStatus = async (req, res, next) => {
 			if (userFound.followingCategories)
 				currentFollowingStatus = await userFound.followingCategories.split(',').map(x=>+x)
 			else {
+				currentFollowingStatus = [];
 				await Subscriber.update({
 					followingCategories: '',
 				}, {
@@ -131,6 +124,21 @@ const initFollowStatus = async (req, res, next) => {
         });
     }
 };
+
+// 2. 메뉴를 통해 화면에 들어갈 시.
+const getSectionRequest = async (req, res) => {
+	const userEmail = req.decoded.userEmail;
+	const userId = req.decoded.userId;
+	const userFound = await Subscriber.findOne({ where : { id: userId } });
+	currentFollowingStatus = [];
+	if (userFound.followingCategories)
+	  currentFollowingStatus = await userFound.followingCategories.split(',').map(x=>+x)
+
+	// response
+	  res.status(200).json(userId);
+  }
+  // [END]
+
 
 module.exports = {
 	request: {
