@@ -1,12 +1,13 @@
 
 /* Section Class */
 class Section {
-  constructor(title, text, icon, button, destroyButton) {
+  constructor(title, text, icon, button, destroyButton, value) {
     this.title = title;
     this.text = text;
     this.icon = icon;
     this.button = button;
     this.destroyButton = destroyButton;
+    this.value = value;
   }
 }
 const politic = new Section(
@@ -19,6 +20,7 @@ const politic = new Section(
   'politics',
   'politic',
   'destroyPolitic',
+  1,
 )
 const economy = new Section(
   '경제',
@@ -30,6 +32,7 @@ const economy = new Section(
   'economy',
   'economy',
   'destroyEconomy',
+  2,
 )
 const international = new Section(
   '국제',
@@ -41,6 +44,7 @@ const international = new Section(
   'international',
   'international',
   'destroyInternational',
+  3,
 )
 const social = new Section(
   '사회',
@@ -52,6 +56,7 @@ const social = new Section(
   'social',
   'social',
   'destroySocial',
+  4,
 )
 
 //TODO:정렬기준 중간으로 되어 있음.
@@ -64,6 +69,7 @@ const culture = new Section(
   'culture',
   'culture',
   'destroyCulture',
+  5,
 )
 const ampm = new Section(
   'AM7/PM7',
@@ -75,6 +81,7 @@ const ampm = new Section(
   '7',
   'ampm',
   'destroyAmpm',
+  6,
 )
 
 const categories = new Array();
