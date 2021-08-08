@@ -17,14 +17,6 @@ const my_section_default_div = document.querySelector("#my_section_default");
 let currentUserID
 let followCount = 0;
 
-const print_follow_count = function () {
-  console.log("number of following sections: " + followCount);
-}
-
-const print_section = function (e) {
-  console.log(e)
-}
-
 const init_section = function (id) {
   const class_name = "#" + id;
   const div_id = document.querySelector(class_name);
@@ -64,7 +56,6 @@ const section_display_change = function (btnId) {
   }
 
   // follow count에 따라 기본 섹션 보이기 및 숨기기
-  print_follow_count();
   if (followCount > 0)
 	my_section_default_div.style.display = "none";
   else
@@ -90,10 +81,11 @@ window.onload = function () {
   }
 }
 
+// 팔로우 언팔로우 버튼을 클릭했을 때.
 const clickFollow = (btnId, value, btnUrl) => {
 
   if (!token) {
-	location.href = 'user/login'
+	location.href = '/section'
   } else {
 	axios({
 	  method: 'post',

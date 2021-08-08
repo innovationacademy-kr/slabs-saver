@@ -31,7 +31,6 @@
                   <!--open section only following -->
                   <% if (i !=follow.find((e)=> e == i)) { %>
                     <script>
-                      //print_section("<%=section[i].title%>")
                       init_section("<%= mySectionDiv %>");
                     </script>
                     <% } %>
@@ -76,7 +75,6 @@
                         <!--open section only not followed -->
                         <% if (i==follow.find((e)=> e == i)) { %>
                           <script>
-                            //print_section("<%=section[i].title%>")
                             followCount += 1;
                             init_section("<%= otherSectionDiv %>");
                           </script>
@@ -105,9 +103,6 @@
                       </div>
 
                       <% } %>
-                        <script>
-                          print_follow_count()
-                        </script>
 
                         <%- contentFor('footer') %>
                           <%- include('./components/foo.ejs') %>
