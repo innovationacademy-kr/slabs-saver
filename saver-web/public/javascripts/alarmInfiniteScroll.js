@@ -45,7 +45,7 @@ const getalarm = () => {
     headers: { 'x-access-token': token },
     success: function (alarm) {
         alarm.alarm.map(function (alarm) {
-            console.log(alarm);
+            // console.log(alarm);
           if (!(alarm.deleted))
           {
           const article = alarm.Article;
@@ -185,24 +185,24 @@ const deleteAlarm = async(id) => {
   const token = localStorage['jwtToken'];
   id = String(id);
   try {
-      result = await axios({
+      await axios({
           method: 'post',
           url: `/alarm/del/${id}`,
           headers: {
               'x-access-token':token,
           },
       });
-      alert('알람 제거에 성공했습니다.');
-  }
-  catch (err) {
-      console.log(err.response)
-      alert('알람 제거 실패.');
-  }
+    }
+    catch (err) {
+        console.log(err)
+        alert('알람 제거 실패.');
+    }
 }
 
 function addEvent(liItem, articleId) {
   var moveX;
   var pItem = liItem.children[0].children[0];
+  var parent = liItem.parentNode;
 
   liItem.addEventListener(
     'touchstart',
@@ -237,8 +237,30 @@ function addEvent(liItem, articleId) {
         pItem.style.transitionDuration = '0.5s';
         return;
       }
+
+      var underlineLiItem = liItem.nextElementSibling
+      ? liItem.nextElementSibling
+      : liItem.previousElementSibling;
+
       deleteAlarm(articleId);
-      window.location.reload()
+      parent.removeChild(liItem);
+      underlineLiItem?.remove();
+      if (parent.childElementCount <= 0)
+      {
+        var prevLiItem = parent.parentNode.previousElementSibling;
+        var nextLiItem = parent.parentNode.nextElementSibling;
+        parent.parentNode.remove();
+        nextLiItem.remove();
+        let temp;
+        temp = (prevLiItem.className == 'bookmark_alarm-title')
+        ? (prevLiItem.nextElementSibling) 
+          ?(prevLiItem.nextElementSibling.className == 'bookmark_alarm-title')
+            ? prevLiItem.remove()
+            :null
+          : prevLiItem.remove()
+        :null
+          // console.log("del");
+      }
     },
     { passive: true },
   );
