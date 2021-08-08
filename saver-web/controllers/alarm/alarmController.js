@@ -168,12 +168,11 @@ const deleteAlarmRequest = async (req, res) => {
     
     res.status(200).json({
       success: true,
-      result: result,
     });
   } catch (error){
     res.status(400).json({
-      success: false,
-      error
+      succes: false,
+    error
     });
   }
 }
