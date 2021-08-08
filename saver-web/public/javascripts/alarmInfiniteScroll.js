@@ -45,7 +45,7 @@ const getalarm = () => {
     headers: { 'x-access-token': token },
     success: function (alarm) {
         alarm.alarm.map(function (alarm) {
-            console.log(alarm);
+            // console.log(alarm);
           if (!(alarm.deleted))
           {
           const article = alarm.Article;
