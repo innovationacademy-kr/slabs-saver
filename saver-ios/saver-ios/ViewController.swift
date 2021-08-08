@@ -59,9 +59,9 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
         }
         else {
             // 실제로 동작하는 부분.
-            viewBounds.origin.y = window.safeAreaInsets.top;
+            viewBounds.origin.y = window.safeAreaInsets.top - 5;
             viewBounds.origin.x = 0
-            viewBounds.size.height = screenHeight - window.safeAreaInsets.top - window.safeAreaInsets.bottom
+            viewBounds.size.height = screenHeight - window.safeAreaInsets.top - window.safeAreaInsets.bottom + 5
             viewBounds.size.width = screenWidth
             webView.scrollView.contentInsetAdjustmentBehavior = .never
         }
