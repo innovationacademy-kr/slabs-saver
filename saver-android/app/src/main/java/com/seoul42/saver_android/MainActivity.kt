@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         MyWebClient(this@MainActivity, packageManager)
     }
 
-    private val baseUrl = "http://192.168.0.5:1234/";
+    private val baseUrl = "http://thesaver.io/";
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
