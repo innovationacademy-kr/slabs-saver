@@ -9,9 +9,6 @@ import android.webkit.WebView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.messaging.ktx.messaging
-
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,22 +23,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     private var childView: WebView? = null
-    private var childWebClient: MyWebClient? = null
 
-    private val baseUrl = "http://thesaver.io/";
+    private val childWebClient: MyWebClient by lazy {
+        MyWebClient(this@MainActivity, packageManager)
+    }
+
+    private val baseUrl = "http://192.168.0.5:1234/";
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         startActivity(Intent(this, SplashScreenActivity::class.java))
 
-        childWebClient = MyWebClient(this@MainActivity, packageManager)
-
-
         myWebView.apply {
             webViewClient = MyWebClient(this@MainActivity, packageManager)
             webChromeClient = MyWebChromeClient()
-
+            addJavascriptInterface(WebAppInterface(), "Android")
             settings.run {
                 javaScriptEnabled = true
                 settings.domStorageEnabled = true
@@ -59,6 +57,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun getStartUrl(intent: Intent): String {
         var url: String? = intent.getStringExtra("url")
+
         if (intent?.data != null)
             url = intent?.data.toString()
         url?.let {
@@ -77,9 +76,6 @@ class MainActivity : AppCompatActivity() {
             myWebView.canGoBack() -> {
                 myWebView.goBack()
             }
-            childView != null -> {
-                childView?.loadUrl("javascript:window.close();");
-            }
             myWebView.url != baseUrl -> {
                 myWebView.clearHistory()
                 myWebView.loadUrl(baseUrl)
@@ -90,33 +86,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun subscribeTopic(topic: String) {
-        Firebase.messaging.subscribeToTopic(topic)
-            .addOnCompleteListener { task ->
-                var msg = ""
-                msg = if (task.isSuccessful)
-                    "성공"
-                else
-                    "실패"
-                Log.d("구독", msg)
-            }
-    }
-
-    private fun unsubscribeTopic(topic: String) {
-        Firebase.messaging.unsubscribeFromTopic(topic)
-            .addOnCompleteListener { task ->
-                var msg = "성공"
-                if (!task.isSuccessful) {
-                    msg = "실패"
-                }
-                Log.d("구독 취소", msg)
-            }
-
-    }
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        childWebClient?.getCallbackManager()?.onActivityResult(requestCode,resultCode,data)
+        childWebClient.getCallbackManager()?.onActivityResult(requestCode,resultCode,data)
         super.onActivityResult(requestCode, resultCode, data)
     }
 
@@ -143,8 +116,8 @@ class MainActivity : AppCompatActivity() {
                 }
                 layoutParams = view.layoutParams
                 setBackgroundColor(Color.TRANSPARENT)
-                childWebClient?.setIsDirect(false)
-                webViewClient = childWebClient!!
+                childWebClient.setIsDirect(false)
+                webViewClient = childWebClient
                 webChromeClient = MyWebChromeClient()
 
             }
