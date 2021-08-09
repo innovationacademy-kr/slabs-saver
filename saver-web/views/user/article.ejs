@@ -52,7 +52,7 @@
 <script>
   var briefingContent = '<%- article.briefing %>';
   var paragraphsContent = '<%- article.paragraphs %>';
-
+  const token = localStorage['jwtToken'];
 </script>
 
 <script defer src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
