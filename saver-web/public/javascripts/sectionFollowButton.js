@@ -17,6 +17,21 @@ const my_section_default_div = document.querySelector("#my_section_default");
 let currentUserID
 let followCount = 0;
 
+// [start : ios에서 핀치와 더블탭을 통한 화면 확대, 축소 방지]
+document.addEventListener('touchmove', function (event) {
+	if (event.scale !== 1) { event.preventDefault(); }
+  }, false);
+
+var lastTouchEnd = 0;
+document.addEventListener('touchend', function (event) {
+  var now = (new Date()).getTime();
+  if (now - lastTouchEnd <= 300) {
+    event.preventDefault();
+  }
+  lastTouchEnd = now;
+}, false);
+// [end : ios에서 핀치와 더블탭을 통한 화면 확대, 축소 방지]
+
 const init_section = function (id) {
   const class_name = "#" + id;
   const div_id = document.querySelector(class_name);
