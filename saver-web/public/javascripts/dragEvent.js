@@ -19,31 +19,38 @@ const deleteAlarm = async(id) => {
 
 const deleteSection = async(id) => {
     deleteAlarm(id);
-    var item = document.getElementById(`alarm-box_${id}`);
-    var parent = item.parentNode;
+    var LiItem = document.getElementById(`alarm-box_${id}`);
+    var parent = LiItem.parentNode;
 
-    var underlineitem = item.nextElementSibling
-    ? item.nextElementSibling
-    : item.previousElementSibling;
+    var underlineitem = LiItem.nextElementSibling
+    ? LiItem.nextElementSibling
+    : LiItem.previousElementSibling;
 
-    parent.removeChild(item);
-    underlineitem?.remove();
-    if (parent.childElementCount <= 0)
-    {
-      var prevLiItem = parent.parentNode.previousElementSibling;
-      var nextLiItem = parent.parentNode.nextElementSibling;
-      parent.parentNode.remove();
-      nextLiItem.remove();
-      let temp;
-      temp = (prevLiItem.className == 'bookmark_alarm-title')
-      ? (prevLiItem.nextElementSibling) 
-        ?(prevLiItem.nextElementSibling.className == 'bookmark_alarm-title')
-          ? prevLiItem.remove()
+    function lineAnime(e1){
+        // e1.animate({opacity: '0'}, 200, function(){
+          e1.animate({height: '0px'}, 200);
+        // });
+      }
+    lineAnime(LiItem);
+    setTimeout(() => {
+        parent.removeChild(LiItem);
+        underlineitem?.remove();
+        if (parent.childElementCount <= 0)
+        {
+          var prevLiItem = parent.parentNode.previousElementSibling;
+          var nextLiItem = parent.parentNode.nextElementSibling;
+          parent.parentNode.remove();
+          nextLiItem.remove();
+          let temp;
+          temp = (prevLiItem.className == 'bookmark_alarm-title')
+          ? (prevLiItem.nextElementSibling) 
+            ?(prevLiItem.nextElementSibling.className == 'bookmark_alarm-title')
+              ? prevLiItem.remove()
+              :null
+                : prevLiItem.remove()
           :null
-        : prevLiItem.remove()
-      :null
-        // console.log("del");
-    }
+        }
+    },200);
 }
 
 let distX;
