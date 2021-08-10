@@ -31,15 +31,11 @@ const social = new Section(
 //TODO:정렬기준 중간으로 되어 있음.
 const culture = new Section(
   '문화',
-<<<<<<< HEAD
   [
     '놓칠 수 없는 문화뉴스',
     '세이버에서 확인하세요',
     '정확한 뉴스를 전해드립니다.',
   ],
-=======
-  ['문화 문화 문화 문화 문화 문화', '영화 영화 영화 ', ''],
->>>>>>> 701e8ccfae500d8cd4dbfa2b79f0a438e9a94ebb
   'culture',
 );
 
