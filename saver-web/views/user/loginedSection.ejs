@@ -25,7 +25,7 @@
             <% for(var i=1; i < section.length; i++){ %>
 
               <!--set id: following section div -->
-              <% var mySectionDiv="my-" + section[i].button %>
+              <% var mySectionDiv="my-" + section[i].type %>
                 <div id=<%=mySectionDiv %> class="section ice-blue-two">
 
                   <!--open section only following -->
@@ -39,8 +39,7 @@
                         <div class="section__col1__title my">
                           <%=section[i].title%>
                         </div>
-                        <% var icon="icon-" + section[i].icon + "-big-blue" %>
-                          <div class=<%=icon%>></div>
+                          <div class="<%=`icon-${section[i].type}-big-blue`%>"></div>
                       </div>
                       <div class="section__col2">
                         <p class="section__col2__text text-login">
@@ -50,8 +49,8 @@
                               <% } %>
                         </p>
                         <!-- TODO: 팔로우 해제 버튼 -->
-                        <button id=<%=section[i].destroyButton %> class="section__col2__btn"
-                          onclick="clickFollow(<%=section[i].destroyButton %>, <%=section[i].value %>, 'unfollow')">
+                        <button id="destroy-<%=section[i].type %>" class="section__col2__btn"
+                          onclick="clickFollow('<%=`destroy-${section[i].type}` %>', '<%=i %>', 'unfollow')">
                           <p class="section__col2__btn__text">
                             팔로잉
                           </p>
@@ -69,7 +68,7 @@
                   <% for(var i=1; i < section.length; i++){ %>
 
                     <!--set id: follow section div -->
-                    <% var otherSectionDiv="other-" + section[i].button %>
+                    <% var otherSectionDiv="other-" + section[i].type %>
                       <div id=<%=otherSectionDiv %> class="section ice-blue">
 
                         <!--open section only not followed -->
@@ -84,8 +83,7 @@
                               <div class="section__col1__title other">
                                 <%=section[i].title%>
                               </div>
-                              <% var icon="icon-" + section[i].icon + "-big-purple" %>
-                                <div class=<%=icon%>></div>
+                                <div class="<%=`icon-${section[i].type}-big-purple`%>"></div>
                             </div>
                             <div class="section__col2">
                               <p class="section__col2__text">
@@ -94,11 +92,12 @@
                                     <% } %>
                               </p>
                               <!-- TODO: 팔로우 버튼 -->
-                              <button id=<%=section[i].button %> class="section__col2__btn"
-                                onclick="clickFollow(<%=section[i].button %>, <%=section[i].value %>, 'follow')" >
+                              <button id="<%=section[i].type %>" class="section__col2__btn"
+                                onclick="clickFollow('<%=`${section[i].type}` %>', '<%=i%>', 'follow')" >
                                     <p class="section__col2__btn__text">
                                       팔로우
                                     </p>
+                               </button>
                             </div>
                       </div>
 
