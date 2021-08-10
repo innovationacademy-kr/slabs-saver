@@ -1,5 +1,5 @@
 
-const { Author, Article, Invitation } = require('../../../models');
+const { Author, Article } = require('../../../models');
 
 const getCurrentUser = require('../../../lib/getCurrentUser');
 
@@ -176,8 +176,10 @@ const editMeetingPage = async (req, res, next) => {
 //내 기사 목록
 const myArticlePage = async (req, res, next) => {
 	const currentUser = await getCurrentUser(req.user ? req.user.id : null);
-	const author = await Author.findOne({ where: { id: req.user.id } });
-	const articles = await author.getArticles();
+	const articles = await Article.findAll({
+		where: { AuthorId: req.user.id},
+		order: [['updatedAt', 'DESC']],
+	})
 	return res.render('author/articles', {
 		title: 'my articles',
 		articles,

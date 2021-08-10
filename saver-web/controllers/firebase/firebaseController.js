@@ -35,6 +35,7 @@ const pushPage = async (req, res) => {
   const articles = await Article.findAll({
     offset: page * limit,
     limit: limit,
+    order: [['updatedAt', 'DESC']],
   });
 
   var totalPage = await Article.count({});
