@@ -22,7 +22,7 @@ class MyWebClient private  constructor() : android.webkit.WebViewClient() {
     private var packageManager: PackageManager? = null
     private var activity: AppCompatActivity? = null
     private var isRedirect = false
-
+    private var view : WebView? = null
 
     constructor(activity: AppCompatActivity, packageManager: PackageManager) : this() {
         this.activity = activity
@@ -33,17 +33,20 @@ class MyWebClient private  constructor() : android.webkit.WebViewClient() {
         shareDialog?.registerCallback(callbackManager, object : FacebookCallback<Sharer.Result> {
             override fun onSuccess(result: Sharer.Result?) {
                 Log.d("#", "성공")
-                activity.onBackPressed()
+                view?.loadUrl("javascript:window.close();");
+               // activity.onBackPressed()
             }
 
             override fun onCancel() {
                 Log.d("#", "취소")
-                activity.onBackPressed()
+                view?.loadUrl("javascript:window.close();");
+                //activity.onBackPressed()
             }
 
             override fun onError(error: FacebookException?) {
                 Log.d("#", "실패" + error.toString())
-                activity.onBackPressed()
+                view?.loadUrl("javascript:window.close();");
+               // activity.onBackPressed()
             }
         });
     }
@@ -63,7 +66,7 @@ class MyWebClient private  constructor() : android.webkit.WebViewClient() {
             return false
         else
             isRedirect = true
-
+        this.view = view
         if (request.url.scheme == "intent") {
             try {
                 // Intent 생성
