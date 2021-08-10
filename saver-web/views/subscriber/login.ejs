@@ -50,23 +50,27 @@
           email: email.value,
           password: password.value,
         },
-      }).then((res) => {
-        localStorage.setItem('jwtToken', res.data.token);
+      })
+        .then((res) => {
+          localStorage.setItem('jwtToken', res.data.token);
 
-        if (navigator.userAgent.includes('ANDROID')) {
-          const followings = res.data.followingCategories.split(',');
-          followings.forEach((value) => {
-            Android.subscribeTopic(value);
-          });
-        }
-        if (location.search) {
-          const redirect = decodeURIComponent(location.search);
-          console.log(redirect);
-          location.href = redirect.split('=')[1];
-        } else {
-          location.href = '/';
-        }
-      });
+          if (navigator.userAgent.includes('ANDROID')) {
+            const followings = res.data.followingCategories.split(',');
+            followings.forEach((value) => {
+              Android.subscribeTopic(value);
+            });
+          }
+          if (location.search) {
+            const redirect = decodeURIComponent(location.search);
+            console.log(redirect);
+            location.href = redirect.split('=')[1];
+          } else {
+            location.href = '/';
+          }
+        })
+        .catch((error) => {
+          alert(error.response.data.message);
+        });
     }
   };
 </script>
