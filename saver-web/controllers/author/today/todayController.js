@@ -61,10 +61,10 @@ const todayPageDesking = async (req, res) => {
 	});
 
 
-	//note : sequelizer 객체의 dataValues에 접근해야 값 수정 변형 가능
+	//note : sequelize 객체의 dataValues에 접근해야 값 수정 변형 가능
 	words = words.map((item) => {
 		item = item.get({plain: true})
-		//note: sequelizer 객체의 dataValues의 값만 가져옴
+		//note: sequelize 객체의 dataValues의 값만 가져옴
 		if (item.TodayWord){
 			item.TodayWord.date = moment(item.TodayWord.date).format('YYYY-MM-DD');
 		} else {
