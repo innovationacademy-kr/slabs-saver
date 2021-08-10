@@ -91,7 +91,7 @@ window.onload = function () {
 
 // 팔로우 언팔로우 버튼을 클릭했을 때.
 const clickFollow = (btnId, value, btnUrl) => {
-  console.log(btnId + " ?? "+value);
+  userAgent = navigator.userAgent;
   if (!token) {
     location.href = '/section';
   } else {
@@ -105,11 +105,16 @@ const clickFollow = (btnId, value, btnUrl) => {
     })
       .then((res) => {
         section_display_change(btnId);
-        if (btnUrl === 'follow') alert('팔로우 되었습니다.');
-        else alert('언팔로우 되었습니다.');
+        if (btnUrl === 'follow') {
+          if (userAgent.includes('ANDROID')) Android.subscribeTopic(value);
+          alert('팔로우 되었습니다.');
+        } else {
+          if (userAgent.includes('ANDROID')) Android.unsubscribeTopic(value);
+          alert('언팔로우 되었습니다.');
+        }
       })
       .catch((error) => {
-		alert(error.response.data.message);
+        alert(error.response.data.message);
       });
   }
 };
