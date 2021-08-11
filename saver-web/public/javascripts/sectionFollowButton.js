@@ -28,6 +28,20 @@ document.addEventListener(
 );
 // [end : ios에서 핀치와 더블탭을 통한 화면 확대, 축소 방지]
 
+// 현재 호출한 디바이스가 어떤 것인지 체크
+var isMobile = {
+	Android: function () {
+		return navigator.userAgent.match(/Android/i) == null ? false : true;
+	},
+	iOS: function () {
+		return navigator.userAgent.match(/iPhone|iPad|iPod/i) == null ? false : true;
+	},
+	any: function () {
+		return (isMobile.Android() || isMobile.iOS());
+	}
+};
+
+
 const init_section = function (id) {
   const class_name = '#' + id;
   const div_id = document.querySelector(class_name);
@@ -84,7 +98,7 @@ window.onload = function () {
         currentUserID = res.data;
       })
       .catch((error) => {
-        alert(error.response.data.message);
+        alert(error.message);
       });
   }
 };
@@ -104,6 +118,8 @@ const clickFollow = (btnId, value, btnUrl) => {
       },
     })
       .then((res) => {
+        if (isMobile.iOS())
+	    		webkit.messageHandlers.getFollowStatus.postMessage(res.data);
         section_display_change(btnId);
         if (btnUrl === 'follow') alert('팔로우 되었습니다.');
         else alert('언팔로우 되었습니다.');
