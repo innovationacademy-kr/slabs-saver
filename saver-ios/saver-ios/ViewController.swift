@@ -133,7 +133,6 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
 
         // 서비스 상황에 맞는 나머지 로직을 구현합니다.
 
-
         decisionHandler(.allow)
     }
     
