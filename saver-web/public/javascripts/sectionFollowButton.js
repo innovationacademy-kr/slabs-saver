@@ -76,7 +76,7 @@ window.onload = function () {
 	}).then((res) => {
 	  currentUserID = res.data;
 	}).catch(error => {
-	  alert(error.response.data.message);
+	  alert(error.message);
 	});
   }
 }
@@ -95,13 +95,14 @@ const clickFollow = (btnId, value, btnUrl) => {
 		followValue: value,
 	  }
 	}).then((res) => {
+		webkit.messageHandlers.getFollowStatus.postMessage(res.data);
 	  if (btnUrl === 'follow')
 		alert('팔로우 되었습니다.');
 	  else
 		alert('언팔로우 되었습니다.');
 	  section_display_change(btnId);
 	}).catch(error => {
-	  alert(error.response.data.message);
+	  alert(error.message);
 	});
   }
 };
