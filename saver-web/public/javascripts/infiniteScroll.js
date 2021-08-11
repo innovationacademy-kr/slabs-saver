@@ -13,6 +13,7 @@ const getPage = () => {
       articles = JSON.parse(articles);
       articles.map(function (article) {
         articleList.insertAdjacentHTML('beforeend', makeTemplate(article));
+        fixVidieo(article);
         const item = document.getElementById(`kakao_share_${article.id}`);
         article.path = `articles/detail/${article.id}`;
         if (item) KaKaoShare(item.id, article);
@@ -37,6 +38,20 @@ $(window).scroll(function () {
     getPage();
   }
 });
+
+function fixVidieo(article){
+  const briefing = document.getElementById(`editor_briefing_0${article.id}`);
+  const paragraphs = document.getElementById(`editor_paragraphs_0${article.id}`);
+  const briefVi = briefing.querySelector(".note-video-clip");
+  const paragVi = paragraphs.querySelector(".note-video-clip");
+
+  briefVi?.removeAttribute("height");
+  briefVi?.removeAttribute("width");
+  briefVi?.setAttribute("style", "max-width: 100%; width:95vw; height: 53.43vw;");
+  paragVi?.removeAttribute("height");
+  paragVi?.removeAttribute("width");
+  paragVi?.setAttribute("style", "max-width: 100%; width:95vw; height: 53.43vw");
+}
 
 function makeTemplate(article) {
   //추가되는 카드들

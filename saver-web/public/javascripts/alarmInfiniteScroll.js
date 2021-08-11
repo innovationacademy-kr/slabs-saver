@@ -243,24 +243,32 @@ function addEvent(liItem, articleId) {
       : liItem.previousElementSibling;
 
       deleteAlarm(articleId);
-      parent.removeChild(liItem);
-      underlineLiItem?.remove();
-      if (parent.childElementCount <= 0)
-      {
-        var prevLiItem = parent.parentNode.previousElementSibling;
-        var nextLiItem = parent.parentNode.nextElementSibling;
-        parent.parentNode.remove();
-        nextLiItem.remove();
-        let temp;
-        temp = (prevLiItem.className == 'bookmark_alarm-title')
-        ? (prevLiItem.nextElementSibling) 
-          ?(prevLiItem.nextElementSibling.className == 'bookmark_alarm-title')
-            ? prevLiItem.remove()
-            :null
-          : prevLiItem.remove()
-        :null
-          // console.log("del");
+      function lineAnime(e1){
+        // e1.animate({opacity: '0'}, 200, function(){
+          e1.animate({height: '0px'}, 200);
+        // });
       }
+        lineAnime(liItem);
+      setTimeout(() => {
+        parent.removeChild(liItem);
+        underlineLiItem?.remove();
+        if (parent.childElementCount <= 0)
+        {
+          var prevLiItem = parent.parentNode.previousElementSibling;
+          var nextLiItem = parent.parentNode.nextElementSibling;
+          parent.parentNode.remove();
+          nextLiItem.remove();
+          let temp;
+          temp = (prevLiItem.className == 'bookmark_alarm-title')
+          ? (prevLiItem.nextElementSibling) 
+            ?(prevLiItem.nextElementSibling.className == 'bookmark_alarm-title')
+              ? prevLiItem.remove()
+              :null
+            : prevLiItem.remove()
+          :null
+            // console.log("del");
+        }
+      }, 200);
     },
     { passive: true },
   );

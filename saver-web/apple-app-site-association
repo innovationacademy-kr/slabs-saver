@@ -1,0 +1,11 @@
+{
+  "applinks": {
+      "apps": [],
+      "details": [
+          {
+              "appID": "22F5TR429Q.io.thesaver.saver-ios",
+              "paths": [ "*" ]
+          }
+      ]
+  }
+}
