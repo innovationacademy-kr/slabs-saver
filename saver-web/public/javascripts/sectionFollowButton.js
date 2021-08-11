@@ -17,6 +17,20 @@ const my_section_default_div = document.querySelector("#my_section_default");
 let currentUserID
 let followCount = 0;
 
+// 현재 호출한 디바이스가 어떤 것인지 체크
+var isMobile = {
+	Android: function () {
+		return navigator.userAgent.match(/Android/i) == null ? false : true;
+	},
+	iOS: function () {
+		return navigator.userAgent.match(/iPhone|iPad|iPod/i) == null ? false : true;
+	},
+	any: function () {
+		return (isMobile.Android() || isMobile.iOS());
+	}
+};
+
+
 const init_section = function (id) {
   const class_name = "#" + id;
   const div_id = document.querySelector(class_name);
@@ -95,10 +109,11 @@ const clickFollow = (btnId, value, btnUrl) => {
 		followValue: value,
 	  }
 	}).then((res) => {
-		webkit.messageHandlers.getFollowStatus.postMessage(res.data);
-	  if (btnUrl === 'follow')
+		if (isMobile.iOS())
+			webkit.messageHandlers.getFollowStatus.postMessage(res.data);
+		if (btnUrl === 'follow')
 		alert('팔로우 되었습니다.');
-	  else
+		else
 		alert('언팔로우 되었습니다.');
 	  section_display_change(btnId);
 	}).catch(error => {
