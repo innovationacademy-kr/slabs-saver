@@ -28,6 +28,7 @@ const indexPage = async (req, res) => {
 	const articles = await Article.findAll({
 		where: { category },
 		include: { model: Author, attributes: ['id', 'name', 'category'] },
+		order: [['updatedAt', 'DESC']]
 	}); //db에서 사용자 데이터 가져오기
 	const { position } = currentUser;
 	// 기사, 데스크, 편집장인 경우 보여지는 부분이 있
