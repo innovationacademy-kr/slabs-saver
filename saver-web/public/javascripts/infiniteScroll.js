@@ -47,10 +47,10 @@ function fixVidieo(article){
 
   briefVi?.removeAttribute("height");
   briefVi?.removeAttribute("width");
-  briefVi?.setAttribute("style", "width:95vw; height: 53.43vw");
+  briefVi?.setAttribute("style", "max-width: 100%; width:95vw; height: 53.43vw;");
   paragVi?.removeAttribute("height");
   paragVi?.removeAttribute("width");
-  paragVi?.setAttribute("style", "width:95vw; height: 53.43vw");
+  paragVi?.setAttribute("style", "max-width: 100%; width:95vw; height: 53.43vw");
 }
 
 function makeTemplate(article) {
