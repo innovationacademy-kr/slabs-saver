@@ -101,6 +101,39 @@ window.onload = function () {
         alert(error.message);
       });
   }
+  axios({
+    method: 'get',
+    url: '/section/followlist',
+    headers: {
+      'x-access-token': token,
+    },
+  })
+    .then((res) => {
+      categories = ['economy', 'politics', 'international', 'social', 'culture', '7']
+
+      categories.forEach((category,i )=>{
+        index = i+1;
+        if( res.data.followCategory.includes(`${index}`))
+          {
+            document.getElementById(`my-${category}`)?.setAttribute('style',"display: grid;")
+            document.getElementById(`other-${category}`)?.setAttribute('style',"display: none;")
+ 
+          }
+          else{
+
+            document.getElementById(`my-${category}`)?.setAttribute('style',"display: none;")
+            document.getElementById(`other-${category}`)?.setAttribute('style',"display: grid;")
+
+          }
+      })
+
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
+
+
 };
 
 // 팔로우 언팔로우 버튼을 클릭했을 때.
