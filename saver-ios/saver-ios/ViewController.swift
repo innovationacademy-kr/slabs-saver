@@ -27,7 +27,7 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
         webView.navigationDelegate = self
         
         // [start] 웹뷰 load
-        let myURL = URL(string: "http://localhost:1234")
+        let myURL = URL(string: "https://dev.thesaver.io")
         let myRequest = URLRequest(url: myURL!)
         webView.load(myRequest)
         self.view.addSubview(webView)

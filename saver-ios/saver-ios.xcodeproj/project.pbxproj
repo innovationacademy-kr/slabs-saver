@@ -17,11 +17,11 @@
 		4F223F4A26A950B300ED04E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F223F4926A950B300ED04E4 /* Assets.xcassets */; };
 		4F223F5726A9543F00ED04E4 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F223F5626A9543F00ED04E4 /* WebKit.framework */; };
 		4F223F5D26A9567A00ED04E4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4F223F5C26A9567A00ED04E4 /* LaunchScreen.storyboard */; };
-		4FB57EED26B138F40050BB89 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4FB57EEC26B138F40050BB89 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0B7ADC17A3820AD30F9974C1 /* Pods_saver_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_saver_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		358E707E26C572110071B432 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		35F79B4926BFD9B700D8DCD0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../CA/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4F015E3326B1518C002A7A09 /* saver-ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "saver-ios.entitlements"; sourceTree = "<group>"; };
 		4F015E3426C3B552002A7A09 /* pushNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pushNotification.swift; sourceTree = "<group>"; };
@@ -35,7 +35,6 @@
 		4F223F5626A9543F00ED04E4 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		4F223F5C26A9567A00ED04E4 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4F81934456AF6C17B6042CDB /* Pods-saver-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-saver-ios.release.xcconfig"; path = "Target Support Files/Pods-saver-ios/Pods-saver-ios.release.xcconfig"; sourceTree = "<group>"; };
-		4FB57EEC26B138F40050BB89 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Documents/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		948D95444A4A7B48451ED265 /* Pods-saver-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-saver-ios.debug.xcconfig"; path = "Target Support Files/Pods-saver-ios/Pods-saver-ios.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -64,6 +63,7 @@
 		4F223F3426A950AB00ED04E4 = {
 			isa = PBXGroup;
 			children = (
+				358E707E26C572110071B432 /* Config.xcconfig */,
 				4F223F3F26A950AB00ED04E4 /* saver-ios */,
 				4F223F3E26A950AB00ED04E4 /* Products */,
 				44867DC634A1E454CD0AFA4C /* Pods */,
@@ -243,6 +243,7 @@
 /* Begin XCBuildConfiguration section */
 		4F223F4F26A950B300ED04E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 358E707E26C572110071B432 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -304,6 +305,7 @@
 		};
 		4F223F5026A950B300ED04E4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 358E707E26C572110071B432 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -365,7 +367,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "saver-ios/saver-ios.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 22F5TR429Q;
 				INFOPLIST_FILE = "saver-ios/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -387,7 +389,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "saver-ios/saver-ios.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 22F5TR429Q;
 				INFOPLIST_FILE = "saver-ios/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
