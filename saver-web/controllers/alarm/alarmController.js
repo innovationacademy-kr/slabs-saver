@@ -26,7 +26,7 @@ const newAlarmRequest = async(req, res, next) => {
          {
            console.log("update");
             Alarm.update(
-             {deleted: true},
+             {deleted: false},
              {where: { UserId: user.id, ArticleId: articleId }}
             )
             .then(res => {
