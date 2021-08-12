@@ -119,7 +119,7 @@ function getListTemplate(aldate) {
     <div class="bookmark-list" id="bookmark-list-${aldate}">
       <div class="bookmark_alarm-title">
         <div class="bookmark_alarm-title-col1">
-          <div class="icon-bookmark-black-transparent"></div>
+          <div class="icon-alarm-black-transparent"></div>
         </div>
         <div class="bookmark_alarm-title-col2">
           <p class="bookmark_alarm-title-col2-text">${getDate(aldate)}</p>
