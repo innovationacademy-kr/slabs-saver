@@ -111,7 +111,7 @@ function getSectionTemplate(ListTemplate, article) {
     ListTemplate.insertAdjacentHTML(
       'beforeend',
       `
-      <div class="bookmark-section-tap"></div>`,
+      <div class="bookmark_alarm-section-tap"></div>`,
     );
   ListTemplate.insertAdjacentHTML(
     'beforeend',
