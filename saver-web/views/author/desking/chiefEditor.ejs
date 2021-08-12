@@ -106,6 +106,23 @@
           <% } %>
       </section>
 
+        
+<section class="list-buttons flex-section" style="margin-bottom: 2rem;">
+
+
+  <% if (underLimitPage != 0) { %>
+    <a class = "btn btn-primary margin-btn"  href= <%=`/author?page=0&category=${filterCategory}`%>> < </a>
+  <% } %>
+  <% for(var i = underLimitPage; i < underLimitPage + 5 && i <= totalPage; i++){ %>
+    <a class = "btn btn-primary margin-btn" href= <%=`/author?page=${i}&category=${filterCategory}`%>> <%=i + 1%> </a>
+  <% } %>
+  <% if (page + 2 < totalPage) { %>
+    <a class = "btn btn-primary margin-btn" href=<%=`/author?page=${totalPage}&category=${filterCategory}`%> > > </a>
+  <% } %>
+
+
+  </section>
+
 
       <%- contentFor('footer') %>
         <%- include('../../partials/footer.ejs') %>
