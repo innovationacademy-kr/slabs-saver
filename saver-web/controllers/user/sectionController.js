@@ -16,19 +16,14 @@ const loginedPage = (req, res, next) => {
   });
 };
 
-
-const getFollowList = async(req, res) => {
-try{
-  console.log("\n\n\n ", req.decoded.userId)
-  const userFound = await Subscriber.findOne({ where: { id: req.decoded.userId } });
-  if(!userFound)
-  throw new Error("User Id Error")
-  console.log(userFound.followingCategories.split(','))
-  res.status(200).json({ followCategory: userFound.followingCategories.split(',') }) 
-}catch(e){
-  res.status(400).json({ error:e }) 
-}
-
+const getFollowList = async (req, res) => {
+  try {
+    const userFound = await Subscriber.findOne({ where: { id: req.decoded.userId } });
+    if (!userFound) throw new Error('User Id Error');
+    res.status(200).json({ followCategory: userFound.followingCategories.split(',') });
+  } catch (e) {
+    res.status(400).json({ error: e });
+  }
 };
 
 // unfollow 기능
@@ -153,7 +148,7 @@ module.exports = {
     follow: updateFollowStatus,
     unfollow: destroyFollowStatus,
     init: initFollowStatus,
-    getFollowList
+    getFollowList,
   },
   page: {
     section: sectionPage,
