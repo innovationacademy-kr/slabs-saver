@@ -45,6 +45,7 @@ class MainActivity : AppCompatActivity() {
                 settings.domStorageEnabled = true
                 javaScriptCanOpenWindowsAutomatically = true
                 setSupportMultipleWindows(true)
+                userAgentString += "ANDROID"
             }
             loadUrl(getStartUrl(intent))
         }
