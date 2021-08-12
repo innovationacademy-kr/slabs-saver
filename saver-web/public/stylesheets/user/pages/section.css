@@ -10,6 +10,7 @@
   position: relative;
   top: 50px;
   padding-bottom: 40px;
+  font-family: 'Noto Sans KR', sans-serif;
 }
 
 .section-div {
@@ -91,6 +92,29 @@
   letter-spacing: 0px;
   text-align: center;
   color: #434343;
+}
+
+.my_section_default {
+  display: grid;
+  grid-template-columns: auto auto;
+  height: 100px;
+  margin-bottom: 8px;
+  height: fit-content;
+
+  text-align: center;
+}
+
+.my_section_default_text {
+
+  font-size: 16px;
+  line-height: 1.6;
+  letter-spacing: -0.3px;
+  color: #434343;
+  margin-top: 12px;
+  text-align: left;
+  margin: 20px;
+  margin-left: 20px;
+
 }
 
 .logo-small-blue {

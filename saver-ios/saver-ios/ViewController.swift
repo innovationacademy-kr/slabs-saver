@@ -1,5 +1,9 @@
+
 import UIKit
 import WebKit
+import Firebase
+import UserNotifications
+import FirebaseMessaging
 
 class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
     
@@ -10,27 +14,35 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
         
         super.viewDidLoad()
         
+        let contentController = WKUserContentController()
         let webConfiguration = WKWebViewConfiguration()
+        
+        // [start] Birdge 등록
+        contentController.add(self, name: "getFollowStatus")
+        webConfiguration.userContentController = contentController
+        // [end] Birdge 등록
+        
         webView = WKWebView(frame: self.view.frame, configuration: webConfiguration)
         webView.uiDelegate = self
         webView.navigationDelegate = self
-
-        self.view.addSubview(webView)
         
-        let myURL = URL(string: "https://dev.thesaver.io/")
-        //let myURL = URL(string: "http://192.168.0.14:1234")
+        // [start] 웹뷰 load
+        let myURL = URL(string: "http://localhost:1234")
         let myRequest = URLRequest(url: myURL!)
-        
         webView.load(myRequest)
+        self.view.addSubview(webView)
+        // [end] 웹뷰 load
         
+        // [start] 당겨서 새로고침
         let refreshControl = UIRefreshControl()
-        
         refreshControl.addTarget(self, action: #selector(reloadWebView(_:)), for: .valueChanged)
         webView.scrollView.addSubview(refreshControl)
+        // [end] 당겨서 새로고침
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
+    
+        // [start] 화면 구성
         // 화면이 회전할 때 대응하기 위해 만들어놓은 것. 이 부분은 현재 issue로 인해 아직 실행되지 않는다.
         var viewBounds:CGRect = self.view.bounds
         let window = UIApplication.shared.windows[0]
@@ -66,26 +78,31 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
             webView.scrollView.contentInsetAdjustmentBehavior = .never
         }
         self.webView.frame = viewBounds;
+        // [end] 화면 구성
     }
 
-    
+    // [start] 화면이 돌아갈 때
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         
         viewWillAppear(true)
     }
-    
+    // [end] 화면이 돌아갈 때
+
+    // [start] 새로고침 구현함수
     @objc func reloadWebView(_ sender: UIRefreshControl) {
         webView.reload()
         sender.endRefreshing()
     }
+    // [end] 새로고침 구현함수
     
-    //모달창 닫힐때 앱 종료현상 방지.
+    // [start] 모달창 닫힐때 앱 종료현상 방지.
     override func didReceiveMemoryWarning() {
         
         super.didReceiveMemoryWarning()
     }
+    // [end] 모달창 닫힐때 앱 종료현상 방지.
     
-    //alert 처리
+    //[start] alert 처리
     func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String,
                  initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping () -> Void) {
         
@@ -93,10 +110,11 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
         alertController.addAction(UIAlertAction(title: "확인", style: .default, handler: { (action) in completionHandler() }))
         
         self.present(alertController, animated: true, completion: nil)
-        
     }
+    //[end] alert 처리
+
     
-    //confirm 처리
+    //[start] confirm 창 처리
     func webView (_ webView: WKWebView, runJavaScriptConfirmPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (Bool) -> Void) {
         
         let alertController = UIAlertController(title: "", message: message, preferredStyle: .alert)
@@ -104,16 +122,18 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
         alertController.addAction(UIAlertAction(title: "확인", style: .default, handler: { (action) in completionHandler(true) }))
         self.present(alertController, animated: true, completion: nil)
     }
+    //[end] confirm 창 처리
     
-    // href="_blank" 처리
+    // [start] href="_blank" 처리
     func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
         
         if navigationAction.targetFrame == nil { webView.load(navigationAction.request) }
         return nil
         
     }
+    // [end] href="_blank" 처리
     
-    // kakao 하이브리드앱 카카오링크
+    // [start] kakao 하이브리드앱 카카오링크
     func webView(_ webView: WKWebView,
                  decidePolicyFor navigationAction: WKNavigationAction,
                  decisionHandler: @escaping (WKNavigationActionPolicy) -> Void
@@ -133,8 +153,22 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
 
         // 서비스 상황에 맞는 나머지 로직을 구현합니다.
 
-
         decisionHandler(.allow)
     }
+    // [end] kakao 하이브리드앱 카카오링크
     
 }
+
+// [start] 호출된 Bridge 처리
+extension ViewController: WKScriptMessageHandler {
+    
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        switch message.name {
+        case "getFollowStatus":
+            setPushCategories(followStatus: [1,2,3]);
+        default:
+            break
+        }
+    }
+}
+// [end] 호출된 Bridge 처리

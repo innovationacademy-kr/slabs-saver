@@ -19,7 +19,13 @@
     <p id="today_word" class="today-card__text ft-main"></p>
   </div>
 
-  <div class="article-list"></div>
+  <div class="article-choice">
+    <button id= "article-all" class="button is-checked">All Section</button>
+    <button id="article-category" class="button">My Section</button>
+  </div>
+
+  <div id="article-list" class="article-list"></div>
+  <div id="article-category-list" class="article-list"></div>
 </main>
 <%- contentFor('footer') %> <%- include('./components/foo.ejs') %>
 

@@ -81,6 +81,15 @@
   pointer-events: none;
 }
 
+.article__control__fold-button__img {
+  background-image: url(../../icons/fold-button-text.svg);
+  background-position: center;
+  background-size: cover;
+  height: 19px;
+  width: 42.5px;
+  pointer-events: none;
+}
+
 .article__control__right-buttons {
 }
 
@@ -96,6 +105,16 @@
 
 .article__control__right-buttons__bookmark-button {
   background-image: url(../../icons/bookmark-button.svg);
+  background-position: center;
+  background-size: cover;
+
+  background-color: white;
+  height: 36px;
+  width: 36px;
+}
+
+.article__control__right-buttons__bookmark-button-active {
+  background-image: url(../../icons/bookmark-button-active.svg);
   background-position: center;
   background-size: cover;
 

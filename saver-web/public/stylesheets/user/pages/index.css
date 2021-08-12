@@ -48,3 +48,33 @@ body {
 
   background-color: white;
 }
+
+
+/* following */
+.article-choice{
+  background-color: #ffffff;
+}
+
+.button {
+  /* display: inline-block; */
+  padding: 0.8em 1.0em;
+  border-radius: 30px;
+  background: #ffffff;
+  font-family: sans-serif;
+  font-size: 16px;
+  cursor: pointer;
+  border: 0.5px solid rgb(224, 228, 230);
+  margin: 10px;
+  float: right;
+}
+
+.button:hover {
+  background-color: rgba(84, 86, 224, 0.1);
+}
+
+.button:active,
+.button.is-checked {
+  background-color: #4ea2c31a;
+  /* outline: none; */
+  float: right;
+}

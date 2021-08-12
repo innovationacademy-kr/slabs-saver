@@ -108,18 +108,20 @@
 }
 /*m_본문_강조_링크4*/
 .ft-main-bold {
-	font-family: 'Noto Sans KR', sans-serif;
-	font-size: 16px;
-	font-weight: 500;
-	font-stretch: normal;
-	font-style: normal;
-	line-height: 1.6;
-	letter-spacing: -0.3px;
-	text-align: left;
-	color: #2b94e8;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.6;
+  letter-spacing: -0.3px;
+  text-align: left;
+  color: #2b94e8;
 }
 /*m_본문_강조*/
-.ft-main-bold-link,  .ft-main b, .ft-main strong {
+.ft-main-bold-link,
+.ft-main b,
+.ft-main strong {
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 16px;
   font-weight: 500;
@@ -131,7 +133,8 @@
   color: #000000;
 }
 /*m_본문3*/
-.ft-main, .ft-main > ul > li{
+.ft-main,
+.ft-main > ul > li {
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 16px;
   font-weight: normal;
@@ -143,7 +146,8 @@
   color: #434343;
 }
 /*m_본문_링크2*/
-.ft-main-link, .ft-main a {
+.ft-main-link,
+.ft-main a {
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 16px;
   font-weight: normal;
@@ -484,6 +488,24 @@
   width: 28px;
 }
 
+.icon-bookmark-black-transparent {
+  background-image: url('../icons/bookmark-black-transparent.svg');
+  background-position: center;
+  background-size: cover;
+
+  height: 58px;
+  width: 22px;
+}
+
+.icon-bookmark-black {
+  background-image: url('../icons/bookmark-black.svg');
+  background-position: center;
+  background-size: cover;
+
+  height: 20px;
+  width: 28px;
+}
+
 /*footer ../icons*/
 
 .icon-home.active {
@@ -521,7 +543,7 @@
   height: 32px;
   width: 94px;
 }
-.alarm.active {
+.icon-alarm.active {
   background-image: url('../icons/alarm-active.svg');
   background-position: center;
   background-size: cover;
@@ -567,9 +589,9 @@
 }
 
 .hide {
-	display: none !important;
+  display: none !important;
 }
 
 .ft-main img {
-	max-width: 100%;
+  max-width: 100%;
 }

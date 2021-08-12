@@ -28,7 +28,16 @@ module.exports = {
       deletedAt: {
         allowNull: false,
         type: Sequelize.INTEGER
-      }
+      },
+      followingCategories: {
+        allowNull: true,
+        type: Sequelize.STRING
+      },
+      alarmStatus: {
+        defaultValue: 1,
+        allowNull: false,
+        type: Sequelize.INTEGER,
+      },
     });
   },
   down: async (queryInterface, Sequelize) => {

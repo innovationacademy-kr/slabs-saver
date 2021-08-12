@@ -94,13 +94,35 @@ const addEvent = () => {
     if (target.className === 'article__control__more-button') {
       // 버튼에는 data-id라는 어트리뷰트를 등록함. 해당 값음 target.dataset.id로 참조가능
       const { id } = target.dataset;
-      $(`#editor_paragraphs_0${id}`).removeClass('hide');
-      $(`#editor_paragraphs_0${id}`).addClass('open');
-      e.target.classList.add('hide');
+      let originType = 'more';
+      let changeType = 'fold';
+      if (target.childNodes[1].className.includes('more')) {
+        $(`#editor_paragraphs_0${id}`).removeClass('hide');
+        $(`#editor_paragraphs_0${id}`).addClass('open');
+      } else {
+        $(`#editor_paragraphs_0${id}`).addClass('hide');
+        $(`#editor_paragraphs_0${id}`).removeClass('open');
+        originType = changeType;
+        changeType = 'more';
+      }
+      target.childNodes[1].className = target.childNodes[1].className.replace(
+        originType,
+        changeType,
+      );
     }
   });
 };
 
+const articleCategroryEvent = () => {
+  const token = localStorage['jwtToken'];
+  if (!token) $(".article-choice").hide();
+  else $(".article-choice").show();
+};
+
+
+$("#article-category-list").hide();
 addEvent();
 getTodayWord();
 getTodayArticle();
+articleCategroryEvent();
+

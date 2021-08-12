@@ -2,6 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 
+const authMiddleware = require('../middlewares/auth');
 const userCtrl = require('../controllers/user/userController');
 
 /* GET home page. */
@@ -10,6 +11,7 @@ router.get('/', userCtrl.home);
 
 // NOTE: 추가 기사 요청
 router.get('/moreArticles', userCtrl.moreArticles);
+router.get('/moreCategoryArticles', authMiddleware, userCtrl.moreCategoryArticles);
 
 // NOTE: 설정 화면 페이지
 router.get('/profile', userCtrl.profile);

@@ -11,7 +11,9 @@ import UserNotifications
 import FirebaseMessaging
 
 
+
 import KakaoSDKCommon
+
 
 
 @UIApplicationMain
@@ -139,6 +141,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     let userInfo = response.notification.request.content.userInfo
 
     // [START_EXCLUDE]
+
     // Print message ID.
     if let messageID = userInfo[gcmMessageIDKey] {
       print("Message ID: \(messageID)")

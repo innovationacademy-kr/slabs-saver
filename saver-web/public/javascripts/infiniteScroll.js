@@ -3,8 +3,9 @@ var ADD_PAGE = 3;
 var DEFAULT_HEIGHT = $(window).height() + 10;
 var page = INITIAL_PAGE;
 var isUsed = false;
-var articleList = document.querySelector('.article-list');
-
+var articleList = document.querySelector('#article-list');
+var articleCategoryList = document.querySelector('#article-category-list');
+const token = localStorage['jwtToken'];
 
 const getPage = () => {
   $.ajax({
@@ -14,9 +15,33 @@ const getPage = () => {
       articles = JSON.parse(articles);
       articles.map(function (article) {
         articleList.insertAdjacentHTML('beforeend', makeTemplate(article));
+        fixVidieo(article);
         const item = document.getElementById(`kakao_share_${article.id}`);
         article.path = `articles/detail/${article.id}`;
         if (item) KaKaoShare(item.id, article);
+        selectBookmarkClass(article.id, `btn_bookmark-${article.id}`);
+      });
+
+      isUsed = false;
+      page += ADD_PAGE;
+    },
+    error: function (err) {},
+  });
+};
+
+const getCategoryPage = () => {
+  $.ajax({
+    url: `/moreCategoryArticles?page=${page}`,
+    type: 'get',
+    headers: { 'x-access-token': token },
+    success: function (articles) {
+      articles = JSON.parse(articles);
+      articles.map(function (article) {
+        articleCategoryList.insertAdjacentHTML('beforeend', makeTemplate(article));
+        const item = document.getElementById(`kakao_share_${article.id}`);
+        article.path = `articles/detail/${article.id}`;
+        if (item) KaKaoShare(item.id, article);
+        selectBookmarkClass(article.id, `btn_bookmark-${article.id}`);
       });
 
       isUsed = false;
@@ -34,9 +59,45 @@ $(window).scroll(function () {
 
   if (scrollPosition > pageHeight && !isUsed) {
     isUsed = true;
-    getPage();
+    if ($('#article-list').hasClass('article-list') === true) getPage();
+    else getCategoryPage();
   }
 });
+
+$('#article-category').on( 'click', function() {
+  $('#article-all').removeClass('is-checked');
+  $('#article-category').addClass('is-checked');
+  $('#article-list').removeClass();
+  $("#article-list").hide();
+  $("#article-category-list").show();
+  getCategoryPage();
+}); 
+
+$('#article-all').on( 'click', function() {
+  $('#article-category').removeClass('is-checked');
+  $('#article-all').addClass('is-checked');
+  if ($('#article-list').hasClass('article-list') === false){
+    $('#article-list').addClass('article-list');
+  }
+  $("#article-category-list").hide();
+  $("#article-list").show();
+  getPage();
+}); 
+
+
+function fixVidieo(article){
+  const briefing = document.getElementById(`editor_briefing_0${article.id}`);
+  const paragraphs = document.getElementById(`editor_paragraphs_0${article.id}`);
+  const briefVi = briefing.querySelector(".note-video-clip");
+  const paragVi = paragraphs.querySelector(".note-video-clip");
+
+  briefVi?.removeAttribute("height");
+  briefVi?.removeAttribute("width");
+  briefVi?.setAttribute("style", "max-width: 100%; width:95vw; height: 53.43vw;");
+  paragVi?.removeAttribute("height");
+  paragVi?.removeAttribute("width");
+  paragVi?.setAttribute("style", "max-width: 100%; width:95vw; height: 53.43vw");
+}
 
 function makeTemplate(article) {
   //추가되는 카드들
@@ -75,11 +136,16 @@ function makeTemplate(article) {
         <br><hr style="border: solid 1px gray;"><br>
         <div class="content">
           <ul class="share-layer-content">
-           <li>   <button id="kakao_share_${article.id}" class="article_kakao_share-button"></button> </li> 
-           <li>   <button onclick="facebookshare('${document.location.href}articles/detail/${article.id}')"
+           <li>   <button id="kakao_share_${
+             article.id
+           }" class="article_kakao_share-button"></button> </li> 
+           <li>   <button onclick="facebookshare('${document.location.href}articles/detail/${
+    article.id
+  }')"
             class="article_facebook_share-button"></button></li> 
-           <li>   <button onclick="urlshare('https://dev.thesaver.io/articles/detail/${article.id }',
-            '${article.image}', '${article.headline}', '${unescape(article.briefing,)}')" class="article_url_share-button">url</button></li> 
+           <li>   <button onclick="urlshare('${document.location.href}articles/detail/${
+    article.id
+  }')" class="article_url_share-button">url</button></li> 
           </ul>
         </div>
       </div>
@@ -88,7 +154,9 @@ function makeTemplate(article) {
       <button onclick="modalFunction(${
         article.id
       })" class="article__control__right-buttons__share-button"></button>
-      <button class="article__control__right-buttons__bookmark-button"></button>
+      <button id="btn_bookmark-${article.id}" onclick="clickBookmark(
+        ${article.id}, 'btn_bookmark-${article.id}')" 
+        class="article__control__right-buttons__bookmark-button"></button>
     </div>
   </div>
 </div>

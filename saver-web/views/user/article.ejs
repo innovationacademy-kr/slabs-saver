@@ -34,9 +34,9 @@
         <br><hr style="border: solid 1px gray;"><br>
         <div class="content">
           <ul class="share-layer-content">
-           <li> <button id="kakao-share-button" class="article_kakao_share-button"></button></li> 
-            <li>  <button onclick="facebookshare(window.location.href)" class="article_facebook_share-button"></button></li> 
-              <li>  <button onclick="urlshare('https://dev.thesaver.io/articles/detail/${article.id}', '${article.image}', '${article.headline}', '${unescape(article.briefing)}')" class="article_url_share-button">url</button></li> 
+            <li> <button id="kakao-share-button" class="article_kakao_share-button"></button></li> 
+            <li> <button onclick="facebookshare(window.location.href)" class="article_facebook_share-button"></button></li> 
+            <li> <button onclick="urlshare(window.location.href)" class="article_url_share-button">url</button></li> 
           </ul>
         </div>
       </div>
@@ -53,6 +53,7 @@
   var briefingContent = '<%- article.briefing %>';
   var paragraphsContent = '<%- article.paragraphs %>';
 </script>
-
+<br></br><br></br>
+<%- contentFor('footer') %> <%- include('./components/foo.ejs') %>
 <script defer src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script type="module" src="/javascripts/user/article.js"></script>

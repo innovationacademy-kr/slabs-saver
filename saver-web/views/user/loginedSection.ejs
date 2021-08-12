@@ -1,0 +1,107 @@
+<%- contentFor('scriptTag') %>
+  <script src= "/javascripts/sectionFollowButton.js"> </script>
+
+  <%- contentFor('styleTag') %>
+    <link rel="stylesheet" href="/stylesheets/user/pages/section.css" />
+
+    <%- contentFor('navbar') %>
+      <%- include('./components/nav.ejs') %>
+
+        <%- contentFor('body') %>
+          <div class="section-page white">
+            <div class="section-div">
+              <h3 class="section-div__title">My Section</h3>
+            </div>
+
+            <!--Section: default My Section -->
+            <div id="my_section_default" class="my_section_default ice-blue-two">
+              <p class="my_section_default_text">
+                아직 팔로우 한 섹션이 없습니다.<br>
+                원하는 섹션을 Other Section에서 팔로우하세요.<br>
+              </p>
+            </div>
+
+            <!--Section: following -->
+            <% for(var i=1; i < section.length; i++){ %>
+
+              <!--set id: following section div -->
+              <% var mySectionDiv="my-" + section[i].type %>
+                <div id=<%=mySectionDiv %> class="section ice-blue-two">
+
+                  <!--open section only following -->
+                  <% if (i !=follow.find((e)=> e == i)) { %>
+                    <script>
+                      init_section("<%= mySectionDiv %>");
+                    </script>
+                    <% } %>
+
+                      <div class="section__col1">
+                        <div class="section__col1__title my">
+                          <%=section[i].title%>
+                        </div>
+                          <div class="<%=`icon-${section[i].type}-big-blue`%>"></div>
+                      </div>
+                      <div class="section__col2">
+                        <p class="section__col2__text text-login">
+
+                          <% for(var j=0; j < section[i].text.length; j++){ %>
+                            <%= section[i].text[j] %> <br>
+                              <% } %>
+                        </p>
+                        <!-- TODO: 팔로우 해제 버튼 -->
+                        <button id="destroy-<%=section[i].type %>" class="section__col2__btn"
+                          onclick="clickFollow('<%=`destroy-${section[i].type}` %>', '<%=i %>', 'unfollow')">
+                          <p class="section__col2__btn__text">
+                            팔로잉
+                          </p>
+                        </button>
+                      </div>
+                </div>
+
+                <% } %>
+
+                  <div class="section-div white">
+                    <h3 class="section-div__title">Other Section</h3>
+                  </div>
+
+                  <!--Section: follow -->
+                  <% for(var i=1; i < section.length; i++){ %>
+
+                    <!--set id: follow section div -->
+                    <% var otherSectionDiv="other-" + section[i].type %>
+                      <div id=<%=otherSectionDiv %> class="section ice-blue">
+
+                        <!--open section only not followed -->
+                        <% if (i==follow.find((e)=> e == i)) { %>
+                          <script>
+                            followCount += 1;
+                            init_section("<%= otherSectionDiv %>");
+                          </script>
+                          <% } %>
+
+                            <div class="section__col1">
+                              <div class="section__col1__title other">
+                                <%=section[i].title%>
+                              </div>
+                                <div class="<%=`icon-${section[i].type}-big-purple`%>"></div>
+                            </div>
+                            <div class="section__col2">
+                              <p class="section__col2__text">
+                                <% for(var j=0; j < section[i].text.length; j++){ %>
+                                  <%= section[i].text[j] %> <br>
+                                    <% } %>
+                              </p>
+                              <!-- TODO: 팔로우 버튼 -->
+                              <button id="<%=section[i].type %>" class="section__col2__btn"
+                                onclick="clickFollow('<%=`${section[i].type}` %>', '<%=i%>', 'follow')" >
+                                    <p class="section__col2__btn__text">
+                                      팔로우
+                                    </p>
+                               </button>
+                            </div>
+                      </div>
+
+                      <% } %>
+
+                        <%- contentFor('footer') %>
+                          <%- include('./components/foo.ejs') %>

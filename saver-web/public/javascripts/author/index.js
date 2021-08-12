@@ -100,6 +100,7 @@ const addEvent = () => {
     })
   }
 
+
   /**
    * 하단 업데이트 버튼 이벤트 추가
    */
@@ -109,5 +110,6 @@ const addEvent = () => {
     requestUpdate(chageList);
   })
 }
+
 
 addEvent();

@@ -2,39 +2,64 @@
 	<!--TODO: 현재 라우터에 해당하는 아이콘 active로 바꿔주기-->
 	<button class="footer__button white" data-link="/" onclick="location.href='/'">
 		<i class="icon icon-home inactive"></i></button>
-	<button class="footer__button white" data-link="/section" onclick="location.href='/section'">
+	<button id="section" class="footer__button white">
 		<i class="icon icon-section inactive"></i></button>
-	<button id="alarm" class="footer__button white">
+	<button id="alarm" class="footer__button white" data-link="/alarm">
 		<i class="icon icon-alarm inactive"></i></button>
-	<button id="bookmark" class="footer__button white">
+	<button id="bookmark" class="footer__button white" data-link="/bookmark">
 		<i class="icon icon-bookmark inactive"></i></button>
 </footer>
 
 <%- contentFor('scriptTag') %>
 	<script>
-		const alarm = document.querySelector("#alarm");
-		const bookmark = document.querySelector("#bookmark");
-		const token = localStorage['jwtToken'];
-
-		alarm.addEventListener('click', (e) => {
-			if (token) {
-				alert('로그인한 유저');
-			} else {
-				location.href = '/subscriber/login'
-			}
-		})
-		bookmark.addEventListener('click', (e) => {
-			if (token) {
-				alert('로그인한 유저');
-			} else {
-				location.href = '/subscriber/login'
-			}
-		})
-
 		var current = window.location.pathname;
 		const icon = document.querySelector(`.footer__button[data-link="${current}"] i`)
 		if (icon) {
 			icon.classList.add('active');
 			icon.classList.remove('inactive')
 		}
+
+		const alarm = document.querySelector("#alarm");
+		const bookmark = document.querySelector("#bookmark");
+		const section = document.querySelector("#section");
+		const token = localStorage['jwtToken'];
+
+		
+		
+		section.addEventListener('click', (e) => {
+			if (!token){
+				location.href = '/section'
+			} else {
+				axios({
+					method: 'post',
+					url: '/section/user',
+					headers: {
+						'x-access-token': token
+					}
+				}).then((res) => {
+					console.log("res.userId = "+res.data); //local console에 잠깐 떴다 사라집니다.
+					location.href = '/section/logined'
+				}).catch(error => {
+					alert(error.response.data.message);
+				});				
+			}
+		});
+		alarm.addEventListener('click', (e) => {
+			if (token) {
+				location.href = '/alarm';
+			} else {
+				location.href = '/subscriber/login'
+			}
+		});
+		bookmark.addEventListener('click', (e) => {
+			if (token) {
+				location.href = '/bookmark';
+			} else {
+				const redirect = encodeURIComponent('/bookmark');
+				location.href = `/subscriber/login?redirect=${redirect}`
+			}
+		});
+
+
 	</script>
+	<script defer type="module" src="/javascripts/alarmStatus.js"></script>

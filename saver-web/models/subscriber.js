@@ -10,19 +10,20 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate({ Bookmarks }) {
-      this.hasMany(Bookmarks);
+      this.hasMany(Bookmarks, { foreignKey: 'UserId' });
     }
     validPassword(password) {
       return bcrypt.compare(password, this.password).then((result) => result);
     }
   };
+
   Subscriber.init({
     email: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: {
         msg: '이미 존재하는 이메일입니다.',
-      },
+      }
     },
     name: {
       type: DataTypes.STRING,
@@ -38,11 +39,23 @@ module.exports = (sequelize, DataTypes) => {
     deletedAt: {
       type: DataTypes.INTEGER,
       allowNull: false,
-    }
-  }, {
+    },
+    followingCategories: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    alarmStatus: {
+      type: DataTypes.INTEGER,
+      defaultValue: 1,
+      allowNull: false,
+    },
+  }, 
+  {
     sequelize,
     modelName: 'Subscriber',
-  });
+  }
+  );
+
   Subscriber.addHook('beforeCreate', async (subscriber, options) => {
     const salt = await bcrypt.genSaltSync(+process.env.SALT_ROUNDS);
     return bcrypt.hash(subscriber.password, salt).then((hash) => {
