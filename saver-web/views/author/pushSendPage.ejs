@@ -86,7 +86,7 @@
                     class="article--complete btn btn-primary"
                     name="completeBtn"
                     type="submit"
-                    id="complete-btn-${articleId}"
+                    id="complete-btn"
                   >
                     보내기
                   </button>
@@ -103,7 +103,7 @@
 <%- contentFor('footer') %> <%- contentFor('scriptTag') %>
 <script defer>
   const articleId = window.location.pathname.split("/").pop();
-  completeBtn = document.getElementById('complete-btn-${articleId}');
+  completeBtn = document.getElementById('complete-btn');
   completeBtn.addEventListener('click', () => {
     completeBtn.disabled = true;
     message = {};

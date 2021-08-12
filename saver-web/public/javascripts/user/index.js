@@ -113,8 +113,16 @@ const addEvent = () => {
   });
 };
 
+const articleCategroryEvent = () => {
+  const token = localStorage['jwtToken'];
+  if (!token) $(".article-choice").hide();
+  else $(".article-choice").show();
+};
 
+
+$("#article-category-list").hide();
 addEvent();
 getTodayWord();
 getTodayArticle();
+articleCategroryEvent();
 

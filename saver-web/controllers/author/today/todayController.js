@@ -66,6 +66,7 @@ const todayPageDesking = async (req, res) => {
     limit: limit,
   });
 
+
   var totalPage = await Words.count({
     where: {
       status: {
