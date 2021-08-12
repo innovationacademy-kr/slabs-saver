@@ -9,12 +9,7 @@ import UIKit
 import Firebase
 import UserNotifications
 import FirebaseMessaging
-
-
-
 import KakaoSDKCommon
-
-
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -24,8 +19,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func application(_ application: UIApplication,
                    didFinishLaunchingWithOptions launchOptions: [UIApplication
                      .LaunchOptionsKey: Any]?) -> Bool {
+    
     FirebaseApp.configure()
-    KakaoSDKCommon.initSDK(appKey: "1959c271c12433b38f199127bc698fd1")
+    
+    let kakaoAppKey = Bundle.main.object(forInfoDictionaryKey: "KAKAO_APP_KEY") as? String
+    
+    if let appKey = kakaoAppKey {
+        KakaoSDKCommon.initSDK(appKey: appKey)
+    } else {
+        print("App Key does not exist")
+    }
     Thread.sleep(forTimeInterval: 2.0)
 
     // [START set_messaging_delegate]
