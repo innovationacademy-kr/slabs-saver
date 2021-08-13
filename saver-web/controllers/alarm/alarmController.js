@@ -171,7 +171,7 @@ const deleteAlarmRequest = async (req, res) => {
   } catch (error){
     res.status(400).json({
       succes: false,
-    error
+      error
     });
   }
 }
