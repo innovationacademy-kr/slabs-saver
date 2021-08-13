@@ -62,10 +62,6 @@ class MyWebClient private  constructor() : android.webkit.WebViewClient() {
 
     override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest): Boolean {
 
-        if (isRedirect)
-            return false
-        else
-            isRedirect = true
         this.view = view
         if (request.url.scheme == "intent") {
             try {
@@ -90,6 +86,10 @@ class MyWebClient private  constructor() : android.webkit.WebViewClient() {
         }
         //페이스북 연결인 경우
         else if (request.url.host?.contains("facebook") == true) {
+            if (isRedirect)
+                return false
+            else
+                isRedirect = true
             try {
                 var url = request.url.toString()
                 url = url.substring(url.indexOf("u=") + 2, url.length)
