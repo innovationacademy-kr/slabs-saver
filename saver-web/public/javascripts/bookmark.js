@@ -3,16 +3,19 @@ const marked = 'article__control__right-buttons__bookmark-button-active';
 const unmarked = 'article__control__right-buttons__bookmark-button';
 
 async function enrollBookmark(id) {
-  try {
-    result = await axios({
+  await axios({
       method: 'post',
       url: `/bookmark/${id}`,
       headers: {
         'x-access-token': token,
       },
+    })
+      .then((res) => {})
+      .catch((err) => {
+        console.error(err);
+        alert(err.response.data.message);
     });
-  } catch (err) {}
-}
+};
 
 const deleteBookmark = (id) => {
   axios({
@@ -25,6 +28,7 @@ const deleteBookmark = (id) => {
     .then((res) => {})
     .catch((err) => {
       console.error(err);
+      alert(err.response.data.message);
     });
 };
 
@@ -60,6 +64,7 @@ const isBookmarked = async (id) => {
     })
     .catch((err) => {
       console.error(err);
+      alert(err.response.data.message);
     });
   return result;
 };

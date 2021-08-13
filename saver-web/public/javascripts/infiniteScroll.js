@@ -47,7 +47,9 @@ const getCategoryPage = () => {
       isUsed = false;
       page += ADD_PAGE;
     },
-    error: function (err) {},
+    error: function (err) {
+      alert(err.response.data.message);
+    },
   });
 };
 
