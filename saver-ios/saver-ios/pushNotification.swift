@@ -18,5 +18,11 @@ func    setPushCategories(followStatus: [Int]) {
     Messaging.messaging().subscribe(toTopic: "4") { error in
       print("Subscribed to social topic")
     }
+    Messaging.messaging().subscribe(toTopic: "5") { error in
+      print("Subscribed to social topic")
+    }
+    Messaging.messaging().subscribe(toTopic: "6") { error in
+      print("Subscribed to social topic")
+    }
 }
 

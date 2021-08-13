@@ -13,8 +13,9 @@ import KakaoSDKCommon
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-  var window: UIWindow?
-  let gcmMessageIDKey = "gcm.message_id"
+    var window: UIWindow?
+    let gcmMessageIDKey = "gcm.message_id"
+    
 
   func application(_ application: UIApplication,
                    didFinishLaunchingWithOptions launchOptions: [UIApplication
@@ -25,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // [START set_messaging_delegate]
     Messaging.messaging().delegate = self
-    // [END set_messaging_delegate]
+    // [END set_messaging_delegate]a
     // Register for remote notifications. This shows a permission dialog on first run, to
     // show the dialog at a more appropriate time move this registration accordingly.
     // [START register_for_notifications]
@@ -117,17 +118,14 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 
     // With swizzling disabled you must let Messaging know about the message, for Analytics
     // Messaging.messaging().appDidReceiveMessage(userInfo)
-    // [START_EXCLUDE]
-    // Print message ID.
-    if let messageID = userInfo[gcmMessageIDKey] {
-      print("Message ID: \(messageID)")
-    }
-    // [END_EXCLUDE]
+
+    // ...
+
     // Print full message.
     print(userInfo)
 
     // Change this to your preferred presentation option
-    completionHandler([[.badge, .sound]])
+    completionHandler([[.badge, .banner, .sound]])
   }
 
   func userNotificationCenter(_ center: UNUserNotificationCenter,
@@ -135,14 +133,11 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                               withCompletionHandler completionHandler: @escaping () -> Void) {
     let userInfo = response.notification.request.content.userInfo
 
-    // [START_EXCLUDE]
-    // Print message ID.
-    if let messageID = userInfo[gcmMessageIDKey] {
-      print("Message ID: \(messageID)")
-    }
-    // [END_EXCLUDE]
+    // ...
+
     // With swizzling disabled you must let Messaging know about the message, for Analytics
     // Messaging.messaging().appDidReceiveMessage(userInfo)
+
     // Print full message.
     print(userInfo)
 
@@ -168,3 +163,4 @@ extension AppDelegate: MessagingDelegate {
 
   // [END refresh_token]
 }
+
