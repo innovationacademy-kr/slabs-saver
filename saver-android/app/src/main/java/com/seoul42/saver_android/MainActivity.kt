@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         MyWebClient(this@MainActivity, packageManager)
     }
 
-    private val baseUrl = "http://thesaver.io/";
+    private val baseUrl = "https://thesaver.io/";
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,17 +74,29 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         when {
+            childView != null -> {
+                Log.d("back-test", "childView is exist");
+                constraintLayout.removeView(childView)
+                childView = null;
+            }
             myWebView.canGoBack() -> {
+                Log.d("back-test","goback2");
+                Log.d("back-test-myweb-prev",myWebView.url.toString());
                 myWebView.goBack()
             }
             myWebView.url != baseUrl -> {
+                Log.d("back-test","nobase");
+                Log.d("back-test-myweb-prev",myWebView.url.toString());
+                Log.d("back-test-base",baseUrl);
                 myWebView.clearHistory()
                 myWebView.loadUrl(baseUrl)
             }
             else -> {
+                Log.d("back-test","finish");
                 finish()
             }
         }
+        Log.d("back-test-myweb-after",myWebView.url.toString());
     }
 
 
@@ -105,7 +117,7 @@ class MainActivity : AppCompatActivity() {
             isUserGesture: Boolean,
             resultMsg: Message
         ): Boolean {
-
+            Log.d("back-test","----------------------------------------child---------------------------------------------");
             childView = WebView(view.context)
 
             // 부모 웹뷰와 동일하게 웹뷰 설정
@@ -130,6 +142,7 @@ class MainActivity : AppCompatActivity() {
             val transport = resultMsg.obj as WebView.WebViewTransport
             transport.webView = childView
             resultMsg.sendToTarget()
+            Log.d("back-test","----------------------------------------childend---------------------------------------------");
 
             return true
         }
