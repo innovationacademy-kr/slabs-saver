@@ -18,6 +18,7 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
         let webConfiguration = WKWebViewConfiguration()
         
         // [start] Birdge 등록
+        contentController.add(self, name: "initFollowStatus")
         contentController.add(self, name: "updateFollowStatus")
         contentController.add(self, name: "deleteFollowStatus")
         webConfiguration.userContentController = contentController
@@ -197,11 +198,14 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
 extension ViewController: WKScriptMessageHandler {
     
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        
         switch message.name {
+        case "initFollowStatus" :
+            initFollowStatus(followValue: message.body as! [Int])
         case "updateFollowStatus":
-            setPushCategories(followValue: message.body as! String, mode: 0);
+            setPushCategories(followValue: message.body as! Int, mode: 0);
         case "deleteFollowStatus":
-            setPushCategories(followValue: message.body as! String, mode: 1);
+            setPushCategories(followValue: message.body as! Int, mode: 1);
             
         default:
             break
