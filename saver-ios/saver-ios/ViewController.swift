@@ -26,6 +26,16 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
         webView.uiDelegate = self
         webView.navigationDelegate = self
         
+        
+        // [start] 현재 ios 앱 사용 중인 유져 감지를 위해 saver-web navigator.userAgent 에 내용 추가
+        webView.evaluateJavaScript("navigator.userAgent"){(result, error) in
+            let originUserAgent = result as! String
+            let agent = originUserAgent + " APP_IOS"
+            self.webView.customUserAgent = agent
+        }
+        // [end] navigator.userAgent 내용 추가 완료
+        
+        
         // [start] 웹뷰 load
         let myURL = URL(string: "https://dev.thesaver.io")
         let myRequest = URLRequest(url: myURL!)
