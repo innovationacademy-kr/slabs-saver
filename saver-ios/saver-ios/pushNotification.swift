@@ -4,25 +4,19 @@ import Firebase
 import UserNotifications
 import FirebaseMessaging
 
-func    setPushCategories(followStatus: [Int]) {
+func    setPushCategories(followValue: String, mode: Int) {
     
-    Messaging.messaging().subscribe(toTopic: "1") { error in
-      print("Subscribed to economy topic")
+    print(followValue, mode)
+    if mode == 0 {
+        Messaging.messaging().subscribe(toTopic: followValue) { error in
+            print("Subscribed to \(followValue) topic")
+        }
     }
-    Messaging.messaging().subscribe(toTopic: "2") { error in
-      print("Subscribed to politic topic")
+    else {
+        Messaging.messaging().unsubscribe(fromTopic: followValue) { error in
+            print("Unsubscribed to \(followValue) topic")
+        }
     }
-    Messaging.messaging().subscribe(toTopic: "3") { error in
-      print("Subscribed to international topic")
-    }
-    Messaging.messaging().subscribe(toTopic: "4") { error in
-      print("Subscribed to social topic")
-    }
-    Messaging.messaging().subscribe(toTopic: "5") { error in
-      print("Subscribed to social topic")
-    }
-    Messaging.messaging().subscribe(toTopic: "6") { error in
-      print("Subscribed to social topic")
-    }
+    
 }
 

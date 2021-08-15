@@ -170,30 +170,29 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         // With swizzling disabled you must let Messaging know about the message, for Analytics
         // Messaging.messaging().appDidReceiveMessage(userInfo)
         
-        // ...
-        
-        // Print full message.
-        print(userInfo)
+        let userDefault = UserDefaults.standard
+        userDefault.set(userInfo["url"] , forKey: "PUSH_URL")
+        userDefault.synchronize()
         
         // Change this to your preferred presentation option
         completionHandler([[.badge, .banner, .sound]])
     }
     
-    func userNotificationCenter(_ center: UNUserNotificationCenter,
-                                didReceive response: UNNotificationResponse,
-                                withCompletionHandler completionHandler: @escaping () -> Void) {
-        let userInfo = response.notification.request.content.userInfo
-        
-        // ...
-        
-        // With swizzling disabled you must let Messaging know about the message, for Analytics
-        // Messaging.messaging().appDidReceiveMessage(userInfo)
-        
-        // Print full message.
-        print(userInfo)
-        
-        completionHandler()
-    }
+//    private func userNotificationCenter(_ center: UNUserNotificationCenter,
+//                                didReceive response: UNNotificationResponse,
+//                                withCompletionHandler completionHandler: @escaping () -> Void) {
+//        let userInfo = response.notification.request.content.userInfo
+//
+//        // ...
+//
+//        // With swizzling disabled you must let Messaging know about the message, for Analytics
+//        // Messaging.messaging().appDidReceiveMessage(userInfo)
+//
+//        // Print full message.
+//        print(userInfo)
+//
+//        completionHandler()
+//    }
 }
 
 // [END ios_10_message_handling]

@@ -118,11 +118,19 @@ const clickFollow = (btnId, value, btnUrl) => {
       },
     })
       .then((res) => {
-        if (isMobile.iOS())
-	    		webkit.messageHandlers.getFollowStatus.postMessage(res.data);
         section_display_change(btnId);
-        if (btnUrl === 'follow') alert('팔로우 되었습니다.');
-        else alert('언팔로우 되었습니다.');
+        if (btnUrl === 'follow') {
+			if (isMobile.iOS()) {
+	    		webkit.messageHandlers.updateFollowStatus.postMessage(value);
+			}
+			alert('팔로우 되었습니다.');
+			}
+        else {
+			if (isMobile.iOS()) {
+	    		webkit.messageHandlers.deleteFollowStatus.postMessage(value);
+			}
+			alert('언팔로우 되었습니다.');
+		}
       })
       .catch((error) => {
 		alert(error.response.data.message);
