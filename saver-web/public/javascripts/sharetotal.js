@@ -21,7 +21,7 @@ function facebookshare(url) {
       return navigator.userAgent.match(/Android/i) == null ? false : true;
     },
     iOS: function () {
-      return navigator.userAgent.match(/iPhone|iPad|iPod/i) == null ? false : true;
+      return navigator.userAgent.match(/(iPod|iPhone|iPad)/) && navigator.userAgent.match(/AppleWebKit/) == null ? false : true;
     },
     any: function () {
       return (isMobile.Android() || isMobile.iOS());
