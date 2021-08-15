@@ -90,9 +90,6 @@
   pointer-events: none;
 }
 
-.article__control__right-buttons {
-}
-
 .article__control__right-buttons__share-button {
   background-image: url(../../icons/share-button.svg);
   background-position: center;

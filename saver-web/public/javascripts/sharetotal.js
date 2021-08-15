@@ -16,9 +16,33 @@ function modalFunction(id) {
 }
 
 function facebookshare(url) {
-  console.log(url);
-  window.open("http://www.facebook.com/sharer/sharer.php?u=" + url);
+  var isMobile = {
+    Android: function () {
+      return navigator.userAgent.match(/Android/i) == null ? false : true;
+    },
+    iOS: function () {
+      return navigator.userAgent.match(/iPhone|iPad|iPod/i) == null ? false : true;
+    },
+    any: function () {
+      return (isMobile.Android() || isMobile.iOS());
+    }
+  };
+    console.log(url);
+    if (isMobile.iOS()){
+      console.log("it isMobile.iOS");
+      webkit.messageHandlers.iosMessage.postMessage(url);
+    }
+    else
+    {
+      console.log("it is not Mobile.iOS");
+      window.open("http://www.facebook.com/sharer/sharer.php?u=" + url);
+    }
 }
+
+// function facebookshare(url) {
+//   console.log(url);
+//   window.open("http://www.facebook.com/sharer/sharer.php?u=" + url);
+// }
 
 function urlshare(url){
   const textarea = document.createElement("textarea");

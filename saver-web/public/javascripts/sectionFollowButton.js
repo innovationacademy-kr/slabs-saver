@@ -98,14 +98,43 @@ window.onload = function () {
         currentUserID = res.data;
       })
       .catch((error) => {
-        alert(error.message);
+        alert(error.response.data.message);
       });
   }
+  axios({
+    method: 'get',
+    url: '/section/followlist',
+    headers: {
+      'x-access-token': token,
+    },
+  })
+    .then((res) => {
+      categories = ['economy', 'politics', 'international', 'social', 'culture', '7']
+
+      categories.forEach((category, i)=>{
+        index = i+1;
+        if (res.data.followCategory.includes(`${index}`)){
+          document.getElementById(`my-${category}`)?.setAttribute('style',"display: grid;")
+          document.getElementById(`other-${category}`)?.setAttribute('style',"display: none;")
+          }
+        else{
+          document.getElementById(`my-${category}`)?.setAttribute('style',"display: none;")
+          document.getElementById(`other-${category}`)?.setAttribute('style',"display: grid;")
+          }
+      })
+    })
+    .catch((err) => {
+      console.log(err);
+      alert(err.response.data.message);
+    });
+
+
+
 };
 
 // 팔로우 언팔로우 버튼을 클릭했을 때.
 const clickFollow = (btnId, value, btnUrl) => {
-  console.log(btnId + " ?? "+value);
+  userAgent = navigator.userAgent;
   if (!token) {
     location.href = '/section';
   } else {
@@ -120,20 +149,20 @@ const clickFollow = (btnId, value, btnUrl) => {
       .then((res) => {
         section_display_change(btnId);
         if (btnUrl === 'follow') {
-			if (isMobile.iOS()) {
-	    		webkit.messageHandlers.updateFollowStatus.postMessage(value);
-			}
-			alert('팔로우 되었습니다.');
-			}
-        else {
-			if (isMobile.iOS()) {
-	    		webkit.messageHandlers.deleteFollowStatus.postMessage(value);
-			}
-			alert('언팔로우 되었습니다.');
-		}
+			    if (isMobile.iOS()) {
+	    		  webkit.messageHandlers.updateFollowStatus.postMessage(value);
+			    }
+    			alert('팔로우 되었습니다.');
+		  	} else {
+	    
+          if (isMobile.iOS()) {
+            webkit.messageHandlers.deleteFollowStatus.postMessage(value);
+          }
+          alert('언팔로우 되었습니다.');
+        }
       })
       .catch((error) => {
-		alert(error.response.data.message);
+        alert(error.response.data.message);
       });
   }
 };

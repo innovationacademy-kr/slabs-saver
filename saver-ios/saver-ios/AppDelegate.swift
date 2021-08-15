@@ -15,42 +15,44 @@ import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    var window: UIWindow?
-    let gcmMessageIDKey = "gcm.message_id"
+
+  var window: UIWindow?
+  let gcmMessageIDKey = "gcm.message_id"
+
+  func application(_ application: UIApplication,
+                   didFinishLaunchingWithOptions launchOptions: [UIApplication
+                     .LaunchOptionsKey: Any]?) -> Bool {
     
+    FirebaseApp.configure()
     
-    func application(_ application: UIApplication,
-                     didFinishLaunchingWithOptions launchOptions: [UIApplication
-                        .LaunchOptionsKey: Any]?) -> Bool {
-        FirebaseApp.configure()
-        KakaoSDKCommon.initSDK(appKey: "1959c271c12433b38f199127bc698fd1")
-        Thread.sleep(forTimeInterval: 2.0)
-        
-        // [START set_messaging_delegate]
-        Messaging.messaging().delegate = self
-        // [END set_messaging_delegate]a
-        // Register for remote notifications. This shows a permission dialog on first run, to
-        // show the dialog at a more appropriate time move this registration accordingly.
-        // [START register_for_notifications]
-        if #available(iOS 10.0, *) {
-            // For iOS 10 display notification (sent via APNS)
-            UNUserNotificationCenter.current().delegate = self
-            
-            let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
-            UNUserNotificationCenter.current().requestAuthorization(
-                options: authOptions,
-                completionHandler: { _, _ in }
-            )
-        } else {
-            let settings: UIUserNotificationSettings =
-                UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
-            application.registerUserNotificationSettings(settings)
-        }
-        
-        application.registerForRemoteNotifications()
-        
-        // [END register_for_notifications]
-        return true
+    let kakaoAppKey = Bundle.main.object(forInfoDictionaryKey: "KAKAO_APP_KEY") as? String
+    
+    if let appKey = kakaoAppKey {
+        KakaoSDKCommon.initSDK(appKey: appKey)
+    } else {
+        print("App Key does not exist")
+    }
+    Thread.sleep(forTimeInterval: 2.0)
+
+    // [START set_messaging_delegate]
+    Messaging.messaging().delegate = self
+    // [END set_messaging_delegate]
+    // Register for remote notifications. This shows a permission dialog on first run, to
+    // show the dialog at a more appropriate time move this registration accordingly.
+    // [START register_for_notifications]
+    if #available(iOS 10.0, *) {
+      // For iOS 10 display notification (sent via APNS)
+      UNUserNotificationCenter.current().delegate = self
+
+      let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+      UNUserNotificationCenter.current().requestAuthorization(
+        options: authOptions,
+        completionHandler: { _, _ in }
+      )
+    } else {
+      let settings: UIUserNotificationSettings =
+        UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+      application.registerUserNotificationSettings(settings)
     }
     
     // ?? [start] 앱이 백그라운드에서 동작할 때, 알림을 받았을 때 동작하는 부분
@@ -178,21 +180,23 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         completionHandler([[.badge, .banner, .sound]])
     }
     
-//    private func userNotificationCenter(_ center: UNUserNotificationCenter,
-//                                didReceive response: UNNotificationResponse,
-//                                withCompletionHandler completionHandler: @escaping () -> Void) {
-//        let userInfo = response.notification.request.content.userInfo
-//
-//        // ...
-//
-//        // With swizzling disabled you must let Messaging know about the message, for Analytics
-//        // Messaging.messaging().appDidReceiveMessage(userInfo)
-//
-//        // Print full message.
-//        print(userInfo)
-//
-//        completionHandler()
-//    }
+   private func userNotificationCenter(_ center: UNUserNotificationCenter,
+                               didReceive response: UNNotificationResponse,
+                               withCompletionHandler completionHandler: @escaping () -> Void) {
+       let userInfo = response.notification.request.content.userInfo
+
+       // ...
+
+       // With swizzling disabled you must let Messaging know about the message, for Analytics
+       // Messaging.messaging().appDidReceiveMessage(userInfo)
+ 
+     
+        let userDefault = UserDefaults.standard
+        userDefault.set(userInfo["url"] , forKey: "PUSH_URL")
+        userDefault.synchronize()
+
+       completionHandler()
+   }
 }
 
 // [END ios_10_message_handling]

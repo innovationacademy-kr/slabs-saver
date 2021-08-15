@@ -543,6 +543,16 @@
   height: 32px;
   width: 94px;
 }
+
+.icon-alarm-black-transparent {
+  background-image: url('../icons/alarm-black.svg');
+  background-position: center;
+  background-size: cover;
+
+  height: 22px;
+  width: 58px;
+}
+
 .icon-alarm.active {
   background-image: url('../icons/alarm-active.svg');
   background-position: center;
