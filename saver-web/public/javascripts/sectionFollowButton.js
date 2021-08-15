@@ -147,14 +147,17 @@ const clickFollow = (btnId, value, btnUrl) => {
       },
     })
       .then((res) => {
-        if (isMobile.iOS())
-	    		webkit.messageHandlers.getFollowStatus.postMessage(res.data);
         section_display_change(btnId);
         if (btnUrl === 'follow') {
-          if (userAgent.includes('ANDROID')) Android.subscribeTopic(value);
-          alert('팔로우 되었습니다.');
-        } else {
-          if (userAgent.includes('ANDROID')) Android.unsubscribeTopic(value);
+			    if (isMobile.iOS()) {
+	    		  webkit.messageHandlers.updateFollowStatus.postMessage(value);
+			    }
+    			alert('팔로우 되었습니다.');
+		  	} else {
+	    
+          if (isMobile.iOS()) {
+            webkit.messageHandlers.deleteFollowStatus.postMessage(value);
+          }
           alert('언팔로우 되었습니다.');
         }
       })
