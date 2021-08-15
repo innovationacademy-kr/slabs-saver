@@ -55,6 +55,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       application.registerUserNotificationSettings(settings)
     }
     
+    return true
+  }
+    
     // ?? [start] 앱이 백그라운드에서 동작할 때, 알림을 받았을 때 동작하는 부분
     func application(_ application: UIApplication,
                      didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
@@ -180,23 +183,23 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         completionHandler([[.badge, .banner, .sound]])
     }
     
-   private func userNotificationCenter(_ center: UNUserNotificationCenter,
-                               didReceive response: UNNotificationResponse,
-                               withCompletionHandler completionHandler: @escaping () -> Void) {
-       let userInfo = response.notification.request.content.userInfo
-
-       // ...
-
-       // With swizzling disabled you must let Messaging know about the message, for Analytics
-       // Messaging.messaging().appDidReceiveMessage(userInfo)
- 
-     
-        let userDefault = UserDefaults.standard
-        userDefault.set(userInfo["url"] , forKey: "PUSH_URL")
-        userDefault.synchronize()
-
-       completionHandler()
-   }
+//   private func userNotificationCenter(_ center: UNUserNotificationCenter,
+//                               didReceive response: UNNotificationResponse,
+//                               withCompletionHandler completionHandler: @escaping () -> Void) {
+//       let userInfo = response.notification.request.content.userInfo
+//
+//       // ...
+//
+//       // With swizzling disabled you must let Messaging know about the message, for Analytics
+//       // Messaging.messaging().appDidReceiveMessage(userInfo)
+//
+//
+//        let userDefault = UserDefaults.standard
+//        userDefault.set(userInfo["url"] , forKey: "PUSH_URL")
+//        userDefault.synchronize()
+//
+//       completionHandler()
+//   }
 }
 
 // [END ios_10_message_handling]

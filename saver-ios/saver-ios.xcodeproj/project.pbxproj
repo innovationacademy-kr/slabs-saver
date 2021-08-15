@@ -21,8 +21,6 @@
 
 /* Begin PBXFileReference section */
 		0B7ADC17A3820AD30F9974C1 /* Pods_saver_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_saver_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		358E707E26C572110071B432 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
-		35F79B4926BFD9B700D8DCD0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../CA/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4F015E3326B1518C002A7A09 /* saver-ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "saver-ios.entitlements"; sourceTree = "<group>"; };
 		4F015E3426C3B552002A7A09 /* pushNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pushNotification.swift; sourceTree = "<group>"; };
 		4F015E3626C3C673002A7A09 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Documents/GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -64,7 +62,6 @@
 		4F223F3426A950AB00ED04E4 = {
 			isa = PBXGroup;
 			children = (
-				358E707E26C572110071B432 /* Config.xcconfig */,
 				4F223F3F26A950AB00ED04E4 /* saver-ios */,
 				4F223F3E26A950AB00ED04E4 /* Products */,
 				44867DC634A1E454CD0AFA4C /* Pods */,
@@ -244,7 +241,6 @@
 /* Begin XCBuildConfiguration section */
 		4F223F4F26A950B300ED04E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 358E707E26C572110071B432 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -306,7 +302,6 @@
 		};
 		4F223F5026A950B300ED04E4 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 358E707E26C572110071B432 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;

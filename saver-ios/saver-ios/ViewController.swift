@@ -199,13 +199,16 @@ extension ViewController: WKScriptMessageHandler {
     
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         
+        let value = Int((message.body as! NSString).floatValue)
+        
         switch message.name {
         case "initFollowStatus" :
+            // message.body가 string으로 들어와야 함.
             initFollowStatus(followValue: message.body as! [Int])
         case "updateFollowStatus":
-            setPushCategories(followValue: message.body as! Int, mode: 0);
+            setPushCategories(followValue: value, mode: 0);
         case "deleteFollowStatus":
-            setPushCategories(followValue: message.body as! Int, mode: 1);
+            setPushCategories(followValue: value, mode: 1);
             
         default:
             break
