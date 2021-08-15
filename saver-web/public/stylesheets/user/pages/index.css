@@ -56,8 +56,7 @@ body {
 }
 
 .button {
-  /* display: inline-block; */
-  padding: 0.8em 1.0em;
+  padding: 0.5em 1.0em;
   border-radius: 30px;
   background: #ffffff;
   font-family: sans-serif;
@@ -75,6 +74,5 @@ body {
 .button:active,
 .button.is-checked {
   background-color: #4ea2c31a;
-  /* outline: none; */
   float: right;
 }
