@@ -3,6 +3,7 @@ const POLITICS = 2;
 const INTERNATIONAL = 3;
 const SOCIAL = 4;
 const CULTURE = 5;
+const AMPM = 6;
 
 module.exports = {
   ALL: [ECONOMY, POLITICS, SOCIAL, INTERNATIONAL, CULTURE],
@@ -11,4 +12,5 @@ module.exports = {
   SOCIAL,
   INTERNATIONAL,
   CULTURE,
+  AMPM
 };
