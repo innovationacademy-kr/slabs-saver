@@ -37,7 +37,7 @@ app.set('layout', 'layout/layout');
 app.set('layout extractScripts', true);
 app.set('layout extractStyles', true);
 
-const scheduler = require('./lib/ampmScheduling');
+const scheduler = require('./lib/scheduler');
 scheduler.scheduler();
 
 // NOTE: routing
