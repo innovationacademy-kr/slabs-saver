@@ -163,32 +163,32 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
     // [start] background에서 Foreground로 전환되며 이때 수신되는 함수를 MainViewController에서 수신 및 WebView로 URL을 이동
     
     // Observer를 이용하여, AppDelegate UIApplicationDidBecomeActive 함수의 이벤트를 등록.
-    private func WillBecomeActive()
-    {
-        NotificationCenter.default.addObserver(self, selector: #selector(self.applicationDidBecome), name: UIApplication.willEnterForegroundNotification, object: nil)
-    }
-
-    // MainViewController 화면이 사라지면 등록한 이벤트 Observer를 제거
-    private func WillBecomeActive_Del()
-    {
-        NotificationCenter.default.removeObserver(self, name: UIApplication.willEnterForegroundNotification, object: nil)
-    }
-
-    // 등록한 이벤트로 이벤트가 수신될 경우, 실행될 함수
-    @objc public func applicationDidBecome()
-    {
-        // * 푸시 클릭 시 "PUSH_URL"의 데이터로 WebView를 이동
-        let userDefault = UserDefaults.standard
-
-        let request: URLRequest = URLRequest.init(url: NSURL.init(string: userDefault.object(forKey: "PUSH_URL") as? String ?? "")! as URL, cachePolicy: URLRequest.CachePolicy.useProtocolCachePolicy, timeoutInterval: 10)
-        webView.load(request)
-                   
-        print("run??")
-        // * URL 이동 후 "PUSH_URL" 키의 값을 빈 값으로 초기화
-        userDefault.set("", forKey: "PUSH_URL")
-        userDefault.synchronize()
-    }
-    
+//    private func WillBecomeActive()
+//    {
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.applicationDidBecome), name: UIApplication.willEnterForegroundNotification, object: nil)
+//    }
+//
+//    // MainViewController 화면이 사라지면 등록한 이벤트 Observer를 제거
+//    private func WillBecomeActive_Del()
+//    {
+//        NotificationCenter.default.removeObserver(self, name: UIApplication.willEnterForegroundNotification, object: nil)
+//    }
+//
+//    // 등록한 이벤트로 이벤트가 수신될 경우, 실행될 함수
+//    @objc public func applicationDidBecome()
+//    {
+//        // * 푸시 클릭 시 "PUSH_URL"의 데이터로 WebView를 이동
+//        let userDefault = UserDefaults.standard
+//
+//        let request: URLRequest = URLRequest.init(url: NSURL.init(string: userDefault.object(forKey: "PUSH_URL") as? String ?? "")! as URL, cachePolicy: URLRequest.CachePolicy.useProtocolCachePolicy, timeoutInterval: 10)
+//        webView.load(request)
+//
+//        print("run??")
+//        // * URL 이동 후 "PUSH_URL" 키의 값을 빈 값으로 초기화
+//        userDefault.set("", forKey: "PUSH_URL")
+//        userDefault.synchronize()
+//    }
+//
     // [end] ackground에서 Foreground로 전환되며 이때 수신되는 함수를 MainViewController에서 수신 및 WebView로 URL을 이동
 
     
