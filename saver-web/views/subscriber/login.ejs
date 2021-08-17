@@ -60,7 +60,7 @@
                 });
               } else if (isMobile.iOS()) {
                 followings.forEach((value) => {
-                  webkit.messageHandlers.subscribeTopic.postMessage(value);
+                  webkit.messageHandlers.updateFollowStatus.postMessage(value);
                 })
               }
 
