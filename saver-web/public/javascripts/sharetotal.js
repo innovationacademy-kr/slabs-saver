@@ -18,7 +18,7 @@ function modalFunction(id) {
 function facebookshare(url) {
 
   var br = navigator.userAgent;
-  
+
       if (br.indexOf("APP_IOS") > -1){
         console.log("iOS App facebook share");
         webkit.messageHandlers.iosMessage.postMessage(url);
@@ -48,7 +48,7 @@ function removeTag(text) {
 
 function KaKaoShare  (id, article)  {
   try{
-    if (!Kakao.isInitialized()) Kakao.init('카카오 JS 키');
+    //if (!Kakao.isInitialized()) Kakao.init('카카오 JS 키');
     let targetLink = document.location.href;
     if (article.id != null){
       targetLink += `articles/detail/${article.id}`;
