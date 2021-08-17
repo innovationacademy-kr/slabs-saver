@@ -1,0 +1,11 @@
+//
+//  Config.xcconfig
+//  saver-ios
+//
+//  Created by Jaeyoung Lee on 2021/08/13.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+KAKAO_APP_KEY = 1959c271c12433b38f199127bc698fd1

@@ -10,12 +10,11 @@ import Firebase
 import UserNotifications
 import FirebaseMessaging
 import KakaoSDKCommon
+import FBSDKCoreKit
 import UserNotifications
-
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    
     var window: UIWindow?
     let gcmMessageIDKey = "gcm.message_id"
     
@@ -26,6 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         
         let kakaoAppKey = Bundle.main.object(forInfoDictionaryKey: "KAKAO_APP_KEY") as? String
+
         
         if let appKey = kakaoAppKey {
             KakaoSDKCommon.initSDK(appKey: appKey)
@@ -55,16 +55,50 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             let settings: UIUserNotificationSettings =
                 UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
-            application.registerUserNotificationSettings(settings)
-        }
-        
-        application.registerForRemoteNotifications()
-        
-        // [END register_for_notifications]
-        return true
+              application.registerUserNotificationSettings(settings)
+            }
+
+            application.registerForRemoteNotifications()
+
+            // [END register_for_notifications]
+            
+            // FACEBOOK
+        ApplicationDelegate.shared.application(
+            application,
+            didFinishLaunchingWithOptions: launchOptions
+        )
+            return true
     }
-    
-    // [start] 앱이 백그라운드에서 동작할 때, 알림을 받았을 때 동작하는 부분
+    // FACEBOOK Connect app delegate
+    func application(
+        _ app: UIApplication,
+        open url: URL,
+        options: [UIApplication.OpenURLOptionsKey : Any] = [:]
+    ) -> Bool {
+        
+        ApplicationDelegate.shared.application(
+            app,
+            open: url,
+            sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
+            annotation: options[UIApplication.OpenURLOptionsKey.annotation]
+        )
+        
+    }
+    func application(
+        _ application: UIApplication,
+        open url: URL,
+        sourceApplication: String?,
+        annotation: Any
+    ) -> Bool {
+        
+        return ApplicationDelegate.shared.application(
+            application, open: url,
+            sourceApplication: sourceApplication,
+            annotation: annotation
+        )
+    }
+      
+    // ?? [start] 앱이 백그라운드에서 동작할 때, 알림을 받았을 때 동작하는 부분
     func application(_ application: UIApplication,
                      didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
         // If you are receiving a notification message while your app is in the background,
@@ -159,7 +193,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // With swizzling disabled you must set the APNs token here.
         // Messaging.messaging().apnsToken = deviceToken
     }
-    
+
     // [start] Notification 생성
     func sendNotification(seconds: Double, title: String, body: String, url: String) {
         
@@ -204,6 +238,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         print("message handling: ", userInfo)
         
         // Change this to your preferred presentation option
+
         completionHandler([[.badge, .banner, .sound]])
     }
 }

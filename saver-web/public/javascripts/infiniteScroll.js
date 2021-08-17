@@ -7,6 +7,27 @@ var articleList = document.querySelector('#article-list');
 var articleCategoryList = document.querySelector('#article-category-list');
 const token = localStorage['jwtToken'];
 
+const getAMPMArticle = () => {
+  if (page === INITIAL_PAGE){
+    axios({
+      method: 'get',
+      url: '/today/ampm7',
+    })
+    .then((res) => {
+      const article = res.data.article;
+      articleList.insertAdjacentHTML('beforebegin', makeTemplate(article));
+      const item = document.getElementById(`kakao_share_${article.id}`);
+      article.path = `articles/detail/${article.id}`;
+      if (item) KaKaoShare(item.id, article);
+      $(`[data-id=${article.id}]`).remove();
+      selectBookmarkClass(article.id, `btn_bookmark-${article.id}`);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+}
+}
+
 const getPage = () => {
   $.ajax({
     url: `/moreArticles?page=${page}`,
@@ -54,6 +75,7 @@ const getCategoryPage = () => {
 };
 
 //?계속 요청 보내는데??
+getAMPMArticle();
 getPage();
 $(window).scroll(function () {
   const scrollPosition = $(window).scrollTop() + DEFAULT_HEIGHT;
