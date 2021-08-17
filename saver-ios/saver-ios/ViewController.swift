@@ -51,6 +51,25 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
         refreshControl.addTarget(self, action: #selector(reloadWebView(_:)), for: .valueChanged)
         webView.scrollView.addSubview(refreshControl)
         // [end] 당겨서 새로고침
+        
+        // [start] 백그라운드에서 포그라운드로 전환되면 실행되는 함수
+        NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: nil) { (Notification) in
+            
+            let userDefault = UserDefaults.standard
+            let pushUrl:String? = userDefault.string(forKey: "PUSH_URL")
+            
+            //링크가 있는 푸시를 클릭하는 경우에만 실행
+            if(pushUrl != nil){
+                NSLog(pushUrl!)
+                NSLog("푸시에서 전달받은 웹뷰로")
+                let myUrl = URL(string: pushUrl!)
+                let myRequest = URLRequest(url: myUrl!)
+                self.webView.load(myRequest)
+                userDefault.removeObject(forKey: "PUSH_URL")
+                userDefault.synchronize()
+            }
+        }
+        // [end] 백그라운드에서 포그라운드로 전환되면 실행되는 함수
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -93,14 +112,14 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
         self.webView.frame = viewBounds;
         // [end] 화면 구성
     }
-
+    
     // [start] 화면이 돌아갈 때
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         
         viewWillAppear(true)
     }
     // [end] 화면이 돌아갈 때
-
+    
     // [start] 새로고침 구현함수
     @objc func reloadWebView(_ sender: UIRefreshControl) {
         webView.reload()
@@ -125,7 +144,7 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
         self.present(alertController, animated: true, completion: nil)
     }
     //[end] alert 처리
-
+    
     
     //[start] confirm 창 처리
     func webView (_ webView: WKWebView, runJavaScriptConfirmPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (Bool) -> Void) {
@@ -151,6 +170,7 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
                  decidePolicyFor navigationAction: WKNavigationAction,
                  decisionHandler: @escaping (WKNavigationActionPolicy) -> Void
     ) {
+
         // 카카오 SDK가 호출하는 커스텀 스킴인 경우 open(_ url:) 메소드를 호출합니다.
         if let url = navigationAction.request.url
            , ["kakaokompassauth", "kakaolink"].contains(url.scheme) {
@@ -160,6 +180,7 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
             decisionHandler(.cancel)
             return
         }
+
         decisionHandler(.allow)
     }
     // [end] kakao 하이브리드앱 카카오링크

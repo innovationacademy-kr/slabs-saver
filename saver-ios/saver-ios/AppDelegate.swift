@@ -32,25 +32,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             print("App Key does not exist")
         }
+        
+        // [start] launch 화면 대기 시간
         Thread.sleep(forTimeInterval: 2.0)
+        // [end] launch 화면 대기 시간
         
         // [START set_messaging_delegate]
-            Messaging.messaging().delegate = self
-            // [END set_messaging_delegate]
-            // Register for remote notifications. This shows a permission dialog on first run, to
-            // show the dialog at a more appropriate time move this registration accordingly.
-            // [START register_for_notifications]
-            if #available(iOS 10.0, *) {
-              // For iOS 10 display notification (sent via APNS)
-              UNUserNotificationCenter.current().delegate = self
-
-              let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
-              UNUserNotificationCenter.current().requestAuthorization(
+        Messaging.messaging().delegate = self
+        // [END set_messaging_delegate]
+        // Register for remote notifications. This shows a permission dialog on first run, to
+        // show the dialog at a more appropriate time move this registration accordingly.
+        // [START register_for_notifications]
+        if #available(iOS 10.0, *) {
+            // For iOS 10 display notification (sent via APNS)
+            UNUserNotificationCenter.current().delegate = self
+            
+            let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+            UNUserNotificationCenter.current().requestAuthorization(
                 options: authOptions,
                 completionHandler: { _, _ in }
-              )
-            } else {
-              let settings: UIUserNotificationSettings =
+            )
+        } else {
+            let settings: UIUserNotificationSettings =
                 UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
               application.registerUserNotificationSettings(settings)
             }
@@ -115,10 +118,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             sendNotification(seconds: 10, title: title as! String, body: message as! String, url: url as! String)
         }
     }
-    // ?? [end] 앱이 백그라운드에서 동작할 때, 알림을 받았을 때 동작하는 부분
+    // [end] 앱이 백그라운드에서 동작할 때, 알림을 받았을 때 동작하는 부분
     
-    
-    //  [start] 앱을 사용할 때 웹으로 알림을 보냈을 떄 동작하는 부분
+    //  [start] 앱이 포그라운드에서 동작할 때, 알림을 받았을 때 동작하는 부분
     func application(_ application: UIApplication,
                      didReceiveRemoteNotification userInfo: [AnyHashable: Any],
                      fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult)
@@ -140,7 +142,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         completionHandler(UIBackgroundFetchResult.newData)
     }
-    //  [end] 앱을 사용할 때 웹으로 알림을 보냈을 떄 동작하는 부분
+    //  [end] 앱이 포그라운드에서 동작할 때, 알림을 받았을 때 동작하는 부분
+    
+    
+    // [start] push noti를 클릭했을 때 동작하는 부분
+    @available(iOS 10.0, *)
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        
+        print("푸시 클릭하고 들어옴")
+        let pushUrl = response.notification.request.content.userInfo["url"] as? String
+        print((pushUrl ?? "링크 없음") as String)
+        if pushUrl !=  nil {
+            print("앱델레케이트 푸시타고 들어옴, 링크있음")
+            if UIApplication.shared.applicationState == .active {
+                print("포그라운드에서 클릭")
+                let vc = UIApplication.shared.windows.first!.rootViewController as! ViewController
+                
+                let myURL = URL(string: pushUrl!)
+                let myRequest = URLRequest(url: myURL!)
+                vc.webView.load(myRequest)
+            }
+            else {
+                print("백그라운드에서 클릭")
+                let userDefault = UserDefaults.standard
+                userDefault.set(pushUrl, forKey: "PUSH_URL")
+                userDefault.synchronize()
+                
+            }
+        } else {
+            print("앱델레케이트 푸시타고 들어옴, 링크 없음")
+            
+        }
+        completionHandler()
+    }
+    // [end] push noti를 클릭했을 때 동작하는 부분
+    
     
     func application(_ application: UIApplication,
                      didFailToRegisterForRemoteNotificationsWithError error: Error) {
@@ -199,33 +235,15 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         }
         // [END_EXCLUDE]
         // Print full message.
-        print(userInfo)
+        print("message handling: ", userInfo)
         
         // Change this to your preferred presentation option
 
         completionHandler([[.badge, .banner, .sound]])
     }
-    
-    //    internal func // ?? [start] 앱이 백그라운드에서 동작할 때, 알림을 받았을 때 동작하는 부분
-    internal func userNotificationCenter(_ center: UNUserNotificationCenter,
-                                         didReceive response: UNNotificationResponse,
-                                         withCompletionHandler completionHandler: @escaping () -> Void) {
-        let userInfo = response.notification.request.content.userInfo
-        // Print message ID.
-        if let messageID = userInfo[gcmMessageIDKey] {
-            let title = userInfo["title"] ?? ""
-            let message = userInfo["message"] ?? ""
-            let url = userInfo["url"] ?? ""
-            
-            print("2. Message ID: \(messageID)")
-            sendNotification(seconds: 10, title: title as! String, body: message as! String, url: url as! String)
-        }
-        
-        completionHandler()
-    }
-    // ?? [end] 앱이 백그라운드에서 동작할 때, 알림을 받았을 때 동작하는 부분
 }
-// [END ios_10_message_handling]
+// [END] message_handling
+
 
 extension AppDelegate: MessagingDelegate {
     // [START refresh_token]

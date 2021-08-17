@@ -39,6 +39,7 @@
 		4F223F5626A9543F00ED04E4 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		4F223F5C26A9567A00ED04E4 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4F81934456AF6C17B6042CDB /* Pods-saver-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-saver-ios.release.xcconfig"; path = "Target Support Files/Pods-saver-ios/Pods-saver-ios.release.xcconfig"; sourceTree = "<group>"; };
+		4F90B83426CB602600A30785 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		948D95444A4A7B48451ED265 /* Pods-saver-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-saver-ios.debug.xcconfig"; path = "Target Support Files/Pods-saver-ios/Pods-saver-ios.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -259,6 +260,7 @@
 /* Begin XCBuildConfiguration section */
 		4F223F4F26A950B300ED04E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4F90B83426CB602600A30785 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -321,6 +323,7 @@
 		};
 		4F223F5026A950B300ED04E4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4F90B83426CB602600A30785 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
