@@ -109,13 +109,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Print message ID.
         if let messageID = userInfo[gcmMessageIDKey] {
             
-            print("Message ID: \(messageID)")
-            let title = userInfo["title"] ?? ""
-            let message = userInfo["message"] ?? ""
-            let url = userInfo["url"] ?? ""
-            
             print("1. Message ID: \(messageID)")
-            sendNotification(seconds: 10, title: title as! String, body: message as! String, url: url as! String)
+            sendNotification(seconds: 10, userInfo: userInfo)
         }
     }
     // [end] 앱이 백그라운드에서 동작할 때, 알림을 받았을 때 동작하는 부분
@@ -133,12 +128,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Print message ID.
         if let messageID = userInfo[gcmMessageIDKey] {
             
-            let title = userInfo["title"] ?? ""
-            let message = userInfo["message"] ?? ""
-            let url = userInfo["url"] ?? ""
-            
             print("2. Message ID: \(messageID)")
-            sendNotification(seconds: 10, title: title as! String, body: message as! String, url: url as! String)
+            sendNotification(seconds: 10, userInfo: userInfo)
         }
         completionHandler(UIBackgroundFetchResult.newData)
     }
@@ -149,13 +140,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     @available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         
-        print("푸시 클릭하고 들어옴")
         let pushUrl = response.notification.request.content.userInfo["url"] as? String
-        print((pushUrl ?? "링크 없음") as String)
         if pushUrl !=  nil {
-            print("앱델레케이트 푸시타고 들어옴, 링크있음")
             if UIApplication.shared.applicationState == .active {
-                print("포그라운드에서 클릭")
+                print("forground notification clicked")
                 let vc = UIApplication.shared.windows.first!.rootViewController as! ViewController
                 
                 let myURL = URL(string: pushUrl!)
@@ -163,14 +151,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 vc.webView.load(myRequest)
             }
             else {
-                print("백그라운드에서 클릭")
+                print("background notification clicked")
                 let userDefault = UserDefaults.standard
                 userDefault.set(pushUrl, forKey: "PUSH_URL")
-                userDefault.synchronize()
-                
+                userDefault.synchronize() 
             }
         } else {
-            print("앱델레케이트 푸시타고 들어옴, 링크 없음")
+            print("링크 없는 알림")
             
         }
         completionHandler()
@@ -195,12 +182,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     // [start] Notification 생성
-    func sendNotification(seconds: Double, title: String, body: String, url: String) {
+    func sendNotification(seconds: Double, userInfo: [AnyHashable : Any]) {
         
         let notificationContent = UNMutableNotificationContent()
         
-        notificationContent.title = title
-        notificationContent.body = body
+        notificationContent.title = userInfo["title"] as! String
+        notificationContent.body = userInfo["message"] as! String
+        notificationContent.userInfo = userInfo
         
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: seconds, repeats: false)
         let request = UNNotificationRequest(identifier: "notification",
