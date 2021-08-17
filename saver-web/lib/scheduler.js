@@ -1,16 +1,11 @@
 const schedule = require('node-schedule');
 const ampmCtrl = require('../controllers/today/ampmController');
 
-const amSchedule = new schedule.RecurrenceRule();
-amSchedule.hour = 7;
-const pmSchedule = new schedule.RecurrenceRule();
-pmSchedule.hour = 19;
-
 const scheduler = () => {
-    schedule.scheduleJob(amSchedule, () => {
+    schedule.scheduleJob('0 7 * * * ', () => {
         ampmCtrl.createAMPM(true);
     });
-    schedule.scheduleJob(pmSchedule, () => {
+    schedule.scheduleJob('0 19 * * *', () => {
         ampmCtrl.createAMPM(false);
     });
 }
