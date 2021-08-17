@@ -40,10 +40,29 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
         refreshControl.addTarget(self, action: #selector(reloadWebView(_:)), for: .valueChanged)
         webView.scrollView.addSubview(refreshControl)
         // [end] 당겨서 새로고침
+        
+        // [start] 백그라운드에서 포그라운드로 전환되면 실행되는 함수
+        NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: nil) { (Notification) in
+            
+            let userDefault = UserDefaults.standard
+            let pushUrl:String? = userDefault.string(forKey: "PUSH_URL")
+            
+            //링크가 있는 푸시를 클릭하는 경우에만 실행
+            if(pushUrl != nil){
+                NSLog(pushUrl!)
+                NSLog("푸시에서 전달받은 웹뷰로")
+                let myUrl = URL(string: pushUrl!)
+                let myRequest = URLRequest(url: myUrl!)
+                self.webView.load(myRequest)
+                userDefault.removeObject(forKey: "PUSH_URL")
+                userDefault.synchronize()
+            }
+        }
+        // [end] 백그라운드에서 포그라운드로 전환되면 실행되는 함수
     }
     
     override func viewWillAppear(_ animated: Bool) {
-    
+        
         // [start] 화면 구성
         // 화면이 회전할 때 대응하기 위해 만들어놓은 것. 이 부분은 현재 issue로 인해 아직 실행되지 않는다.
         var viewBounds:CGRect = self.view.bounds
@@ -64,7 +83,7 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
         }
         
         if UIDevice.current.orientation.isLandscape {
-
+            
             viewBounds.origin.y = 0
             viewBounds.origin.x = window.safeAreaInsets.right;
             viewBounds.size.width = screenHeight - window.safeAreaInsets.right
@@ -82,14 +101,14 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
         self.webView.frame = viewBounds;
         // [end] 화면 구성
     }
-
+    
     // [start] 화면이 돌아갈 때
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         
         viewWillAppear(true)
     }
     // [end] 화면이 돌아갈 때
-
+    
     // [start] 새로고침 구현함수
     @objc func reloadWebView(_ sender: UIRefreshControl) {
         webView.reload()
@@ -114,7 +133,7 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
         self.present(alertController, animated: true, completion: nil)
     }
     //[end] alert 처리
-
+    
     
     //[start] confirm 창 처리
     func webView (_ webView: WKWebView, runJavaScriptConfirmPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (Bool) -> Void) {
@@ -141,56 +160,23 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
                  decisionHandler: @escaping (WKNavigationActionPolicy) -> Void
     ) {
         print(navigationAction.request.url?.absoluteString ?? "")
-
+        
         // 카카오 SDK가 호출하는 커스텀 스킴인 경우 open(_ url:) 메소드를 호출합니다.
         if let url = navigationAction.request.url
-            , ["kakaokompassauth", "kakaolink"].contains(url.scheme) {
-
+           , ["kakaokompassauth", "kakaolink"].contains(url.scheme) {
+            
             // 카카오톡 실행
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
-
+            
             decisionHandler(.cancel)
             return
         }
-
+        
         // 서비스 상황에 맞는 나머지 로직을 구현합니다.
-
+        
         decisionHandler(.allow)
     }
     // [end] kakao 하이브리드앱 카카오링크
-    
-    
-    // [start] background에서 Foreground로 전환되며 이때 수신되는 함수를 MainViewController에서 수신 및 WebView로 URL을 이동
-    
-    // Observer를 이용하여, AppDelegate UIApplicationDidBecomeActive 함수의 이벤트를 등록.
-//    private func WillBecomeActive()
-//    {
-//        NotificationCenter.default.addObserver(self, selector: #selector(self.applicationDidBecome), name: UIApplication.willEnterForegroundNotification, object: nil)
-//    }
-//
-//    // MainViewController 화면이 사라지면 등록한 이벤트 Observer를 제거
-//    private func WillBecomeActive_Del()
-//    {
-//        NotificationCenter.default.removeObserver(self, name: UIApplication.willEnterForegroundNotification, object: nil)
-//    }
-//
-//    // 등록한 이벤트로 이벤트가 수신될 경우, 실행될 함수
-//    @objc public func applicationDidBecome()
-//    {
-//        // * 푸시 클릭 시 "PUSH_URL"의 데이터로 WebView를 이동
-//        let userDefault = UserDefaults.standard
-//
-//        let request: URLRequest = URLRequest.init(url: NSURL.init(string: userDefault.object(forKey: "PUSH_URL") as? String ?? "")! as URL, cachePolicy: URLRequest.CachePolicy.useProtocolCachePolicy, timeoutInterval: 10)
-//        webView.load(request)
-//
-//        print("run??")
-//        // * URL 이동 후 "PUSH_URL" 키의 값을 빈 값으로 초기화
-//        userDefault.set("", forKey: "PUSH_URL")
-//        userDefault.synchronize()
-//    }
-//
-    // [end] ackground에서 Foreground로 전환되며 이때 수신되는 함수를 MainViewController에서 수신 및 WebView로 URL을 이동
-
     
 }
 
