@@ -44,13 +44,16 @@ const getalarm = () => {
     type: 'get',
     headers: { 'x-access-token': token },
     success: function (alarm) {
+        console.log(alarm);
         alarm.alarm.map(function (alarm) {
-            // console.log(alarm);
+            console.log(alarm);
           if (!(alarm.deleted))
           {
           const article = alarm.Article;
-          const listTemplate = getListTemplate(article);
-          const boxId = fillalarm(getSectionTemplate(listTemplate, article), article, alarm.ArticleId);
+          //updateAt은 yyyy-MM-dd HH:mm:ss.SSS의 simpledateformat으로 구성됨
+          const alarmUpdate = alarm.updatedAt.split('T');
+          const listTemplate = getListTemplate(alarmUpdate[0]);
+          const boxId = fillalarm(getSectionTemplate(listTemplate, article, alarmUpdate[0]), article, alarm.ArticleId);
           addEvent(boxId, alarm.ArticleId);
           }
         });
@@ -65,7 +68,9 @@ const getalarm = () => {
         }
       }
     },
-    error: function (err) {},
+    error: function (error) {
+      alert(error.response.data.message);
+    },
   });
 };
 
@@ -86,7 +91,7 @@ $(window).scroll(function () {
 
 function getDate(articleDate) {
   var today = new Date();
-  var date = articleDate.split('.');
+  var date = articleDate.split('-');
   var uploadDay = new Date(date[0], date[1] - 1, date[2]);
 
   today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
@@ -105,33 +110,33 @@ function getDate(articleDate) {
 }
 
 
-function getListTemplate(article) {
-  var template = document.getElementById(`bookmark-list-${article.date}`);
+function getListTemplate(aldate) {
+  var template = document.getElementById(`bookmark-list-${aldate}`);
 
   if (template) return template;
 
   alarmList.insertAdjacentHTML(
     'beforeend',
     `
-    <div class="bookmark-list" id="bookmark-list-${article.date}">
+    <div class="bookmark-list" id="bookmark-list-${aldate}">
       <div class="bookmark_alarm-title">
         <div class="bookmark_alarm-title-col1">
-          <div class="icon-bookmark-black-transparent"></div>
+          <div class="icon-alarm-black-transparent"></div>
         </div>
         <div class="bookmark_alarm-title-col2">
-          <p class="bookmark_alarm-title-col2-text">${getDate(article.date)}</p>
+          <p class="bookmark_alarm-title-col2-text">${getDate(aldate)}</p>
         </div>
       </div>
     </div>
 `,
   );
   //날짜부분 추가
-  return document.getElementById(`bookmark-list-${article.date}`);
+  return document.getElementById(`bookmark-list-${aldate}`);
 }
 
-function getSectionTemplate(ListTemplate, article) {
+function getSectionTemplate(ListTemplate, article, aldate) {
   var template = document.getElementById(
-    `bookmark_alarm-section-text-${category[article.category]}-${article.date}`,
+    `bookmark_alarm-section-text-${category[article.category]}-${aldate}`,
   );
   if (template) return template;
 
@@ -143,7 +148,7 @@ function getSectionTemplate(ListTemplate, article) {
       <div id class="icon-${category[article.category]}-blue"></div>
     </div>
     <div class="bookmark_alarm-section-text" 
-    id="bookmark_alarm-section-text-${category[article.category]}-${article.date}">
+    id="bookmark_alarm-section-text-${category[article.category]}-${aldate}">
     </div>
   </div>
 
@@ -152,7 +157,7 @@ function getSectionTemplate(ListTemplate, article) {
   );
   //아이콘 부분 추가
   return document.getElementById(
-    `bookmark_alarm-section-text-${category[article.category]}-${article.date}`,
+    `bookmark_alarm-section-text-${category[article.category]}-${aldate}`,
   );
 }
 
@@ -243,24 +248,32 @@ function addEvent(liItem, articleId) {
       : liItem.previousElementSibling;
 
       deleteAlarm(articleId);
-      parent.removeChild(liItem);
-      underlineLiItem?.remove();
-      if (parent.childElementCount <= 0)
-      {
-        var prevLiItem = parent.parentNode.previousElementSibling;
-        var nextLiItem = parent.parentNode.nextElementSibling;
-        parent.parentNode.remove();
-        nextLiItem.remove();
-        let temp;
-        temp = (prevLiItem.className == 'bookmark_alarm-title')
-        ? (prevLiItem.nextElementSibling) 
-          ?(prevLiItem.nextElementSibling.className == 'bookmark_alarm-title')
-            ? prevLiItem.remove()
-            :null
-          : prevLiItem.remove()
-        :null
-          // console.log("del");
+      function lineAnime(e1){
+        // e1.animate({opacity: '0'}, 200, function(){
+          e1.animate({height: '0px'}, 200);
+        // });
       }
+        lineAnime(liItem);
+      setTimeout(() => {
+        parent.removeChild(liItem);
+        underlineLiItem?.remove();
+        if (parent.childElementCount <= 0)
+        {
+          var prevLiItem = parent.parentNode.previousElementSibling;
+          var nextLiItem = parent.parentNode.nextElementSibling;
+          parent.parentNode.remove();
+          nextLiItem.remove();
+          let temp;
+          temp = (prevLiItem.className == 'bookmark_alarm-title')
+          ? (prevLiItem.nextElementSibling) 
+            ?(prevLiItem.nextElementSibling.className == 'bookmark_alarm-title')
+              ? prevLiItem.remove()
+              :null
+            : prevLiItem.remove()
+          :null
+            // console.log("del");
+        }
+      }, 200);
     },
     { passive: true },
   );

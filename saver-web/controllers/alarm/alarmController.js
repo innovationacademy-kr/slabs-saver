@@ -3,6 +3,7 @@ const sequelize = require('../../models').sequelize;
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 
+
 const newAlarmRequest = async(req, res, next) => {
   const { articleId, category } = req.body;
 
@@ -16,16 +17,36 @@ const newAlarmRequest = async(req, res, next) => {
   });
 
   const newAlarmArray = (arr) => arr.map((user) => {
-     const request = new Promise((resolve, reject) => {
+     const request = new Promise(async(resolve, reject) => {
        try {
-         Alarm.create({
-           UserId: user.id,
-           ArticleId: articleId
-         }).then(res => {
-           resolve(res);
-         });
+        const data = await Alarm.findAll({
+          where:{UserId: user.id, ArticleId: articleId},
+        });
+         if (data.length != 0)
+         {
+           console.log("update");
+            Alarm.update(
+             {deleted: false},
+             {where: { UserId: user.id, ArticleId: articleId }}
+            )
+            .then(res => {
+            resolve(res);
+            });
+         }
+         else
+         {
+           console.log("create");
+            Alarm.create({
+             UserId: user.id,
+             ArticleId: articleId
+            })
+            .then(res => {
+            resolve(res);
+            });
+        }
        } 
        catch (error) {
+         console.log("err");
          reject(error);
        }
      })
@@ -54,7 +75,7 @@ const newAlarmRequest = async(req, res, next) => {
      return request;
   });
 
-  try{    
+  try{
     const requests = newAlarmArray(Users);
     const nextRequests = UserAlarmStatus(Users);
     await Promise.all(requests)
@@ -91,7 +112,7 @@ const getAlarmRequest = async (req, res) => {
       },
     ],
     order: [
-      ['createdAt', 'DESC'],
+      ['updatedAt', 'DESC'],
       ['Article', 'category', 'DESC'],
     ],
     offset: +page,
@@ -150,7 +171,7 @@ const deleteAlarmRequest = async (req, res) => {
   } catch (error){
     res.status(400).json({
       succes: false,
-    error
+      error
     });
   }
 }

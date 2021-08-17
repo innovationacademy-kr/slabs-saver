@@ -2,15 +2,19 @@
  * 오전 06:59 이전에는 어제 날짜
  * 오전 07:00 이후에는 오늘 날짜
  * YYYY-MM-DD
+ * 실제 시간과는 다르지만 한국표준시와 UTC의 차이 때문에 offset만큼 빼준다.
  */
 const getProperDate = () => {
-  // Date.now()
+  const offset = new Date().getTimezoneOffset() * 60000;
   const now = new Date();
+  
   const h = now.getHours();
   if (h < 7) {
     now.setDate(now.getDate() - 1);
   }
-  let date = now.toISOString(); // "2021-06-30T14:26:31.955Z"
+  const real = new Date(now - offset);
+  let date = real.toISOString();
+  console.log(date);
   date = date.slice().slice(0, 10);
   return date;
 };
@@ -113,25 +117,16 @@ const addEvent = () => {
   });
 };
 
-		const getAlarmStatus = () => {
-			const alarmIcon = document.querySelector(`#alarm i`)
-			if (token){
-				axios({
-					method: 'post',
-					url: '/subscriber/getAlarmStatus',
-					headers: {
-						'x-access-token': token
-					}
-				}).then((res) => {
-					if (res.data.alarmStatus === 2) alarmIcon.classList.add('new');
-				}).catch(error => {
-					console.log(error.response.data.message);
-				});
-			}
-		};
+const articleCategroryEvent = () => {
+  const token = localStorage['jwtToken'];
+  if (!token) $(".article-choice").hide();
+  else $(".article-choice").show();
+};
 
 
+$("#article-category-list").hide();
 addEvent();
 getTodayWord();
 getTodayArticle();
-getAlarmStatus();
+articleCategroryEvent();
+

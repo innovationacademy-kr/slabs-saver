@@ -42,7 +42,9 @@ const getBookmark = () => {
       isUsed = false;
       page += 20;
     },
-    error: function (err) {},
+    error: function (err) {
+      alert(err.response.data.message);
+    },
   });
 };
 
@@ -111,7 +113,7 @@ function getSectionTemplate(ListTemplate, article) {
     ListTemplate.insertAdjacentHTML(
       'beforeend',
       `
-      <div class="bookmark-section-tap"></div>`,
+      <div class="bookmark_alarm-section-tap"></div>`,
     );
   ListTemplate.insertAdjacentHTML(
     'beforeend',

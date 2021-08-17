@@ -15,9 +15,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <wkWebView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="whA-ZY-HTo" userLabel="Saver Webview">
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="whA-ZY-HTo" userLabel="Saver Webview">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
@@ -27,6 +26,12 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="whA-ZY-HTo" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="SBl-Mk-it6"/>
+                            <constraint firstItem="whA-ZY-HTo" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="hmw-KJ-sVO"/>
+                            <constraint firstItem="whA-ZY-HTo" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="i23-12-kba"/>
+                            <constraint firstItem="whA-ZY-HTo" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="yIr-4f-i3u"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="webView" destination="whA-ZY-HTo" id="eWL-RV-B67"/>

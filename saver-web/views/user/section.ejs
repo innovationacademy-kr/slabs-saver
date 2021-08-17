@@ -1,13 +1,14 @@
 <%- contentFor('scriptTag') %>
 	<script>
 		let notYetLogineds = document.querySelectorAll("#notYetLogined");
+		const redirect = encodeURIComponent('/section/logined');
 
 		for (let notYetLogined of notYetLogineds) {
 
 			notYetLogined.addEventListener('click', (e) => {
 				console.log("clicked(politic)");
 				if (!token) {
-					location.href = '/subscriber/login'
+					location.href = `/subscriber/login?redirect=${redirect}`
 				} else {
 					axios({
 						method: 'post',
@@ -47,7 +48,7 @@
 							<p class="section__col2__text text-login">
 								로그인 하고 My Section 설정하기<br>
 							</p>
-							<button onclick="location.href ='/subscriber/login'" class="section__col2__btn ">
+							<button onclick="location.href =`/subscriber/login?redirect=${redirect}`" class="section__col2__btn ">
 								<p class="section__col2__btn__text">
 									로그인
 								</p>

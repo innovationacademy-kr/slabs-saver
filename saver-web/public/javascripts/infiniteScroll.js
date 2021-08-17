@@ -3,7 +3,30 @@ var ADD_PAGE = 3;
 var DEFAULT_HEIGHT = $(window).height() + 10;
 var page = INITIAL_PAGE;
 var isUsed = false;
-var articleList = document.querySelector('.article-list');
+var articleList = document.querySelector('#article-list');
+var articleCategoryList = document.querySelector('#article-category-list');
+const token = localStorage['jwtToken'];
+
+const getAMPMArticle = () => {
+  if (page === INITIAL_PAGE){
+    axios({
+      method: 'get',
+      url: '/today/ampm7',
+    })
+    .then((res) => {
+      const article = res.data.article;
+      articleList.insertAdjacentHTML('beforebegin', makeTemplate(article));
+      const item = document.getElementById(`kakao_share_${article.id}`);
+      article.path = `articles/detail/${article.id}`;
+      if (item) KaKaoShare(item.id, article);
+      $(`[data-id=${article.id}]`).remove();
+      selectBookmarkClass(article.id, `btn_bookmark-${article.id}`);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+}
+}
 
 const getPage = () => {
   $.ajax({
@@ -13,6 +36,7 @@ const getPage = () => {
       articles = JSON.parse(articles);
       articles.map(function (article) {
         articleList.insertAdjacentHTML('beforeend', makeTemplate(article));
+        fixVidieo(article);
         const item = document.getElementById(`kakao_share_${article.id}`);
         article.path = `articles/detail/${article.id}`;
         if (item) KaKaoShare(item.id, article);
@@ -26,7 +50,32 @@ const getPage = () => {
   });
 };
 
+const getCategoryPage = () => {
+  $.ajax({
+    url: `/moreCategoryArticles?page=${page}`,
+    type: 'get',
+    headers: { 'x-access-token': token },
+    success: function (articles) {
+      articles = JSON.parse(articles);
+      articles.map(function (article) {
+        articleCategoryList.insertAdjacentHTML('beforeend', makeTemplate(article));
+        const item = document.getElementById(`kakao_share_${article.id}`);
+        article.path = `articles/detail/${article.id}`;
+        if (item) KaKaoShare(item.id, article);
+        selectBookmarkClass(article.id, `btn_bookmark-${article.id}`);
+      });
+
+      isUsed = false;
+      page += ADD_PAGE;
+    },
+    error: function (err) {
+      alert(err.response.data.message);
+    },
+  });
+};
+
 //?계속 요청 보내는데??
+getAMPMArticle();
 getPage();
 $(window).scroll(function () {
   const scrollPosition = $(window).scrollTop() + DEFAULT_HEIGHT;
@@ -34,9 +83,45 @@ $(window).scroll(function () {
 
   if (scrollPosition > pageHeight && !isUsed) {
     isUsed = true;
-    getPage();
+    if ($('#article-list').hasClass('article-list') === true) getPage();
+    else getCategoryPage();
   }
 });
+
+$('#article-category').on( 'click', function() {
+  $('#article-all').removeClass('is-checked');
+  $('#article-category').addClass('is-checked');
+  $('#article-list').removeClass();
+  $("#article-list").hide();
+  $("#article-category-list").show();
+  getCategoryPage();
+}); 
+
+$('#article-all').on( 'click', function() {
+  $('#article-category').removeClass('is-checked');
+  $('#article-all').addClass('is-checked');
+  if ($('#article-list').hasClass('article-list') === false){
+    $('#article-list').addClass('article-list');
+  }
+  $("#article-category-list").hide();
+  $("#article-list").show();
+  getPage();
+}); 
+
+
+function fixVidieo(article){
+  const briefing = document.getElementById(`editor_briefing_0${article.id}`);
+  const paragraphs = document.getElementById(`editor_paragraphs_0${article.id}`);
+  const briefVi = briefing.querySelector(".note-video-clip");
+  const paragVi = paragraphs.querySelector(".note-video-clip");
+
+  briefVi?.removeAttribute("height");
+  briefVi?.removeAttribute("width");
+  briefVi?.setAttribute("style", "max-width: 100%; width:95vw; height: 53.43vw;");
+  paragVi?.removeAttribute("height");
+  paragVi?.removeAttribute("width");
+  paragVi?.setAttribute("style", "max-width: 100%; width:95vw; height: 53.43vw");
+}
 
 function makeTemplate(article) {
   //추가되는 카드들

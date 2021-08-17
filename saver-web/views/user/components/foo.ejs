@@ -55,9 +55,11 @@
 			if (token) {
 				location.href = '/bookmark';
 			} else {
-				location.href = '/subscriber/login'
+				const redirect = encodeURIComponent('/bookmark');
+				location.href = `/subscriber/login?redirect=${redirect}`
 			}
 		});
 
 
 	</script>
+	<script defer type="module" src="/javascripts/alarmStatus.js"></script>

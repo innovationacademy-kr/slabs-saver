@@ -34,3 +34,21 @@ $(document).ready(function () {
 
   if (bookmarkBtn) bookmarkBtn.onclick = () => clickBookmark(pathnames[pathnames.length - 1], "btn_bookmark");
 });
+
+setTimeout(() => {
+  const briefing = document.getElementById("editor_briefing");
+  const paragraphs = document.getElementById("editor_paragraphs");
+  const briefVi = briefing.querySelector(".note-video-clip");
+  const paragVi = paragraphs.querySelector(".note-video-clip");
+
+  console.log(briefing);
+  console.log(paragraphs);
+  console.log(briefVi);
+  console.log(paragVi);
+  briefVi?.removeAttribute("height");
+  briefVi?.removeAttribute("width");
+  briefVi?.setAttribute("style", "max-width: 100%; width:95vw; height: 53.43vw;");
+  paragVi?.removeAttribute("height");
+  paragVi?.removeAttribute("width");
+  paragVi?.setAttribute("style", "max-width: 100%; width:95vw; height: 53.43vw");
+}, 300)

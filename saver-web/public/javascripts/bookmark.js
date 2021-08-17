@@ -3,36 +3,43 @@ const marked = 'article__control__right-buttons__bookmark-button-active';
 const unmarked = 'article__control__right-buttons__bookmark-button';
 
 async function enrollBookmark(id) {
-  const token = localStorage['jwtToken'];
-  try {
-    result = await axios({
+  await axios({
       method: 'post',
       url: `/bookmark/${id}`,
       headers: {
         'x-access-token': token,
       },
-    });
-  } catch (err) {}
-}
-
-const deleteBookmark = async (id) => {
-  const token = localStorage['jwtToken'];
-  axios
-    .delete(`/bookmark/${id}`, {
-      headers: {
-        'x-access-token': token,
-      },
     })
+      .then((res) => {})
+      .catch((err) => {
+        console.error(err);
+        alert(err.response.data.message);
+    });
+};
+
+const deleteBookmark = (id) => {
+  axios({
+    method: 'delete',
+    url: `/bookmark/${id}`,
+    headers: {
+      'x-access-token': token,
+    },
+  })
     .then((res) => {})
     .catch((err) => {
       console.error(err);
+      alert(err.response.data.message);
     });
 };
 
 const clickBookmark = (id, btnId) => {
   const btn_bookmark = document.getElementById(btnId);
 
-  if (btn_bookmark.className == unmarked) {
+  if (!token){
+    const redirect = encodeURIComponent(location.pathname);
+		location.href = `/subscriber/login?redirect=${redirect}`
+  }
+  else if (btn_bookmark.className == unmarked) {
     enrollBookmark(id);
     btn_bookmark.className = marked;
   } else {
@@ -43,8 +50,8 @@ const clickBookmark = (id, btnId) => {
 
 //초기 로딩할 때 북마크 상태에 따라 class를 다르게 로딩합니다.
 const isBookmarked = async (id) => {
-  const token = localStorage['jwtToken'];
-
+  if (!token)
+    return false;
   await axios({
     method: 'get',
     url: `/bookmark/${id}`,
@@ -57,6 +64,7 @@ const isBookmarked = async (id) => {
     })
     .catch((err) => {
       console.error(err);
+      alert(err.response.data.message);
     });
   return result;
 };

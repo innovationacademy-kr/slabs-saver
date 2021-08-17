@@ -15,7 +15,7 @@
         <th class="table-header__cell">No</th>
         <th class="table-header__cell">헤드라인</th>
         <th class="table-header__cell">카테고리</th>
-        <th class="table-header__cell">작성일시</th>
+        <th class="table-header__cell">게재 일자</th>
         <th class="table-header__cell">출고 상황</th>
         <th class="table-header__cell">푸시 알림</th>
 
@@ -33,7 +33,7 @@
           <% } %>
         </td>
         <td class="table-body__cell"><%= article.category %></td>
-        <td class="table-body__cell"><%= article.updatedAt %></td>
+        <td class="table-body__cell"><%= article.publishedAt %></td>
         <td class="table-body__cell"><%= article.status === 4 ? 'O' : 'X' %></td>
         <td>
           <a  href=<%=`/author/push/send/${article.id}` %>  id =<%= `push-${article.id}` %> style="font-size:14.4px"  class = "btn btn-primary push">보내기</a>

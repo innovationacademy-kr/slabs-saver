@@ -1,3 +1,4 @@
+
 import UIKit
 import WebKit
 import Firebase
@@ -17,15 +18,17 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
         let webConfiguration = WKWebViewConfiguration()
         
         // [start] Birdge 등록
-        contentController.add(self, name: "getFollowStatus")
         contentController.add(self, name: "iosMessage")
+        contentController.add(self, name: "initFollowStatus")
+        contentController.add(self, name: "updateFollowStatus")
+        contentController.add(self, name: "deleteFollowStatus")
+
         webConfiguration.userContentController = contentController
         // [end] Birdge 등록
         
         webView = WKWebView(frame: self.view.frame, configuration: webConfiguration)
         webView.uiDelegate = self
         webView.navigationDelegate = self
-        
         
         // [start] 현재 ios 앱 사용 중인 유져 감지를 위해 saver-web navigator.userAgent 에 내용 추가
         webView.evaluateJavaScript("navigator.userAgent"){(result, error) in
@@ -51,7 +54,7 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
+
         // [start] 화면 구성
         // 화면이 회전할 때 대응하기 위해 만들어놓은 것. 이 부분은 현재 issue로 인해 아직 실행되지 않는다.
         var viewBounds:CGRect = self.view.bounds
@@ -90,14 +93,14 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
         self.webView.frame = viewBounds;
         // [end] 화면 구성
     }
-    
+
     // [start] 화면이 돌아갈 때
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         
         viewWillAppear(true)
     }
     // [end] 화면이 돌아갈 때
-    
+
     // [start] 새로고침 구현함수
     @objc func reloadWebView(_ sender: UIRefreshControl) {
         webView.reload()
@@ -122,7 +125,7 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
         self.present(alertController, animated: true, completion: nil)
     }
     //[end] alert 처리
-    
+
     
     //[start] confirm 창 처리
     func webView (_ webView: WKWebView, runJavaScriptConfirmPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (Bool) -> Void) {
@@ -160,24 +163,39 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
         decisionHandler(.allow)
     }
     // [end] kakao 하이브리드앱 카카오링크
+  
+   // [start] background에서 Foreground로 전환되며 이때 수신되는 함수를 MainViewController에서 수신 및 WebView로 URL을 이동
     
-}
+    // Observer를 이용하여, AppDelegate UIApplicationDidBecomeActive 함수의 이벤트를 등록.
+//    private func WillBecomeActive()
+//    {
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.applicationDidBecome), name: UIApplication.willEnterForegroundNotification, object: nil)
+//    }
+//
+//    // MainViewController 화면이 사라지면 등록한 이벤트 Observer를 제거
+//    private func WillBecomeActive_Del()
+//    {
+//        NotificationCenter.default.removeObserver(self, name: UIApplication.willEnterForegroundNotification, object: nil)
+//    }
+//
+//    // 등록한 이벤트로 이벤트가 수신될 경우, 실행될 함수
+//    @objc public func applicationDidBecome()
+//    {
+//        // * 푸시 클릭 시 "PUSH_URL"의 데이터로 WebView를 이동
+//        let userDefault = UserDefaults.standard
+//
+//        let request: URLRequest = URLRequest.init(url: NSURL.init(string: userDefault.object(forKey: "PUSH_URL") as? String ?? "")! as URL, cachePolicy: URLRequest.CachePolicy.useProtocolCachePolicy, timeoutInterval: 10)
+//        webView.load(request)
+//
+//        print("run??")
+//        // * URL 이동 후 "PUSH_URL" 키의 값을 빈 값으로 초기화
+//        userDefault.set("", forKey: "PUSH_URL")
+//        userDefault.synchronize()
+//    }
+//
+    // [end] ackground에서 Foreground로 전환되며 이때 수신되는 함수를 MainViewController에서 수신 및 WebView로 URL을 이동
 
-// [start] 호출된 Bridge 처리
-extension ViewController: WKScriptMessageHandler {
-    
-    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        switch message.name {
-        case "getFollowStatus":
-            setPushCategories(followStatus: [1,2,3]);
-        case "iosMessage":
-            shareLink(url: message.body as! String)
-        default:
-            break
-        }
-    }
 }
-// [end] 호출된 Bridge 처리
 
 // [start] 페이스북 쉐어 컨트롤러
 extension ViewController : SharingDelegate {
@@ -235,6 +253,29 @@ extension ViewController {
     func sharerDidCancel(_ sharer: Sharing) {
         presentAlert(title: "Cancelled", message: "Sharing cancelled")
     }
-    
+  
 }
-// [end] 페이스북 쉐어 컨트롤러
+
+// [start] 호출된 Bridge 처리
+extension ViewController: WKScriptMessageHandler {
+    
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        
+        let value = Int((message.body as! NSString).floatValue)
+        
+        switch message.name {
+        case "initFollowStatus" :
+            // message.body가 string으로 들어와야 함.
+            initFollowStatus(followValue: message.body as! [Int])
+        case "updateFollowStatus":
+            setPushCategories(followValue: value, mode: 0);
+        case "deleteFollowStatus":
+            setPushCategories(followValue: value, mode: 1);
+        case "iosMessage":
+            shareLink(url: message.body as! String)
+        default:
+            break
+        }
+    }
+}
+// [end] 호출된 Bridge 처리

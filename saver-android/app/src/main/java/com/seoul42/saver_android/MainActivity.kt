@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.webkit.WebView
+import android.webkit.WebViewClient
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.ktx.messaging
@@ -25,6 +26,7 @@ class MainActivity : AppCompatActivity() {
         startActivity(Intent(this, SplashScreenActivity::class.java))
 
         myWebView.apply {
+            webViewClient = WebViewClient()
             settings.run {
                 javaScriptEnabled = true
                 settings.domStorageEnabled = true
