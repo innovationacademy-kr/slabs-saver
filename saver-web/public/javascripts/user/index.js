@@ -7,7 +7,7 @@
 const getProperDate = () => {
   const offset = new Date().getTimezoneOffset() * 60000;
   const now = new Date();
-  
+
   const h = now.getHours();
   if (h < 7) {
     now.setDate(now.getDate() - 1);
@@ -123,10 +123,46 @@ const articleCategroryEvent = () => {
   else $(".article-choice").show();
 };
 
+const getUserFirebaseFollowingStatus = (token) => {
+  return axios({
+    method: 'get',
+    url: '/subscriber/setFirebase',
+    headers: {
+      'x-access-token': token,
+    },
+  })
+}
+
+const setUserFirebaseFollowingStatus = () => {
+  const token = localStorage['jwtToken'];
+  var br = navigator.userAgent;
+
+  const userFollowStatus = getUserFirebaseFollowingStatus(token).then((res) => {
+    if (res.data) {
+      const statusArray = res.data.split(",").map((x) => +x);
+      for (var value = 1; value <= 6; value++) {
+        if (statusArray.find(value)) {
+          if (br.indexOf("APP_IOS") > -1) {
+            webkit.messageHandlers.updateFollowStatus.postMessage(value);
+          }
+          console.log("subscribe: ");
+          console.log(value);
+        } else {
+          if (br.indexOf("APP_IOS") > -1) {
+            webkit.messageHandlers.deleteFollowStatus.postMessage(value)
+          }
+          console.log("unsubscribe: ");
+          console.log(value);
+        }
+      }
+    }
+  })
+}
 
 $("#article-category-list").hide();
 addEvent();
 getTodayWord();
 getTodayArticle();
 articleCategroryEvent();
+setUserFirebaseFollowingStatus();
 

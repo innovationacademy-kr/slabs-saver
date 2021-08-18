@@ -25,19 +25,6 @@
         e.preventDefault();
       });
 
-      // 현재 호출한 디바이스가 어떤 것인지 체크
-      var isMobile = {
-        Android: function () {
-          return navigator.userAgent.match(/Android/i) == null ? false : true;
-        },
-        iOS: function () {
-          return navigator.userAgent.match(/iPhone|iPad|iPod/i) == null ? false : true;
-        },
-        any: function () {
-          return (isMobile.Android() || isMobile.iOS());
-        }
-      };
-
       document.querySelector('#login').onclick = function login() {
         var br = navigator.userAgent;
         if (email.value === '' || password.value === '') {
