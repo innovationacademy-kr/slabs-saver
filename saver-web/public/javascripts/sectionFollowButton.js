@@ -116,9 +116,7 @@ window.onload = function () {
 
 // 팔로우 언팔로우 버튼을 클릭했을 때.
 const clickFollow = (btnId, value, btnUrl) => {
-  console.log('???', '\n\n');
   var userAgent = navigator.userAgent;
-  console.log('???' + userAgent + '\n\n');
   if (!token) {
     location.href = '/section';
   } else {
@@ -135,7 +133,6 @@ const clickFollow = (btnId, value, btnUrl) => {
 
         if (btnUrl === 'follow') {
           if (userAgent.includes('ANDROID')) {
-            console.log('안드로이ㅡㄷ');
             Android.subscribeTopic(value);
           }
           if (userAgent.indexOf('APP_IOS') > -1) {
