@@ -39,6 +39,7 @@
       };
 
       document.querySelector('#login').onclick = function login() {
+        var br = navigator.userAgent;
         if (email.value === '' || password.value === '') {
           alert('빈칸을 채워주세요');
         } else {
@@ -58,7 +59,7 @@
                 followings.forEach((value) => {
                   Android.subscribeTopic(value);
                 });
-              } else if (isMobile.iOS()) {
+              } else if (br.indexOf("APP_IOS") > -1) {
                 followings.forEach((value) => {
                   webkit.messageHandlers.updateFollowStatus.postMessage(value);
                 })
