@@ -95,32 +95,30 @@ window.onload = function () {
     },
   })
     .then((res) => {
-      categories = ['economy', 'politics', 'international', 'social', 'culture', '7']
+      categories = ['economy', 'politics', 'international', 'social', 'culture', '7'];
 
-      categories.forEach((category, i)=>{
-        index = i+1;
-        if (res.data.followCategory.includes(`${index}`)){
-          document.getElementById(`my-${category}`)?.setAttribute('style',"display: grid;")
-          document.getElementById(`other-${category}`)?.setAttribute('style',"display: none;")
-          }
-        else{
-          document.getElementById(`my-${category}`)?.setAttribute('style',"display: none;")
-          document.getElementById(`other-${category}`)?.setAttribute('style',"display: grid;")
-          }
-      })
+      categories.forEach((category, i) => {
+        index = i + 1;
+        if (res.data.followCategory.includes(`${index}`)) {
+          document.getElementById(`my-${category}`)?.setAttribute('style', 'display: grid;');
+          document.getElementById(`other-${category}`)?.setAttribute('style', 'display: none;');
+        } else {
+          document.getElementById(`my-${category}`)?.setAttribute('style', 'display: none;');
+          document.getElementById(`other-${category}`)?.setAttribute('style', 'display: grid;');
+        }
+      });
     })
     .catch((err) => {
       console.log(err);
       alert(err.response.data.message);
     });
-
-
-
 };
 
 // 팔로우 언팔로우 버튼을 클릭했을 때.
 const clickFollow = (btnId, value, btnUrl) => {
-  var br = navigator.userAgent;
+  console.log('???', '\n\n');
+  var userAgent = navigator.userAgent;
+  console.log('???' + userAgent + '\n\n');
   if (!token) {
     location.href = '/section';
   } else {
@@ -134,15 +132,19 @@ const clickFollow = (btnId, value, btnUrl) => {
     })
       .then((res) => {
         section_display_change(btnId);
+
         if (btnUrl === 'follow') {
-
-        if (br.indexOf("APP_IOS") > -1) {
-          webkit.messageHandlers.updateFollowStatus.postMessage(value);
-        }
-    		alert('팔로우 되었습니다.');
-		  	} else {
-
-          if (br.indexOf("APP_IOS") > -1) {
+          if (userAgent.includes('ANDROID')) {
+            console.log('안드로이ㅡㄷ');
+            Android.subscribeTopic(value);
+          }
+          if (userAgent.indexOf('APP_IOS') > -1) {
+            webkit.messageHandlers.updateFollowStatus.postMessage(value);
+          }
+          alert('팔로우 되었습니다.');
+        } else {
+          if (userAgent.includes('ANDROID')) Android.unsubscribeTopic(value);
+          if (userAgent.indexOf('APP_IOS') > -1) {
             webkit.messageHandlers.deleteFollowStatus.postMessage(value);
           }
           alert('언팔로우 되었습니다.');
