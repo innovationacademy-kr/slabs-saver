@@ -12,7 +12,7 @@
 		358CA9B626C6417E00A52B60 /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 358CA9B526C6417E00A52B60 /* FacebookLogin */; };
 		358CA9B826C6417E00A52B60 /* FacebookShare in Frameworks */ = {isa = PBXBuildFile; productRef = 358CA9B726C6417E00A52B60 /* FacebookShare */; };
 		3E8CA725F484F97BE4F0C297 /* Pods_saver_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B7ADC17A3820AD30F9974C1 /* Pods_saver_ios.framework */; };
-		4F015E3526C3B553002A7A09 /* pushNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F015E3426C3B552002A7A09 /* pushNotification.swift */; };
+		4F015E3526C3B553002A7A09 /* HandleWKBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F015E3426C3B552002A7A09 /* HandleWKBridge.swift */; };
 		4F015E3726C3C673002A7A09 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4F015E3626C3C673002A7A09 /* GoogleService-Info.plist */; };
 		4F223F4126A950AB00ED04E4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F223F4026A950AB00ED04E4 /* AppDelegate.swift */; };
 		4F223F4326A950AB00ED04E4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F223F4226A950AB00ED04E4 /* SceneDelegate.swift */; };
@@ -27,7 +27,7 @@
 		0B7ADC17A3820AD30F9974C1 /* Pods_saver_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_saver_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		358CA9A826C639B600A52B60 /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		4F015E3326B1518C002A7A09 /* saver-ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "saver-ios.entitlements"; sourceTree = "<group>"; };
-		4F015E3426C3B552002A7A09 /* pushNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pushNotification.swift; sourceTree = "<group>"; };
+		4F015E3426C3B552002A7A09 /* HandleWKBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandleWKBridge.swift; sourceTree = "<group>"; };
 		4F015E3626C3C673002A7A09 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Documents/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4F223F3D26A950AB00ED04E4 /* saver-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "saver-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F223F4026A950AB00ED04E4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -76,6 +76,7 @@
 				4F223F3E26A950AB00ED04E4 /* Products */,
 				44867DC634A1E454CD0AFA4C /* Pods */,
 				AF9EC29171EE8F59D8C7343E /* Frameworks */,
+				4F90B83526CBA8B000A30785 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -94,7 +95,7 @@
 				4F223F4026A950AB00ED04E4 /* AppDelegate.swift */,
 				4F223F4226A950AB00ED04E4 /* SceneDelegate.swift */,
 				4F223F4426A950AB00ED04E4 /* ViewController.swift */,
-				4F015E3426C3B552002A7A09 /* pushNotification.swift */,
+				4F015E3426C3B552002A7A09 /* HandleWKBridge.swift */,
 				4F223F5C26A9567A00ED04E4 /* LaunchScreen.storyboard */,
 				4F223F4626A950AB00ED04E4 /* Main.storyboard */,
 				4F223F4926A950B300ED04E4 /* Assets.xcassets */,
@@ -102,6 +103,14 @@
 				4F015E3626C3C673002A7A09 /* GoogleService-Info.plist */,
 			);
 			path = "saver-ios";
+			sourceTree = "<group>";
+		};
+		4F90B83526CBA8B000A30785 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				4F90B83426CB602600A30785 /* Config.xcconfig */,
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		AF9EC29171EE8F59D8C7343E /* Frameworks */ = {
@@ -181,7 +190,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F223F5D26A9567A00ED04E4 /* LaunchScreen.storyboard in Resources */,
-				358CA9A926C639B600A52B60 /* Config.xcconfig in Resources */,				
+				358CA9A926C639B600A52B60 /* Config.xcconfig in Resources */,
 				4F015E3726C3C673002A7A09 /* GoogleService-Info.plist in Resources */,
 				4F223F4A26A950B300ED04E4 /* Assets.xcassets in Resources */,
 				4F223F4826A950AB00ED04E4 /* Main.storyboard in Resources */,
@@ -237,7 +246,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4F015E3526C3B553002A7A09 /* pushNotification.swift in Sources */,
+				4F015E3526C3B553002A7A09 /* HandleWKBridge.swift in Sources */,
 				4F223F4526A950AB00ED04E4 /* ViewController.swift in Sources */,
 				4F223F4126A950AB00ED04E4 /* AppDelegate.swift in Sources */,
 				4F223F4326A950AB00ED04E4 /* SceneDelegate.swift in Sources */,
@@ -387,7 +396,6 @@
 				CODE_SIGN_ENTITLEMENTS = "saver-ios/saver-ios.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 22F5TR429Q;
-
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -414,7 +422,6 @@
 				CODE_SIGN_ENTITLEMENTS = "saver-ios/saver-ios.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 22F5TR429Q;
-
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",

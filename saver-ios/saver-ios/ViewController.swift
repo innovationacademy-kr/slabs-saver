@@ -1,4 +1,3 @@
-
 import UIKit
 import WebKit
 import Firebase
@@ -17,14 +16,18 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
         let contentController = WKUserContentController()
         let webConfiguration = WKWebViewConfiguration()
         
-        // [start] Birdge 등록
+        // [start] WK Birdge 등록
         contentController.add(self, name: "iosMessage")
         contentController.add(self, name: "initFollowStatus")
         contentController.add(self, name: "updateFollowStatus")
         contentController.add(self, name: "deleteFollowStatus")
-
+        /*
+         * 이곳에 추가하고 싶은 함수를 등록하면, WKWebview에서 다음과 같은 형식으로 사용 가능합니다.
+         * webkit.messageHandlers."해당 함수 이름".postMessage("넘기고 싶은 값");
+         * Bridge들에 대한 라우터는 ./HandleWKBridge.swift 파일의 [WKScriptMessageHandler]
+         */
         webConfiguration.userContentController = contentController
-        // [end] Birdge 등록
+        // [end] WK Birdge 등록
         
         webView = WKWebView(frame: self.view.frame, configuration: webConfiguration)
         webView.uiDelegate = self
@@ -36,7 +39,7 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
             let agent = originUserAgent + " APP_IOS"
             self.webView.customUserAgent = agent
         }
-        // [end] navigator.userAgent 내용 추가 완료
+        // [end] 현재 ios 앱 사용 중인 유져 감지를 위해 saver-web navigator.userAgent 에 내용 추가
         
         
         // [start] 웹뷰 load
@@ -73,9 +76,9 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-
+        
         // [start] 화면 구성
-        // 화면이 회전할 때 대응하기 위해 만들어놓은 것. 이 부분은 현재 issue로 인해 아직 실행되지 않는다.
+        // 화면이 회전할 때 대응하기 위해 만들어놓은 것. 이 부분은 현재 Bound 수치 관련 issue로 인해 제대로 실행되지 않는다.
         var viewBounds:CGRect = self.view.bounds
         let window = UIApplication.shared.windows[0]
         
@@ -102,7 +105,7 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
             webView.scrollView.contentInsetAdjustmentBehavior = .never
         }
         else {
-            // 실제로 동작하는 부분.
+            // 현재 앱은 Portrait 화면에만 대응하기 때문에, 실제로 동작하는 부분.
             viewBounds.origin.y = window.safeAreaInsets.top - 5;
             viewBounds.origin.x = 0
             viewBounds.size.height = screenHeight - window.safeAreaInsets.top - window.safeAreaInsets.bottom + 5
@@ -120,12 +123,12 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
     }
     // [end] 화면이 돌아갈 때
     
-    // [start] 새로고침 구현함수
+    // [start] swipe 새로고침 구현함수
     @objc func reloadWebView(_ sender: UIRefreshControl) {
         webView.reload()
         sender.endRefreshing()
     }
-    // [end] 새로고침 구현함수
+    // [end] swipe 새로고침 구현함수
     
     // [start] 모달창 닫힐때 앱 종료현상 방지.
     override func didReceiveMemoryWarning() {
@@ -144,7 +147,6 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
         self.present(alertController, animated: true, completion: nil)
     }
     //[end] alert 처리
-    
     
     //[start] confirm 창 처리
     func webView (_ webView: WKWebView, runJavaScriptConfirmPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (Bool) -> Void) {
@@ -168,9 +170,8 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
     // [start] kakao 하이브리드앱 카카오링크
     func webView(_ webView: WKWebView,
                  decidePolicyFor navigationAction: WKNavigationAction,
-                 decisionHandler: @escaping (WKNavigationActionPolicy) -> Void
-    ) {
-
+                 decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        
         // 카카오 SDK가 호출하는 커스텀 스킴인 경우 open(_ url:) 메소드를 호출합니다.
         if let url = navigationAction.request.url
            , ["kakaokompassauth", "kakaolink"].contains(url.scheme) {
@@ -180,42 +181,9 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
             decisionHandler(.cancel)
             return
         }
-
         decisionHandler(.allow)
     }
     // [end] kakao 하이브리드앱 카카오링크
-  
-   // [start] background에서 Foreground로 전환되며 이때 수신되는 함수를 MainViewController에서 수신 및 WebView로 URL을 이동
-    
-    // Observer를 이용하여, AppDelegate UIApplicationDidBecomeActive 함수의 이벤트를 등록.
-//    private func WillBecomeActive()
-//    {
-//        NotificationCenter.default.addObserver(self, selector: #selector(self.applicationDidBecome), name: UIApplication.willEnterForegroundNotification, object: nil)
-//    }
-//
-//    // MainViewController 화면이 사라지면 등록한 이벤트 Observer를 제거
-//    private func WillBecomeActive_Del()
-//    {
-//        NotificationCenter.default.removeObserver(self, name: UIApplication.willEnterForegroundNotification, object: nil)
-//    }
-//
-//    // 등록한 이벤트로 이벤트가 수신될 경우, 실행될 함수
-//    @objc public func applicationDidBecome()
-//    {
-//        // * 푸시 클릭 시 "PUSH_URL"의 데이터로 WebView를 이동
-//        let userDefault = UserDefaults.standard
-//
-//        let request: URLRequest = URLRequest.init(url: NSURL.init(string: userDefault.object(forKey: "PUSH_URL") as? String ?? "")! as URL, cachePolicy: URLRequest.CachePolicy.useProtocolCachePolicy, timeoutInterval: 10)
-//        webView.load(request)
-//
-//        print("run??")
-//        // * URL 이동 후 "PUSH_URL" 키의 값을 빈 값으로 초기화
-//        userDefault.set("", forKey: "PUSH_URL")
-//        userDefault.synchronize()
-//    }
-//
-    // [end] ackground에서 Foreground로 전환되며 이때 수신되는 함수를 MainViewController에서 수신 및 WebView로 URL을 이동
-
 }
 
 // [start] 페이스북 쉐어 컨트롤러
@@ -225,9 +193,9 @@ extension ViewController : SharingDelegate {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let dismissAction = UIAlertAction(title: "Dismiss", style: .default)
         alertController.addAction(dismissAction)
-        
         present(alertController, animated: true)
     }
+    
     func presentAlert(for error: Error) {
         let nsError = error as NSError
         
@@ -235,7 +203,6 @@ extension ViewController : SharingDelegate {
         else {
             preconditionFailure("Errors from the SDK should have a developer facing message")
         }
-        
         presentAlert(title: "Sharing Error", message: sdkMessage)
     }
     
@@ -255,14 +222,11 @@ extension ViewController : SharingDelegate {
         return ShareDialog(
             fromViewController: self,
             content: content,
-            delegate: self
-        )
+            delegate: self)
     }
-    
 }
 
 extension ViewController {
-    
     func sharer(_ sharer: Sharing, didCompleteWithResults results: [String : Any]) {
         print(results)
     }
@@ -274,29 +238,5 @@ extension ViewController {
     func sharerDidCancel(_ sharer: Sharing) {
         presentAlert(title: "Cancelled", message: "Sharing cancelled")
     }
-  
 }
-
-// [start] 호출된 Bridge 처리
-extension ViewController: WKScriptMessageHandler {
-    
-    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        
-        let value = Int((message.body as! NSString).floatValue)
-        
-        switch message.name {
-        case "initFollowStatus" :
-            // message.body가 string으로 들어와야 함.
-            initFollowStatus(followValue: message.body as! [Int])
-        case "updateFollowStatus":
-            setPushCategories(followValue: value, mode: 0);
-        case "deleteFollowStatus":
-            setPushCategories(followValue: value, mode: 1);
-        case "iosMessage":
-            shareLink(url: message.body as! String)
-        default:
-            break
-        }
-    }
-}
-// [end] 호출된 Bridge 처리
+// [end] 페이스북 쉐어 컨트롤러

@@ -1,20 +1,13 @@
-//
-//  AppDelegate.swift
-//  saver-ios
-//
-//  Created by Junhong Park on 2021/07/22.
-//
-
 import UIKit
 import Firebase
-import UserNotifications
 import FirebaseMessaging
+import UserNotifications
 import KakaoSDKCommon
 import FBSDKCoreKit
-import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    
     var window: UIWindow?
     let gcmMessageIDKey = "gcm.message_id"
     
@@ -24,27 +17,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FirebaseApp.configure()
         
-        let kakaoAppKey = Bundle.main.object(forInfoDictionaryKey: "KAKAO_APP_KEY") as? String
-
+        // [start] launch 화면 대기 시간
+        Thread.sleep(forTimeInterval: 2.0)
+        // [end] launch 화면 대기 시간
         
+        // [start] kakaoApp Key 등록 (Config 파일 의존)
+        let kakaoAppKey = Bundle.main.object(forInfoDictionaryKey: "KAKAO_APP_KEY") as? String
         if let appKey = kakaoAppKey {
             KakaoSDKCommon.initSDK(appKey: appKey)
         } else {
             print("App Key does not exist")
         }
-        
-        // [start] launch 화면 대기 시간
-        Thread.sleep(forTimeInterval: 2.0)
-        // [end] launch 화면 대기 시간
+        // [end] kakaoApp Key 등록 (Config 파일 의존)
         
         // [START set_messaging_delegate]
         Messaging.messaging().delegate = self
         // [END set_messaging_delegate]
-        // Register for remote notifications. This shows a permission dialog on first run, to
-        // show the dialog at a more appropriate time move this registration accordingly.
-        // [START register_for_notifications]
+        
+        // [start] push notification에 대한 권한 설정 Allow 여부를 유저에게 묻고, 수락시 이를 등록함
         if #available(iOS 10.0, *) {
-            // For iOS 10 display notification (sent via APNS)
+            
             UNUserNotificationCenter.current().delegate = self
             
             let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
@@ -55,41 +47,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             let settings: UIUserNotificationSettings =
                 UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
-              application.registerUserNotificationSettings(settings)
-            }
-
-            application.registerForRemoteNotifications()
-
-            // [END register_for_notifications]
-            
-            // FACEBOOK
+            application.registerUserNotificationSettings(settings)
+        }
+        
+        application.registerForRemoteNotifications()
+        // [end] push notification에 대한 권한 설정 Allow 여부를 묻고, 수락시 이를 등록함
+        
+        // [END register_for_notifications]
+        
+        // [start] FACEBOOK
         ApplicationDelegate.shared.application(
             application,
             didFinishLaunchingWithOptions: launchOptions
         )
-            return true
+        // [end] FACEBOOK
+        
+        return true
     }
-    // FACEBOOK Connect app delegate
-    func application(
-        _ app: UIApplication,
-        open url: URL,
-        options: [UIApplication.OpenURLOptionsKey : Any] = [:]
-    ) -> Bool {
+    
+    // [start] FACEBOOK Connect app delegate
+    func application (_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         
         ApplicationDelegate.shared.application(
             app,
             open: url,
             sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
-            annotation: options[UIApplication.OpenURLOptionsKey.annotation]
-        )
-        
+            annotation: options[UIApplication.OpenURLOptionsKey.annotation] )
     }
-    func application(
-        _ application: UIApplication,
-        open url: URL,
-        sourceApplication: String?,
-        annotation: Any
-    ) -> Bool {
+    
+    func application (_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
         
         return ApplicationDelegate.shared.application(
             application, open: url,
@@ -97,16 +83,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             annotation: annotation
         )
     }
-      
-    // ?? [start] 앱이 백그라운드에서 동작할 때, 알림을 받았을 때 동작하는 부분
+    // [end] FACEBOOK Connect app delegate
+    
+    // [start] 앱이 백그라운드에서 동작할 때, 알림을 받았을 때 동작하는 부분
     func application(_ application: UIApplication,
                      didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
-        // If you are receiving a notification message while your app is in the background,
-        // this callback will not be fired till the user taps on the notification launching the application.
-        // TODO: Handle data of notification
-        // With swizzling disabled you must let Messaging know about the message, for Analytics
-        // Messaging.messaging().appDidReceiveMessage(userInfo)
-        // Print message ID.
+        
         if let messageID = userInfo[gcmMessageIDKey] {
             
             print("1. Message ID: \(messageID)")
@@ -115,17 +97,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     // [end] 앱이 백그라운드에서 동작할 때, 알림을 받았을 때 동작하는 부분
     
+    
     //  [start] 앱이 포그라운드에서 동작할 때, 알림을 받았을 때 동작하는 부분
     func application(_ application: UIApplication,
                      didReceiveRemoteNotification userInfo: [AnyHashable: Any],
                      fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult)
                         -> Void) {
-        // If you are receiving a notification message while your app is in the background,
-        // this callback will not be fired till the user taps on the notification launching the application.
-        // TODO: Handle data of notification
-        // With swizzling disabled you must let Messaging know about the message, for Analytics
-        // Messaging.messaging().appDidReceiveMessage(userInfo)
-        // Print message ID.
+        
         if let messageID = userInfo[gcmMessageIDKey] {
             
             print("2. Message ID: \(messageID)")
@@ -154,7 +132,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print("background notification clicked")
                 let userDefault = UserDefaults.standard
                 userDefault.set(pushUrl, forKey: "PUSH_URL")
-                userDefault.synchronize() 
+                userDefault.synchronize()
             }
         } else {
             print("링크 없는 알림")
@@ -164,23 +142,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     // [end] push noti를 클릭했을 때 동작하는 부분
     
-    
+    // [start] APN token 등록에 error가 발생했을 때
     func application(_ application: UIApplication,
                      didFailToRegisterForRemoteNotificationsWithError error: Error) {
         print("Unable to register for remote notifications: \(error.localizedDescription)")
     }
+    // [end] APN token 등록에 error가 발생했을 때
     
-    // This function is added here only for debugging purposes, and can be removed if swizzling is enabled.
-    // If swizzling is disabled then this function must be implemented so that the APNs token can be paired to
-    // the FCM registration token.
+    // [start] APN token 등록 성공
     func application(_ application: UIApplication,
                      didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         print("APNs token retrieved: \(deviceToken)")
         
-        // With swizzling disabled you must set the APNs token here.
-        // Messaging.messaging().apnsToken = deviceToken
     }
-
+    // [end] APN token 등록 성공
+    
     // [start] Notification 생성
     func sendNotification(seconds: Double, userInfo: [AnyHashable : Any]) {
         
@@ -204,7 +180,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // [end] Notification 생성
 }
 
-// [START ios_10_message_handling]
+// [START ios_10_message_handling] : 들어온 notification info를 바탕으로 push 알람을 띄우는 작업
 @available(iOS 10, *)
 extension AppDelegate: UNUserNotificationCenterDelegate {
     // Receive displayed notifications for iOS 10 devices.
@@ -226,7 +202,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         print("message handling: ", userInfo)
         
         // Change this to your preferred presentation option
-
+        
         completionHandler([[.badge, .banner, .sound]])
     }
 }
@@ -234,7 +210,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 
 
 extension AppDelegate: MessagingDelegate {
-    // [START refresh_token]
+    // [START] refresh_token
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         print("Firebase registration token: \(String(describing: fcmToken))")
         
@@ -248,6 +224,6 @@ extension AppDelegate: MessagingDelegate {
         // Note: This callback is fired at each app startup and whenever a new token is generated.
     }
     
-    // [END refresh_token]
+    // [END] refresh_token
 }
 
