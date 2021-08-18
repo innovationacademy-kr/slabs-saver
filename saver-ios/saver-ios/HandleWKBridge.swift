@@ -4,6 +4,30 @@ import Firebase
 import UserNotifications
 import FirebaseMessaging
 
+// [start] 호출된 Bridge 처리
+extension ViewController: WKScriptMessageHandler {
+    
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        
+        let value = Int((message.body as! NSString).floatValue)
+        
+        switch message.name {
+        case "initFollowStatus" :
+            // message.body가 string으로 들어와야 함.
+            initFollowStatus(followValue: message.body as! [Int])
+        case "updateFollowStatus":
+            setPushCategories(followValue: value, mode: 0);
+        case "deleteFollowStatus":
+            setPushCategories(followValue: value, mode: 1);
+        case "iosMessage":
+            shareLink(url: message.body as! String)
+        default:
+            break
+        }
+    }
+}
+// [end] 호출된 Bridge 처리
+
 // [start] 로그인을 할 때, 해당 유저의 followingCategories db에 대해서, firebase에 구독 init
 func initFollowStatus(followValue: [Int]) {
     
