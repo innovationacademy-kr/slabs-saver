@@ -28,20 +28,6 @@ document.addEventListener(
 );
 // [end : ios에서 핀치와 더블탭을 통한 화면 확대, 축소 방지]
 
-// 현재 호출한 디바이스가 어떤 것인지 체크
-var isMobile = {
-	Android: function () {
-		return navigator.userAgent.match(/Android/i) == null ? false : true;
-	},
-	iOS: function () {
-		return navigator.userAgent.match(/(iPod|iPhone|iPad)/) && navigator.userAgent.match(/AppleWebKit/) == null ? false : true;
-	},
-	any: function () {
-		return (isMobile.Android() || isMobile.iOS());
-	}
-};
-
-
 const init_section = function (id) {
   const class_name = '#' + id;
   const div_id = document.querySelector(class_name);
@@ -134,7 +120,7 @@ window.onload = function () {
 
 // 팔로우 언팔로우 버튼을 클릭했을 때.
 const clickFollow = (btnId, value, btnUrl) => {
-  userAgent = navigator.userAgent;
+  var br = navigator.userAgent;
   if (!token) {
     location.href = '/section';
   } else {
@@ -149,13 +135,14 @@ const clickFollow = (btnId, value, btnUrl) => {
       .then((res) => {
         section_display_change(btnId);
         if (btnUrl === 'follow') {
-			    if (isMobile.iOS()) {
-	    		  webkit.messageHandlers.updateFollowStatus.postMessage(value);
-			    }
-    			alert('팔로우 되었습니다.');
+
+        if (br.indexOf("APP_IOS") > -1) {
+          webkit.messageHandlers.updateFollowStatus.postMessage(value);
+        }
+    		alert('팔로우 되었습니다.');
 		  	} else {
-	    
-          if (isMobile.iOS()) {
+
+          if (br.indexOf("APP_IOS") > -1) {
             webkit.messageHandlers.deleteFollowStatus.postMessage(value);
           }
           alert('언팔로우 되었습니다.');
