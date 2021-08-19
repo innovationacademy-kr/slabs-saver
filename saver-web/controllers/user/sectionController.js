@@ -33,7 +33,7 @@ const destroyFollowStatus = async (req, res, next) => {
     const userFound = await Subscriber.findOne({ where: { id: userId } });
     if (!userFound) throw new Error('user ID 오류가 발생하였습니다.');
     if (userFound?.followingCategories)
-      currentFollowingStatus = userFound.followingCategories.split(',').map((x) => +x);
+      currentFollowingStatus = userFound.followingCategories.split(',');
     let index = currentFollowingStatus.indexOf(followValue);
     console.log(
       currentFollowingStatus + ' : ' + index + '/' + followValue + '(' + typeof followValue,
