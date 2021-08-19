@@ -21,7 +21,7 @@ const getFollowList = async (req, res) => {
     const userFound = await Subscriber.findOne({ where: { id: req.decoded.userId } });
     if (!userFound) throw new Error('User Id Error');
     if (userFound.followingCategories)
-      res.status(200).json({ followCategory: userFound.followingCategories.split(',') });
+      res.status(200).json({ followCategory: userFound.followingCategories.split(','), alarmStatus: userFound.alarmStatus });
   } catch (e) {
     res.status(400).json({ error: e });
   }
@@ -56,6 +56,7 @@ const destroyFollowStatus = async (req, res, next) => {
 
     res.status(200).json({
       followStatus: currentFollowingStatus,
+      alarmStatus: userFound.alarmStatus,
     });
   } catch (error) {
     console.log(error);
@@ -89,6 +90,7 @@ const updateFollowStatus = async (req, res, next) => {
     }
     res.status(200).json({
       followStatus: currentFollowingStatus,
+      alarmStatus: userFound.alarmStatus,
     });
   } catch (error) {
     console.log(error);

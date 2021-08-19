@@ -128,7 +128,7 @@ const articleCategroryEvent = () => {
       headers: { 'x-access-token': token },
       url: '/section/followlist',
     }).then((res) => {
-      if (res.data.followCategory) {
+      if (res.data.followCategory && res.data.alarmStatus === 1) {
         const followings = res.data.followCategory;
         const totalFollowingList = [1, 2, 3, 4, 5, 6];
         if (navigator.userAgent.includes('ANDROID')) {
@@ -143,6 +143,16 @@ const articleCategroryEvent = () => {
             else webkit.messageHandlers.deleteFollowStatus.postMessage(value.toString());
           });
         };
+      } else {
+        if (navigator.userAgent.includes('ANDROID')) {
+          totalFollowingList.forEach((value) => {
+            Android.unsubscribeTopic(value);
+          });
+        } else if (navigator.userAgent.indexOf('APP_IOS') > -1) {
+          followings.forEach((value) => {
+            webkit.messageHandlers.deleteFollowStatus.postMessage(value.toString());
+          });
+        }
       }
     })
   }

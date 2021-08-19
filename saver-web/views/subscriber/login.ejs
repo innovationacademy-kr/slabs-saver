@@ -58,7 +58,7 @@
             //팔로잉 리스트 구독
             const totalFollowingList = [1, 2, 3, 4, 5, 6];
 
-            if (res.data.followingCategories) {
+            if (res.data.followingCategories && res.data.alarmStatus === 1) {
               const followings = res.data.followingCategories.split(',');
               if (navigator.userAgent.includes('ANDROID')) {
                 totalFollowingList.forEach((value) => {
