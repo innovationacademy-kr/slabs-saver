@@ -135,10 +135,16 @@ const articleCategroryEvent = () => {
           if (followings.includes(value.toString())) Android.subscribeTopic(value);
           else Android.unsubscribeTopic(value);
         });
-      }
-    });
+      } else if (navigator.userAgent.indexOf("APP_IOS") > -1) {
+        totalFollowingList.forEach((value) => {
+          if (followings.includes(value.toString()))
+            webkit.messageHandlers.updateFollowStatus.postMessage(value);
+          else webkit.messageHandlers.deleteFollowStatus.postMessage(value);
+        });
+      };
+    })
   }
-};
+}
 
 const getUserFirebaseFollowingStatus = (token) => {
   return axios({
@@ -150,35 +156,8 @@ const getUserFirebaseFollowingStatus = (token) => {
   })
 }
 
-const setUserFirebaseFollowingStatus = () => {
-  const token = localStorage['jwtToken'];
-  var br = navigator.userAgent;
-
-  const userFollowStatus = getUserFirebaseFollowingStatus(token).then((res) => {
-    if (res.data) {
-      const statusArray = res.data.split(",").map((x) => +x);
-      for (var value = 1; value <= 6; value++) {
-        if (statusArray.find(value)) {
-          if (br.indexOf("APP_IOS") > -1) {
-            webkit.messageHandlers.updateFollowStatus.postMessage(value);
-          }
-          console.log("subscribe: ");
-          console.log(value);
-        } else {
-          if (br.indexOf("APP_IOS") > -1) {
-            webkit.messageHandlers.deleteFollowStatus.postMessage(value)
-          }
-          console.log("unsubscribe: ");
-          console.log(value);
-        }
-      }
-    }
-  })
-}
-
 $('#article-category-list').hide();
 addEvent();
 getTodayWord();
 getTodayArticle();
 articleCategroryEvent();
-setUserFirebaseFollowingStatus();

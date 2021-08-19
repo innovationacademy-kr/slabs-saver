@@ -114,29 +114,12 @@ const updateAlarmStatus = async (req, res) => {
   }
 };
 
-const setFirebaseSubscribeStatus = async (req, res) => {
-  const userId = req.decoded.userId;
-  try {
-    const currentUser = await Subscriber.findOne({
-      where: { id: userId}
-    })
-    const followingStatus = currentUser.followingCategories;
-    res.status(200).json(followingStatus);
-  } catch (error) {
-    console.log(JSON.stringify(error));
-    res.status(400).json({
-      error,
-    });
-  }
-};
-
 module.exports = {
   request: {
     signup: signupRequest,
     login: loginRequest,
     AlarmStatus: getUserAlarmStatus,
     upAlarmStatus: updateAlarmStatus,
-    setFirebase: setFirebaseSubscribeStatus,
   },
   page: {
     login: loginPage,

@@ -10,8 +10,6 @@ router.get('/login', subscriberCtrl.page.login);
 router.post('/signup', subscriberCtrl.request.signup);
 router.post('/login', subscriberCtrl.request.login);
 
-router.get('/setFirebase', authMiddleware, subscriberCtrl.request.setFirebase);
-
 router.post('/getAlarmStatus', authMiddleware, subscriberCtrl.request.AlarmStatus);
 router.post('/updateAlarmStatus', authMiddleware, subscriberCtrl.request.upAlarmStatus);
 module.exports = router;
