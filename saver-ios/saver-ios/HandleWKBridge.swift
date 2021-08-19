@@ -21,12 +21,25 @@ extension ViewController: WKScriptMessageHandler {
             setPushCategories(followValue: value, mode: 1);
         case "iosMessage":
             shareLink(url: message.body as! String)
+        case "logOut":
+            setLogOut(value: message.body as! String)
         default:
             break
         }
     }
 }
 // [end] 호출된 Bridge 처리
+
+// [start] 로그아웃 시, 해당 기기의 firebase 모든 카테고리 구독취소
+func setLogOut(value: String) {
+    print(value)
+    for status in 1...6 {
+        Messaging.messaging().unsubscribe(fromTopic: String(status)) { error in
+            print("Unsubscribed to \(status) topic")
+        }
+    }
+}
+// [end] 로그아웃 시, ...
 
 // [start] 로그인을 할 때, 해당 유저의 followingCategories db에 대해서, firebase에 구독 init
 func initFollowStatus(followValue: [Int]) {

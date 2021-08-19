@@ -1,10 +1,17 @@
 setTimeout( () => {
 const sett = document.querySelector("#logout");
 sett.addEventListener('click', (e) => {
-    if (token) {
-        localStorage.removeItem("jwtToken");
-        location.href = '/';
-    }
+
+  var device = navigator.userAgent;
+
+  if (device.indexOf("APP_IOS") > -1) {
+    webkit.messageHandlers.logOut.postMessage("test");
+  }
+  //TODO: android firebase alerm 설정 추가.
+  if (token) {
+    localStorage.removeItem("jwtToken");
+    location.href = '/';
+  }
 });
 
 const autobutton = document.querySelector("#autologin");
