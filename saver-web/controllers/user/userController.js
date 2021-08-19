@@ -16,7 +16,7 @@ module.exports = {
   moreArticles: async (req, res, next) => {
     const { page } = req.query;
     const articles = await Article.findAll({
-      where: { 
+      where: {
         status: 4,
         category: {
           [Op.lt]: 6,
@@ -48,7 +48,7 @@ module.exports = {
     const userFollowingCategory = User.followingCategories.split(',').map(Number);
     const categoryArticles = await Article.findAll({
       where: {
-        status: 4, 
+        status: 4,
         category: {
           [Op.or]: userFollowingCategory,
           [Op.lt]: 6,

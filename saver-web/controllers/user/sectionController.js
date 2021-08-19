@@ -33,7 +33,7 @@ const destroyFollowStatus = async (req, res, next) => {
     const userFound = await Subscriber.findOne({ where: { id: userId } });
     if (!userFound) throw new Error('user ID 오류가 발생하였습니다.');
     if (userFound?.followingCategories)
-      currentFollowingStatus = userFound.followingCategories.split(',');
+      currentFollowingStatus = userFound.followingCategories.split(',').map((x) => +x);
     let index = currentFollowingStatus.indexOf(followValue);
     console.log(
       currentFollowingStatus + ' : ' + index + '/' + followValue + '(' + typeof followValue,
@@ -72,7 +72,7 @@ const updateFollowStatus = async (req, res, next) => {
     const userFound = await Subscriber.findOne({ where: { id: userId } });
     if (!userFound) throw new Error('user ID 오류가 발생하였습니다.');
     if (userFound?.followingCategories)
-      currentFollowingStatus = userFound.followingCategories.split(',');
+      currentFollowingStatus = userFound.followingCategories.split(',').map((x) => +x);
     if (currentFollowingStatus.indexOf(followValue) < 0) {
       // 기존에 없을 경우에만 추가
       currentFollowingStatus.push(followValue);
