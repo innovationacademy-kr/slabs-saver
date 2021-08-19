@@ -43,7 +43,7 @@ alarmbutton.addEventListener('click', (e) => {
     alarmbuttonbg = alarmbutton.parentNode;
     if (alarmbutton.classList.contains('inactive'))
     {
-        alarmOnOff(0);
+        alarmOnOff(3);
         alarmbutton.animate({left: '0px'}, 100);
     }
     else
