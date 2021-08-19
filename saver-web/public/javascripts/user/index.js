@@ -138,8 +138,8 @@ const articleCategroryEvent = () => {
       } else if (navigator.userAgent.indexOf("APP_IOS") > -1) {
         totalFollowingList.forEach((value) => {
           if (followings.includes(value.toString()))
-            webkit.messageHandlers.updateFollowStatus.postMessage(value);
-          else webkit.messageHandlers.deleteFollowStatus.postMessage(value);
+            webkit.messageHandlers.updateFollowStatus.postMessage(value.toString());
+          else webkit.messageHandlers.deleteFollowStatus.postMessage(value.toString());
         });
       };
     })
