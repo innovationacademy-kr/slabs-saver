@@ -128,32 +128,24 @@ const articleCategroryEvent = () => {
       headers: { 'x-access-token': token },
       url: '/section/followlist',
     }).then((res) => {
-      const followings = res.data.followCategory;
-      const totalFollowingList = [1, 2, 3, 4, 5, 6];
-      if (navigator.userAgent.includes('ANDROID')) {
-        totalFollowingList.forEach((value) => {
-          if (followings.includes(value.toString())) Android.subscribeTopic(value);
-          else Android.unsubscribeTopic(value);
-        });
-      } else if (navigator.userAgent.indexOf("APP_IOS") > -1) {
-        totalFollowingList.forEach((value) => {
-          if (followings.includes(value.toString()))
-            webkit.messageHandlers.updateFollowStatus.postMessage(value.toString());
-          else webkit.messageHandlers.deleteFollowStatus.postMessage(value.toString());
-        });
-      };
+      if (res.data.followCategory) {
+        const followings = res.data.followCategory;
+        const totalFollowingList = [1, 2, 3, 4, 5, 6];
+        if (navigator.userAgent.includes('ANDROID')) {
+          totalFollowingList.forEach((value) => {
+            if (followings.includes(value.toString())) Android.subscribeTopic(value);
+            else Android.unsubscribeTopic(value);
+          });
+        } else if (navigator.userAgent.indexOf("APP_IOS") > -1) {
+          totalFollowingList.forEach((value) => {
+            if (followings.includes(value.toString()))
+              webkit.messageHandlers.updateFollowStatus.postMessage(value.toString());
+            else webkit.messageHandlers.deleteFollowStatus.postMessage(value.toString());
+          });
+        };
+      }
     })
   }
-}
-
-const getUserFirebaseFollowingStatus = (token) => {
-  return axios({
-    method: 'get',
-    url: '/subscriber/setFirebase',
-    headers: {
-      'x-access-token': token,
-    },
-  })
 }
 
 $('#article-category-list').hide();

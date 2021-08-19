@@ -39,52 +39,62 @@
     e.preventDefault();
   });
 
-  document.querySelector('#login').onclick = function login() {
-    var br = navigator.userAgent;
-    if (email.value === '' || password.value === '') {
-      alert('빈칸을 채워주세요');
-    } else {
-      axios({
-        method: 'POST',
-        url: '/subscriber/login',
-        data: {
-          email: email.value,
-          password: password.value,
-        },
-      })
-        .then((res) => {
-          localStorage.setItem('jwtToken', res.data.token);
-
-          //팔로잉 리스트 구독
-          if (res.data.followingCategories) {
-
-            const followings = res.data.followingCategories.split(',');
-            const totalFollowingList = [1, 2, 3, 4, 5, 6];
-            if (navigator.userAgent.includes('ANDROID')) {
-              totalFollowingList.forEach((value) => {
-                if (followings.includes(value.toString())) Android.subscribeTopic(value);
-                else Android.unsubscribeTopic(value);
-              });
-            } else if (br.indexOf('APP_IOS') > -1) {
-              followings.forEach((value) => {
-                if (followings.includes(value.toString()))
-                  webkit.messageHandlers.updateFollowStatus.postMessage(value.toString());
-                else webkit.messageHandlers.deleteFollowStatus.postMessage(value.toString());
-              });
-            }
-          }
-
-          if (location.search) {
-            const redirect = decodeURIComponent(location.search);
-            console.log(redirect);
-            location.href = redirect.split('=')[1];
-          } else {
-            location.href = '/';
-          }
+    document.querySelector('#login').onclick = function login() {
+      var br = navigator.userAgent;
+      if (email.value === '' || password.value === '') {
+        alert('빈칸을 채워주세요');
+      } else {
+        axios({
+          method: 'POST',
+          url: '/subscriber/login',
+          data: {
+            email: email.value,
+            password: password.value,
+          },
         })
-        .catch((error) => {
-          alert(error.response.data.message);
-        });
-    }
-  };
+          .then((res) => {
+            localStorage.setItem('jwtToken', res.data.token);
+
+            //팔로잉 리스트 구독
+            const totalFollowingList = [1, 2, 3, 4, 5, 6];
+
+            if (res.data.followingCategories) {
+              const followings = res.data.followingCategories.split(',');
+              if (navigator.userAgent.includes('ANDROID')) {
+                totalFollowingList.forEach((value) => {
+                  if (followings.includes(value.toString())) Android.subscribeTopic(value);
+                  else Android.unsubscribeTopic(value);
+                });
+              } else if (br.indexOf('APP_IOS') > -1) {
+                followings.forEach((value) => {
+                  if (followings.includes(value.toString()))
+                    webkit.messageHandlers.updateFollowStatus.postMessage(value.toString());
+                  else webkit.messageHandlers.deleteFollowStatus.postMessage(value.toString());
+                });
+              }
+            } else {
+              if (navigator.userAgent.includes('ANDROID')) {
+                totalFollowingList.forEach((value) => {
+                  Android.unsubscribeTopic(value);
+                });
+              } else if (navigator.userAgent.indexOf('APP_IOS') > -1) {
+                followings.forEach((value) => {
+                  webkit.messageHandlers.deleteFollowStatus.postMessage(value.toString());
+                });
+              }
+            }
+
+            if (location.search) {
+              const redirect = decodeURIComponent(location.search);
+              console.log(redirect);
+              location.href = redirect.split('=')[1];
+            } else {
+              location.href = '/';
+            }
+          })
+          .catch((error) => {
+            alert(error.response.data.message);
+          });
+      }
+    };
 </script>
