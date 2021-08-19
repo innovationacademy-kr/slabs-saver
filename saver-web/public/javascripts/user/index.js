@@ -122,7 +122,6 @@ const articleCategroryEvent = () => {
   if (!token) $('.article-choice').hide();
   else {
     $('.article-choice').show();
-
     // 팔로잉 리스트를 불러와 구독합니다.
     axios({
       method: 'get',
@@ -136,10 +135,26 @@ const articleCategroryEvent = () => {
           if (followings.includes(value.toString())) Android.subscribeTopic(value);
           else Android.unsubscribeTopic(value);
         });
-      }
-    });
+      } else if (navigator.userAgent.indexOf("APP_IOS") > -1) {
+        totalFollowingList.forEach((value) => {
+          if (followings.includes(value.toString()))
+            webkit.messageHandlers.updateFollowStatus.postMessage(value);
+          else webkit.messageHandlers.deleteFollowStatus.postMessage(value);
+        });
+      };
+    })
   }
-};
+}
+
+const getUserFirebaseFollowingStatus = (token) => {
+  return axios({
+    method: 'get',
+    url: '/subscriber/setFirebase',
+    headers: {
+      'x-access-token': token,
+    },
+  })
+}
 
 $('#article-category-list').hide();
 addEvent();
