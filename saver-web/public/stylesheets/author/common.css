@@ -16,9 +16,8 @@ body {
 }
 
 .btn-fit {
-   
+   min-width: 55px;
   font-size: 14.4px;
-
 }
 
 
