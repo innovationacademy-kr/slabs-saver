@@ -5,6 +5,8 @@ const getCurrentUser = require('../../../lib/getCurrentUser');
 const POSITION = require('../../../lib/constants/position');
 const STATUS = require('../../../lib/constants/articleStatus');
 const { constants } = require('../../../lib/converter');
+const sequelize = require('sequelize');
+const Op = sequelize.Op;
 
 const newArticleRequest = async (req, res, next) => {
   const {
@@ -214,11 +216,31 @@ const previewPage = async (req, res, next) => {
   res.render('user/article', { title: 'preview', article, POSITION, layout: 'layout/userLayout' });
 };
 
+const searchArticles = async (req, res, next) => {
+  const currentUser = await getCurrentUser(req.user?.id);
+  if (!currentUser) return res.redirect('/author/login');
+  try {
+    const article = await Article.findAll({
+      where: {
+        headline: {
+          [Op.like]: '%' + req.query.word + '%',
+        },
+      },
+      attributes: ['id', 'headline'],
+    });
+    res.status(200).json({ article });
+  } catch (e) {
+    console.log(e);
+    res.status(200).json({ error: e });
+  }
+};
+
 module.exports = {
   request: {
     newArticle: newArticleRequest,
     editArticle: editArticleRequest,
     deskProcess: deskProcessRequest,
+    searchArticles,
   },
   page: {
     newArticle: newArticlePage,

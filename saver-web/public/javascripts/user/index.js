@@ -119,8 +119,25 @@ const addEvent = () => {
 
 const articleCategroryEvent = () => {
   const token = localStorage['jwtToken'];
-  if (!token) $(".article-choice").hide();
-  else $(".article-choice").show();
+  if (!token) $('.article-choice').hide();
+  else {
+    $('.article-choice').show();
+    // 팔로잉 리스트를 불러와 구독합니다.
+    axios({
+      method: 'get',
+      headers: { 'x-access-token': token },
+      url: '/section/followlist',
+    }).then((res) => {
+      const followings = res.data.followCategory;
+      const totalFollowingList = [1, 2, 3, 4, 5, 6];
+      if (navigator.userAgent.includes('ANDROID')) {
+        totalFollowingList.forEach((value) => {
+          if (followings.includes(value.toString())) Android.subscribeTopic(value);
+          else Android.unsubscribeTopic(value);
+        });
+      }
+    });
+  }
 };
 
 const getUserFirebaseFollowingStatus = (token) => {
@@ -159,10 +176,9 @@ const setUserFirebaseFollowingStatus = () => {
   })
 }
 
-$("#article-category-list").hide();
+$('#article-category-list').hide();
 addEvent();
 getTodayWord();
 getTodayArticle();
 articleCategroryEvent();
 setUserFirebaseFollowingStatus();
-

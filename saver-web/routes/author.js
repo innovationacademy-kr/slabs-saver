@@ -50,6 +50,7 @@ module.exports = (passport) => {
     authorCtrl.request.newArticle,
   );
   router.post('/desk-process', loggedIn, authorCtrl.request.deskProcess);
+  router.get('/searchArticles', loggedIn, authorCtrl.request.searchArticles);
 
   /**
    * 기자 관리
