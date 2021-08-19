@@ -5,7 +5,7 @@
     </a>
   </div>
   <form class="topbar__search white-three">
-    <input class="white-three" type="search" placeholder="search" aria-label="search">
+    <input class="white-three" id="searchWord" type="search" value=""  aria-label="search">
     </input>
     <button class="topbar__search__icon" type="submit">
     </button>
@@ -30,3 +30,20 @@
 			}
 		});
 	</script>
+
+<script>
+  search = document.querySelector('.topbar__search__icon');
+  var searchInput = document.querySelector('#searchWord');
+
+  search.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (searchInput.value != ''){
+      let wordsData = searchInput.value.split(" ");
+      wordsData.push(searchInput.value);
+      console.log(wordsData);
+      location.href = `/searchArticles?search=${searchInput.value}`
+    }
+   
+  });
+
+</script>
