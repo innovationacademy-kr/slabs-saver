@@ -11,9 +11,9 @@
 		358CA9B426C6417E00A52B60 /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = 358CA9B326C6417E00A52B60 /* FacebookCore */; };
 		358CA9B626C6417E00A52B60 /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 358CA9B526C6417E00A52B60 /* FacebookLogin */; };
 		358CA9B826C6417E00A52B60 /* FacebookShare in Frameworks */ = {isa = PBXBuildFile; productRef = 358CA9B726C6417E00A52B60 /* FacebookShare */; };
+		35E1BB2426CE3C5200D85EBD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 35E1BB2326CE3C5200D85EBD /* GoogleService-Info.plist */; };
 		3E8CA725F484F97BE4F0C297 /* Pods_saver_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B7ADC17A3820AD30F9974C1 /* Pods_saver_ios.framework */; };
 		4F015E3526C3B553002A7A09 /* HandleWKBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F015E3426C3B552002A7A09 /* HandleWKBridge.swift */; };
-		4F015E3726C3C673002A7A09 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4F015E3626C3C673002A7A09 /* GoogleService-Info.plist */; };
 		4F223F4126A950AB00ED04E4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F223F4026A950AB00ED04E4 /* AppDelegate.swift */; };
 		4F223F4326A950AB00ED04E4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F223F4226A950AB00ED04E4 /* SceneDelegate.swift */; };
 		4F223F4526A950AB00ED04E4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F223F4426A950AB00ED04E4 /* ViewController.swift */; };
@@ -26,9 +26,9 @@
 /* Begin PBXFileReference section */
 		0B7ADC17A3820AD30F9974C1 /* Pods_saver_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_saver_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		358CA9A826C639B600A52B60 /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		35E1BB2326CE3C5200D85EBD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4F015E3326B1518C002A7A09 /* saver-ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "saver-ios.entitlements"; sourceTree = "<group>"; };
 		4F015E3426C3B552002A7A09 /* HandleWKBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandleWKBridge.swift; sourceTree = "<group>"; };
-		4F015E3626C3C673002A7A09 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Documents/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4F223F3D26A950AB00ED04E4 /* saver-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "saver-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F223F4026A950AB00ED04E4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4F223F4226A950AB00ED04E4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -100,7 +100,7 @@
 				4F223F4626A950AB00ED04E4 /* Main.storyboard */,
 				4F223F4926A950B300ED04E4 /* Assets.xcassets */,
 				4F223F4E26A950B300ED04E4 /* Info.plist */,
-				4F015E3626C3C673002A7A09 /* GoogleService-Info.plist */,
+				35E1BB2326CE3C5200D85EBD /* GoogleService-Info.plist */,
 			);
 			path = "saver-ios";
 			sourceTree = "<group>";
@@ -191,7 +191,7 @@
 			files = (
 				4F223F5D26A9567A00ED04E4 /* LaunchScreen.storyboard in Resources */,
 				358CA9A926C639B600A52B60 /* Config.xcconfig in Resources */,
-				4F015E3726C3C673002A7A09 /* GoogleService-Info.plist in Resources */,
+				35E1BB2426CE3C5200D85EBD /* GoogleService-Info.plist in Resources */,
 				4F223F4A26A950B300ED04E4 /* Assets.xcassets in Resources */,
 				4F223F4826A950AB00ED04E4 /* Main.storyboard in Resources */,
 			);
