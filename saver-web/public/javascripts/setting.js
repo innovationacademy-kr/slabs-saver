@@ -49,7 +49,7 @@ alarmbutton.addEventListener('click', (e) => {
     else
     {
         alarmOnOff(1);
-        alarmbutton.animate({left: '-40px'}, 100);
+        alarmbutton.animate({left: '-45px'}, 100);
     }
     setTimeout(() => {
         alarmbutton.classList.toggle('active');

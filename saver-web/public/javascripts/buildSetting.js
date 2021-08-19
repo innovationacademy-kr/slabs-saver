@@ -37,7 +37,7 @@ const buildStart = () => {
         <div class="bookmark_alarm-section white">
         <div class="bookmark_alarm-section-text">
           <p class="bookmark_alarm-section-text-text">${user.email}
-          <button style="float:right; height:24px; background:#70b9f9;" id="logout" type="submit"> 로그아웃 </button>
+          <button style="float:right; height:24px; background:#70b9f9; border-radius: 5px;" id="logout" type="submit">  &nbsp로그아웃&nbsp </button>
           </p>
         </div>
         </div>

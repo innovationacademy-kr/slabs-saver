@@ -111,7 +111,7 @@
 
 .toggleBG.inactive {
   background: #CCCCCC; 
-  width: 60px; 
+  width: 65px; 
   height: 20px; 
   border: 1px solid #CCCCCC; 
   border-radius: 10px;
@@ -119,8 +119,8 @@
 }
 
 .toggleBG.active {
-  background: #70b9f9; 
-  width: 60px; 
+  background: #09ff00; 
+  width: 65px; 
   height: 20px; 
   border: 1px solid #CCCCCC; 
   border-radius: 10px;
@@ -134,7 +134,7 @@
   border: none; 
   border-radius: 10px; 
   position: relative; 
-  left: -40px;
+  left: -45px;
   float:right;
 }
 
