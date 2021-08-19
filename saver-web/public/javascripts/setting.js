@@ -62,7 +62,7 @@ const alarmOnOff = async(flag) => {
                     Android.unsubscribeTopic(value);
                 });
             } else if (navigator.userAgent.indexOf('APP_IOS') > -1) {
-                followings.forEach((value) => {
+                totalFollowingList.forEach((value) => {
                     webkit.messageHandlers.deleteFollowStatus.postMessage(value.toString());
                 });
             }
@@ -78,7 +78,7 @@ const alarmOnOff = async(flag) => {
             }).then((res) => {
                 const followings = res.data.followCategory;
                 const totalFollowingList = [1, 2, 3, 4, 5, 6];
-                if (res.data.followingCategories) {
+                if (followings) {
                     if (navigator.userAgent.includes('ANDROID')) {
                         totalFollowingList.forEach((value) => {
                             if (followings.includes(value.toString())) Android.subscribeTopic(value);
@@ -97,7 +97,7 @@ const alarmOnOff = async(flag) => {
                             Android.unsubscribeTopic(value);
                         });
                     } else if (navigator.userAgent.indexOf('APP_IOS') > -1) {
-                        followings.forEach((value) => {
+                        totalFollowingList.forEach((value) => {
                             webkit.messageHandlers.deleteFollowStatus.postMessage(value.toString());
                         });
                     }

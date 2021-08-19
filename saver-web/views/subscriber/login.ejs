@@ -78,7 +78,7 @@
                   Android.unsubscribeTopic(value);
                 });
               } else if (navigator.userAgent.indexOf('APP_IOS') > -1) {
-                followings.forEach((value) => {
+                totalFollowingList.forEach((value) => {
                   webkit.messageHandlers.deleteFollowStatus.postMessage(value.toString());
                 });
               }
