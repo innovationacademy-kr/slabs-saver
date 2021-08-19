@@ -12,6 +12,7 @@
 								<th class="table-header__cell">작성자</th>
 								<th class="table-header__cell">입력일시</th>
 								<th class="table-header__cell">게재일자</th>
+								<th class="table-header__cell"></th>
 							</tr>
 						</thead>
 						<tbody class="table-body">
@@ -36,7 +37,11 @@
 										<td class="table-body__cell">
 											<input class="date" type="date" value="<%= word.TodayWord.date %>"
 												data-id="<%= word.id %>">
-											<button class="reset" type="reset" data-id="<%= word.id %>">초기화</button>
+										</td>
+										<td class="table-body__cell">
+											<button class="reset btn btn-primary btn-fit" type="reset"
+											style="min-width: 69.2px;"
+											data-id="<%= word.id %>">초기화</button>
 										</td>
 										<% }) %>
 									</tr>

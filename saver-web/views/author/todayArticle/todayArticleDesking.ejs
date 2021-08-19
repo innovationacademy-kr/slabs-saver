@@ -14,6 +14,7 @@
           <th class="table-header__cell">작성자</th>
           <th class="table-header__cell">입력일시</th>
           <th class="table-header__cell">오늘의기사 지정일자</th>
+          <th class="table-header__cell"></th>
         </tr>
       </thead>
       <tbody class="table-body">
@@ -36,7 +37,11 @@
               <td class="table-body__cell">
                 <input class="date" type="date" value="<%= article.TodayArticle.date %>"
                   data-id="<%= article.id %>">
-                <button class="reset" type="reset" data-id="<%= article.id %>">초기화</button>
+              </td>
+              <td class="table-body__cell">
+                <button class="reset btn btn-primary btn-fit" type="reset" 
+                style="min-width: 69.2px;"
+                data-id="<%= article.id %>">초기화</button>
               </td>
               <% }) %>
             </tr>
