@@ -149,6 +149,13 @@ const clickFollow = (btnId, value, btnUrl) => {
             }
             alert('언팔로우 되었습니다.');
           }
+        } else {
+          if (btnUrl === 'follow') {
+            alert('팔로우 되었습니다.');
+          }
+          else {
+            alert('언팔로우 되었습니다.');
+          }
         }
       })
       .catch((error) => {
