@@ -115,13 +115,13 @@
 
 
   <% if (underLimitPage != 0) { %>
-    <a class = "btn btn-primary margin-btn"  href= <%=`/author?page=0&category=${filterCategory}`%>> < </a>
+    <a class = "btn btn-green margin-btn"  href= <%=`/author?page=0&category=${filterCategory}`%>> < </a>
   <% } %>
   <% for(var i = underLimitPage; i < underLimitPage + 5 && i <= totalPage; i++){ %>
-    <a class = "btn btn-primary margin-btn" href= <%=`/author?page=${i}&category=${filterCategory}`%>> <%=i + 1%> </a>
+    <a class = "btn btn-green margin-btn" href= <%=`/author?page=${i}&category=${filterCategory}`%>> <%=i + 1%> </a>
   <% } %>
   <% if (page + 2 < totalPage) { %>
-    <a class = "btn btn-primary margin-btn" href=<%=`/author?page=${totalPage}&category=${filterCategory}`%> > > </a>
+    <a class = "btn btn-green margin-btn" href=<%=`/author?page=${totalPage}&category=${filterCategory}`%> > > </a>
   <% } %>
 
 

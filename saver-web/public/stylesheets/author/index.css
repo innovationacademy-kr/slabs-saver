@@ -26,6 +26,11 @@ button {
   display: flex;
 }
 
+.date {
+vertical-align: middle;
+
+}
+
 .table {
   border-collapse: collapse;
   margin: 25px 0;
