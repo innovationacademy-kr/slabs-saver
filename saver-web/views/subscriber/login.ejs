@@ -56,19 +56,22 @@
           localStorage.setItem('jwtToken', res.data.token);
 
           //팔로잉 리스트 구독
-          const followings = res.data.followingCategories.split(',');
-          const totalFollowingList = [1, 2, 3, 4, 5, 6];
-          if (navigator.userAgent.includes('ANDROID')) {
-            totalFollowingList.forEach((value) => {
-              if (followings.includes(value.toString())) Android.subscribeTopic(value);
-              else Android.unsubscribeTopic(value);
-            });
-          } else if (br.indexOf('APP_IOS') > -1) {
-            followings.forEach((value) => {
-              if (followings.includes(value.toString()))
-                webkit.messageHandlers.updateFollowStatus.postMessage(value.toString());
-              else webkit.messageHandlers.deleteFollowStatus.postMessage(value.toString());
-            });
+          if (res.data.followingCategories) {
+
+            const followings = res.data.followingCategories.split(',');
+            const totalFollowingList = [1, 2, 3, 4, 5, 6];
+            if (navigator.userAgent.includes('ANDROID')) {
+              totalFollowingList.forEach((value) => {
+                if (followings.includes(value.toString())) Android.subscribeTopic(value);
+                else Android.unsubscribeTopic(value);
+              });
+            } else if (br.indexOf('APP_IOS') > -1) {
+              followings.forEach((value) => {
+                if (followings.includes(value.toString()))
+                  webkit.messageHandlers.updateFollowStatus.postMessage(value.toString());
+                else webkit.messageHandlers.deleteFollowStatus.postMessage(value.toString());
+              });
+            }
           }
 
           if (location.search) {
