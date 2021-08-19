@@ -1,3 +1,4 @@
+setTimeout( () => {
 const sett = document.querySelector("#logout");
 sett.addEventListener('click', (e) => {
     if (token) {
@@ -58,3 +59,4 @@ alarmbutton.addEventListener('click', (e) => {
     }, 100)
 });
 
+}, 100);
