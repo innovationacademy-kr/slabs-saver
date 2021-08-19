@@ -13,8 +13,11 @@
                 </option>
                 <% }) %>
             </select>
-            <button class="btn btn-primary" type="submit">이동</button>
+            <button class="btn btn-green" type="submit">이동</button>
           </form>
+          <% if (currentUser.position> 1) { %>
+            <button class="update-btn btn btn-green">업데이트</button>
+            <% } %>
         </div>
         <table class="table" name="table">
           <thead class="table-header">
@@ -35,7 +38,7 @@
               <tr class="table-body__row" name="cols" data-id="<%= article.id %>">
                 <td class="table-body__cell">
                   <%= article.id %>
-                    <button onclick="location.href='/author/articles/edit/<%= article.id %>'">수정</button>
+                    <button class = "btn btn-primary btn-fit"  onclick="location.href='/author/articles/edit/<%= article.id %>'">수정</button>
                 </td>
                 <td class="table-body__cell">
                   <a href="/author/articles/<%= article.id %>/preview" target="_blank">
@@ -101,9 +104,7 @@
               </tr>
           </tbody>
         </table>
-        <% if (currentUser.position> 1) { %>
-          <button class="update-btn">업데이트</button>
-          <% } %>
+
       </section>
 
         

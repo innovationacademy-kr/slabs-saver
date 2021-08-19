@@ -52,6 +52,7 @@ button {
 
 .table-header__cell,
 .table-body__cell {
+  vertical-align: middle;
   padding: 12px 15px;
 }
 
