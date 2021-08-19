@@ -7,7 +7,7 @@
 }
 
 .section-page {
-  height: 100%;
+  min-height: 100%;
   position: relative;
   top: 50px;
   padding-bottom: 40px;
