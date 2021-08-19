@@ -56,4 +56,12 @@
 <br></br><br></br>
 <%- contentFor('footer') %> <%- include('./components/foo.ejs') %>
 <script defer src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script>
+  // SDK를 초기화 합니다. 사용할 앱의 JavaScript 키를 설정해 주세요.
+  var kakaoAppKey = '<%= process.env.KAKAO_JS_KEY %>';
+  Kakao.init(kakaoAppKey);
+  // SDK 초기화 여부를 판단합니다.
+  if (!Kakao.isInitialized())
+    console.log("kakao app key 초기화 실패");
+</script>
 <script type="module" src="/javascripts/user/article.js"></script>
