@@ -15,6 +15,14 @@ body {
   border-color: #009879;
 }
 
+.btn-deep-green {
+  color: #fff;
+  margin: 0 5px;
+  background-color: #198754;
+  border-color: #198754;
+}
+
+
 .btn-fit {
    min-width: 55px;
   font-size: 14.4px;
