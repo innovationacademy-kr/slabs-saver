@@ -9,6 +9,10 @@ module.exports = {
     res.render('user/index', { title: 'slab-saver', layout: 'layout/userLayout' });
   },
 
+  search: async (req, res, next) => {
+    res.render('user/searchArticles', { title: 'slab-saver', layout: 'layout/userLayout' });
+  },
+
 /**
  * 무한스크롤에 넘기는 데이터
  */
@@ -72,6 +76,51 @@ module.exports = {
     });
     res.send(JSON.stringify(data));
   },
+
+
+  moreSearchArticles: async (req, res, next) => {
+    const { page } = req.query;
+    const wordsData = req.body;
+    var headlineLike = [];
+
+    for (var i = 0; i < wordsData.length; i++ ){
+      wordsData[i] = "%"+wordsData[i] + "%";
+    }
+
+    for(var x in wordsData) {
+      headlineLike.push({
+        headline: {
+                [Op.like]: wordsData[x]
+            }
+        });
+    }
+
+    const articles = await Article.findAll({
+      where: {
+        status: 4, 
+        category: {
+          [Op.lt]: 6,
+        },
+        [Op.or]: headlineLike
+      },
+      order: [['publishedAt', 'DESC']],
+      offset: +page,
+      limit: 3,
+      include: { model: Author, attributes: ['photo', 'name'] },
+    });
+    const data = articles.map(article => {
+      const updatedAt = moment(article.updatedAt).format('YYYY-MM-DD HH:mm:ss').slice(0, 16).replace(/\-/gi, '.');
+      const publishedAt = moment(article.publishedAt).format('YYYY-MM-DD HH:mm:ss').slice(0, 16).replace(/\-/gi, '.');
+        return {
+          ...article.dataValues,
+          image: process.env.S3 + '/' + article.image,
+          updatedAt,
+          publishedAt,
+          category: converter.categoryEng(article.getDataValue('category')).toLocaleLowerCase(),
+        }
+      });
+      res.send(JSON.stringify(data));
+    },
 
   profile: (req, res, next) => {
     res.render('index', { title: '설정 화면' });
