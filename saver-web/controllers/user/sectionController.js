@@ -4,7 +4,8 @@ const categories = require('../../public/javascripts/sectionCategory');
 let currentFollowingStatus = [];
 
 const sectionPage = (req, res, next) => {
-  res.render('user/section', { title: 'slab-saver', layout: 'layout/userLayout' });
+  console.log(categories)
+  res.render('user/section', { title: 'slab-saver', layout: 'layout/userLayout' , categories:categories });
 };
 
 const loginedPage = (req, res, next) => {
