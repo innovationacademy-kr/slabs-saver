@@ -210,6 +210,9 @@ const todayArticleDeskingPage = async (req, res) => {
     attributes: ['id', 'headline', 'updatedAt'],
     where: {
       status: articleStatus.CONFIRMED,
+      category: {
+        [Op.lt]: 6,
+      }
     },
     include: [
       {
