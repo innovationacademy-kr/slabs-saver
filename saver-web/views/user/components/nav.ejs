@@ -11,22 +11,6 @@
     </button>
   </form>
   <div class="topbar__set">
-      <button id = "setting" class="topbar__set__icon"><buttoni>
+      <button class="topbar__set__icon" onclick="href='/setting'"><buttoni>
   </div>
 </nav>
-
-
-<%- contentFor('scriptTag') %>
-	<script>
-		var current = window.location.pathname;
-
-		const sett = document.querySelector("#setting");
-
-		sett.addEventListener('click', (e) => {
-			if (token) {
-				location.href = '/setting';
-			} else {
-				location.href = '/subscriber/login'
-			}
-		});
-	</script>
