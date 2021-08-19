@@ -50,13 +50,13 @@
 <section class="list-buttons flex-section" style="margin-bottom: 2rem;">
 
   <% if (underLimitPage != 0) { %>
-    <a class = "btn btn-primary margin-btn"  href= "/author/articles?page=0"> < </a>
+    <a class = "btn btn-green margin-btn"  href= "/author/articles?page=0"> < </a>
   <% } %>
   <% for(var i = underLimitPage; i < underLimitPage + 5 && i <= totalPage; i++){ %>
-    <a class = "btn btn-primary margin-btn" href= <%=`/author/articles?page=${i}`%>> <%=i + 1%> </a>
+    <a class = "btn btn-green margin-btn" href= <%=`/author/articles?page=${i}`%>> <%=i + 1%> </a>
   <% } %>
   <% if (page + 2 < totalPage) { %>
-    <a class = "btn btn-primary margin-btn" href=<%=`/author/articles?page=${totalPage}`%> > > </a>
+    <a class = "btn btn-green margin-btn" href=<%=`/author/articles?page=${totalPage}`%> > > </a>
   <% } %>
 
   </section>
