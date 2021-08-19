@@ -1,0 +1,39 @@
+
+  <% if (filterCategory!= null) { %>
+      <% if (underLimitPage != 0) { %>
+        <a class = "btn btn-green margin-btn"  href= <%=`${link}?page=0&category=${filterCategory}`%>> < </a>
+      <% } %>
+
+      <% for(var i = underLimitPage; i < underLimitPage + 5 && i <= totalPage; i++){ %>
+      <% if (i == page) { %>
+        <a class = "btn btn-deep-green margin-btn" href= <%=`${link}?page=${i}&category=${filterCategory}`%>> <%=i + 1%> </a>
+        <% } %>
+        <% if (i != page) { %>
+        <a class = "btn btn-green margin-btn" href= <%=`${link}?page=${i}&category=${filterCategory}`%>> <%=i + 1%> </a>
+        <% } %>
+      <% } %>
+
+      <% if (page + 2 < totalPage) { %>
+        <a class = "btn btn-green margin-btn" href=<%=`${link}?page=${totalPage}&category=${filterCategory}`%> > > </a>
+      <% } %>
+  <% } %>
+
+  
+  <% if (filterCategory == null) { %>
+    <% if (underLimitPage != 0) { %>
+      <a class = "btn btn-green margin-btn"  href= <%=`${link}?page=0`%>> < </a>
+    <% } %>
+
+    <% for(var i = underLimitPage; i < underLimitPage + 5 && i <= totalPage; i++){ %>
+    <% if (i == page) { %>
+      <a class = "btn btn-deep-green margin-btn" href= <%=`${link}?page=${i}`%>> <%=i + 1%> </a>
+      <% } %>
+      <% if (i != page) { %>
+      <a class = "btn btn-green margin-btn" href= <%=`${link}?page=${i}`%>> <%=i + 1%> </a>
+      <% } %>
+    <% } %>
+
+    <% if (page + 2 < totalPage) { %>
+      <a class = "btn btn-green margin-btn" href=<%=`${link}?page=${totalPage}`%> > > </a>
+    <% } %>
+<% } %>
