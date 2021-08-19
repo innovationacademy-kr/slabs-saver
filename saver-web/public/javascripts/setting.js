@@ -1,4 +1,3 @@
-setTimeout( ()=> {
 const sett = document.querySelector("#logout");
 sett.addEventListener('click', (e) => {
     if (token) {
@@ -43,21 +42,19 @@ alarmbutton.addEventListener('click', (e) => {
     alarmbuttonbg = alarmbutton.parentNode;
     if (alarmbutton.classList.contains('inactive'))
     {
-        alarmOnOff(3);
         alarmbutton.animate({left: '0px'}, 100);
+        alarmOnOff(3);
     }
     else
     {
+        alarmbutton.animate({left: '-40px'}, 100);
         alarmOnOff(1);
-        alarmbutton.animate({left: '-45px'}, 100);
     }
     setTimeout(() => {
         alarmbutton.classList.toggle('active');
         alarmbutton.classList.toggle('inactive');
         alarmbuttonbg.classList.toggle('active');
         alarmbuttonbg.classList.toggle('inactive');
-    }, 1)
+    }, 100)
 });
-
-}, 200);
 
