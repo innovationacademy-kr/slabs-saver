@@ -14,11 +14,14 @@
           </option>
         <% }) %>
       </select>
-      <button type="submit">이동</button>
+      <button class="btn btn-green" type="submit">이동</button>
     </form>
     <a href="/author?category=<%= currentUser.code %>">
-      <button type="submit">마이데스킹</button>
+      <button class="btn btn-green" type="submit">마이데스킹</button>
     </a>
+    <% if (currentUser.position > 1) { %>
+      <button class="update-btn btn btn-green" type="submit">업데이트</button>
+      <% } %>
   </div>
     <table class="table" name="table">
       <thead class="table-header">
@@ -82,9 +85,7 @@
         </tr>
       </tbody>
     </table>
-    <% if (currentUser.position > 1) { %>
-    <button class="update-btn" type="submit">업데이트</button>
-    <% } %>
+
 </section>
   
 <section class="list-buttons flex-section" style="margin-bottom: 2rem;">
