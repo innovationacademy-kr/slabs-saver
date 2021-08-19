@@ -1,4 +1,4 @@
-const { ECONOMY, POLITICS, SOCIAL, INTERNATIONAL, CULTURE } = require('./constants/category');
+const { ECONOMY, POLITICS, SOCIAL, INTERNATIONAL, CULTURE, AMPM } = require('./constants/category');
 const POSITIONS = require('./constants/position');
 const TODAYWORD = require('./constants/todayWordStatus');
 const ARTICLE_STATUS = require('./constants/articleStatus');
@@ -10,6 +10,7 @@ const category = {
   국제: INTERNATIONAL,
   사회: SOCIAL,
   문화: CULTURE,
+  AMPM: AMPM
 };
 
 const categoryEng = {
@@ -19,6 +20,7 @@ const categoryEng = {
   INTERNATIONAL,
   SOCIAL,
   CULTURE,
+  AMPM
 };
 
 const position = {

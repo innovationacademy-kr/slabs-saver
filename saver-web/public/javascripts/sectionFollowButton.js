@@ -28,20 +28,6 @@ document.addEventListener(
 );
 // [end : ios에서 핀치와 더블탭을 통한 화면 확대, 축소 방지]
 
-// 현재 호출한 디바이스가 어떤 것인지 체크
-var isMobile = {
-	Android: function () {
-		return navigator.userAgent.match(/Android/i) == null ? false : true;
-	},
-	iOS: function () {
-		return navigator.userAgent.match(/iPhone|iPad|iPod/i) == null ? false : true;
-	},
-	any: function () {
-		return (isMobile.Android() || isMobile.iOS());
-	}
-};
-
-
 const init_section = function (id) {
   const class_name = '#' + id;
   const div_id = document.querySelector(class_name);
@@ -98,7 +84,7 @@ window.onload = function () {
         currentUserID = res.data;
       })
       .catch((error) => {
-        alert(error.message);
+        alert(error.response.data.message);
       });
   }
   axios({
@@ -109,36 +95,30 @@ window.onload = function () {
     },
   })
     .then((res) => {
-      categories = ['economy', 'politics', 'international', 'social', 'culture', '7']
+      if (res.data.followCategory) {
+        categories = ['economy', 'politics', 'international', 'social', 'culture', '7'];
 
-      categories.forEach((category,i )=>{
-        index = i+1;
-        if( res.data.followCategory.includes(`${index}`))
-          {
-            document.getElementById(`my-${category}`)?.setAttribute('style',"display: grid;")
-            document.getElementById(`other-${category}`)?.setAttribute('style',"display: none;")
- 
+        categories.forEach((category, i) => {
+          index = i + 1;
+          if (res.data.followCategory.includes(`${index}`)) {
+            document.getElementById(`my-${category}`)?.setAttribute('style', 'display: grid;');
+            document.getElementById(`other-${category}`)?.setAttribute('style', 'display: none;');
+          } else {
+            document.getElementById(`my-${category}`)?.setAttribute('style', 'display: none;');
+            document.getElementById(`other-${category}`)?.setAttribute('style', 'display: grid;');
           }
-          else{
-
-            document.getElementById(`my-${category}`)?.setAttribute('style',"display: none;")
-            document.getElementById(`other-${category}`)?.setAttribute('style',"display: grid;")
-
-          }
-      })
-
+        });
+      }
     })
     .catch((err) => {
       console.log(err);
+      alert(err.response.data.message);
     });
-
-
-
 };
 
 // 팔로우 언팔로우 버튼을 클릭했을 때.
 const clickFollow = (btnId, value, btnUrl) => {
-  userAgent = navigator.userAgent;
+  var userAgent = navigator.userAgent;
   if (!token) {
     location.href = '/section';
   } else {
@@ -151,14 +131,21 @@ const clickFollow = (btnId, value, btnUrl) => {
       },
     })
       .then((res) => {
-        if (isMobile.iOS())
-	    		webkit.messageHandlers.getFollowStatus.postMessage(res.data);
         section_display_change(btnId);
+
         if (btnUrl === 'follow') {
-          if (userAgent.includes('ANDROID')) Android.subscribeTopic(value);
+          if (userAgent.includes('ANDROID')) {
+            Android.subscribeTopic(value);
+          }
+          if (userAgent.indexOf('APP_IOS') > -1) {
+            webkit.messageHandlers.updateFollowStatus.postMessage(value);
+          }
           alert('팔로우 되었습니다.');
         } else {
           if (userAgent.includes('ANDROID')) Android.unsubscribeTopic(value);
+          if (userAgent.indexOf('APP_IOS') > -1) {
+            webkit.messageHandlers.deleteFollowStatus.postMessage(value);
+          }
           alert('언팔로우 되었습니다.');
         }
       })

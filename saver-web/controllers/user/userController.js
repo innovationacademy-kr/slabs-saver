@@ -16,7 +16,12 @@ module.exports = {
   moreArticles: async (req, res, next) => {
     const { page } = req.query;
     const articles = await Article.findAll({
-      where: { status: 4 },
+      where: {
+        status: 4,
+        category: {
+          [Op.lt]: 6,
+        }
+      },
       order: [['publishedAt', 'DESC']],
       offset: +page,
       limit: 3,
@@ -28,9 +33,9 @@ module.exports = {
       return {
         ...article.dataValues,
         image: process.env.S3 + '/' + article.image,
-		updatedAt,
-    publishedAt,
-		category: converter.categoryEng(article.getDataValue('category')).toLocaleLowerCase(),
+        updatedAt,
+        publishedAt,
+        category: converter.categoryEng(article.getDataValue('category')).toLocaleLowerCase(),
       }
     });
     res.send(JSON.stringify(data));
@@ -43,15 +48,16 @@ module.exports = {
     const userFollowingCategory = User.followingCategories.split(',').map(Number);
     const categoryArticles = await Article.findAll({
       where: {
-        status: 4, 
+        status: 4,
         category: {
-         [Op.or]: userFollowingCategory
+          [Op.or]: userFollowingCategory,
+          [Op.lt]: 6,
         }
-     },
-     order: [['publishedAt', 'DESC']],
-     offset: +page,
-     limit: 3,
-     include: { model: Author, attributes: ['photo', 'name'] },
+      },
+      order: [['publishedAt', 'DESC']],
+      offset: +page,
+      limit: 3,
+      include: { model: Author, attributes: ['photo', 'name'] },
     });
     const data = categoryArticles.map(article => {
 		const updatedAt = moment(article.updatedAt).format('YYYY-MM-DD HH:mm:ss').slice(0, 16).replace(/\-/gi, '.');

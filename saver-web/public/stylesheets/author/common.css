@@ -1,5 +1,5 @@
 body {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   background-color: #f8fafb;
 }
 
@@ -8,8 +8,7 @@ body {
 }
 
 .login,
-.presignup
- {
+.presignup {
   position: absolute;
   width: 100%;
   top: 30%;
@@ -31,14 +30,42 @@ div.signup {
 }
 
 .form-block .form-label {
-	font-size: 20px;
-    margin-top: 20px;
+  font-size: 20px;
+  margin-top: 20px;
+}
+
+.search-result-box {
+  margin: 0;
+  border: 1px solid #e2e2e2;
+  outline: none;
+  border-radius: 5px;
+  border-top: 0px;
+  border-bottom: 0px;
+  background: white;
+}
+
+.search-result-ul {
+  margin: 0;
+}
+
+.search-result-btn {
+  padding: 8px;
+  margin: 0;
+  border: none;
+  outline: none;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
+  border-bottom: 1px solid #e2e2e2;
+  background: white;
+  text-overflow: ellipsis;
 }
 
 /* sumemrnote css */
 .note-editable {
-	background-color: white;
+  background-color: white;
 }
-img[alt="current-picture"] {
-	border: 1px solid #ddd;
+
+img[alt='current-picture'] {
+  border: 1px solid #ddd;
 }

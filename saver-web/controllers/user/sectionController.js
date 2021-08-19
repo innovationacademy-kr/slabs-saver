@@ -20,7 +20,8 @@ const getFollowList = async (req, res) => {
   try {
     const userFound = await Subscriber.findOne({ where: { id: req.decoded.userId } });
     if (!userFound) throw new Error('User Id Error');
-    res.status(200).json({ followCategory: userFound.followingCategories.split(',') });
+    if (userFound.followingCategories)
+      res.status(200).json({ followCategory: userFound.followingCategories.split(',') });
   } catch (e) {
     res.status(400).json({ error: e });
   }
@@ -72,7 +73,7 @@ const updateFollowStatus = async (req, res, next) => {
     const userFound = await Subscriber.findOne({ where: { id: userId } });
     if (!userFound) throw new Error('user ID 오류가 발생하였습니다.');
     if (userFound?.followingCategories)
-      currentFollowingStatus = userFound.followingCategories.split(',');
+      currentFollowingStatus = userFound.followingCategories.split(',').map((x) => +x);
     if (currentFollowingStatus.indexOf(followValue) < 0) {
       // 기존에 없을 경우에만 추가
       currentFollowingStatus.push(followValue);

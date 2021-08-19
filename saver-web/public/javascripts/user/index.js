@@ -2,15 +2,19 @@
  * 오전 06:59 이전에는 어제 날짜
  * 오전 07:00 이후에는 오늘 날짜
  * YYYY-MM-DD
+ * 실제 시간과는 다르지만 한국표준시와 UTC의 차이 때문에 offset만큼 빼준다.
  */
 const getProperDate = () => {
-  // Date.now()
+  const offset = new Date().getTimezoneOffset() * 60000;
   const now = new Date();
+
   const h = now.getHours();
   if (h < 7) {
     now.setDate(now.getDate() - 1);
   }
-  let date = now.toISOString(); // "2021-06-30T14:26:31.955Z"
+  const real = new Date(now - offset);
+  let date = real.toISOString();
+  console.log(date);
   date = date.slice().slice(0, 10);
   return date;
 };
@@ -115,14 +119,45 @@ const addEvent = () => {
 
 const articleCategroryEvent = () => {
   const token = localStorage['jwtToken'];
-  if (!token) $(".article-choice").hide();
-  else $(".article-choice").show();
-};
+  if (!token) $('.article-choice').hide();
+  else {
+    $('.article-choice').show();
+    // 팔로잉 리스트를 불러와 구독합니다.
+    axios({
+      method: 'get',
+      headers: { 'x-access-token': token },
+      url: '/section/followlist',
+    }).then((res) => {
+      const followings = res.data.followCategory;
+      const totalFollowingList = [1, 2, 3, 4, 5, 6];
+      if (navigator.userAgent.includes('ANDROID')) {
+        totalFollowingList.forEach((value) => {
+          if (followings.includes(value.toString())) Android.subscribeTopic(value);
+          else Android.unsubscribeTopic(value);
+        });
+      } else if (navigator.userAgent.indexOf("APP_IOS") > -1) {
+        totalFollowingList.forEach((value) => {
+          if (followings.includes(value.toString()))
+            webkit.messageHandlers.updateFollowStatus.postMessage(value.toString());
+          else webkit.messageHandlers.deleteFollowStatus.postMessage(value.toString());
+        });
+      };
+    })
+  }
+}
 
+const getUserFirebaseFollowingStatus = (token) => {
+  return axios({
+    method: 'get',
+    url: '/subscriber/setFirebase',
+    headers: {
+      'x-access-token': token,
+    },
+  })
+}
 
-$("#article-category-list").hide();
+$('#article-category-list').hide();
 addEvent();
 getTodayWord();
 getTodayArticle();
 articleCategroryEvent();
-

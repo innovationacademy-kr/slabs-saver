@@ -51,6 +51,43 @@
 
                     </div>
                     <div class="mb-4">
+                      <div class="article__connected">
+                        <label required class="form-label" for="connected">연결 기사 찾기</label>
+                        <div
+                          style="display: flex; justify-content: space-between; align-items: center"
+                        >
+                          <input
+                            class="form-control"
+                            type="text"
+                            id="connected"
+                            name="connected"
+                            placeholder="연결된 기사의 헤드라인을 입력해주세요"
+                            maxlength="255"
+                            style="margin-right: 5px;"
+                          />
+                          <button
+                            id="search"
+                            class="btn btn-primary"
+                            style="min-width: 80px"
+                            formnovalidate
+                          >
+                            찾기
+                          </button>
+                        </div>
+                        <div
+                          id="result"
+                          class="search-result-box"
+                          style="max-height: 250px; overflow-y: auto"
+                        >
+                          <ul
+                            id="search-ul"
+                            class="search-result-ul"
+                            style="padding: 0; list-style-type: none"
+                          ></ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="mb-4">
                       <label class="form-label" for="breifing">
                         소단락
                         <i class="text-muted">
@@ -88,3 +125,4 @@
             <script src="/vendors/summernote/summernote-lite.js" defer></script>
             <link href="/vendors/summernote/summernote-lite.css" rel="stylesheet">
             <script type="module" src="/javascripts/author/editArticle.js"></script>
+            <script type="module" src="/javascripts/author/searchBox.js"></script>

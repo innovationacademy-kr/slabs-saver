@@ -68,7 +68,9 @@ const getalarm = () => {
         }
       }
     },
-    error: function (err) {},
+    error: function (error) {
+      alert(error.response.data.message);
+    },
   });
 };
 

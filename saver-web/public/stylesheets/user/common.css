@@ -421,9 +421,8 @@
   width: 44px; /* Other styles here */
 }
 
-/*7*/
-
-.icon-7-black {
+/*7 - ampm*/
+.icon-ampm-black {
   background-image: url('../icons/7-black.svg');
   background-position: center;
   background-size: cover;
