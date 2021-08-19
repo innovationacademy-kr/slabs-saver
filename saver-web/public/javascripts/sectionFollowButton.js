@@ -133,7 +133,7 @@ const clickFollow = (btnId, value, btnUrl) => {
       .then((res) => {
         section_display_change(btnId);
 
-        if (res.data.alarStatus === 1) {
+        if (res.data.alarmStatus === 1) {
           if (btnUrl === 'follow') {
             if (userAgent.includes('ANDROID')) {
               Android.subscribeTopic(value);

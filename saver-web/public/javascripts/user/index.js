@@ -144,12 +144,13 @@ const articleCategroryEvent = () => {
           });
         };
       } else {
+        const totalFollowingList = [1, 2, 3, 4, 5, 6];
         if (navigator.userAgent.includes('ANDROID')) {
           totalFollowingList.forEach((value) => {
             Android.unsubscribeTopic(value);
           });
         } else if (navigator.userAgent.indexOf('APP_IOS') > -1) {
-          followings.forEach((value) => {
+          totalFollowingList.forEach((value) => {
             webkit.messageHandlers.deleteFollowStatus.postMessage(value.toString());
           });
         }

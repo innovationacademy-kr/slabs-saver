@@ -7,11 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		358CA9A926C639B600A52B60 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 358CA9A826C639B600A52B60 /* Config.xcconfig */; };
 		358CA9B426C6417E00A52B60 /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = 358CA9B326C6417E00A52B60 /* FacebookCore */; };
 		358CA9B626C6417E00A52B60 /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 358CA9B526C6417E00A52B60 /* FacebookLogin */; };
 		358CA9B826C6417E00A52B60 /* FacebookShare in Frameworks */ = {isa = PBXBuildFile; productRef = 358CA9B726C6417E00A52B60 /* FacebookShare */; };
-		35E1BB2426CE3C5200D85EBD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 35E1BB2326CE3C5200D85EBD /* GoogleService-Info.plist */; };
 		3E8CA725F484F97BE4F0C297 /* Pods_saver_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B7ADC17A3820AD30F9974C1 /* Pods_saver_ios.framework */; };
 		4F015E3526C3B553002A7A09 /* HandleWKBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F015E3426C3B552002A7A09 /* HandleWKBridge.swift */; };
 		4F223F4126A950AB00ED04E4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F223F4026A950AB00ED04E4 /* AppDelegate.swift */; };
@@ -21,12 +19,11 @@
 		4F223F4A26A950B300ED04E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F223F4926A950B300ED04E4 /* Assets.xcassets */; };
 		4F223F5726A9543F00ED04E4 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F223F5626A9543F00ED04E4 /* WebKit.framework */; };
 		4F223F5D26A9567A00ED04E4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4F223F5C26A9567A00ED04E4 /* LaunchScreen.storyboard */; };
+		4FE7418926CE79D80054D931 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4FE7418826CE79D80054D931 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0B7ADC17A3820AD30F9974C1 /* Pods_saver_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_saver_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		358CA9A826C639B600A52B60 /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
-		35E1BB2326CE3C5200D85EBD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4F015E3326B1518C002A7A09 /* saver-ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "saver-ios.entitlements"; sourceTree = "<group>"; };
 		4F015E3426C3B552002A7A09 /* HandleWKBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandleWKBridge.swift; sourceTree = "<group>"; };
 		4F223F3D26A950AB00ED04E4 /* saver-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "saver-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -40,6 +37,8 @@
 		4F223F5C26A9567A00ED04E4 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4F81934456AF6C17B6042CDB /* Pods-saver-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-saver-ios.release.xcconfig"; path = "Target Support Files/Pods-saver-ios/Pods-saver-ios.release.xcconfig"; sourceTree = "<group>"; };
 		4F90B83426CB602600A30785 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		4FE7418826CE79D80054D931 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Documents/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		4FE7418A26CE79EA0054D931 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		948D95444A4A7B48451ED265 /* Pods-saver-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-saver-ios.debug.xcconfig"; path = "Target Support Files/Pods-saver-ios/Pods-saver-ios.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -71,7 +70,7 @@
 		4F223F3426A950AB00ED04E4 = {
 			isa = PBXGroup;
 			children = (
-				358CA9A826C639B600A52B60 /* Config.xcconfig */,
+				4FE7418A26CE79EA0054D931 /* Config.xcconfig */,
 				4F223F3F26A950AB00ED04E4 /* saver-ios */,
 				4F223F3E26A950AB00ED04E4 /* Products */,
 				44867DC634A1E454CD0AFA4C /* Pods */,
@@ -100,7 +99,7 @@
 				4F223F4626A950AB00ED04E4 /* Main.storyboard */,
 				4F223F4926A950B300ED04E4 /* Assets.xcassets */,
 				4F223F4E26A950B300ED04E4 /* Info.plist */,
-				35E1BB2326CE3C5200D85EBD /* GoogleService-Info.plist */,
+				4FE7418826CE79D80054D931 /* GoogleService-Info.plist */,
 			);
 			path = "saver-ios";
 			sourceTree = "<group>";
@@ -190,8 +189,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F223F5D26A9567A00ED04E4 /* LaunchScreen.storyboard in Resources */,
-				358CA9A926C639B600A52B60 /* Config.xcconfig in Resources */,
-				35E1BB2426CE3C5200D85EBD /* GoogleService-Info.plist in Resources */,
+				4FE7418926CE79D80054D931 /* GoogleService-Info.plist in Resources */,
 				4F223F4A26A950B300ED04E4 /* Assets.xcassets in Resources */,
 				4F223F4826A950AB00ED04E4 /* Main.storyboard in Resources */,
 			);
