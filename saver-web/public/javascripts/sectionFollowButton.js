@@ -95,18 +95,20 @@ window.onload = function () {
     },
   })
     .then((res) => {
-      categories = ['economy', 'politics', 'international', 'social', 'culture', '7'];
+      if (res.data.followCategory) {
+        categories = ['economy', 'politics', 'international', 'social', 'culture', '7'];
 
-      categories.forEach((category, i) => {
-        index = i + 1;
-        if (res.data.followCategory.includes(`${index}`)) {
-          document.getElementById(`my-${category}`)?.setAttribute('style', 'display: grid;');
-          document.getElementById(`other-${category}`)?.setAttribute('style', 'display: none;');
-        } else {
-          document.getElementById(`my-${category}`)?.setAttribute('style', 'display: none;');
-          document.getElementById(`other-${category}`)?.setAttribute('style', 'display: grid;');
-        }
-      });
+        categories.forEach((category, i) => {
+          index = i + 1;
+          if (res.data.followCategory.includes(`${index}`)) {
+            document.getElementById(`my-${category}`)?.setAttribute('style', 'display: grid;');
+            document.getElementById(`other-${category}`)?.setAttribute('style', 'display: none;');
+          } else {
+            document.getElementById(`my-${category}`)?.setAttribute('style', 'display: none;');
+            document.getElementById(`other-${category}`)?.setAttribute('style', 'display: grid;');
+          }
+        });
+      }
     })
     .catch((err) => {
       console.log(err);

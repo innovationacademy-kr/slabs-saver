@@ -20,7 +20,8 @@ const getFollowList = async (req, res) => {
   try {
     const userFound = await Subscriber.findOne({ where: { id: req.decoded.userId } });
     if (!userFound) throw new Error('User Id Error');
-    res.status(200).json({ followCategory: userFound.followingCategories.split(',') });
+    if (userFound.followingCategories)
+      res.status(200).json({ followCategory: userFound.followingCategories.split(',') });
   } catch (e) {
     res.status(400).json({ error: e });
   }
