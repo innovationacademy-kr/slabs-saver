@@ -1,6 +1,6 @@
 var buildPoint = document.querySelector('.bookmark_alarm-page');
-const buildStart = () => {
-    $.ajax({
+const buildStart = async() => {
+    await $.ajax({
       url: `/setting/getuser`,
       type: 'get',
       headers: { 'x-access-token': token },

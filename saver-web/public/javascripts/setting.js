@@ -56,7 +56,7 @@ alarmbutton.addEventListener('click', (e) => {
         alarmbutton.classList.toggle('inactive');
         alarmbuttonbg.classList.toggle('active');
         alarmbuttonbg.classList.toggle('inactive');
-    }, 100)
+    }, 1)
 });
 
 }, 200);
