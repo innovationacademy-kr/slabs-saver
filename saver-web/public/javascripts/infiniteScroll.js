@@ -19,7 +19,7 @@ const getAMPMArticle = () => {
       const item = document.getElementById(`kakao_share_${article.id}`);
       article.path = `articles/detail/${article.id}`;
       if (item) KaKaoShare(item.id, article);
-      $(`[data-id=${article.id}]`).remove();
+      $(`[data-id=${article.id}]`).removeClass().children().remove();
       selectBookmarkClass(article.id, `btn_bookmark-${article.id}`);
     })
     .catch((err) => {
