@@ -18,7 +18,7 @@
       </thead>
       <tbody class="table-body">
         <% articles.map((article)=> { %>
-            <tr class="table-body__row" name="cols">
+            <tr class="table-body__row" name="cols" data-id="<%= article.id %>">
               <td class="table-body__cell">
                 <%= article.id %>
               </td>
