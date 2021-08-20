@@ -62,7 +62,7 @@ const loginRequest = async (req, res, next) => {
             subject: 'user.login.info',
           },
           function (err, token) {
-            res.status(200).json({ token, followingCategories: exUser.followingCategories });
+            res.status(200).json({ token, followingCategories: exUser.followingCategories, alarmStatus: exUser.alarmStatus });
           },
         );
       } else {
