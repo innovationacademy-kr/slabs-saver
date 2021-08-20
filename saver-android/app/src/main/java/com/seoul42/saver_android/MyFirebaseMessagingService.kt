@@ -68,7 +68,7 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
 
         //https://mrw0119.tistory.com/146 참조
         var notificationBuilder = NotificationCompat.Builder(this,channelId)
-            .setSmallIcon(R.mipmap.ic_launcher)
+            .setSmallIcon(R.mipmap.ic_launcher_saver)
             .setContentTitle(title)
             .setContentText(body)
             .setAutoCancel(true)
