@@ -80,18 +80,37 @@ module.exports = {
 
   moreSearchArticles: async (req, res, next) => {
     const { page } = req.query;
-    const wordsData = req.body;
-    var headlineLike = [];
+    var wordsData = req.body;
+    var wordsDataHexa = req.body;
+    var headlineAndBriefingLike = [];
+    var hexa = [];
+   
 
+    //DB 에 비교할 문자열 [Op.or]: like 문법에 맞게 "%%"" 앞뒤로 추가
+
+    //제목 headline
     for (var i = 0; i < wordsData.length; i++ ){
       wordsData[i] = "%"+wordsData[i] + "%";
     }
 
-    for(var x in wordsData) {
-      headlineLike.push({
+    for(var d in wordsData) {
+      headlineAndBriefingLike.push({
         headline: {
-                [Op.like]: wordsData[x]
-            }
+                [Op.like]: wordsData[d]
+            },
+        });
+    }
+
+    //내용 briefing
+    for (var j = 0; j < wordsDataHexa.length; j++ ){
+      hexa[j] = "%"+escape(wordsDataHexa[j]).slice(0, -3).substr(4) + "%";
+    }  
+
+    for(var k in hexa) {
+      headlineAndBriefingLike.push({
+        briefing: {
+                [Op.like]: hexa[k]
+            },
         });
     }
 
@@ -101,7 +120,7 @@ module.exports = {
         category: {
           [Op.lt]: 6,
         },
-        [Op.or]: headlineLike
+        [Op.or]: headlineAndBriefingLike, 
       },
       order: [['publishedAt', 'DESC']],
       offset: +page,
