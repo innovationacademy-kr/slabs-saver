@@ -131,9 +131,9 @@ const articleCategroryEvent = () => {
         webkit.messageHandlers.deleteFollowStatus.postMessage(value.toString());
       });
     }
-  }
-  else {
+  } else {
     $('.article-choice').show();
+    if (document.referrer.toString().includes('setting')) return;
     axios({
       method: 'get',
       headers: { 'x-access-token': token },
@@ -146,13 +146,13 @@ const articleCategroryEvent = () => {
             if (followings.includes(value.toString())) Android.subscribeTopic(value);
             else Android.unsubscribeTopic(value);
           });
-        } else if (navigator.userAgent.indexOf("APP_IOS") > -1) {
+        } else if (navigator.userAgent.indexOf('APP_IOS') > -1) {
           totalFollowingList.forEach((value) => {
             if (followings.includes(value.toString()))
               webkit.messageHandlers.updateFollowStatus.postMessage(value.toString());
             else webkit.messageHandlers.deleteFollowStatus.postMessage(value.toString());
           });
-        };
+        }
       } else {
         if (navigator.userAgent.includes('ANDROID')) {
           totalFollowingList.forEach((value) => {
@@ -164,9 +164,9 @@ const articleCategroryEvent = () => {
           });
         }
       }
-    })
+    });
   }
-}
+};
 
 $('#article-category-list').hide();
 addEvent();
