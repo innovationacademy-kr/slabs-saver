@@ -33,13 +33,13 @@ const pushPage = async (req, res) => {
   const page = req.query.page ? parseInt(req.query.page) : 0;
   const limit = 15;
   const articles = await Article.findAll({
-    where: { status: STATUS.CONFIRMED}, //ne == not equal
+    where: { status: STATUS.CONFIRMED }, //ne == not equal
     offset: page * limit,
     limit: limit,
     order: [['publishedAt', 'DESC']],
   });
 
-  var totalPage = await Article.count({});
+  var totalPage = await Article.count({ where: { status: STATUS.CONFIRMED } });
   totalPage = Math.floor(totalPage / limit);
 
   const underLimitPage = page - 2 < 0 ? 0 : page - 2;
