@@ -18,7 +18,7 @@
 							<% words.map((word)=> { %>
 								<% console.log(word.id) %>
 
-									<tr class="table-body__row" name="cols">
+									<tr class="table-body__row" name="cols" data-id="<%= word.id %>">
 										<td class="table-body__cell">
 											<%= word.id %>
 										</td>

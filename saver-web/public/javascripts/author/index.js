@@ -3,7 +3,7 @@ function getParameterByName(name) {
   return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
 }
 
-var table = document.querySelector('.table');
+var table = document.querySelector('.mytable');
 var select = document.querySelector('#category');
 
 table.addEventListener('change', function(e) {
@@ -59,6 +59,7 @@ const addEvent = () => {
       },
       currentTarget
     } = e;
+
     const articleId = parseInt(currentTarget.dataset.id);
 
     if (['am7', 'pm7'].indexOf(key) !== -1) {
