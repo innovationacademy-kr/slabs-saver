@@ -39,7 +39,7 @@
       </thead>
       <tbody class="table-body">
         <% articles.map((article)=> { %>
-        <tr class="table-body__row" name="cols">
+        <tr class="table-body__row" name="cols" data-id="<%= article.id %>">
           <td class="table-body__cell"><%= article.id %></td>
           <td class="table-body__cell">
             <a href="/author/articles/<%= article.id %>/preview" target="_blank"> <%= article.headline %> </a>
