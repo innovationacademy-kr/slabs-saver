@@ -84,8 +84,7 @@ module.exports = {
     var wordsDataHexa = req.body;
     var headlineAndBriefingLike = [];
     var hexa = [];
-   
-
+  
     //DB 에 비교할 문자열 [Op.or]: like 문법에 맞게 "%%"" 앞뒤로 추가
 
     //제목 headline
