@@ -218,12 +218,19 @@ const previewPage = async (req, res, next) => {
 
 const searchArticles = async (req, res, next) => {
   const currentUser = await getCurrentUser(req.user?.id);
+  const words = req.query.word.split(' ');
+  const condition = [];
+
+  words.forEach((word) => {
+    condition.push({ [Op.like]: '%' + word + '%' });
+  });
+
   if (!currentUser) return res.redirect('/author/login');
   try {
     const article = await Article.findAll({
       where: {
         headline: {
-          [Op.like]: '%' + req.query.word + '%',
+          [Op.and]: condition,
         },
       },
       attributes: ['id', 'headline'],
