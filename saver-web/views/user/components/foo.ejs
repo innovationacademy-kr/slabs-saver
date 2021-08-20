@@ -2,7 +2,7 @@
 	<!--TODO: 현재 라우터에 해당하는 아이콘 active로 바꿔주기-->
 	<button class="footer__button white" data-link="/" onclick="location.href='/'">
 		<i class="icon icon-home inactive"></i></button>
-	<button id="section" class="footer__button white">
+	<button id="section" class="footer__button white" data-link="/section">
 		<i class="icon icon-section inactive"></i></button>
 	<button id="alarm" class="footer__button white" data-link="/alarm">
 		<i class="icon icon-alarm inactive"></i></button>
@@ -13,6 +13,7 @@
 <%- contentFor('scriptTag') %>
 	<script>
 		var current = window.location.pathname;
+		current = current.replace("/logined","")
 		const icon = document.querySelector(`.footer__button[data-link="${current}"] i`)
 		if (icon) {
 			icon.classList.add('active');

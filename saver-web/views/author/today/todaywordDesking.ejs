@@ -2,8 +2,9 @@
 	<%- include('../../partials/navbar.ejs') %>
 		<%- contentFor('body') %>
 			<section class="desking-table">
+				<button class="update-btn btn btn-green" type="submit">업데이트</button>
 				<%# TODO: 필터링or검색기능 %>
-					<table class="table" name="table">
+					<table class="mytable" name="table">
 						<thead class="table-header">
 							<tr class="table-haeder__row">
 								<th class="table-header__cell">NO</th>
@@ -17,7 +18,7 @@
 							<% words.map((word)=> { %>
 								<% console.log(word.id) %>
 
-									<tr class="table-body__row" name="cols">
+									<tr class="table-body__row" name="cols" data-id="<%= word.id %>">
 										<td class="table-body__cell">
 											<%= word.id %>
 										</td>
@@ -35,27 +36,17 @@
 										<td class="table-body__cell">
 											<input class="date" type="date" value="<%= word.TodayWord.date %>"
 												data-id="<%= word.id %>">
-											<button class="reset" type="reset" data-id="<%= word.id %>">초기화</button>
+											<button class="reset btn btn-primary btn-fit" type="reset" data-id="<%= word.id %>">초기화</button>
 										</td>
 										<% }) %>
 									</tr>
 						</tbody>
 					</table>
-					<button class="update-btn" type="submit">업데이트</button>
+				
 			</section>
 
 			<section class="list-buttons flex-section" style="margin-bottom: 2rem;">
-
-				<% if (underLimitPage != 0) { %>
-				  <a class = "btn btn-primary margin-btn"  href= <%="/author/todaydesking?page=0"%>> < </a>
-				<% } %>
-				<% for(var i = underLimitPage; i < underLimitPage + 5 && i <= totalPage; i++){ %>
-				  <a class = "btn btn-primary margin-btn" href= <%=`/author/todaydesking?page=${i}`%>> <%=i + 1%> </a>
-				<% } %>
-				<% if (page + 2 < totalPage) { %>
-				  <a class = "btn btn-primary margin-btn" href=<%=`/author/todaydesking?page=${totalPage}`%> > > </a>
-				<% } %>
-			  
+				<%- include('../../partials/pageButton.ejs',{link:"/author/todaydesking",filterCategory: null } ) %>			  
 				</section>
 
 			<%- contentFor('footer') %>

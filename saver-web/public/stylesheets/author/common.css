@@ -7,6 +7,28 @@ body {
   margin: 0;
 }
 
+
+.btn-green {
+  color: #fff;
+  margin: 0 5px;
+  background-color: #009879;
+  border-color: #009879;
+}
+
+.btn-deep-green {
+  color: #fff;
+  margin: 0 5px;
+  background-color: #198754;
+  border-color: #198754;
+}
+
+
+.btn-fit {
+   min-width: 55px;
+  font-size: 14.4px;
+}
+
+
 .login,
 .presignup {
   position: absolute;

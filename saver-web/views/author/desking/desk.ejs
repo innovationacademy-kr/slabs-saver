@@ -14,13 +14,16 @@
           </option>
         <% }) %>
       </select>
-      <button type="submit">이동</button>
+      <button class="btn btn-green" type="submit">이동</button>
     </form>
     <a href="/author?category=<%= currentUser.code %>">
-      <button type="submit">마이데스킹</button>
+      <button class="btn btn-green" type="submit">마이데스킹</button>
     </a>
+    <% if (currentUser.position > 1) { %>
+      <button class="update-btn btn btn-green" type="submit">업데이트</button>
+      <% } %>
   </div>
-    <table class="table" name="table">
+    <table class="mytable" name="table">
       <thead class="table-header">
         <tr class="table-haeder__row">
           <th class="table-header__cell">NO</th>
@@ -36,7 +39,7 @@
       </thead>
       <tbody class="table-body">
         <% articles.map((article)=> { %>
-        <tr class="table-body__row" name="cols">
+        <tr class="table-body__row" name="cols" data-id="<%= article.id %>">
           <td class="table-body__cell"><%= article.id %></td>
           <td class="table-body__cell">
             <a href="/author/articles/<%= article.id %>/preview" target="_blank"> <%= article.headline %> </a>
@@ -82,24 +85,11 @@
         </tr>
       </tbody>
     </table>
-    <% if (currentUser.position > 1) { %>
-    <button class="update-btn" type="submit">업데이트</button>
-    <% } %>
+
 </section>
   
 <section class="list-buttons flex-section" style="margin-bottom: 2rem;">
-
-  <% if (underLimitPage != 0) { %>
-    <a class = "btn btn-primary margin-btn"  href= <%="/author?page=0&category=${filterCategory}"%>> < </a>
-  <% } %>
-  <% for(var i = underLimitPage; i < underLimitPage + 5 && i <= totalPage; i++){ %>
-    <a class = "btn btn-primary margin-btn" href= <%=`/author?page=${i}&category=${filterCategory}`%>> <%=i + 1%> </a>
-  <% } %>
-  <% if (page + 2 < totalPage) { %>
-    <a class = "btn btn-primary margin-btn" href=<%=`/author?page=${totalPage}&category=${filterCategory}`%> > > </a>
-  <% } %>
-
-
+  <%- include('../../partials/pageButton.ejs',{link:"/author", filterCategory } ) %>
   </section>
 <%- contentFor('footer') %>
 <%- include('../../partials/footer.ejs') %>

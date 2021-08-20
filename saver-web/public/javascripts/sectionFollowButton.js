@@ -133,20 +133,29 @@ const clickFollow = (btnId, value, btnUrl) => {
       .then((res) => {
         section_display_change(btnId);
 
-        if (btnUrl === 'follow') {
-          if (userAgent.includes('ANDROID')) {
-            Android.subscribeTopic(value);
+        if (res.data.alarmStatus === 1) {
+          if (btnUrl === 'follow') {
+            if (userAgent.includes('ANDROID')) {
+              Android.subscribeTopic(value);
+            }
+            if (userAgent.indexOf('APP_IOS') > -1) {
+              webkit.messageHandlers.updateFollowStatus.postMessage(value);
+            }
+            alert('팔로우 되었습니다.');
+          } else {
+            if (userAgent.includes('ANDROID')) Android.unsubscribeTopic(value);
+            if (userAgent.indexOf('APP_IOS') > -1) {
+              webkit.messageHandlers.deleteFollowStatus.postMessage(value);
+            }
+            alert('언팔로우 되었습니다.');
           }
-          if (userAgent.indexOf('APP_IOS') > -1) {
-            webkit.messageHandlers.updateFollowStatus.postMessage(value);
-          }
-          alert('팔로우 되었습니다.');
         } else {
-          if (userAgent.includes('ANDROID')) Android.unsubscribeTopic(value);
-          if (userAgent.indexOf('APP_IOS') > -1) {
-            webkit.messageHandlers.deleteFollowStatus.postMessage(value);
+          if (btnUrl === 'follow') {
+            alert('팔로우 되었습니다.');
           }
-          alert('언팔로우 되었습니다.');
+          else {
+            alert('언팔로우 되었습니다.');
+          }
         }
       })
       .catch((error) => {

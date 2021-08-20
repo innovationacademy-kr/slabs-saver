@@ -14,12 +14,12 @@ const buildStart = async() => {
       },
     });
   };
-  
+
   buildStart();
 
   function getListTemplate(user) {
 
-  
+
     buildPoint.insertAdjacentHTML(
         'beforeend',
         `
@@ -66,9 +66,9 @@ const buildStart = async() => {
         <div class="bookmark_alarm-section white">
         <div class="bookmark_alarm-section-text">
           <p class="bookmark_alarm-section-text-text"> 알림 끄기
-          <span style="font-size: 10px;color:#bbbbbb;">※ 모든 기기의 알림이 꺼집니다.</span>
-          <span class="toggleBG ${getActive(user.alarmStatus)}">
-            <button class="toggleFG ${getActive(user.alarmStatus)}"  id="alarmOnOff"></button>
+          <span style="font-size: 10px;color:#bbbbbb;">※ saver 계정이 연결된 모든 기기의 알림이 꺼집니다.</span>
+          <span class="toggleBG ${getAlarmActive(user.alarmStatus)}">
+            <button class="toggleFG ${getAlarmActive(user.alarmStatus)}"  id="alarmOnOff"></button>
           </span>
 
           </p>
@@ -139,10 +139,12 @@ const buildStart = async() => {
     );
   }
 
-  function getActive(flag)
+  function getAlarmActive(flag)
   {
-    if (flag == 1)
+    if (flag == 1) {
       return ('inactive');
-    else
+    }
+    else {
       return ('active');
+    }
   }

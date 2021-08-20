@@ -119,41 +119,53 @@ const addEvent = () => {
 
 const articleCategroryEvent = () => {
   const token = localStorage['jwtToken'];
-  if (!token) $('.article-choice').hide();
+  const totalFollowingList = [1, 2, 3, 4, 5, 6];
+  if (!token) {
+    $('.article-choice').hide();
+    if (navigator.userAgent.includes('ANDROID')) {
+      totalFollowingList.forEach((value) => {
+        Android.unsubscribeTopic(value);
+      });
+    } else if (navigator.userAgent.indexOf('APP_IOS') > -1) {
+      totalFollowingList.forEach((value) => {
+        webkit.messageHandlers.deleteFollowStatus.postMessage(value.toString());
+      });
+    }
+  }
   else {
     $('.article-choice').show();
-    // 팔로잉 리스트를 불러와 구독합니다.
     axios({
       method: 'get',
       headers: { 'x-access-token': token },
       url: '/section/followlist',
     }).then((res) => {
-      const followings = res.data.followCategory;
-      const totalFollowingList = [1, 2, 3, 4, 5, 6];
-      if (navigator.userAgent.includes('ANDROID')) {
-        totalFollowingList.forEach((value) => {
-          if (followings.includes(value.toString())) Android.subscribeTopic(value);
-          else Android.unsubscribeTopic(value);
-        });
-      } else if (navigator.userAgent.indexOf("APP_IOS") > -1) {
-        totalFollowingList.forEach((value) => {
-          if (followings.includes(value.toString()))
-            webkit.messageHandlers.updateFollowStatus.postMessage(value.toString());
-          else webkit.messageHandlers.deleteFollowStatus.postMessage(value.toString());
-        });
-      };
+      if (res.data.followCategory && res.data.alarmStatus === 1) {
+        const followings = res.data.followCategory;
+        if (navigator.userAgent.includes('ANDROID')) {
+          totalFollowingList.forEach((value) => {
+            if (followings.includes(value.toString())) Android.subscribeTopic(value);
+            else Android.unsubscribeTopic(value);
+          });
+        } else if (navigator.userAgent.indexOf("APP_IOS") > -1) {
+          totalFollowingList.forEach((value) => {
+            if (followings.includes(value.toString()))
+              webkit.messageHandlers.updateFollowStatus.postMessage(value.toString());
+            else webkit.messageHandlers.deleteFollowStatus.postMessage(value.toString());
+          });
+        };
+      } else {
+        if (navigator.userAgent.includes('ANDROID')) {
+          totalFollowingList.forEach((value) => {
+            Android.unsubscribeTopic(value);
+          });
+        } else if (navigator.userAgent.indexOf('APP_IOS') > -1) {
+          totalFollowingList.forEach((value) => {
+            webkit.messageHandlers.deleteFollowStatus.postMessage(value.toString());
+          });
+        }
+      }
     })
   }
-}
-
-const getUserFirebaseFollowingStatus = (token) => {
-  return axios({
-    method: 'get',
-    url: '/subscriber/setFirebase',
-    headers: {
-      'x-access-token': token,
-    },
-  })
 }
 
 $('#article-category-list').hide();

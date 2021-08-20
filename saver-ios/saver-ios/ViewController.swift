@@ -21,6 +21,7 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
         contentController.add(self, name: "initFollowStatus")
         contentController.add(self, name: "updateFollowStatus")
         contentController.add(self, name: "deleteFollowStatus")
+        contentController.add(self, name: "logOut")
         /*
          * 이곳에 추가하고 싶은 함수를 등록하면, WKWebview에서 다음과 같은 형식으로 사용 가능합니다.
          * webkit.messageHandlers."해당 함수 이름".postMessage("넘기고 싶은 값");
@@ -171,7 +172,7 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
     func webView(_ webView: WKWebView,
                  decidePolicyFor navigationAction: WKNavigationAction,
                  decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        
+        print(navigationAction.request)
         // 카카오 SDK가 호출하는 커스텀 스킴인 경우 open(_ url:) 메소드를 호출합니다.
         if let url = navigationAction.request.url
            , ["kakaokompassauth", "kakaolink"].contains(url.scheme) {

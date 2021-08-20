@@ -1,0 +1,25 @@
+<%- contentFor('navbar') %> <%- include('./components/nav.ejs') %> <%- contentFor('body') %>
+<main class="main">
+  <div id="article-search-list" class="article-list"></div>
+</main>
+<%- contentFor('footer') %> <%- include('./components/foo.ejs') %>
+
+<script>
+
+	function getParameterByName(name) {
+		name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]"); 
+		var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"), 
+		results = regex.exec(location.search); 
+		return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " ")); 
+	}
+
+	var searchValue = window.location.pathname;
+	var v = getParameterByName('search');
+	document.getElementById("searchWord").value = v;
+
+</script>
+
+<script defer src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script defer type="module" src="/javascripts/searchInfiniteScroll.js"></script>
+<script defer type="module" src="/javascripts/user/index.js"></script>
+

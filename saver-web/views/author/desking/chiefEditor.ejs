@@ -13,13 +13,17 @@
                 </option>
                 <% }) %>
             </select>
-            <button class="btn btn-primary" type="submit">이동</button>
+            <button class="btn btn-green" type="submit">이동</button>
           </form>
+          <% if (currentUser.position> 1) { %>
+            <button class="update-btn btn btn-green">업데이트</button>
+            <% } %>
         </div>
-        <table class="table" name="table">
+        <table class="mytable" name="table">
           <thead class="table-header">
             <tr class="table-haeder__row">
               <th class="table-header__cell">NO</th>
+              <th class="table-header__cell"></th>
               <th class="table-header__cell">헤드라인</th>
               <th class="table-header__cell">작성자</th>
               <th class="table-header__cell">작성일자</th>
@@ -35,7 +39,9 @@
               <tr class="table-body__row" name="cols" data-id="<%= article.id %>">
                 <td class="table-body__cell">
                   <%= article.id %>
-                    <button onclick="location.href='/author/articles/edit/<%= article.id %>'">수정</button>
+                </td>
+                <td class="table-body__cell">
+                  <button class = "btn btn-primary btn-fit"  onclick="location.href='/author/articles/edit/<%= article.id %>'">수정</button>
                 </td>
                 <td class="table-body__cell">
                   <a href="/author/articles/<%= article.id %>/preview" target="_blank">
@@ -101,25 +107,13 @@
               </tr>
           </tbody>
         </table>
-        <% if (currentUser.position> 1) { %>
-          <button class="update-btn">업데이트</button>
-          <% } %>
+
       </section>
 
         
 <section class="list-buttons flex-section" style="margin-bottom: 2rem;">
-
-
-  <% if (underLimitPage != 0) { %>
-    <a class = "btn btn-primary margin-btn"  href= <%=`/author?page=0&category=${filterCategory}`%>> < </a>
-  <% } %>
-  <% for(var i = underLimitPage; i < underLimitPage + 5 && i <= totalPage; i++){ %>
-    <a class = "btn btn-primary margin-btn" href= <%=`/author?page=${i}&category=${filterCategory}`%>> <%=i + 1%> </a>
-  <% } %>
-  <% if (page + 2 < totalPage) { %>
-    <a class = "btn btn-primary margin-btn" href=<%=`/author?page=${totalPage}&category=${filterCategory}`%> > > </a>
-  <% } %>
-
+     <!--set id: follow section div -->
+     <%- include('../../partials/pageButton.ejs',{link:"/author" ,filterCategory} ) %>
 
   </section>
 
