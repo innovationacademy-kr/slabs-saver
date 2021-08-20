@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">saver-android</string>
+    <string name="app_name">SAVER</string>
     <string name="kakao_key">kakao{카카오 키}</string>
     <string name="facebook_key">{페이스북 app id}</string>
-
+    <string name="provider_url">com.facebook.app.FacebookContentProvider{페이스북 APP ID}</string>
 
 </resources>
