@@ -128,9 +128,9 @@ const articleCategroryEvent = () => {
       headers: { 'x-access-token': token },
       url: '/section/followlist',
     }).then((res) => {
+      const totalFollowingList = [1, 2, 3, 4, 5, 6];
       if (res.data.followCategory && res.data.alarmStatus === 1) {
         const followings = res.data.followCategory;
-        const totalFollowingList = [1, 2, 3, 4, 5, 6];
         if (navigator.userAgent.includes('ANDROID')) {
           totalFollowingList.forEach((value) => {
             if (followings.includes(value.toString())) Android.subscribeTopic(value);
@@ -144,7 +144,6 @@ const articleCategroryEvent = () => {
           });
         };
       } else {
-        const totalFollowingList = [1, 2, 3, 4, 5, 6];
         if (navigator.userAgent.includes('ANDROID')) {
           totalFollowingList.forEach((value) => {
             Android.unsubscribeTopic(value);

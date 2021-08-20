@@ -96,7 +96,7 @@ const alarmOnOff = async(flag) => {
                         totalFollowingList.forEach((value) => {
                             Android.unsubscribeTopic(value);
                         });
-                    } else if (navigator.userAgent.indexOf('APP_IOS') > -1) {
+                    } else if (navigator.userAgent.indexOf("APP_IOS") > -1) {
                         totalFollowingList.forEach((value) => {
                             webkit.messageHandlers.deleteFollowStatus.postMessage(value.toString());
                         });
