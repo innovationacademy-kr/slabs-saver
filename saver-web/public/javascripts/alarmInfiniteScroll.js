@@ -11,6 +11,7 @@ const category = {
   국제: 'international',
   사회: 'social',
   문화: 'culture',
+  AMPM: 'ampm'
 };
 
 const weekDay = {
