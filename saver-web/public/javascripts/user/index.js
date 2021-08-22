@@ -108,6 +108,7 @@ const addEvent = () => {
         $(`#editor_paragraphs_0${id}`).removeClass('open');
         originType = changeType;
         changeType = 'more';
+        location.href = `#article_0${id}`;
       }
       target.childNodes[1].className = target.childNodes[1].className.replace(
         originType,
