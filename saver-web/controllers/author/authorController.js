@@ -14,6 +14,7 @@ const articleController = require('./article/articleController');
 const authController = require('./auth/authController');
 const inviteController = require('./invite/inviteController');
 const todayController = require('./today/todayController');
+const ampmController = require('./ampm/ampmController');
 
 //접속한 기자 구분//
 const indexPage = async (req, res) => {
@@ -123,5 +124,6 @@ module.exports = {
     ...authController.page,
     ...inviteController.page,
     ...todayController.page,
+    ...ampmController.page
   },
 };

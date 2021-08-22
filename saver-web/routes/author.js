@@ -87,5 +87,10 @@ module.exports = (passport) => {
   router.get('/push/send/:articleId', loggedIn, firebaseCtrl.pushSendPage);
   router.post('/push/', loggedIn, firebaseCtrl.postFirebaseMessage);
 
+  /**
+   * ampm 관리
+   */
+  router.get('/ampm', loggedIn, authorCtrl.page.ampmPageDesking);
+
   return router;
 };

@@ -1,0 +1,83 @@
+<%- contentFor('navbar') %>
+<%- include('../../partials/navbar.ejs') %>
+<%- contentFor('body') %>
+
+    <section class="desking-table">
+        <div class="desking-table__category">
+            <form method="get" action="/author/ampm">
+            <label for="date">일자</label>
+            <input class="date" type="date" id="date" name="date">
+            <select name="ampm" id="ampm">
+                <option value='am7'>
+                    am7
+                </option>
+                <option value='pm7'>
+                    pm7
+                </option>
+            </select>
+            <button class="btn btn-green" type="submit">선택</button>
+            </form>
+        </div>
+
+        <table class="mytable" name="table">
+        <thead class="table-header">
+            <tr class="table-haeder__row">
+            <th class="table-header__cell">NO</th>
+            <th class="table-header__cell">기사</th>
+            <th class="table-header__cell">작성자</th>
+            <th class="table-header__cell">게재일자</th>
+            <th class="table-header__cell">구분</th>
+            </tr>
+        </thead>
+        <tbody class="table-body">
+            <% if (todayArticle != null){ %>
+                <tr class="table-body__row" name="cols" data-id="<%= todayArticle.id %>">
+                    <td class="table-body__cell">
+                        <%= todayArticle.id %>
+                    </td>
+                    <td class="table-body__cell">
+                        <a href="/author/articles/<%= todayArticle.id %>/preview" target="_blank">
+                        <%= unescape(todayArticle.headline) %>
+                        </a>
+                    </td>
+                    <td class="table-body__cell">
+                        <%= todayArticle.Author.name %>
+                    </td>
+                    <td class="table-body__cell">
+                        <%= todayArticle.publishedAt %>
+                    </td>
+                    <td class="table-body__cell">
+                        오늘의 기사
+                    </td>
+                </tr>
+            <% } articles.map((article)=> { %>
+                <tr class="table-body__row" name="cols" data-id="<%= article.id %>">
+                <td class="table-body__cell">
+                    <%= article.id %>
+                </td>
+                <td class="table-body__cell">
+                    <a href="/author/articles/<%= article.id %>/preview" target="_blank">
+                    <%= unescape(article.headline) %>
+                    </a>
+                </td>
+                <td class="table-body__cell">
+                    <%= article.Author.name %>
+                </td>
+                <td class="table-body__cell">
+                    <%= article.publishedAt %>
+                </td>
+                <td class="table-body__cell">
+                    <%= ampm %>
+                </td>
+                <% }) %>
+                </tr>
+        </tbody>
+        </table>
+
+</section>
+
+<%- contentFor('footer') %>
+<%- include('../../partials/footer.ejs') %>
+
+<script defer src="/vendors/axios/axios.min.js"></script>
+<script defer src="/javascripts/author/ampm.js"></script>

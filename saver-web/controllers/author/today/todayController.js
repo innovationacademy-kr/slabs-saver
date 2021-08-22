@@ -6,7 +6,6 @@ const POSITION = require('../../../lib/constants/position');
 const TODAYWORD = require('../../../lib/constants/todayWordStatus');
 const { constants } = require('../../../lib/converter');
 const Sequelize = require('sequelize');
-const { json } = require('sequelize');
 const Op = Sequelize.Op;
 
 /**
