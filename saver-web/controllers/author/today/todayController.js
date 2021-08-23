@@ -62,7 +62,7 @@ const todayPageDesking = async (req, res) => {
         [Op.or]: [2, 3],
       },
     },
-    order: [['updatedAt', 'DESC']],
+    order: [['createdAt', 'DESC']],
     offset: page * limit,
     limit: limit,
   });
@@ -224,7 +224,7 @@ const todayArticleDeskingPage = async (req, res) => {
         attributes: ['id', 'name'],
       },
     ],
-    order: [['updatedAt', 'DESC']],
+    order: [['createdAt', 'DESC']],
     offset: page * limit,
     limit: limit,
   });

@@ -32,7 +32,7 @@ const indexPage = async (req, res) => {
     include: { model: Author, attributes: ['id', 'name', 'category'] },
     offset: page * limit,
     limit: limit,
-    order: [['updatedAt', 'DESC']],
+    order: [['createdAt', 'DESC']],
   }); //db에서 사용자 데이터 가져오기
 
   var totalPage = await Article.count({ where: { category } });
