@@ -1,7 +1,7 @@
 var jwt = require('jsonwebtoken'); //JWT
 const bcrypt = require('bcrypt');
 const { Subscriber } = require('../../models');
-var tokenKey = 'slab!#abcd';
+var tokenKey = process.env.JWT_SECRET;
 
 const signupPage = (req, res, next) => {
   res.render('subscriber/signup', { layout: 'layout/userLayout' });
