@@ -81,7 +81,7 @@
                       <td class="table-body__cell">
                         <label for="am7"></label>
                         <input id="am7" type="checkbox" <%=article.am7 ? 'checked ' : '' %>
-                        <% if (article.status !==3 && article.status !==4) { %>
+                        <% if ((article.status !==3 && article.status !==4) || article.category === 'AMPM') { %>
                           disabled
                           <% } %>
                             />
@@ -93,7 +93,7 @@
                       <td class="table-body__cell">
                         <label for="pm7"></label>
                         <input id="pm7" type="checkbox" <%=article.pm7 ? 'checked ' : '' %>
-                        <% if (article.status !==3 && article.status !==4) { %>
+                        <% if ((article.status !==3 && article.status !==4) || article.category === 'AMPM') { %>
                           disabled
                           <% } %>
                             />
