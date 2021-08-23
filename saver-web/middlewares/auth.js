@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-var tokenKey = 'slab!#abcd';
+var tokenKey = process.env.JWT_SECRET;
 const authMiddleware = (req, res, next) => {
   const token = req.headers['x-access-token'] || req.query.token;
   if (!token) {
