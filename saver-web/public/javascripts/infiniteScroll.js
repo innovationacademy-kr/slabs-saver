@@ -5,6 +5,7 @@ var page = INITIAL_PAGE;
 var isUsed = false;
 var articleList = document.querySelector('#article-list');
 var articleCategoryList = document.querySelector('#article-category-list');
+var articleChoice = document.querySelector('.article-choice');
 const token = localStorage['jwtToken'];
 
 const getAMPMArticle = () => {
@@ -46,7 +47,9 @@ const getPage = () => {
       isUsed = false;
       page += ADD_PAGE;
     },
-    error: function (err) {},
+    error: function (err) {
+      articleChoice.style.backgroundColor = "#f5f5f5";
+    },
   });
 };
 
@@ -56,6 +59,7 @@ const getCategoryPage = () => {
     type: 'get',
     headers: { 'x-access-token': token },
     success: function (articles) {
+      if (articles.length === 2) articleChoice.style.backgroundColor = "#f5f5f5";
       articles = JSON.parse(articles);
       articles.map(function (article) {
         articleCategoryList.insertAdjacentHTML('beforeend', makeTemplate(article));
@@ -69,7 +73,8 @@ const getCategoryPage = () => {
       page += ADD_PAGE;
     },
     error: function (err) {
-      alert(err.response.data.message);
+      console.log(err.responseJSON.message);
+      articleChoice.style.backgroundColor = "#f5f5f5";
     },
   });
 };
@@ -105,6 +110,7 @@ $('#article-all').on( 'click', function() {
   }
   $("#article-category-list").hide();
   $("#article-list").show();
+  articleChoice.style.backgroundColor = "white";
   getPage();
 });
 
