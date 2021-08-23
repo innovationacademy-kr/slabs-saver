@@ -46,7 +46,7 @@ const todayPageDesking = async (req, res) => {
   const limit = 15;
 
   let words = await Words.findAll({
-    attributes: ['id', 'word', 'status', 'updatedAt'],
+    attributes: ['id', 'word', 'status', 'createdAt'],
     include: [
       {
         model: Author,
@@ -206,7 +206,7 @@ const todayArticleDeskingPage = async (req, res) => {
   const limit = 15;
 
   let articles = await Article.findAll({
-    attributes: ['id', 'headline', 'updatedAt'],
+    attributes: ['id', 'headline', 'createdAt'],
     where: {
       status: articleStatus.CONFIRMED,
       category: {
