@@ -48,33 +48,44 @@ module.exports = {
   moreCategoryArticles: async (req, res, next) => {
     const { page } = req.query;
     const userId = req.decoded.userId;
-    const User = await Subscriber.findOne({ where:{id: userId}});
-    const userFollowingCategory = User.followingCategories.split(',').map(Number);
-    const categoryArticles = await Article.findAll({
-      where: {
-        status: 4,
-        category: {
-          [Op.or]: userFollowingCategory,
-          [Op.lt]: 6,
+    var userFollowingCategory;
+    try {
+      const User = await Subscriber.findOne({ where:{id: userId}});
+      if (!User.followingCategories) throw new Error('Error: My Section 결과가 없습니다');
+      else userFollowingCategory = User.followingCategories.split(',').map(Number);
+
+      const categoryArticles = await Article.findAll({
+        where: {
+          status: 4,
+          category: {
+            [Op.or]: userFollowingCategory,
+            [Op.lt]: 6,
+          }
+        },
+        order: [['publishedAt', 'DESC']],
+        offset: +page,
+        limit: 3,
+        include: { model: Author, attributes: ['photo', 'name'] },
+      });
+      const data = categoryArticles.map(article => {
+      const updatedAt = moment(article.updatedAt).format('YYYY-MM-DD HH:mm:ss').slice(0, 16).replace(/\-/gi, '.');
+      const publishedAt = moment(article.publishedAt).format('YYYY-MM-DD HH:mm:ss').slice(0, 16).replace(/\-/gi, '.');
+        return {
+          ...article.dataValues,
+          image: process.env.S3 + '/' + article.image,
+      updatedAt,
+      publishedAt,
+      category: converter.categoryEng(article.getDataValue('category')).toLocaleLowerCase(),
         }
-      },
-      order: [['publishedAt', 'DESC']],
-      offset: +page,
-      limit: 3,
-      include: { model: Author, attributes: ['photo', 'name'] },
-    });
-    const data = categoryArticles.map(article => {
-		const updatedAt = moment(article.updatedAt).format('YYYY-MM-DD HH:mm:ss').slice(0, 16).replace(/\-/gi, '.');
-		const publishedAt = moment(article.publishedAt).format('YYYY-MM-DD HH:mm:ss').slice(0, 16).replace(/\-/gi, '.');
-      return {
-        ...article.dataValues,
-        image: process.env.S3 + '/' + article.image,
-		updatedAt,
-    publishedAt,
-		category: converter.categoryEng(article.getDataValue('category')).toLocaleLowerCase(),
-      }
-    });
+      });
     res.send(JSON.stringify(data));
+  } catch (error) {
+      console.log(error.message);
+      res.status(400).json({
+        result: false,
+        message: error.message,
+      });
+    }
   },
 
 
