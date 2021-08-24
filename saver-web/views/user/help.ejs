@@ -4,26 +4,26 @@
 <%- contentFor('navbar') %> <%- include('./components/nav-back.ejs') %> <%- contentFor('body') %>
 <div class="article-page white", style="height:100%">
 
-    <div class="article", style="height:100%">
-      <div class="article__top">
-  <p class="article__title ft-title">
-  고객 문의 사항
-  </p>
-      </div>
-
-  <div id="editor_briefing" class="article__brief-text ft-main">
-    <ul class='list_indent2 mgt10'>
-      <li>담당자 : 김정선</li>
-      <li>연락처 : 010-2073-7629</li>
-      <li>e-mail : saverdevelop@gmail.com</li>
-    </ul>
-  </div>
-
-  <div>
-    <%- contentFor('footer') %> <%- include('./components/foo.ejs') %>
-  </div>
-
+  <div class="article", style="height:100%">
+    <div class="article__top">
+      <p class="article__title ft-title">
+      고객 문의 사항
+      </p>
     </div>
+
+    <div id="editor_briefing" class="article__brief-text ft-main">
+      <ul class='list_indent2 mgt10'>
+        <li>담당자 : 김정선</li>
+        <li>연락처 : 010-2073-7629</li>
+        <li>e-mail : saverdevelop@gmail.com</li>
+      </ul>
+    </div>
+
+    <div>
+      <%- contentFor('footer') %> <%- include('./components/foo.ejs') %>
+    </div>
+
+  </div>
 </div>
 
 <%- contentFor('scriptTag') %>
