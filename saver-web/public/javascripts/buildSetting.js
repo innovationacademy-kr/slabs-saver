@@ -118,7 +118,7 @@ const buildStart = async() => {
         </div>
         <div class="bookmark_alarm-section-text-line"></div>
         <div class="bookmark_alarm-section white">
-        <div class="bookmark_alarm-section-text">
+        <div class="bookmark_alarm-section-text", onclick="location.href='/policy'">
           <p class="bookmark_alarm-section-text-text">
           <button type="submit" style="background: #ffffff;" > 약관 </button>
           </p>

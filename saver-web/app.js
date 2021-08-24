@@ -33,7 +33,7 @@ const bookmarkRouter = require('./routes/bookmark');
 const alarmRouter = require('./routes/alarm');
 const settingRouter = require('./routes/setting');
 const helpRouter = require('./routes/help');
-
+const policyRouter = require('./routes/policy');
 
 const layout = require('express-ejs-layouts');
 app.use(layout);
@@ -56,6 +56,7 @@ app.use('/bookmark', bookmarkRouter);
 app.use('/alarm', alarmRouter);
 app.use('/setting', settingRouter);
 app.use('/help', helpRouter);
+app.use('/policy', policyRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
