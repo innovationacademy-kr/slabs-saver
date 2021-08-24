@@ -5,6 +5,7 @@ var page = INITIAL_PAGE;
 var isUsed = false;
 var articleList = document.querySelector('#article-list');
 var articleCategoryList = document.querySelector('#article-category-list');
+var articleChoice = document.querySelector('.article-choice');
 const token = localStorage['jwtToken'];
 
 const getAMPMArticle = () => {
@@ -19,7 +20,7 @@ const getAMPMArticle = () => {
       const item = document.getElementById(`kakao_share_${article.id}`);
       article.path = `articles/detail/${article.id}`;
       if (item) KaKaoShare(item.id, article);
-      $(`[data-id=${article.id}]`).remove();
+      $(`[data-id=${article.id}]`).removeClass().children().remove();
       selectBookmarkClass(article.id, `btn_bookmark-${article.id}`);
     })
     .catch((err) => {
@@ -46,7 +47,9 @@ const getPage = () => {
       isUsed = false;
       page += ADD_PAGE;
     },
-    error: function (err) {},
+    error: function (err) {
+      articleChoice.style.backgroundColor = "#f5f5f5";
+    },
   });
 };
 
@@ -56,6 +59,7 @@ const getCategoryPage = () => {
     type: 'get',
     headers: { 'x-access-token': token },
     success: function (articles) {
+      if (articles.length === 2) articleChoice.style.backgroundColor = "#f5f5f5";
       articles = JSON.parse(articles);
       articles.map(function (article) {
         articleCategoryList.insertAdjacentHTML('beforeend', makeTemplate(article));
@@ -69,7 +73,8 @@ const getCategoryPage = () => {
       page += ADD_PAGE;
     },
     error: function (err) {
-      alert(err.response.data.message);
+      console.log(err.responseJSON.message);
+      articleChoice.style.backgroundColor = "#f5f5f5";
     },
   });
 };
@@ -95,7 +100,7 @@ $('#article-category').on( 'click', function() {
   $("#article-list").hide();
   $("#article-category-list").show();
   getCategoryPage();
-}); 
+});
 
 $('#article-all').on( 'click', function() {
   $('#article-category').removeClass('is-checked');
@@ -105,8 +110,9 @@ $('#article-all').on( 'click', function() {
   }
   $("#article-category-list").hide();
   $("#article-list").show();
+  articleChoice.style.backgroundColor = "white";
   getPage();
-}); 
+});
 
 
 function fixVidieo(article){
@@ -125,7 +131,8 @@ function fixVidieo(article){
 
 function makeTemplate(article) {
   //추가되는 카드들
-  return `<div class="article">
+  return `
+  <div id="article_0${article.id}" class="article">
   <div class="article__top">
     <div class="icon-${article.category}-black"></div>
     <p class="article__top__text ft-detail">
@@ -154,7 +161,7 @@ function makeTemplate(article) {
         <div class="title">
           <span id="share-close-${
             article.id
-          }" class="share-close">&times;</span>                                                        
+          }" class="share-close">&times;</span>
           <h3>공유하기</h3>
         </div>
         <br><hr style="border: solid 1px gray;"><br>
@@ -162,14 +169,14 @@ function makeTemplate(article) {
           <ul class="share-layer-content">
            <li>   <button id="kakao_share_${
              article.id
-           }" class="article_kakao_share-button"></button> </li> 
+           }" class="article_kakao_share-button"></button> </li>
            <li>   <button onclick="facebookshare('${document.location.href}articles/detail/${
     article.id
   }')"
-            class="article_facebook_share-button"></button></li> 
+            class="article_facebook_share-button"></button></li>
            <li>   <button onclick="urlshare('${document.location.href}articles/detail/${
     article.id
-  }')" class="article_url_share-button">url</button></li> 
+  }')" class="article_url_share-button">url</button></li>
           </ul>
         </div>
       </div>
@@ -179,7 +186,7 @@ function makeTemplate(article) {
         article.id
       })" class="article__control__right-buttons__share-button"></button>
       <button id="btn_bookmark-${article.id}" onclick="clickBookmark(
-        ${article.id}, 'btn_bookmark-${article.id}')" 
+        ${article.id}, 'btn_bookmark-${article.id}')"
         class="article__control__right-buttons__bookmark-button"></button>
     </div>
   </div>

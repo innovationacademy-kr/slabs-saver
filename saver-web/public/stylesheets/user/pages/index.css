@@ -9,6 +9,7 @@ body {
   top: 50px;
   padding-bottom: 40px;
 }
+
 .today-card {
   padding: 20px 17px;
   width: 100%;
@@ -47,6 +48,16 @@ body {
   margin: 20px 17px;
 
   background-color: white;
+}
+
+
+/* 검색 스크롤 */
+#searchZero{
+  background-color:  white;
+  min-height: 100%;
+  position: relative;
+  top: 50px;
+  padding-bottom: 40px;
 }
 
 

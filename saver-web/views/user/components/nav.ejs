@@ -38,12 +38,7 @@
   search.addEventListener('click', (e) => {
     e.preventDefault();
     if (searchInput.value != ''){
-      let wordsData = searchInput.value.split(" ");
-      wordsData.push(searchInput.value);
-      console.log(wordsData);
       location.href = `/searchArticles?search=${searchInput.value}`
     }
-   
   });
-
 </script>

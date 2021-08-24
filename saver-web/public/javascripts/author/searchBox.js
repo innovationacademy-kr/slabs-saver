@@ -1,18 +1,11 @@
 function clickSearchlist(headline, link) {
   const ulElement = document.getElementById('search-ul');
-  const linkElement = document.getElementsByClassName('news-link');
-  var target;
-  var place = 'afterbegin';
-  if (linkElement.length === 0) {
-    target = document.getElementsByClassName('note-editable')[1];
-  } else {
-    target = linkElement[linkElement.length - 1].parentElement;
-    place = 'afterend';
-  }
+  var target = document.getElementsByClassName('note-editable')[1];
+
   target?.insertAdjacentHTML(
-    place,
+    'beforeend',
     `<p >
-		  <a class="news-link" href="${link}" target="_blank">${linkElement.length + 1}. ${headline}</a>
+		  <a href="${link}" target="_blank">이전 관련 기사 : ${headline}</a>
 	  </p>`,
   );
   ulElement.innerHTML = '';

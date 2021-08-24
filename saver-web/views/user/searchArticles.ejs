@@ -1,7 +1,11 @@
 <%- contentFor('navbar') %> <%- include('./components/nav.ejs') %> <%- contentFor('body') %>
-<main class="main">
+<main class="main" id="searchmain">
   <div id="article-search-list" class="article-list"></div>
 </main>
+
+<div id="searchZero">
+	<div class="searchNoting"></div>
+</div>
 <%- contentFor('footer') %> <%- include('./components/foo.ejs') %>
 
 <script>
@@ -16,10 +20,10 @@
 	var searchValue = window.location.pathname;
 	var v = getParameterByName('search');
 	document.getElementById("searchWord").value = v;
-
+	$('#searchZero').hide();
 </script>
 
 <script defer src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script defer type="module" src="/javascripts/searchInfiniteScroll.js"></script>
 <script defer type="module" src="/javascripts/user/index.js"></script>
-
+<link rel="stylesheet" href="/stylesheets/user/pages/section.css" />

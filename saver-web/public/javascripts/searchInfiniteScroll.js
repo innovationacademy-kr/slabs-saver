@@ -4,6 +4,7 @@ var DEFAULT_HEIGHT = $(window).height() + 10;
 var page = INITIAL_PAGE;
 var isUsed = false;
 var articleSearchList = document.querySelector('#article-search-list');
+var searchNoting = document.querySelector('.searchNoting');
 var searchInput = document.querySelector('#searchWord');
  let wordsData;
  
@@ -23,6 +24,12 @@ const getSearchPage = (wordsData) => {
     dataType: 'json',
     data: JSON.stringify(wordsData),
     success: function (articles) {
+
+      if (articles.length === 0){
+        $('#searchmain').hide();
+        $('#searchZero').show();
+        searchNoting.insertAdjacentHTML('beforeend', makeNoSearch());
+      }
         articles.map(function (article) {
         articleSearchList.insertAdjacentHTML('beforeend', makeTemplate(article));
         fixVidieo(article);
@@ -31,7 +38,6 @@ const getSearchPage = (wordsData) => {
         if (item) KaKaoShare(item.id, article);
         selectBookmarkClass(article.id, `btn_bookmark-${article.id}`);
       });
-
       isUsed = false;
       page += ADD_PAGE;
     },
@@ -42,15 +48,16 @@ const getSearchPage = (wordsData) => {
 //검색기능 관련 무한 스크롤 요청
 getSearchPage(wordsData);
 
-$(window).scroll(function () {
-  const scrollPosition = $(window).scrollTop() + DEFAULT_HEIGHT;
-  const pageHeight = $(document).height() - $(window).height();
-  if (scrollPosition > pageHeight && !isUsed) {
-    isUsed = true;
-  	getSearchPage(wordsData);
-  }
-});
-
+if (articles.length != 0){
+  $(window).scroll(function () {
+    const scrollPosition = $(window).scrollTop() + DEFAULT_HEIGHT;
+    const pageHeight = $(document).height() - $(window).height();
+    if (scrollPosition > pageHeight && !isUsed) {
+      isUsed = true;
+      getSearchPage(wordsData);
+    }
+  });
+};
 
 function fixVidieo(article){
   const briefing = document.getElementById(`editor_briefing_0${article.id}`);
@@ -65,6 +72,29 @@ function fixVidieo(article){
   paragVi?.removeAttribute("width");
   paragVi?.setAttribute("style", "max-width: 100%; width:95vw; height: 53.43vw");
 }
+
+function makeNoSearch(){
+  //검색 결과가 없을 시 메세지 추가
+  return `
+  <div class="section-div">
+		<h3 class="section-div__title">Search Result</h3>
+	</div>
+  <div class="section ice-blue-two">
+  <div class="section__col1">
+    <div class="section__col1__title my">saver</div>
+    <div style="height: 51px;">   
+    <div class="logo-small-blue"></div>
+    </div>
+  </div>
+  <div class="section__col2">
+    <p class="section__col2__text text-login">
+      검색 결과가 없습니다.<br>
+    </p>
+  </div>
+</div>				
+`;
+}
+
 
 function makeTemplate(article) {
   //추가되는 카드들

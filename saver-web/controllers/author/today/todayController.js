@@ -67,7 +67,6 @@ const todayPageDesking = async (req, res) => {
     limit: limit,
   });
 
-
   var totalPage = await Words.count({
     where: {
       status: {
@@ -212,7 +211,7 @@ const todayArticleDeskingPage = async (req, res) => {
       status: articleStatus.CONFIRMED,
       category: {
         [Op.lt]: 6,
-      }
+      },
     },
     include: [
       {
@@ -230,9 +229,17 @@ const todayArticleDeskingPage = async (req, res) => {
     limit: limit,
   });
 
-  var totalPage = await Article.count({ status: articleStatus.CONFIRMED });
+  var totalPage = await Article.count({
+    where: {
+      status: articleStatus.CONFIRMED,
+      category: {
+        [Op.lt]: 6,
+      },
+    },
+  });
+  console.log(`${totalPage / limit}`);
   totalPage = Math.floor(totalPage / limit);
-
+  console.log(totalPage);
   const underLimitPage = page - 2 < 0 ? 0 : page - 2;
 
   articles = articles.map((article) => {
