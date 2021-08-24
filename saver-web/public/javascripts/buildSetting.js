@@ -125,9 +125,9 @@ const buildStart = async() => {
         </div>
         </div>
         <div class="bookmark_alarm-section white">
-        <div class="bookmark_alarm-section-text">
+        <div class="bookmark_alarm-section-text", onclick="location.href='/policy/privacy'">
           <p class="bookmark_alarm-section-text-text">
-          <button type="submit" style="background: #ffffff;" > 세이버 소개 </button>
+          <button type="submit" style="background: #ffffff;" > 개인정보 처리방침 </button>
           </p>
         </div>
         </div>
