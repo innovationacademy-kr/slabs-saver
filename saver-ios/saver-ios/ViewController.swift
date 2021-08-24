@@ -16,6 +16,17 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
         let contentController = WKUserContentController()
         let webConfiguration = WKWebViewConfiguration()
         
+        // [start] 유저가 webview를 확대 축소하는 것을 방지
+        let source: String = "var meta = document.createElement('meta');" +
+            "meta.name = 'viewport';" +
+            "meta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';" +
+            "var head = document.getElementsByTagName('head')[0];" +
+            "head.appendChild(meta);"
+        let script: WKUserScript = WKUserScript(source: source, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
+        contentController.addUserScript(script)
+        // [end] 유저가 webview를 확대 축소하는 것을 방지
+
+        
         // [start] WK Birdge 등록
         contentController.add(self, name: "iosMessage")
         contentController.add(self, name: "initFollowStatus")
