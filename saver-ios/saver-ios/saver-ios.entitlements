@@ -6,7 +6,7 @@
 	<string>development</string>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
-		<string>applinks:https://dev.thesaver.io/</string>
+		<string>applinks:https://thesaver.io/</string>
 	</array>
 </dict>
 </plist>
