@@ -186,7 +186,7 @@ const myArticlePage = async (req, res, next) => {
     where: { AuthorId: req.user.id },
     offset: page * limit,
     limit: limit,
-    order: [['updatedAt', 'DESC']],
+    order: [['createdAt', 'DESC']],
   });
 
   var totalPage = await Article.count({ where: { AuthorId: req.user.id } });

@@ -46,7 +46,7 @@ const todayPageDesking = async (req, res) => {
   const limit = 15;
 
   let words = await Words.findAll({
-    attributes: ['id', 'word', 'status', 'updatedAt'],
+    attributes: ['id', 'word', 'status', 'createdAt'],
     include: [
       {
         model: Author,
@@ -62,7 +62,7 @@ const todayPageDesking = async (req, res) => {
         [Op.or]: [2, 3],
       },
     },
-    order: [['updatedAt', 'DESC']],
+    order: [['createdAt', 'DESC']],
     offset: page * limit,
     limit: limit,
   });
@@ -206,7 +206,7 @@ const todayArticleDeskingPage = async (req, res) => {
   const limit = 15;
 
   let articles = await Article.findAll({
-    attributes: ['id', 'headline', 'updatedAt'],
+    attributes: ['id', 'headline', 'createdAt'],
     where: {
       status: articleStatus.CONFIRMED,
       category: {
@@ -224,7 +224,7 @@ const todayArticleDeskingPage = async (req, res) => {
         attributes: ['id', 'name'],
       },
     ],
-    order: [['updatedAt', 'DESC']],
+    order: [['createdAt', 'DESC']],
     offset: page * limit,
     limit: limit,
   });
