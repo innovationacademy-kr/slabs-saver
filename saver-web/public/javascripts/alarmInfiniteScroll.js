@@ -70,7 +70,7 @@ const getalarm = () => {
             getalarm();
           }
         }
-      } else {
+      } else if (document.getElementsByClassName("bookmark-list").length == 0){
         alarmList.insertAdjacentHTML('beforeend', listNothing());
       }
     },

@@ -43,7 +43,7 @@ const getBookmark = () => {
         });
         isUsed = false;
         page += 20;
-      } else {
+      } else if (document.getElementsByClassName("bookmark-list").length == 0){
         bookmarkList.insertAdjacentHTML('beforeend', listNothing());
       }
     },
