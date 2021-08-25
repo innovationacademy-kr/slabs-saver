@@ -87,3 +87,52 @@ body {
   background-color: #4ea2c31a;
   float: right;
 }
+
+/* my section 결과 없음 */
+.noneCategory {
+  height: 100px;
+  display: grid;
+  grid-template-columns: .5fr 2fr;
+
+  margin-top: 35px;
+  margin-bottom: 8px;
+  min-height: 102px;
+  height: fit-content;
+}
+
+.noneCategory__col1 {
+  flex-direction: column;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 17px;
+}
+
+.noneCategory__col1__title {
+  font-size: 12px;
+  line-height: 1.3;
+  font-weight: bold;
+}
+
+.noneCategory__col2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-right: 17px;
+  padding-bottom: 15px;
+}
+
+.noneCategory__col2__text {
+  font-size: 16px;
+  line-height: 1.6;
+  letter-spacing: -0.3px;
+  align-self: center;
+  color: #434343;
+  word-break: keep-all;
+  max-width: 75%;
+  margin-top: 12px;
+}
+
+.logo-small-blue {
+  margin-bottom: 17px;
+}
