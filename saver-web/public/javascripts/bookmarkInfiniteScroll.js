@@ -29,19 +29,23 @@ const getBookmark = () => {
     type: 'get',
     headers: { 'x-access-token': token },
     success: function (bookmarks) {
-      console.log('suceess' + bookmarks.bookmark.length + '(' + page);
-      bookmarks.bookmark.map(function (bookmark) {
-        const article = bookmark.Article;
-        const listTemplate = getListTemplate(article);
-        const item = fillBookmark(
-          getSectionTemplate(listTemplate, article),
-          article,
-          bookmark.ArticleId,
-        );
-        addEvent(listTemplate, item, bookmark.ArticleId);
-      });
-      isUsed = false;
-      page += 20;
+      if ( bookmarks.bookmark.length !== 0) {
+        console.log('suceess' + bookmarks.bookmark.length + '(' + page);
+        bookmarks.bookmark.map(function (bookmark) {
+          const article = bookmark.Article;
+          const listTemplate = getListTemplate(article);
+          const item = fillBookmark(
+            getSectionTemplate(listTemplate, article),
+            article,
+            bookmark.ArticleId,
+          );
+          addEvent(listTemplate, item, bookmark.ArticleId);
+        });
+        isUsed = false;
+        page += 20;
+      } else {
+        bookmarkList.insertAdjacentHTML('beforeend', listNothing());
+      }
     },
     error: function (err) {
       alert(err.response.data.message);
@@ -60,6 +64,28 @@ $(window).scroll(function () {
     getBookmark();
   }
 });
+
+function listNothing() {
+  //북마크페이지 결과 없을 시
+    return `
+          <div class="section-div">
+            <h3 class="section-div__title">Bookmark Result</h3>
+          </div>
+          <div class="section white">
+            <div class="section__col1">
+              <div class="section__col1__title my">saver</div>
+              <div style="height: 51px;">   
+                <div class="logo-small-blue"></div>
+              </div>
+            </div>
+            <div class="section__col2">
+              <p class="section__col2__text text-login">
+                북마크가 없습니다.<br>
+              </p>
+            </div>
+          </div>				
+      `;
+  }
 
 function getDate(articleDate) {
   var today = new Date();

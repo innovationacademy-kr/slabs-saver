@@ -59,18 +59,22 @@ const getCategoryPage = () => {
     type: 'get',
     headers: { 'x-access-token': token },
     success: function (articles) {
-      if (articles.length === 2) articleChoice.style.backgroundColor = "#f5f5f5";
-      articles = JSON.parse(articles);
-      articles.map(function (article) {
-        articleCategoryList.insertAdjacentHTML('beforeend', makeTemplate(article));
-        const item = document.getElementById(`kakao_share_${article.id}`);
-        article.path = `articles/detail/${article.id}`;
-        if (item) KaKaoShare(item.id, article);
-        selectBookmarkClass(article.id, `btn_bookmark-${article.id}`);
-      });
+      if (articles.length === 2) {
+        articleChoice.style.backgroundColor = "#f5f5f5";
+      } else {
+        $("#none-category-list").hide();
+        articles = JSON.parse(articles);
+        articles.map(function (article) {
+          articleCategoryList.insertAdjacentHTML('beforeend', makeTemplate(article));
+          const item = document.getElementById(`kakao_share_${article.id}`);
+          article.path = `articles/detail/${article.id}`;
+          if (item) KaKaoShare(item.id, article);
+          selectBookmarkClass(article.id, `btn_bookmark-${article.id}`);
+        });
 
-      isUsed = false;
-      page += ADD_PAGE;
+        isUsed = false;
+        page += ADD_PAGE;
+    }
     },
     error: function (err) {
       console.log(err.responseJSON.message);
