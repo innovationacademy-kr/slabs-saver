@@ -39,34 +39,39 @@ const upUserAlarmStatus = () => {
   }
 };
 
+
 const getalarm = () => {
   $.ajax({
     url: `/alarm/article?page=${page}`,
     type: 'get',
     headers: { 'x-access-token': token },
     success: function (alarm) {
-        console.log(alarm);
-        alarm.alarm.map(function (alarm) {
-            console.log(alarm);
-          if (!(alarm.deleted))
-          {
-          const article = alarm.Article;
-          //updateAt은 yyyy-MM-dd HH:mm:ss.SSS의 simpledateformat으로 구성됨
-          const alarmUpdate = alarm.updatedAt.split('T');
-          const listTemplate = getListTemplate(alarmUpdate[0]);
-          const boxId = fillalarm(getSectionTemplate(listTemplate, article, alarmUpdate[0]), article, alarm.ArticleId);
-          addEvent(boxId, alarm.ArticleId);
+      if (alarm.alarm.length !== 0) {
+          console.log(alarm);
+          alarm.alarm.map(function (alarm) {
+              console.log(alarm);
+            if (!(alarm.deleted))
+            {
+            const article = alarm.Article;
+            //updateAt은 yyyy-MM-dd HH:mm:ss.SSS의 simpledateformat으로 구성됨
+            const alarmUpdate = alarm.updatedAt.split('T');
+            const listTemplate = getListTemplate(alarmUpdate[0]);
+            const boxId = fillalarm(getSectionTemplate(listTemplate, article, alarmUpdate[0]), article, alarm.ArticleId);
+            addEvent(boxId, alarm.ArticleId);
+            }
+          });
+        isUsed = false;
+        page += 20;
+        if (!pageStart)
+        {
+          pageStart = true;
+          if ((!isUsed && $(window).height() == $(document).height()) && !isUsed) {
+            isUsed = true;
+            getalarm();
           }
-        });
-      isUsed = false;
-      page += 20;
-      if (!pageStart)
-      {
-        pageStart = true;
-        if ((!isUsed && $(window).height() == $(document).height()) && !isUsed) {
-          isUsed = true;
-          getalarm();
         }
+      } else if (document.getElementsByClassName("bookmark-list").length == 0){
+        alarmList.insertAdjacentHTML('beforeend', listNothing());
       }
     },
     error: function (error) {
@@ -89,6 +94,28 @@ $(window).scroll(function () {
     getalarm();
   }
 });
+
+function listNothing() {
+  //알림페이지 결과 없을 시
+    return `
+          <div class="section-div">
+            <h3 class="section-div__title">Alarm Result</h3>
+          </div>
+          <div class="section white">
+          <div class="section__col1">
+              <div class="section__col1__title my">saver</div>
+              <div style="height: 51px;">   
+                <div class="logo-small-blue"></div>
+              </div>
+            </div>
+            <div class="section__col2">
+              <p class="section__col2__text text-login">
+                알림이 없습니다.<br>
+              </p>
+            </div>
+          </div>				
+      `;
+  }
 
 function getDate(articleDate) {
   var today = new Date();
