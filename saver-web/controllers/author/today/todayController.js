@@ -22,6 +22,7 @@ const getTodayRequest = async (req, res) => {
       model: TodayWord,
       attributes: ['id', 'date'],
     },
+    order: [['createdAt', 'DESC']],
   });
   res.status(200).json(words);
 };
