@@ -59,7 +59,7 @@ const getCategoryPage = () => {
     type: 'get',
     headers: { 'x-access-token': token },
     success: function (articles) {
-      if (articles.length === 2) {
+      if (document.getElementsByClassName("article-list").length == 0) {
         articleChoice.style.backgroundColor = "#f5f5f5";
       } else {
         $("#none-category-list").hide();
