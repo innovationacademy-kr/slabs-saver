@@ -16,7 +16,7 @@ const getAMPMArticle = () => {
     })
     .then((res) => {
       const article = res.data.article;
-      articleList.insertAdjacentHTML('beforebegin', makeTemplate(article));
+      articleList.insertAdjacentHTML('afterbegin', makeTemplate(article));
       const item = document.getElementById(`kakao_share_${article.id}`);
       article.path = `articles/detail/${article.id}`;
       if (item) KaKaoShare(item.id, article);
