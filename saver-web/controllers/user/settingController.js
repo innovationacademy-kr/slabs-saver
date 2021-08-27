@@ -44,7 +44,7 @@ const AlarmOnOffRequest = async (req, res) => {
 
 module.exports = {
   section: (req, res, next) => {
-    res.render('user/setting', { title: 'slab-saver', layout: 'layout/userLayout' });
+    res.render('user/loginSetting', { title: 'slab-saver', layout: 'layout/userLayout' });
   },
   request: {
     getUser: getSettingRequest,

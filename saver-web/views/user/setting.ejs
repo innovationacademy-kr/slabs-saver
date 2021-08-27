@@ -2,7 +2,81 @@
 <link rel="stylesheet" href="/stylesheets/user/pages/bookmark_alarm.css" />
 
 <%- contentFor('navbar') %> <%- include('./components/nav-back.ejs') %> <%- contentFor('body') %>
-<div class="bookmark_alarm-page">
+<div>
+
+
+  <div class="bookmark_alarm-title">
+    <!-- <div class="bookmark_alarm-title-col1">
+      <div class="topbar__set__icon"></div>
+    </div> -->
+    <div class="bookmark_alarm-title-col2">
+      <p class="bookmark_alarm-title-col2-text">
+        계정
+      </p>
+    </div>
+    </div>
+    <div class="bookmark_alarm-section-text-line"></div>
+    <div class="bookmark_alarm-section white">
+    <div class="bookmark_alarm-section-text">
+      <a href="/subscriber/login?redirect=/setting/login" class="bookmark_alarm-section-text-text">
+        로그인
+      </a>
+    </div>
+    </div>
+    <div class="bookmark_alarm-section-text-line"></div>
+   
+
+    <div class="bookmark_alarm-title">
+    <div class="bookmark_alarm-title-col2">
+      <p class="bookmark_alarm-title-col2-text">
+        고객센터
+      </p>
+    </div>
+    </div>
+    <div class="bookmark_alarm-section-text-line"></div>
+    <div class="bookmark_alarm-section white">
+    <div class="bookmark_alarm-section-text", onclick="location.href='/help'">
+      <p class="bookmark_alarm-section-text-text">
+      <button type="submit" style="background: #ffffff;" > 고객센터 </button>
+      </p>
+    </div>
+    </div>
+    <div class="bookmark_alarm-section white">
+    <div class="bookmark_alarm-section-text">
+      <p class="bookmark_alarm-section-text-text">
+      <button type="submit" style="background: #ffffff;" > 제보 및 제안 </button>
+      </p>
+    </div>
+    </div>
+    <div class="bookmark_alarm-section-text-line"></div>
+    <div class="bookmark_alarm-section-tap"></div>
+
+    <div class="bookmark_alarm-title">
+    <div class="bookmark_alarm-title-col2">
+      <p class="bookmark_alarm-title-col2-text">
+        이용안내
+      </p>
+    </div>
+    </div>
+    <div class="bookmark_alarm-section-text-line"></div>
+    <div class="bookmark_alarm-section white">
+    <div class="bookmark_alarm-section-text", onclick="location.href='/policy'">
+      <p class="bookmark_alarm-section-text-text">
+      <button type="submit" style="background: #ffffff;" > 약관 </button>
+      </p>
+    </div>
+    </div>
+    <div class="bookmark_alarm-section white">
+    <div class="bookmark_alarm-section-text", onclick="location.href='/policy/privacy'">
+      <p class="bookmark_alarm-section-text-text">
+      <button type="submit" style="background: #ffffff;" > 개인정보 처리방침 </button>
+      </p>
+    </div>
+    </div>
+    <div class="bookmark_alarm-section-text-line"></div>
+    <div class="bookmark_alarm-section-tap"></div>
+    <br/>
+    <br/>
 
   </div>
     <%- contentFor('footer') %> <%- include('./components/foo.ejs') %>
@@ -10,5 +84,3 @@
 </div>
 
 <%- contentFor('scriptTag') %>
-<script src="/javascripts/buildSetting.js"></script>
-<script defer src="/javascripts/setting.js"></script>

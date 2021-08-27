@@ -11,7 +11,7 @@
     </button>
   </form>
   <div class="topbar__set">
-      <button id = "setting" class="topbar__set__icon"><buttoni>
+      <button id = "setting" class="topbar__set__icon"></button>
   </div>
 </nav>
 
@@ -24,9 +24,9 @@
 
 		sett.addEventListener('click', (e) => {
 			if (token) {
-				location.href = '/setting';
+				location.href = '/setting/login';
 			} else {
-				location.href = '/subscriber/login'
+				location.href = '/setting';
 			}
 		});
 	</script>

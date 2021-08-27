@@ -133,8 +133,8 @@ const buildStart = async() => {
         </div>
         <div class="bookmark_alarm-section-text-line"></div>
         <div class="bookmark_alarm-section-tap"></div>
-        </br>
-        </br>
+        <br/>
+        <br/>
         `
     );
   }
