@@ -6,7 +6,7 @@ const converter = require('../../lib/converter');
 const detailPage = async (req, res, next) => {
   const articleRow = await Article.findOne({
     where: { id: req.params.articleId },
-    include: { model: Author, attributes: ['name'] },
+    include: { model: Author, attributes: ['name', 'email'] },
   });
   const article = articleRow.dataValues;
   if (article.status < STATUS.CONFIRMED) {

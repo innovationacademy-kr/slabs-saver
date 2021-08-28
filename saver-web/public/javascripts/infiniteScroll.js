@@ -16,6 +16,7 @@ const getAMPMArticle = () => {
     })
     .then((res) => {
       const article = res.data.article;
+      console.log(article);
       articleList.insertAdjacentHTML('afterbegin', makeTemplate(article));
       const item = document.getElementById(`kakao_share_${article.id}`);
       article.path = `articles/detail/${article.id}`;
@@ -140,7 +141,7 @@ function makeTemplate(article) {
   <div class="article__top">
     <div class="icon-${article.category}-black"></div>
     <p class="article__top__text ft-detail">
-      ${article.Author.name}/${article.publishedAt}
+      ${article.Author.name}/${article.publishedAt} </br> ${article.Author.email}
     </p>
   </div>
   <p class="article__title ft-title">
