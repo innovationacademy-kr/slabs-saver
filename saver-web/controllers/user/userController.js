@@ -65,7 +65,7 @@ module.exports = {
         order: [['publishedAt', 'DESC']],
         offset: +page,
         limit: 3,
-        include: { model: Author, attributes: ['photo', 'name'] },
+        include: { model: Author, attributes: ['photo', 'name', 'email'] },
       });
       const data = categoryArticles.map(article => {
       const updatedAt = moment(article.updatedAt).format('YYYY-MM-DD HH:mm:ss').slice(0, 16).replace(/\-/gi, '.');
@@ -135,7 +135,7 @@ module.exports = {
       order: [['publishedAt', 'DESC']],
       offset: +page,
       limit: 3,
-      include: { model: Author, attributes: ['photo', 'name'] },
+      include: { model: Author, attributes: ['photo', 'name', 'email'] },
     });
     const data = articles.map(article => {
       const updatedAt = moment(article.updatedAt).format('YYYY-MM-DD HH:mm:ss').slice(0, 16).replace(/\-/gi, '.');
