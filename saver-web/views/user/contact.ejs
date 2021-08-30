@@ -1,0 +1,113 @@
+<%- contentFor('styleTag') %>
+<link rel="stylesheet" href="/stylesheets/user/pages/bookmark_alarm.css" />
+
+<%- contentFor('navbar') %> <%- include('./components/nav-back.ejs') %> <%- contentFor('body') %>
+<div>
+
+  <br/>
+  <br/>
+  <br/>
+
+    <div class="bookmark_alarm-title">
+    <div class="bookmark_alarm-title-col2">
+      <p class="bookmark_alarm-title-col2-text">
+        문의 및 제보/제안
+      </p>
+    </div>
+    </div>
+    <div class="bookmark_alarm-section-text-line"></div>
+    <div class="bookmark_alarm-section white" style="flex-direction: column;">
+      <div class="contact-section-text" >
+        <p class="bookmark_alarm-section-text-text" >제목</p>
+        <div class="contact-section-text-v-line"></div>
+        <input id="title" name="title" type="text" placeholder="메일 제목을 적어주세요" class="bookmark_alarm-section-text-text"/>
+          
+      </div>
+      <div class="bookmark_alarm-section-text-line"></div>
+      <div class="contact-section-text">
+        <p class="bookmark_alarm-section-text-text">이메일</p>
+        <div class="contact-section-text-v-line"></div>
+        <input  id="email" name="email" type="text" placeholder="답변 받으실 이메일을 적어주세요" class="bookmark_alarm-section-text-text"/>
+      </div>
+      <div class="bookmark_alarm-section-text-line"></div>
+      <div class="contact-section-text-one ">
+        <p class="bookmark_alarm-section-text-text" style="width: 100%;">
+         내용
+        </p>
+ 
+      </div>
+       <div class="contact-section-text-h-line"></div>
+       <div class="contact-section-text-one">
+        <textarea id="contents" class="contents-section-text-text" rows="15"  placeholder="메일 내용을 적어주세요" style="width:100%;"></textarea>
+      </div>
+    </div>
+
+    <div class="bookmark_alarm-section-text-line"></div>
+    <div class="bookmark_alarm-section-tap"></div>
+
+    <div class="bookmark_alarm-section-text-line"></div>
+    <div class="bookmark_alarm-section white" style="flex-direction: column;">
+      <div class="contact-section-text-one " >
+        <button id='send' class="bookmark_alarm-section-text-text"  style="background: #ffffff;">보내기</button>
+      </div>
+    </div>
+    <div class="bookmark_alarm-section-text-line"></div>
+
+    <br/>
+    <br/>
+
+  </div>
+    <%- contentFor('footer') %> <%- include('./components/foo.ejs') %>
+  </div>
+</div>
+
+<%- contentFor('scriptTag') %>
+<script>
+  window.addEventListener('load',()=>{
+    var email = document.getElementById('email');
+    var title = document.getElementById('title');
+    var contents = document.getElementById('contents');
+
+
+      document.getElementById('send').addEventListener('click',()=>{
+        if (!title.value || title.value== "") {
+          alert('제목이 비어있습니다.');
+          return 0;
+        }
+        if (!email.value || email.value== "") {
+          alert('이메일이 비어있습니다.');
+          return 0;
+        }
+        else if(!email.value.includes('@')){
+          alert('이메일이 유효하지 않습니다.');
+          return 0;
+        }
+        if (!contents.value || contents.value== "") {
+          alert('내용이 비어있습니다.');
+          return 0;
+        }
+
+        axios({
+          method: 'post',
+          url: '/setting/contact',
+          data: {
+            'email': email.value,
+            'title': title.value,
+            'contents': contents.value,
+          }
+        }).then((res) => {
+          location.href = '/setting'
+          alert('메일을 보냈습니다.\n적어주신 메일로 답변 드리겠습니다.');
+        }).catch(error => {
+          alert(error.response.data.message);
+        });
+        
+
+      })
+
+
+
+  })
+
+
+</script>
