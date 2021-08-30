@@ -1,28 +1,25 @@
 var buildPoint = document.querySelector('.bookmark_alarm-page');
-const buildStart = async() => {
-    await $.ajax({
-      url: `/setting/getuser`,
-      type: 'get',
-      headers: { 'x-access-token': token },
-      success: function (user) {
-        console.log(user.user);
-         getListTemplate(user.user[0]);
+const buildStart = async () => {
+  await $.ajax({
+    url: `/setting/getuser`,
+    type: 'get',
+    headers: { 'x-access-token': token },
+    success: function (user) {
+      console.log(user.user);
+      getListTemplate(user.user[0]);
+    },
+    error: function (error) {
+      alert(error.response.data.message);
+    },
+  });
+};
 
-      },
-      error: function (error) {
-        alert(error.response.data.message);
-      },
-    });
-  };
+buildStart();
 
-  buildStart();
-
-  function getListTemplate(user) {
-
-
-    buildPoint.insertAdjacentHTML(
-        'beforeend',
-        `
+function getListTemplate(user) {
+  buildPoint.insertAdjacentHTML(
+    'beforeend',
+    `
         <div class="bookmark_alarm-title">
         <!-- <div class="bookmark_alarm-title-col1">
           <div class="topbar__set__icon"></div>
@@ -101,8 +98,8 @@ const buildStart = async() => {
         </div>
         <div class="bookmark_alarm-section white">
         <div class="bookmark_alarm-section-text">
-          <p class="bookmark_alarm-section-text-text">
-          <button type="submit" style="background: #ffffff;" > 제보 및 제안 </button>
+          <p class="bookmark_alarm-section-text-text" , onclick="location.href='/setting/contact'">
+          <button type="submit" style="background: #ffffff;" > 문의 및 제보/제안 </button>
           </p>
         </div>
         </div>
@@ -135,16 +132,14 @@ const buildStart = async() => {
         <div class="bookmark_alarm-section-tap"></div>
         <br/>
         <br/>
-        `
-    );
-  }
+        `,
+  );
+}
 
-  function getAlarmActive(flag)
-  {
-    if (flag == 1) {
-      return ('inactive');
-    }
-    else {
-      return ('active');
-    }
+function getAlarmActive(flag) {
+  if (flag == 1) {
+    return 'inactive';
+  } else {
+    return 'active';
   }
+}

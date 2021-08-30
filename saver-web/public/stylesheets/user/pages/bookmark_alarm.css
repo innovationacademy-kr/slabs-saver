@@ -68,6 +68,43 @@
   overflow: hidden;
 }
 
+.contact-section-text {
+  margin-left: 22px;
+  display: grid;
+  grid-template-columns: 50px 20px auto;
+  margin-right: 17px;
+  height: fit-content;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.contact-section-text-one {
+  margin-left: 22px;
+  display: flex;
+  margin-right: 17px;
+  height: fit-content;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.contact-section-text-v-line {
+  height: 100%;
+  width: 0;
+  align-self: center;
+  display: flex;
+  border: solid 1px var(--white-three);
+}
+
+.contact-section-text-h-line {
+  height: 0;
+  width: 100%;
+  display: flex;
+  margin: 0.5px 0 0 0.5px;
+  border: solid 1px var(--white-three);
+}
+
 .bookmark_alarm-section-text-area {
   display: flex;
   flex-direction: column;
@@ -75,6 +112,22 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+}
+
+.contents-section-text-text {
+  margin: 10px 0.5px 8.5px 0;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 16px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.63;
+  letter-spacing: -0.32px;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: auto;
+  color: var(--greyish-brown);
 }
 
 .bookmark_alarm-section-text-text {
@@ -108,43 +161,42 @@
   background-color: var(--white-two);
 }
 
-
 .toggleBG.inactive {
-  background: #CCCCCC; 
-  width: 65px; 
-  height: 20px; 
-  border: 1px solid #CCCCCC; 
+  background: #cccccc;
+  width: 65px;
+  height: 20px;
+  border: 1px solid #cccccc;
   border-radius: 10px;
-  float:right;
+  float: right;
 }
 
 .toggleBG.active {
-  background: #09ff00; 
-  width: 65px; 
-  height: 20px; 
-  border: 1px solid #CCCCCC; 
+  background: #09ff00;
+  width: 65px;
+  height: 20px;
+  border: 1px solid #cccccc;
   border-radius: 10px;
-  float:right;
+  float: right;
 }
 
 .toggleFG.inactive {
-  background: #FFFFFF; 
-  width: 20px; 
-  height: 20px; 
-  border: none; 
-  border-radius: 10px; 
-  position: relative; 
+  background: #ffffff;
+  width: 20px;
+  height: 20px;
+  border: none;
+  border-radius: 10px;
+  position: relative;
   left: -45px;
-  float:right;
+  float: right;
 }
 
 .toggleFG.active {
-  background: #FFFFFF; 
-  width: 20px; 
-  height: 20px; 
-  border: none; 
-  border-radius: 10px; 
-  position: relative; 
+  background: #ffffff;
+  width: 20px;
+  height: 20px;
+  border: none;
+  border-radius: 10px;
+  position: relative;
   left: 0px;
-  float:right;
+  float: right;
 }
