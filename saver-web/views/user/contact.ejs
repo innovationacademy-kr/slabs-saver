@@ -97,7 +97,7 @@
           }
         }).then((res) => {
           location.href = '/setting'
-          alert('메일을 보냈습니다.');
+          alert('메일을 보냈습니다.\n적어주신 메일로 답변 드리겠습니다.');
         }).catch(error => {
           alert(error.response.data.message);
         });
