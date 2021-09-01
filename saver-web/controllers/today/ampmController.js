@@ -36,7 +36,7 @@ const getTodayAMPMAtricle = async (req, res) => {
                 category : CATEGORY.AMPM, 
             },
             order: [['publishedAt', 'DESC']],
-            include: {model: Author, attributes: ['photo', 'name']}
+            include: {model: Author, attributes: ['photo', 'name', 'email']}
         });
         if (!articleRow) throw new Error('현재 생성된 AM7/PM7 기사가 없습니다.')
         const article = articleRow.dataValues;
