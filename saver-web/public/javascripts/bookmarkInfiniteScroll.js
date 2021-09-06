@@ -44,7 +44,9 @@ const getBookmark = () => {
         isUsed = false;
         page += 20;
       } else if (document.getElementsByClassName("bookmark-list").length == 0){
-        bookmarkList.insertAdjacentHTML('beforeend', listNothing());
+        if ($('#bookmarkNoting').hasClass('section-div') === false){
+          bookmarkList.insertAdjacentHTML('beforeend', listNothing());
+        }
       }
     },
     error: function (err) {
@@ -68,7 +70,7 @@ $(window).scroll(function () {
 function listNothing() {
   //북마크페이지 결과 없을 시
     return `
-          <div class="section-div">
+          <div class="section-div" id="bookmarkNoting">
             <h3 class="section-div__title">Bookmark Result</h3>
           </div>
           <div class="section white">
