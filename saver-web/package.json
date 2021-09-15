@@ -7,7 +7,7 @@
     "node": "node_modules/.bin/nodemon ./bin/www",
     "db": "cd db && docker-compose up",
     "dbclear": "rm -rf db/srcs/data",
-    "dbreset": "npm run clear && npm run db",
+    "dbreset": "npm run dbclear && npm run db",
     "do": "node_modules/.bin/sequelize db:migrate && sequelize db:seed:all",
     "undo": "node_modules/.bin/sequelize db:seed:undo:all && sequelize db:migrate:undo:all",
     "test": "node_modules/.bin/jest"
