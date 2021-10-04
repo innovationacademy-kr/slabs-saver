@@ -11,16 +11,28 @@ body {
 }
 
 .today-card {
-  padding: 20px 17px;
+  /* padding: 20px 17px; */
+  padding-top: 17px;
+  padding-bottom: 17px;
   width: 100%;
   height: max-content;
 
   box-sizing: border-box;
 }
 
+/* .today-word {
+  padding-top: 17px;
+  padding-left: 20px;
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  justify-content: flex-start;
+} */
+
 .today-card__title {
   height: fit-content;
 
+  padding-left: 20px;
   display: flex;
   justify-content: flex-start;
 }
@@ -40,16 +52,20 @@ body {
 }
 
 .today-card__text {
-  margin-top: 10px;
+  /* margin-top: 10px; */
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 .divide-white {
-  height: 1px;
-  margin: 20px 17px;
+  height: 8px;
+  margin-top: 17px;
+  margin-bottom: 17px;
+  /* height: 1px; */
+  /* margin: 20px 17px; */
 
   background-color: white;
 }
-
 
 /* 검색 스크롤 */
 #searchZero{

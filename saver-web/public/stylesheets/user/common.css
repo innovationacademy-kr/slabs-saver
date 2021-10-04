@@ -487,6 +487,15 @@
   width: 28px;
 }
 
+.logo-small-blue2 {
+  background-image: url('../icons/logo-small-blue2.svg');
+  background-position: center;
+  background-size: cover;
+
+  height: 20px;
+  width: 28px;
+}
+
 .icon-bookmark-black-transparent {
   background-image: url('../icons/bookmark-black-transparent.svg');
   background-position: center;
