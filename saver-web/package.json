@@ -10,7 +10,7 @@
     "dbreset": "npm run dbclear && npm run db",
     "do": "node_modules/.bin/sequelize db:migrate && sequelize db:seed:all",
     "undo": "node_modules/.bin/sequelize db:seed:undo:all && sequelize db:migrate:undo:all",
-    "test": "node_modules/.bin/jest"
+    "test": "node_modules/.bin/jest --watchAll test"
   },
   "dependencies": {
     "alert": "^5.0.10",
