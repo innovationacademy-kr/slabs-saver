@@ -5,7 +5,7 @@ function clickSearchlist(headline, link) {
   target?.insertAdjacentHTML(
     'beforeend',
     `<p >
-		  <a href="${link}" target="_blank">이전 관련 기사 : ${headline}</a>
+		  <a href="${link}" target="_blank"><font color="#0000ff">Saver 관련 기사 : ${headline}</font></a>
 	  </p>`,
   );
   ulElement.innerHTML = '';
