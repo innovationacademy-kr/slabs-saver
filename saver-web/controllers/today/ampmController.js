@@ -83,21 +83,23 @@ const todayString = (isAM) => {
 }
 
 /**
- * am7: 전일 오후 5시 ~ 당일 오전 4시 59분 작성된 기사.
- * pm7: 당일 오전 5시 ~ 당일 오후 4시 59분 작성된 기사.
+ * am7: 전일 오전 5시 ~ 당일 오전 6시 59분 작성된 기사.
+ * pm7: 당일 오전 5시 ~ 당일 오후 6시 59분 작성된 기사.
  * 시간 기준은 발행일
  */
 const getAMPMArticleList = async(isAM) => {
 
     let amStandardTime = new Date();
-    amStandardTime.setHours(5, 0, 0, 0);
+    amStandardTime.setHours(7, 0, 0, 0);
 
     let pmStandardTime = new Date();
-    pmStandardTime.setHours(17, 0, 0, 0);
+    pmStandardTime.setHours(19, 0, 0, 0);
 
     let articleList;
     if (isAM){
         pmStandardTime.setDate(pmStandardTime.getDate() - 1);
+        pmStandardTime.setHours(5, 0, 0, 0);
+        amStandardTime.setHours(7, 0, 0, 0);
         articleList = await Article.findAll({
             where: {
                 am7: true,
@@ -109,6 +111,7 @@ const getAMPMArticleList = async(isAM) => {
             attributes: ['id', 'headline'],
         });
     } else {
+        amStandardTime.setHours(5, 0, 0, 0);
         articleList = await Article.findAll({
             where: {
                 pm7: true,
