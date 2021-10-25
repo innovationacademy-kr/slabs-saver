@@ -196,6 +196,7 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
         decisionHandler(.allow)
     }
     // [end] kakao 하이브리드앱 카카오링크
+
 }
 
 // [start] 페이스북 쉐어 컨트롤러
