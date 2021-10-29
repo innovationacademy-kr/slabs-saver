@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                      didFinishLaunchingWithOptions launchOptions: [UIApplication
                         .LaunchOptionsKey: Any]?) -> Bool {
         
-        FirebaseApp.configure()
+//        FirebaseApp.configure()
         
         // [start] launch 화면 대기 시간
         Thread.sleep(forTimeInterval: 2.0)
@@ -126,7 +126,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
                 let myURL = URL(string: pushUrl!)
                 let myRequest = URLRequest(url: myURL!)
-                vc.webView.load(myRequest)
+                vc.webView?.load(myRequest)
             }
             else {
                 print("background notification clicked")

@@ -5,6 +5,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -16,26 +17,65 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="whA-ZY-HTo" userLabel="Saver Webview">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <wkWebViewConfiguration key="configuration">
-                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
-                                    <wkPreferences key="preferences"/>
-                                </wkWebViewConfiguration>
-                            </wkWebView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="0au-gd-u0d">
+                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="65N-kL-t6a">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kgO-Bx-SxX">
+                                                <rect key="frame" x="12" y="0.0" width="12" height="50"/>
+                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" image="chevron.left" catalog="system"/>
+                                                <connections>
+                                                    <action selector="backAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GqT-p3-YYn"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wKc-R9-KYU">
+                                                <rect key="frame" x="137.5" y="0.0" width="139" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="gS9-IT-yIh"/>
+                                                </constraints>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" image="ic_logo"/>
+                                                <connections>
+                                                    <action selector="titleAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="m7D-sC-Lzx"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="wKc-R9-KYU" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="kgO-Bx-SxX" secondAttribute="trailing" constant="8" symbolic="YES" id="G7k-bh-kmu"/>
+                                            <constraint firstItem="wKc-R9-KYU" firstAttribute="centerX" secondItem="65N-kL-t6a" secondAttribute="centerX" id="a3p-ed-uby"/>
+                                            <constraint firstItem="kgO-Bx-SxX" firstAttribute="leading" secondItem="65N-kL-t6a" secondAttribute="leading" constant="12" id="cWO-V7-5K6"/>
+                                            <constraint firstAttribute="bottom" secondItem="wKc-R9-KYU" secondAttribute="bottom" id="f2a-bW-TW7"/>
+                                            <constraint firstAttribute="height" constant="50" id="hIq-l7-5vb"/>
+                                            <constraint firstItem="wKc-R9-KYU" firstAttribute="centerY" secondItem="65N-kL-t6a" secondAttribute="centerY" id="kGL-JB-n8o"/>
+                                            <constraint firstItem="wKc-R9-KYU" firstAttribute="top" secondItem="65N-kL-t6a" secondAttribute="top" id="obJ-KO-v0m"/>
+                                            <constraint firstAttribute="bottom" secondItem="kgO-Bx-SxX" secondAttribute="bottom" id="rF8-VI-v6J"/>
+                                            <constraint firstItem="kgO-Bx-SxX" firstAttribute="top" secondItem="65N-kL-t6a" secondAttribute="top" id="uDm-ko-Zuk"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IlH-3s-9at">
+                                        <rect key="frame" x="0.0" y="50" width="414" height="802"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    </view>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="whA-ZY-HTo" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="SBl-Mk-it6"/>
-                            <constraint firstItem="whA-ZY-HTo" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="hmw-KJ-sVO"/>
-                            <constraint firstItem="whA-ZY-HTo" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="i23-12-kba"/>
-                            <constraint firstItem="whA-ZY-HTo" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="yIr-4f-i3u"/>
+                            <constraint firstItem="0au-gd-u0d" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="8vL-xp-EXc"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="0au-gd-u0d" secondAttribute="trailing" id="OsJ-vk-481"/>
+                            <constraint firstAttribute="bottom" secondItem="0au-gd-u0d" secondAttribute="bottom" id="onw-Ud-UaS"/>
+                            <constraint firstItem="0au-gd-u0d" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="uLb-Wq-bXz"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="webView" destination="whA-ZY-HTo" id="eWL-RV-B67"/>
+                        <outlet property="naviView" destination="65N-kL-t6a" id="Cq4-Fn-U7v"/>
+                        <outlet property="webBaseView" destination="IlH-3s-9at" id="a7A-wm-oIg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -43,4 +83,11 @@
             <point key="canvasLocation" x="137.68115942028987" y="137.94642857142856"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="chevron.left" catalog="system" width="96" height="128"/>
+        <image name="ic_logo" width="139" height="23.5"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>
