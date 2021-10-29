@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.seoul42.saver_android">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -10,12 +11,14 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_app"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Saverandroid"
-        android:usesCleartextTraffic="true">
+        android:debuggable="false"
+        android:usesCleartextTraffic="true"
+        tools:ignore="HardcodedDebugMode">
         <meta-data
             android:name="com.google.android.actions"
             android:resource="@xml/splash" />

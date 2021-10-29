@@ -7,12 +7,51 @@ import FBSDKShareKit
 
 class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
     
-    @IBOutlet var webView: WKWebView!
+    
+    @IBOutlet weak var naviView: UIView!
+    @IBOutlet weak var webBaseView: UIView!
+    var webView: WKWebView?
+    
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
         
+        // [start] 당겨서 새로고침
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(reloadWebView(_:)), for: .valueChanged)
+        webView?.scrollView.addSubview(refreshControl)
+    
+        // [end] 당겨서 새로고침
+        
+        // [start] 백그라운드에서 포그라운드로 전환되면 실행되는 함수
+        NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: nil) { (Notification) in
+            
+            let userDefault = UserDefaults.standard
+            let pushUrl:String? = userDefault.string(forKey: "PUSH_URL")
+            
+            //링크가 있는 푸시를 클릭하는 경우에만 실행
+            if(pushUrl != nil){
+                NSLog(pushUrl!)
+                NSLog("푸시에서 전달받은 웹뷰로")
+                let myUrl = URL(string: pushUrl!)
+                let myRequest = URLRequest(url: myUrl!)
+                self.webView?.load(myRequest)
+                userDefault.removeObject(forKey: "PUSH_URL")
+                userDefault.synchronize()
+            }
+        }
+        // [end] 백그라운드에서 포그라운드로 전환되면 실행되는 함수
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if self.webView == nil {
+            setWebView()
+        }
+    }
+    
+    private func setWebView() {
+        self.view.layoutIfNeeded()
         let contentController = WKUserContentController()
         let webConfiguration = WKWebViewConfiguration()
         
@@ -41,15 +80,15 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
         webConfiguration.userContentController = contentController
         // [end] WK Birdge 등록
         
-        webView = WKWebView(frame: self.view.frame, configuration: webConfiguration)
-        webView.uiDelegate = self
-        webView.navigationDelegate = self
+        webView = WKWebView(frame: webBaseView.bounds, configuration: webConfiguration)
+        webView?.uiDelegate = self
+        webView?.navigationDelegate = self
         
         // [start] 현재 ios 앱 사용 중인 유져 감지를 위해 saver-web navigator.userAgent 에 내용 추가
-        webView.evaluateJavaScript("navigator.userAgent"){(result, error) in
+        webView?.evaluateJavaScript("navigator.userAgent"){(result, error) in
             let originUserAgent = result as! String
             let agent = originUserAgent + " APP_IOS"
-            self.webView.customUserAgent = agent
+            self.webView?.customUserAgent = agent
         }
         // [end] 현재 ios 앱 사용 중인 유져 감지를 위해 saver-web navigator.userAgent 에 내용 추가
         
@@ -57,87 +96,21 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
         // [start] 웹뷰 load
         let myURL = URL(string: "https://thesaver.io")
         let myRequest = URLRequest(url: myURL!)
-        webView.load(myRequest)
-        self.view.addSubview(webView)
+        webView?.load(myRequest)
+        webBaseView.addSubview(webView!)
+        
+        NSLayoutConstraint.activate([
+            webView!.topAnchor.constraint(equalTo: webBaseView.topAnchor),
+            webView!.leadingAnchor.constraint(equalTo: webBaseView.leadingAnchor),
+            webView!.trailingAnchor.constraint(equalTo: webBaseView.trailingAnchor),
+            webView!.bottomAnchor.constraint(equalTo: webBaseView.bottomAnchor)
+        ])
         // [end] 웹뷰 load
-        
-        // [start] 당겨서 새로고침
-        let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(reloadWebView(_:)), for: .valueChanged)
-        webView.scrollView.addSubview(refreshControl)
-        // [end] 당겨서 새로고침
-        
-        // [start] 백그라운드에서 포그라운드로 전환되면 실행되는 함수
-        NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: nil) { (Notification) in
-            
-            let userDefault = UserDefaults.standard
-            let pushUrl:String? = userDefault.string(forKey: "PUSH_URL")
-            
-            //링크가 있는 푸시를 클릭하는 경우에만 실행
-            if(pushUrl != nil){
-                NSLog(pushUrl!)
-                NSLog("푸시에서 전달받은 웹뷰로")
-                let myUrl = URL(string: pushUrl!)
-                let myRequest = URLRequest(url: myUrl!)
-                self.webView.load(myRequest)
-                userDefault.removeObject(forKey: "PUSH_URL")
-                userDefault.synchronize()
-            }
-        }
-        // [end] 백그라운드에서 포그라운드로 전환되면 실행되는 함수
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        
-        // [start] 화면 구성
-        // 화면이 회전할 때 대응하기 위해 만들어놓은 것. 이 부분은 현재 Bound 수치 관련 issue로 인해 제대로 실행되지 않는다.
-        var viewBounds:CGRect = self.view.bounds
-        let window = UIApplication.shared.windows[0]
-        
-        var screenHeight: CGFloat!
-        var screenWidth: CGFloat!
-        
-        if UIScreen.main.bounds.height > UIScreen.main.bounds.width {
-            
-            screenHeight = UIScreen.main.bounds.height
-            screenWidth = UIScreen.main.bounds.width
-        }
-        else {
-            
-            screenHeight = UIScreen.main.bounds.width
-            screenWidth = UIScreen.main.bounds.height
-        }
-        
-        if UIDevice.current.orientation.isLandscape {
-            
-            viewBounds.origin.y = 0
-            viewBounds.origin.x = window.safeAreaInsets.right;
-            viewBounds.size.width = screenHeight - window.safeAreaInsets.right
-            viewBounds.size.height = screenWidth
-            webView.scrollView.contentInsetAdjustmentBehavior = .never
-        }
-        else {
-            // 현재 앱은 Portrait 화면에만 대응하기 때문에, 실제로 동작하는 부분.
-            viewBounds.origin.y = window.safeAreaInsets.top - 5;
-            viewBounds.origin.x = 0
-            viewBounds.size.height = screenHeight - window.safeAreaInsets.top - window.safeAreaInsets.bottom + 5
-            viewBounds.size.width = screenWidth
-            webView.scrollView.contentInsetAdjustmentBehavior = .never
-        }
-        self.webView.frame = viewBounds;
-        // [end] 화면 구성
-    }
-    
-    // [start] 화면이 돌아갈 때
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        
-        viewWillAppear(true)
-    }
-    // [end] 화면이 돌아갈 때
     
     // [start] swipe 새로고침 구현함수
     @objc func reloadWebView(_ sender: UIRefreshControl) {
-        webView.reload()
+        webView?.reload()
         sender.endRefreshing()
     }
     // [end] swipe 새로고침 구현함수
@@ -184,6 +157,9 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
                  decidePolicyFor navigationAction: WKNavigationAction,
                  decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         print(navigationAction.request)
+        var isNaviHidden =  navigationAction.request.mainDocumentURL?.absoluteString.contains("https://thesaver.io") == true
+        setNaviState(isHidden: isNaviHidden)
+        
         // 카카오 SDK가 호출하는 커스텀 스킴인 경우 open(_ url:) 메소드를 호출합니다.
         if let url = navigationAction.request.url
            , ["kakaokompassauth", "kakaolink"].contains(url.scheme) {
@@ -196,6 +172,27 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
         decisionHandler(.allow)
     }
     // [end] kakao 하이브리드앱 카카오링크
+    
+    
+    @IBAction func backAction(_ sender: Any) {
+        
+        if webView != nil && webView!.canGoBack == true {
+            webView?.goBack()
+        }
+        
+    }
+    
+    @IBAction func titleAction(_ sender: Any) {
+        let myURL = URL(string: "https://thesaver.io")
+        let myRequest = URLRequest(url: myURL!)
+        webView?.load(myRequest)
+    }
+    
+    private func setNaviState(isHidden: Bool) {
+        naviView.isHidden = isHidden
+        self.view.layoutIfNeeded()
+        self.webView?.frame = self.webBaseView.bounds
+    }
 }
 
 // [start] 페이스북 쉐어 컨트롤러
