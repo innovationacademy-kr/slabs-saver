@@ -10,7 +10,11 @@
         android:id="@+id/rlTitle"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:visibility="gone">
+        android:visibility="gone"
+        android:background="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
         <ImageView
             android:id="@+id/ivBack"
             android:layout_width="50dp"

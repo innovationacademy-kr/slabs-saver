@@ -13,8 +13,8 @@ android {
         applicationId "com.seoul42.saver_android"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 10001
-        versionName "1.00.01"
+        versionCode 10002
+        versionName "1.00.02"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
