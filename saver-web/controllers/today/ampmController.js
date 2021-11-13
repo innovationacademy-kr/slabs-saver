@@ -140,9 +140,9 @@ const writeBriefing = (todayId, todayHeadline, articleList) => {
     var briefing = '<ul>';
     let idx = 1;
     if(todayId)
-        briefing += `<li><a href="/articles/detail/${todayId}">${idx++}. ${todayHeadline}</a></li>`
+        briefing += `<li><a href="/articles/detail/${todayId}" style="text-decoration:none"><b>${idx++}. ${todayHeadline}</b></a></li>`
     articleList.forEach((article) => {
-        briefing += `<li><a href="/articles/detail/${article.id}">${idx++}. ${article.headline}</a></li>`;
+        briefing += `<li><a href="/articles/detail/${article.id}" style="text-decoration:none"><b>${idx++}. ${article.headline}</b></a></li>`;
     })
     briefing += '</ul>'
     return briefing;

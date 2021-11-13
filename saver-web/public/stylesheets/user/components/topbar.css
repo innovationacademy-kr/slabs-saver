@@ -54,6 +54,7 @@
   background-image: url('../../icons/search.svg');
   background-position: center;
   background-size: cover;
+  background-color: inherit;
 }
 
 .topbar__set {
