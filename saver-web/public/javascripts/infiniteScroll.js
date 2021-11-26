@@ -1,6 +1,7 @@
 var INITIAL_PAGE = 0; // 처음 렌더하는 아티클
 var ADD_PAGE = 3;
 var DEFAULT_HEIGHT = $(window).height() + 10;
+var DEFAULT_WIDTH = $(window).width() + 10;
 var page = INITIAL_PAGE;
 var isUsed = false;
 var articleList = document.querySelector('#article-list');
@@ -84,6 +85,37 @@ const getCategoryPage = () => {
   });
 };
 
+const showSaverInfo = () => {
+  if(DEFAULT_WIDTH > DEFAULT_HEIGHT){
+    const footerSaverInfo = document.getElementById(`footerSaverInfo`);
+    footerSaverInfo.style.height = "160px";
+    footerSaverInfo.style.display = "flex";
+
+    const main = document.getElementById(`main`);
+    main.style.paddingBottom = "150px";
+  }else{
+    const footerSaverInfoMobile = document.getElementById(`footerSaverInfoMobile`);
+    footerSaverInfoMobile.style.height = "160px";
+    footerSaverInfoMobile.style.display = "flex";
+
+    const main = document.getElementById(`main`);
+    main.style.paddingBottom = "150px";
+  }
+};
+
+const hideSaverInfo = () => {
+  const footerSaverInfo = document.getElementById(`footerSaverInfo`);
+  footerSaverInfo.style.height = "0px";
+  footerSaverInfo.style.display = "block";
+
+  const footerSaverInfoMobile = document.getElementById(`footerSaverInfoMobile`);
+  footerSaverInfoMobile.style.height = "0px";
+  footerSaverInfoMobile.style.display = "block";
+
+  const main = document.getElementById(`main`);
+  main.style.paddingBottom = "40px";
+};
+
 //?계속 요청 보내는데??
 getAMPMArticle();
 getPage();
@@ -91,10 +123,21 @@ $(window).scroll(function () {
   const scrollPosition = $(window).scrollTop() + DEFAULT_HEIGHT;
   const pageHeight = $(document).height() - $(window).height();
 
+  if (scrollPosition < pageHeight){
+    hideSaverInfo();
+  }else if(page > 50){
+      showSaverInfo();
+  }
+
   if (scrollPosition > pageHeight && !isUsed) {
     isUsed = true;
-    if ($('#article-list').hasClass('article-list') === true) getPage();
-    else getCategoryPage();
+    if ($('#article-list').hasClass('article-list') === true) {
+      if(page <= 50){
+        getPage();
+      }
+    }else{
+      getCategoryPage();
+    }
   }
 });
 

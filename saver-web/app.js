@@ -34,6 +34,7 @@ const alarmRouter = require('./routes/alarm');
 const settingRouter = require('./routes/setting');
 const helpRouter = require('./routes/help');
 const policyRouter = require('./routes/policy');
+const aboutusRouter = require('./routes/aboutus');
 
 const layout = require('express-ejs-layouts');
 app.use(layout);
@@ -57,6 +58,7 @@ app.use('/alarm', alarmRouter);
 app.use('/setting', settingRouter);
 app.use('/help', helpRouter);
 app.use('/policy', policyRouter);
+app.use('/aboutus', aboutusRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
