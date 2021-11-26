@@ -110,9 +110,15 @@
 	font-size: 1.1em;
 }
 
-.li_horizontal_mobile{
+.li_horizontal_mobile15{
 	text-align: center;
-	width: 25%;
+	width: 15%;
+	float: left;
+	font-size: 1.1em;
+}
+.li_horizontal_mobile35{
+	text-align: center;
+	width: 35%;
 	float: left;
 	font-size: 1.1em;
 }

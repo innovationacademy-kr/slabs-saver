@@ -95,11 +95,11 @@ const showSaverInfo = () => {
     main.style.paddingBottom = "150px";
   }else{
     const footerSaverInfoMobile = document.getElementById(`footerSaverInfoMobile`);
-    footerSaverInfoMobile.style.height = "160px";
+    footerSaverInfoMobile.style.height = "180px";
     footerSaverInfoMobile.style.display = "flex";
 
     const main = document.getElementById(`main`);
-    main.style.paddingBottom = "150px";
+    main.style.paddingBottom = "170px";
   }
 };
 
