@@ -50,6 +50,7 @@
 
 .article__paragraphs {
   padding-top: 18px;
+  background-color: #f1f1f1;
 }
 
 .article__paragraphs ul, .article__brief-text ul{
