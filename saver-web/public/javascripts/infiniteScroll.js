@@ -95,11 +95,11 @@ const showSaverInfo = () => {
     main.style.paddingBottom = "150px";
   }else{
     const footerSaverInfoMobile = document.getElementById(`footerSaverInfoMobile`);
-    footerSaverInfoMobile.style.height = "180px";
+    footerSaverInfoMobile.style.height = "160px";
     footerSaverInfoMobile.style.display = "flex";
 
     const main = document.getElementById(`main`);
-    main.style.paddingBottom = "170px";
+    main.style.paddingBottom = "150px";
   }
 };
 
@@ -116,6 +116,9 @@ const hideSaverInfo = () => {
   main.style.paddingBottom = "40px";
 };
 
+
+var showPos = -1;
+var hidePos = -1;
 //?계속 요청 보내는데??
 getAMPMArticle();
 getPage();
@@ -123,18 +126,20 @@ $(window).scroll(function () {
   const scrollPosition = $(window).scrollTop() + DEFAULT_HEIGHT;
   const pageHeight = $(document).height() - $(window).height();
 
-  if (scrollPosition < pageHeight){
+  if(page > 50 && showPos == -1 && scrollPosition > (hidePos + 50)){
+    showPos = scrollPosition;
+    hidePos = -1;
+    showSaverInfo();
+  }else if(showPos != -1 && scrollPosition < (showPos - 50)){
+    showPos = -1;
+    hidePos = scrollPosition;
     hideSaverInfo();
-  }else if(page > 50){
-      showSaverInfo();
   }
 
   if (scrollPosition > pageHeight && !isUsed) {
     isUsed = true;
     if ($('#article-list').hasClass('article-list') === true) {
-      if(page <= 50){
-        getPage();
-      }
+      getPage();
     }else{
       getCategoryPage();
     }
