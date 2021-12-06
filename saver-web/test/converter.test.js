@@ -24,8 +24,9 @@ describe('convert invite state test', () => {
 function add(a, b) {
   return a + b;
 }
-describe('test add', () => {
+
+describe('test add function', () => {
   test('add function', () => {
     expect(add(2,3)).toBe(5);
-  }); 
+  });
 });
